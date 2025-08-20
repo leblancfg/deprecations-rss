@@ -15,10 +15,7 @@ from src.storage.json_storage import JsonStorage
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-    handlers=[
-        logging.StreamHandler(),
-        logging.FileHandler("orchestrator.log")
-    ]
+    handlers=[logging.StreamHandler(), logging.FileHandler("orchestrator.log")],
 )
 logger = logging.getLogger(__name__)
 
@@ -27,7 +24,7 @@ async def run_orchestrator(
     data_dir: Path | None = None,
     scraper_names: list[str] | None = None,
     orchestrator_config: OrchestratorConfig | None = None,
-    scraper_config: ScraperConfig | None = None
+    scraper_config: ScraperConfig | None = None,
 ) -> dict[str, Any]:
     """
     Run the scraper orchestrator.
@@ -47,18 +44,12 @@ async def run_orchestrator(
 
     if orchestrator_config is None:
         orchestrator_config = OrchestratorConfig(
-            max_concurrent=3,
-            timeout_seconds=120,
-            retry_failed=True,
-            fail_fast=False
+            max_concurrent=3, timeout_seconds=120, retry_failed=True, fail_fast=False
         )
 
     if scraper_config is None:
         scraper_config = ScraperConfig(
-            timeout=60,
-            max_retries=3,
-            cache_ttl_hours=23,
-            rate_limit_delay=2.0
+            timeout=60, max_retries=3, cache_ttl_hours=23, rate_limit_delay=2.0
         )
 
     # Ensure data directory exists
@@ -88,10 +79,7 @@ async def run_orchestrator(
 
     if not scrapers:
         logger.error("No scrapers available to run")
-        return {
-            "success": False,
-            "error": "No scrapers available"
-        }
+        return {"success": False, "error": "No scrapers available"}
 
     # Run orchestration
     logger.info(f"Starting orchestration with {len(scrapers)} scrapers")
@@ -118,8 +106,8 @@ async def run_orchestrator(
             "updated_deprecations": result.updated_deprecations,
             "execution_time_seconds": result.execution_time_seconds,
             "success_rate": result.success_rate,
-            "errors": result.errors
-        }
+            "errors": result.errors,
+        },
     }
 
 
@@ -129,38 +117,17 @@ async def main() -> None:
 
     parser = argparse.ArgumentParser(description="Run the deprecation scraper orchestrator")
     parser.add_argument(
-        "--data-dir",
-        type=Path,
-        default=Path("./data"),
-        help="Directory for data storage"
+        "--data-dir", type=Path, default=Path("./data"), help="Directory for data storage"
+    )
+    parser.add_argument("--scrapers", nargs="+", help="Specific scrapers to run (defaults to all)")
+    parser.add_argument("--max-concurrent", type=int, default=3, help="Maximum concurrent scrapers")
+    parser.add_argument(
+        "--timeout", type=int, default=120, help="Timeout for each scraper in seconds"
     )
     parser.add_argument(
-        "--scrapers",
-        nargs="+",
-        help="Specific scrapers to run (defaults to all)"
+        "--fail-fast", action="store_true", help="Fail immediately on first scraper error"
     )
-    parser.add_argument(
-        "--max-concurrent",
-        type=int,
-        default=3,
-        help="Maximum concurrent scrapers"
-    )
-    parser.add_argument(
-        "--timeout",
-        type=int,
-        default=120,
-        help="Timeout for each scraper in seconds"
-    )
-    parser.add_argument(
-        "--fail-fast",
-        action="store_true",
-        help="Fail immediately on first scraper error"
-    )
-    parser.add_argument(
-        "--debug",
-        action="store_true",
-        help="Enable debug logging"
-    )
+    parser.add_argument("--debug", action="store_true", help="Enable debug logging")
 
     args = parser.parse_args()
 
@@ -173,7 +140,7 @@ async def main() -> None:
         max_concurrent=args.max_concurrent,
         timeout_seconds=args.timeout,
         retry_failed=True,
-        fail_fast=args.fail_fast
+        fail_fast=args.fail_fast,
     )
 
     # Run orchestrator
@@ -181,7 +148,7 @@ async def main() -> None:
         result = await run_orchestrator(
             data_dir=args.data_dir,
             scraper_names=args.scrapers,
-            orchestrator_config=orchestrator_config
+            orchestrator_config=orchestrator_config,
         )
 
         # Print summary
@@ -189,7 +156,9 @@ async def main() -> None:
             res = result["result"]
             print("\n✅ Orchestration completed successfully!")
             print(f"   Scrapers: {res['successful_scrapers']}/{res['total_scrapers']} successful")
-            print(f"   Deprecations: {res['new_deprecations']} new, {res['updated_deprecations']} updated")
+            print(
+                f"   Deprecations: {res['new_deprecations']} new, {res['updated_deprecations']} updated"
+            )
             print(f"   Execution time: {res['execution_time_seconds']:.2f}s")
 
             if res["errors"]:

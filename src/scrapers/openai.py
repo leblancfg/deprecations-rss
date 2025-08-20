@@ -13,6 +13,7 @@ from src.scrapers.base import BaseScraper
 
 try:
     from playwright.async_api import async_playwright  # type: ignore[import-not-found]
+
     HAS_PLAYWRIGHT = True
 except ImportError:
     HAS_PLAYWRIGHT = False
@@ -66,10 +67,10 @@ class OpenAIScraper(BaseScraper):
                         "Accept-Encoding": "gzip, deflate, br",
                         "DNT": "1",
                         "Connection": "keep-alive",
-                        "Upgrade-Insecure-Requests": "1"
+                        "Upgrade-Insecure-Requests": "1",
                     },
                     timeout=self.config.timeout,
-                    follow_redirects=True
+                    follow_redirects=True,
                 )
                 response.raise_for_status()
 
@@ -95,10 +96,9 @@ class OpenAIScraper(BaseScraper):
                 page = await browser.new_page()
 
                 # Set realistic user agent
-                await page.set_extra_http_headers({
-                    "User-Agent": self.config.user_agent,
-                    "Accept-Language": "en-US,en;q=0.9"
-                })
+                await page.set_extra_http_headers(
+                    {"User-Agent": self.config.user_agent, "Accept-Language": "en-US,en;q=0.9"}
+                )
 
                 # Navigate to the page
                 await page.goto(self.url, wait_until="networkidle")
@@ -148,7 +148,7 @@ class OpenAIScraper(BaseScraper):
                 retirement_date=retirement_date,
                 replacement=item.get("replacement"),
                 notes=item.get("notes"),
-                source_url=self.url  # type: ignore[arg-type]
+                source_url=self.url,  # type: ignore[arg-type]
             )
 
         except Exception as e:
@@ -166,7 +166,7 @@ class OpenAIScraper(BaseScraper):
             "section.deprecation",
             "article.deprecation",
             "[class*='deprecation']",
-            "div[data-deprecation]"
+            "div[data-deprecation]",
         ]
 
         deprecation_blocks: list[Any] = []
@@ -178,7 +178,7 @@ class OpenAIScraper(BaseScraper):
         # If no blocks found with class selectors, look for structure patterns
         if not deprecation_blocks:
             # Look for divs that contain model information
-            for div in soup.find_all('div'):
+            for div in soup.find_all("div"):
                 if self._contains_deprecation_info(div):
                     deprecation_blocks.append(div)
 
@@ -201,7 +201,10 @@ class OpenAIScraper(BaseScraper):
             text = heading.get_text().strip()
 
             # Check if this looks like a model name
-            if any(pattern in text.lower() for pattern in ["gpt", "turbo", "davinci", "embedding", "moderation"]):
+            if any(
+                pattern in text.lower()
+                for pattern in ["gpt", "turbo", "davinci", "embedding", "moderation"]
+            ):
                 # Get the parent or next sibling that might contain deprecation info
                 parent = heading.parent
                 if parent and self._contains_deprecation_info(parent):
@@ -227,7 +230,10 @@ class OpenAIScraper(BaseScraper):
 
         text = element.get_text().lower()
         required_keywords = ["deprecat", "shutdown", "retire", "sunset", "end of life"]
-        date_patterns = [r"\d{4}", r"january|february|march|april|may|june|july|august|september|october|november|december"]
+        date_patterns = [
+            r"\d{4}",
+            r"january|february|march|april|may|june|july|august|september|october|november|december",
+        ]
 
         has_keyword = any(keyword in text for keyword in required_keywords)
         has_date = any(re.search(pattern, text, re.IGNORECASE) for pattern in date_patterns)
@@ -243,13 +249,13 @@ class OpenAIScraper(BaseScraper):
             model = self._extract_model_name(text)
             if not model:
                 # Try to find model in specific tags
-                model_elem = block.find(text=re.compile(r'Model:', re.IGNORECASE))
+                model_elem = block.find(text=re.compile(r"Model:", re.IGNORECASE))
                 if model_elem:
                     model = self._extract_model_name(model_elem.parent.get_text())
 
                 if not model:
                     # Try h3 tags which often contain model names
-                    h3 = block.find('h3')
+                    h3 = block.find("h3")
                     if h3:
                         model = self._extract_model_name(h3.get_text())
 
@@ -258,7 +264,9 @@ class OpenAIScraper(BaseScraper):
 
             # Extract dates
             deprecation_date = self._extract_date(text, ["deprecation", "deprecated", "announce"])
-            retirement_date = self._extract_date(text, ["shutdown", "retire", "sunset", "end", "stop"])
+            retirement_date = self._extract_date(
+                text, ["shutdown", "retire", "sunset", "end", "stop"]
+            )
 
             if not deprecation_date or not retirement_date:
                 # Try alternative date extraction
@@ -289,7 +297,7 @@ class OpenAIScraper(BaseScraper):
                 retirement_date=retirement_date,
                 replacement=replacement,
                 notes=notes,
-                source_url=self.url  # type: ignore[arg-type]
+                source_url=self.url,  # type: ignore[arg-type]
             )
 
         except Exception as e:
@@ -315,7 +323,7 @@ class OpenAIScraper(BaseScraper):
             r"(code-davinci-\d+)",
             r"(text-embedding-[a-z]+-\d+(?:-v\d+)?)",
             r"(text-moderation-[a-z]+)",
-            r"([a-z]+-[a-z]+-\d+)"
+            r"([a-z]+-[a-z]+-\d+)",
         ]
 
         for pattern in patterns:
@@ -354,7 +362,7 @@ class OpenAIScraper(BaseScraper):
             if match:
                 date_str = match.group(1).strip()
                 # Clean up the date string - remove trailing punctuation
-                date_str = date_str.rstrip('.,;')
+                date_str = date_str.rstrip(".,;")
                 date = self._parse_date(date_str)
                 if date:
                     return date
@@ -371,7 +379,7 @@ class OpenAIScraper(BaseScraper):
             r"\d{1,2}\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{4}",
             r"\d{4}-\d{2}-\d{2}",
             r"\d{2}/\d{2}/\d{4}",
-            r"(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{4}"
+            r"(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{4}",
         ]
 
         for pattern in patterns:
@@ -402,7 +410,7 @@ class OpenAIScraper(BaseScraper):
             "%d/%m/%Y",
             "%m/%d/%Y",
             "%B %Y",
-            "%Y/%m/%d"
+            "%Y/%m/%d",
         ]
 
         for fmt in formats:
@@ -433,7 +441,7 @@ class OpenAIScraper(BaseScraper):
             r"(?:recommended\s+)?replacement[:\s]+([a-z0-9-_.]+(?:\s+or\s+later)?)",
             r"(?:migrate|upgrade|switch)\s+to[:\s]+([a-z0-9-_.]+(?:\s+or\s+later)?)",
             r"alternative[:\s]+([a-z0-9-_.]+(?:\s+or\s+later)?)",
-            r"use[:\s]+([a-z0-9-_.]+(?:\s+or\s+later)?)\s+instead"
+            r"use[:\s]+([a-z0-9-_.]+(?:\s+or\s+later)?)\s+instead",
         ]
 
         for pattern in patterns:
@@ -448,7 +456,7 @@ class OpenAIScraper(BaseScraper):
         patterns = [
             r"note[:\s]+([^.]+)",
             r"(?:this\s+is\s+a\s+)([^.]+model)",
-            r"additional\s+info[:\s]+([^.]+)"
+            r"additional\s+info[:\s]+([^.]+)",
         ]
 
         for pattern in patterns:

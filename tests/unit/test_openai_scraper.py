@@ -74,22 +74,22 @@ def api_response():
                 "deprecation_date": "2023-06-13",
                 "shutdown_date": "2024-06-13",
                 "replacement": "gpt-3.5-turbo-0613",
-                "notes": None
+                "notes": None,
             },
             {
                 "model": "gpt-4-0314",
                 "deprecation_date": "2023-06-13",
                 "shutdown_date": "2024-06-13",
                 "replacement": "gpt-4-0613",
-                "notes": None
+                "notes": None,
             },
             {
                 "model": "text-davinci-003",
                 "deprecation_date": "2024-01-04",
                 "shutdown_date": "2025-01-04",
                 "replacement": "gpt-3.5-turbo-instruct",
-                "notes": "Legacy completion model"
-            }
+                "notes": "Legacy completion model",
+            },
         ]
     }
 
@@ -132,7 +132,9 @@ def describe_openai_scraper():
             with patch.object(
                 scraper,
                 "_make_request",
-                side_effect=httpx.HTTPStatusError("404 Not Found", request=MagicMock(), response=MagicMock())
+                side_effect=httpx.HTTPStatusError(
+                    "404 Not Found", request=MagicMock(), response=MagicMock()
+                ),
             ):
                 with pytest.raises(Exception):
                     await scraper.scrape_api()
@@ -147,7 +149,7 @@ def describe_openai_scraper():
                         "deprecation_date": "2024-01-01",
                         "shutdown_date": "2024-12-31",
                         "replacement": None,
-                        "notes": None
+                        "notes": None,
                     }
                 ]
             }
@@ -183,7 +185,9 @@ def describe_openai_scraper():
                     assert dep.provider == "OpenAI"
 
                 # Find specific model
-                gpt35_turbo = next((d for d in deprecations if d.model == "gpt-3.5-turbo-0301"), None)
+                gpt35_turbo = next(
+                    (d for d in deprecations if d.model == "gpt-3.5-turbo-0301"), None
+                )
                 assert gpt35_turbo is not None
                 assert gpt35_turbo.replacement == "gpt-3.5-turbo-0613 or later"
 
@@ -261,14 +265,15 @@ def describe_openai_scraper():
                     deprecation_date=datetime(2023, 6, 13, tzinfo=UTC),
                     retirement_date=datetime(2024, 6, 13, tzinfo=UTC),
                     replacement="gpt-3.5-turbo-0613",
-                    source_url="https://platform.openai.com/docs/deprecations"
+                    source_url="https://platform.openai.com/docs/deprecations",
                 )
             ]
 
             mock_page = AsyncMock()
             mock_page.goto = AsyncMock()
             mock_page.wait_for_load_state = AsyncMock()
-            mock_page.content = AsyncMock(return_value="""
+            mock_page.content = AsyncMock(
+                return_value="""
                 <div class="model-deprecation">
                     <h3>GPT-3.5 Turbo 0301</h3>
                     <p>Model: gpt-3.5-turbo-0301</p>
@@ -276,7 +281,8 @@ def describe_openai_scraper():
                     <p>Shutdown date: June 13, 2024</p>
                     <p>Recommended replacement: gpt-3.5-turbo-0613</p>
                 </div>
-            """)
+            """
+            )
 
             mock_browser = AsyncMock()
             mock_browser.new_page = AsyncMock(return_value=mock_page)
@@ -304,7 +310,11 @@ def describe_openai_scraper():
         async def it_handles_playwright_errors(scraper):
             """Handles Playwright errors gracefully."""
             with patch("src.scrapers.openai.HAS_PLAYWRIGHT", True):
-                with patch("src.scrapers.openai.async_playwright", create=True, side_effect=Exception("Playwright not available")):
+                with patch(
+                    "src.scrapers.openai.async_playwright",
+                    create=True,
+                    side_effect=Exception("Playwright not available"),
+                ):
                     with pytest.raises(Exception):
                         await scraper.scrape_playwright()
 
@@ -324,7 +334,7 @@ def describe_openai_scraper():
                                 model="test-model",
                                 deprecation_date=datetime(2024, 1, 1, tzinfo=UTC),
                                 retirement_date=datetime(2024, 12, 31, tzinfo=UTC),
-                                source_url="https://platform.openai.com/docs/deprecations"
+                                source_url="https://platform.openai.com/docs/deprecations",
                             )
                         ]
                     }
@@ -339,7 +349,10 @@ def describe_openai_scraper():
                             assert dep.model
                             assert dep.deprecation_date
                             assert dep.retirement_date
-                            assert str(dep.source_url) == "https://platform.openai.com/docs/deprecations"
+                            assert (
+                                str(dep.source_url)
+                                == "https://platform.openai.com/docs/deprecations"
+                            )
 
         @pytest.mark.asyncio
         async def it_validates_date_ordering(scraper):
@@ -348,10 +361,12 @@ def describe_openai_scraper():
                 "model": "invalid-model",
                 "deprecation_date": "2024-12-31",
                 "shutdown_date": "2024-01-01",  # Before deprecation!
-                "replacement": None
+                "replacement": None,
             }
 
-            with patch.object(scraper, "_make_request", return_value={"deprecations": [invalid_data]}):
+            with patch.object(
+                scraper, "_make_request", return_value={"deprecations": [invalid_data]}
+            ):
                 # Should handle invalid date ordering
                 result = await scraper.scrape_api()
                 # Either skip invalid entries or fix them
@@ -391,14 +406,14 @@ def describe_openai_scraper():
                         "model": "duplicate-model",
                         "deprecation_date": "2024-01-01",
                         "shutdown_date": "2024-12-31",
-                        "replacement": "new-model"
+                        "replacement": "new-model",
                     },
                     {
                         "model": "duplicate-model",
                         "deprecation_date": "2024-01-01",
                         "shutdown_date": "2024-12-31",
-                        "replacement": "new-model"
-                    }
+                        "replacement": "new-model",
+                    },
                 ]
             }
 

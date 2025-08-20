@@ -1,6 +1,5 @@
 """Test suite for the scraper registry."""
 
-
 from src.models.scraper import ScraperConfig
 from src.scrapers.base import BaseScraper
 from src.scrapers.openai import OpenAIScraper
@@ -75,11 +74,7 @@ def describe_scraper_registry():
         """Creates scraper with custom configuration."""
         registry = ScraperRegistry()
 
-        config = ScraperConfig(
-            timeout=60,
-            max_retries=5,
-            user_agent="CustomAgent/1.0"
-        )
+        config = ScraperConfig(timeout=60, max_retries=5, user_agent="CustomAgent/1.0")
 
         # Create OpenAI scraper with config
         openai_scraper = registry.create("openai", config)
@@ -113,10 +108,7 @@ def describe_scraper_registry():
         """Creates all scrapers with shared configuration."""
         registry = ScraperRegistry()
 
-        config = ScraperConfig(
-            timeout=45,
-            max_retries=2
-        )
+        config = ScraperConfig(timeout=45, max_retries=2)
 
         # Create all scrapers with config
         scrapers = registry.create_all(config)

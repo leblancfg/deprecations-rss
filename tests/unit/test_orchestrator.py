@@ -463,7 +463,7 @@ def describe_openai_scraper_integration():
                         "retirement_date": "2024-06-01T00:00:00Z",
                         "replacement": "gpt-3.5-turbo",
                         "source_url": "https://platform.openai.com/docs/deprecations",
-                        "notes": "Legacy model being replaced"
+                        "notes": "Legacy model being replaced",
                     }
                 ]
             }
@@ -523,15 +523,15 @@ def describe_openai_scraper_integration():
                         "deprecation_date": "2024-01-04T00:00:00Z",
                         "retirement_date": "2025-01-04T00:00:00Z",
                         "replacement": "gpt-3.5-turbo-instruct",
-                        "source_url": "https://platform.openai.com/docs/deprecations"
+                        "source_url": "https://platform.openai.com/docs/deprecations",
                     },
                     {
                         "provider": "OpenAI",
                         "model": "code-davinci-002",
                         "deprecation_date": "2024-03-01T00:00:00Z",
                         "retirement_date": "2024-09-01T00:00:00Z",
-                        "source_url": "https://platform.openai.com/docs/deprecations"
-                    }
+                        "source_url": "https://platform.openai.com/docs/deprecations",
+                    },
                 ]
             }
 
@@ -541,7 +541,7 @@ def describe_openai_scraper_integration():
         scrapers = [
             openai_scraper,
             _TestScraper("https://anthropic.com/api", "Anthropic"),
-            _TestScraper("https://google.com/api", "Google")
+            _TestScraper("https://google.com/api", "Google"),
         ]
 
         result = await orchestrator.run(scrapers)
@@ -593,7 +593,7 @@ def describe_openai_scraper_integration():
                         "model": "gpt-4-0314",
                         "deprecation_date": "2024-06-13T00:00:00Z",
                         "retirement_date": "2025-06-13T00:00:00Z",
-                        "source_url": "https://platform.openai.com/docs/deprecations"
+                        "source_url": "https://platform.openai.com/docs/deprecations",
                     }
                 ]
             }
@@ -615,7 +615,7 @@ def describe_openai_scraper_integration():
                         "deprecation_date": "2024-06-13T00:00:00Z",
                         "retirement_date": "2025-06-13T00:00:00Z",
                         "source_url": "https://platform.openai.com/docs/deprecations",
-                        "notes": "Updated: Migration guide available"
+                        "notes": "Updated: Migration guide available",
                     }
                 ]
             }
