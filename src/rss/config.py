@@ -18,7 +18,7 @@ class FeedConfig(BaseModel):
         description="Feed description",
     )
     link: str = Field(
-        default="https://deprecations.example.com",
+        default="https://leblancfg.github.io/deprecations-rss/",
         description="Feed website link",
     )
     language: str = Field(
@@ -70,7 +70,7 @@ class OutputConfig(BaseModel):
     """Configuration for RSS feed output paths."""
 
     base_path: Path = Field(
-        default=Path("output/rss"),
+        default=Path("docs/rss"),
         description="Base output directory for RSS feeds",
     )
     filename: str = Field(

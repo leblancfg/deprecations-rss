@@ -26,7 +26,7 @@ class DescribeFeedConfig:
             config.description
             == "Daily-updated RSS feed tracking AI model deprecations across providers"
         )
-        assert config.link == "https://deprecations.example.com"
+        assert config.link == "https://leblancfg.github.io/deprecations-rss/"
         assert config.language == "en"
         assert config.copyright is None
         assert config.managing_editor is None
@@ -130,7 +130,7 @@ class DescribeOutputConfig:
         """Test creation with default values."""
         config = OutputConfig()
 
-        assert config.base_path == Path("output/rss")
+        assert config.base_path == Path("docs/rss")
         assert config.filename == "feed.xml"
 
     def it_creates_with_custom_values(self) -> None:
@@ -273,7 +273,7 @@ class DescribeGetDefaultConfig:
         assert isinstance(config, RSSConfig)
         assert config.feed.title == "AI Model Deprecations"
         assert config.version.version == "v1"
-        assert config.output.base_path == Path("output/rss")
+        assert config.output.base_path == Path("docs/rss")
 
     def it_returns_new_instance_each_time(self) -> None:
         """Test that get_default_config returns new instances."""

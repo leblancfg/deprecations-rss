@@ -8,6 +8,8 @@ from typing import Any
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 from src.models.deprecation import DeprecationEntry, FeedData
+from src.rss.config import get_default_config
+from src.rss.generator import RSSGenerator
 
 
 class StaticSiteGenerator:
@@ -39,6 +41,9 @@ class StaticSiteGenerator:
 
         # Generate HTML
         self._generate_html()
+
+        # Generate RSS feed
+        self._generate_rss()
 
     def _copy_static_assets(self) -> None:
         """Copy static assets (CSS) to output directory."""
@@ -79,3 +84,16 @@ class StaticSiteGenerator:
             List of deprecations sorted by deprecation_date descending
         """
         return sorted(self.feed_data.deprecations, key=lambda d: d.deprecation_date, reverse=True)
+
+    def _generate_rss(self) -> None:
+        """Generate RSS feed with deprecation data."""
+        # Create RSS generator with updated config for GitHub Pages
+        rss_config = get_default_config()
+        rss_generator = RSSGenerator(config=rss_config)
+
+        # Add all deprecations to the feed
+        rss_generator.add_entries(self.feed_data.deprecations, version="v1")
+
+        # Save RSS feed to the expected GitHub Pages location
+        rss_output_path = self.output_dir / "rss" / "v1" / "feed.xml"
+        rss_generator.save_feed(version="v1", output_path=rss_output_path)
