@@ -1,5 +1,6 @@
 """Tests for the generate_site script."""
 
+import json
 import tempfile
 from datetime import UTC, datetime
 from pathlib import Path
@@ -7,11 +8,12 @@ from unittest.mock import AsyncMock, patch
 
 import pytest
 
-from src.models.deprecation import DeprecationEntry, FeedData
+from src.models.deprecation import DeprecationEntry, FeedData, ProviderStatus
 from src.site.generate_site import (
     generate_site_from_real_data,
+    load_data_from_json,
+    save_data_to_json,
     scrape_real_data,
-    use_mock_data_fallback,
 )
 
 
@@ -72,24 +74,73 @@ class TestScrapeRealData:
             assert status.is_healthy is True
 
 
-class TestMockDataFallback:
-    """Tests for mock data fallback."""
+class TestDataPersistence:
+    """Tests for data persistence to/from JSON."""
 
-    def test_returns_feed_data(self):
-        """Test that mock data fallback returns valid FeedData."""
-        feed = use_mock_data_fallback()
+    def test_save_and_load_data(self):
+        """Test saving and loading FeedData to/from JSON."""
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False) as tmp:
+            tmp_path = Path(tmp.name)
 
-        assert isinstance(feed, FeedData)
-        assert len(feed.deprecations) > 0
-        assert len(feed.provider_statuses) > 0
-        assert isinstance(feed.last_updated, datetime)
+        try:
+            # Create test data
+            deprecations = [
+                DeprecationEntry(
+                    provider="TestProvider",
+                    model="test-model-1",
+                    deprecation_date=datetime(2024, 1, 1, tzinfo=UTC),
+                    retirement_date=datetime(2024, 6, 1, tzinfo=UTC),
+                    replacement="new-model",
+                    notes="Test notes",
+                    source_url="https://example.com",
+                )
+            ]
+            provider_statuses = [
+                ProviderStatus(
+                    name="TestProvider",
+                    last_checked=datetime(2024, 3, 1, tzinfo=UTC),
+                    is_healthy=True,
+                    error_message=None,
+                )
+            ]
+            feed_data = FeedData(
+                deprecations=deprecations,
+                provider_statuses=provider_statuses,
+                last_updated=datetime(2024, 3, 1, tzinfo=UTC),
+            )
 
-    def test_contains_multiple_providers(self):
-        """Test that mock data contains deprecations from multiple providers."""
-        feed = use_mock_data_fallback()
+            # Save data
+            save_data_to_json(feed_data, tmp_path)
+            assert tmp_path.exists()
 
-        providers = {dep.provider for dep in feed.deprecations}
-        assert len(providers) >= 3  # Should have at least 3 different providers
+            # Load data
+            loaded_data = load_data_from_json(tmp_path)
+            assert loaded_data is not None
+            assert len(loaded_data.deprecations) == 1
+            assert loaded_data.deprecations[0].model == "test-model-1"
+            assert len(loaded_data.provider_statuses) == 1
+            assert loaded_data.provider_statuses[0].name == "TestProvider"
+
+        finally:
+            if tmp_path.exists():
+                tmp_path.unlink()
+
+    def test_load_nonexistent_file(self):
+        """Test loading from a non-existent file returns None."""
+        result = load_data_from_json(Path("/nonexistent/file.json"))
+        assert result is None
+
+    def test_load_invalid_json(self):
+        """Test loading invalid JSON returns None."""
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False) as tmp:
+            tmp.write("invalid json content")
+            tmp_path = Path(tmp.name)
+
+        try:
+            result = load_data_from_json(tmp_path)
+            assert result is None
+        finally:
+            tmp_path.unlink()
 
 
 class TestGenerateSiteFromRealData:
@@ -128,62 +179,101 @@ class TestGenerateSiteFromRealData:
                     assert feed_data.provider_statuses[0].is_healthy is True
 
     @pytest.mark.asyncio
-    async def test_falls_back_to_mock_when_scraping_fails(self):
-        """Test that mock data is used when scraping fails."""
+    async def test_loads_from_data_json_when_scraping_fails(self):
+        """Test that data.json is used when scraping fails."""
         with tempfile.TemporaryDirectory() as tmpdir:
             output_dir = Path(tmpdir) / "site"
+            data_file = Path(tmpdir) / "data.json"
+
+            # Create test data.json
+            test_data = {
+                "deprecations": [
+                    {
+                        "provider": "TestProvider",
+                        "model": "cached-model",
+                        "deprecation_date": "2024-01-01T00:00:00+00:00",
+                        "retirement_date": "2024-06-01T00:00:00+00:00",
+                        "replacement": "new-model",
+                        "notes": "From cache",
+                        "source_url": "https://example.com",
+                        "last_updated": "2024-03-01T00:00:00+00:00",
+                    }
+                ],
+                "provider_statuses": [
+                    {
+                        "name": "TestProvider",
+                        "last_checked": "2024-03-01T00:00:00+00:00",
+                        "is_healthy": True,
+                        "error_message": None,
+                    }
+                ],
+                "last_updated": "2024-03-01T00:00:00+00:00",
+            }
+            with open(data_file, "w") as f:
+                json.dump(test_data, f)
 
             with patch("src.site.generate_site.AnthropicScraper") as MockScraper:
                 mock_scraper = MockScraper.return_value
                 mock_scraper.scrape = AsyncMock(side_effect=Exception("Network error"))
 
                 with patch("src.site.generate_site.StaticSiteGenerator") as MockGenerator:
-                    await generate_site_from_real_data(output_dir)
+                    await generate_site_from_real_data(output_dir, data_file)
 
-                    # Check that generator was called with mock data
+                    # Check that generator was called with cached data
                     MockGenerator.assert_called_once()
                     feed_data = MockGenerator.call_args[0][0]
-                    assert len(feed_data.deprecations) > 5  # Mock data has many deprecations
+                    assert len(feed_data.deprecations) == 1
+                    assert feed_data.deprecations[0].model == "cached-model"
 
     @pytest.mark.asyncio
-    async def test_falls_back_to_mock_when_no_deprecations(self):
-        """Test that mock data is used when scraping returns no deprecations."""
+    async def test_no_generation_when_no_data_available(self):
+        """Test that site generation is skipped when no data is available."""
         with tempfile.TemporaryDirectory() as tmpdir:
             output_dir = Path(tmpdir) / "site"
+            data_file = Path(tmpdir) / "nonexistent.json"  # File doesn't exist
 
             with patch("src.site.generate_site.AnthropicScraper") as MockScraper:
                 mock_scraper = MockScraper.return_value
                 mock_scraper.scrape = AsyncMock(return_value={"deprecations": []})
 
                 with patch("src.site.generate_site.StaticSiteGenerator") as MockGenerator:
-                    await generate_site_from_real_data(output_dir)
+                    await generate_site_from_real_data(output_dir, data_file)
 
-                    # Check that generator was called with mock data
-                    MockGenerator.assert_called_once()
-                    feed_data = MockGenerator.call_args[0][0]
-                    assert len(feed_data.deprecations) > 0  # Should have mock deprecations
+                    # Check that generator was NOT called
+                    MockGenerator.assert_not_called()
 
     @pytest.mark.asyncio
-    async def test_updates_anthropic_status_in_mock_data(self):
-        """Test that Anthropic status is updated in mock data when using fallback."""
+    async def test_saves_scraped_data_to_json(self):
+        """Test that successfully scraped data is saved to data.json."""
+        mock_deprecations = [
+            DeprecationEntry(
+                provider="Anthropic",
+                model="test-model",
+                deprecation_date=datetime(2024, 8, 1, tzinfo=UTC),
+                retirement_date=datetime(2024, 11, 1, tzinfo=UTC),
+                replacement="new-model",
+                notes="Test",
+                source_url="https://example.com",
+            )
+        ]
+
         with tempfile.TemporaryDirectory() as tmpdir:
             output_dir = Path(tmpdir) / "site"
+            data_file = Path(tmpdir) / "data.json"
 
             with patch("src.site.generate_site.AnthropicScraper") as MockScraper:
                 mock_scraper = MockScraper.return_value
-                mock_scraper.scrape = AsyncMock(return_value={"deprecations": []})
+                mock_scraper.scrape = AsyncMock(return_value={"deprecations": mock_deprecations})
 
-                with patch("src.site.generate_site.StaticSiteGenerator") as MockGenerator:
-                    await generate_site_from_real_data(output_dir)
+                with patch("src.site.generate_site.StaticSiteGenerator"):
+                    await generate_site_from_real_data(output_dir, data_file)
 
-                    # Check that Anthropic status was updated
-                    feed_data = MockGenerator.call_args[0][0]
-                    anthropic_status = next(
-                        (s for s in feed_data.provider_statuses if s.name == "Anthropic"), None
-                    )
-                    assert anthropic_status is not None
-                    assert anthropic_status.is_healthy is True
-                    assert "No deprecations found" in (anthropic_status.error_message or "")
+                    # Check that data was saved
+                    assert data_file.exists()
+                    with open(data_file) as f:
+                        saved_data = json.load(f)
+                    assert len(saved_data["deprecations"]) == 1
+                    assert saved_data["deprecations"][0]["model"] == "test-model"
 
     @pytest.mark.asyncio
     async def test_handles_generator_error(self):

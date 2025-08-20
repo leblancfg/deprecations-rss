@@ -1,0 +1,23 @@
+{
+  "deprecations": [
+    {
+      "provider": "Anthropic",
+      "model": "test-model",
+      "deprecation_date": "2024-08-01T00:00:00+00:00",
+      "retirement_date": "2024-11-01T00:00:00+00:00",
+      "replacement": "new-model",
+      "notes": "Test",
+      "source_url": "https://example.com",
+      "last_updated": "2025-08-20T22:23:57.566181+00:00"
+    }
+  ],
+  "provider_statuses": [
+    {
+      "name": "Anthropic",
+      "last_checked": "2025-08-20T22:23:57.566798+00:00",
+      "is_healthy": true,
+      "error_message": null
+    }
+  ],
+  "last_updated": "2025-08-20T22:23:57.566824+00:00"
+}

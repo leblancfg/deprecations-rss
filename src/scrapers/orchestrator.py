@@ -3,12 +3,15 @@
 import asyncio
 import logging
 import time
+from datetime import UTC, datetime
+from pathlib import Path
 from typing import Any
 
 from pydantic import BaseModel, Field
 
-from src.models.deprecation import Deprecation
+from src.models.deprecation import Deprecation, FeedData, ProviderStatus
 from src.scrapers.base import BaseScraper
+from src.scrapers.data_manager import DataManager
 from src.storage.base import BaseStorage
 
 logger = logging.getLogger(__name__)
@@ -48,16 +51,23 @@ class OrchestratorResult(BaseModel):
 class ScraperOrchestrator:
     """Orchestrates multiple scrapers to collect deprecation data."""
 
-    def __init__(self, storage: BaseStorage, config: OrchestratorConfig | None = None) -> None:
+    def __init__(
+        self,
+        storage: BaseStorage,
+        config: OrchestratorConfig | None = None,
+        data_manager: DataManager | None = None,
+    ) -> None:
         """
         Initialize orchestrator with storage and configuration.
 
         Args:
             storage: Storage implementation for deprecation data
             config: Orchestrator configuration
+            data_manager: DataManager for saving to data.json
         """
         self.storage = storage
         self.config = config or OrchestratorConfig()
+        self.data_manager = data_manager or DataManager(Path("data.json"))
 
     async def run(self, scrapers: list[BaseScraper]) -> OrchestratorResult:
         """
@@ -114,14 +124,29 @@ class ScraperOrchestrator:
         successful_count = 0
         failed_count = 0
         all_deprecations: list[Deprecation] = []
+        provider_statuses: list[ProviderStatus] = []
         errors: list[str] = []
 
+        # Map scrapers to results for provider tracking - removed as not needed
+
         for i, result in enumerate(results):
+            provider_name = self._get_provider_name(scrapers[i])
+
             if isinstance(result, Exception):
                 failed_count += 1
                 error_msg = f"Scraper {i} failed: {result}"
                 errors.append(error_msg)
                 logger.error(error_msg)
+
+                # Add failed provider status
+                provider_statuses.append(
+                    ProviderStatus(
+                        name=provider_name,
+                        last_checked=datetime.now(UTC),
+                        is_healthy=False,
+                        error_message=str(result),
+                    )
+                )
 
                 if self.config.fail_fast:
                     raise result
@@ -132,6 +157,16 @@ class ScraperOrchestrator:
                 error_msg = f"Scraper {i} returned no data"
                 errors.append(error_msg)
                 logger.warning(error_msg)
+
+                # Add failed provider status
+                provider_statuses.append(
+                    ProviderStatus(
+                        name=provider_name,
+                        last_checked=datetime.now(UTC),
+                        is_healthy=False,
+                        error_message="No data returned",
+                    )
+                )
             else:
                 # Ensure result is a tuple, not an exception
                 if isinstance(result, tuple) and len(result) == 2:
@@ -142,19 +177,64 @@ class ScraperOrchestrator:
                     error_msg = f"Scraper {i} returned unexpected data format"
                     errors.append(error_msg)
                     logger.warning(error_msg)
+
+                    # Add failed provider status
+                    provider_statuses.append(
+                        ProviderStatus(
+                            name=provider_name,
+                            last_checked=datetime.now(UTC),
+                            is_healthy=False,
+                            error_message="Unexpected data format",
+                        )
+                    )
                     continue
 
                 if scraper_errors:
                     # Scraper returned errors - consider it failed
                     failed_count += 1
                     errors.extend(scraper_errors)
+
+                    # Add failed provider status
+                    provider_statuses.append(
+                        ProviderStatus(
+                            name=provider_name,
+                            last_checked=datetime.now(UTC),
+                            is_healthy=False,
+                            error_message="; ".join(scraper_errors),
+                        )
+                    )
                 else:
                     # Scraper succeeded
                     successful_count += 1
                     all_deprecations.extend(deprecations)
 
+                    # Add successful provider status
+                    provider_statuses.append(
+                        ProviderStatus(
+                            name=provider_name,
+                            last_checked=datetime.now(UTC),
+                            is_healthy=True,
+                            error_message=None,
+                        )
+                    )
+
         # Store new deprecations and update existing ones
         new_count, updated_count = await self._store_deprecations(all_deprecations)
+
+        # Save to data.json using DataManager
+        feed_data = FeedData(
+            deprecations=all_deprecations,
+            provider_statuses=provider_statuses,
+            last_updated=datetime.now(UTC),
+        )
+
+        # Merge with existing data and save
+        merged_data = self.data_manager.merge_feed_data(feed_data)
+        save_success = self.data_manager.save_feed_data(merged_data)
+
+        if not save_success:
+            logger.error("Failed to save data to data.json")
+            errors.append("Failed to save data to data.json")
 
         execution_time = time.time() - start_time
 
@@ -294,3 +374,34 @@ class ScraperOrchestrator:
             logger.debug(f"Stored {new_count} new deprecations")
 
         return new_count, updated_count
+
+    def _get_provider_name(self, scraper: BaseScraper) -> str:
+        """Extract provider name from scraper.
+
+        Args:
+            scraper: The scraper instance
+
+        Returns:
+            Provider name extracted from scraper URL or class name
+        """
+        # Try to get provider from scraper attributes
+        if hasattr(scraper, "provider"):
+            return str(scraper.provider)
+
+        # Try to extract from URL
+        url = scraper.url.lower()
+        if "openai" in url:
+            return "OpenAI"
+        elif "anthropic" in url:
+            return "Anthropic"
+        elif "google" in url or "vertex" in url:
+            return "Google"
+        elif "cohere" in url:
+            return "Cohere"
+        elif "mistral" in url:
+            return "Mistral"
+        elif "huggingface" in url or "hugging" in url:
+            return "HuggingFace"
+
+        # Fallback to class name
+        return scraper.__class__.__name__.replace("Scraper", "")
