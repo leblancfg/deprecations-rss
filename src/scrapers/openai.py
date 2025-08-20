@@ -12,7 +12,7 @@ from src.models.deprecation import Deprecation
 from src.scrapers.base import BaseScraper
 
 try:
-    from playwright.async_api import async_playwright  # type: ignore[import-not-found]
+    from playwright.async_api import async_playwright
 
     HAS_PLAYWRIGHT = True
 except ImportError:
