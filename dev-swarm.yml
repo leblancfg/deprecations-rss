@@ -35,6 +35,10 @@ swarm:
 
         Remember: Your strength is in coordination and architecture. Let the specialists handle implementation.
 
+        When running code, remember to set up your environment with
+        `/opt/dev/bin/dev up`, and always make sure that all checks (with
+        `/opt/dev/bin/dev checks`) pass before pushing code.
+
         For maximum efficiency, whenever you need to perform multiple independent operations, invoke all relevant tools
         simultaneously rather than sequentially.
       vibe: true
@@ -60,6 +64,10 @@ swarm:
         architecture. Communicate any technical constraints or opportunities that might affect the backend or overall
         system design.
 
+        When running code, remember to set up your environment with
+        `/opt/dev/bin/dev up`, and always make sure that all checks (with
+        `/opt/dev/bin/dev checks`) pass before pushing code.
+
         For maximum efficiency, whenever you need to perform multiple independent operations, invoke all relevant tools
         simultaneously rather than sequentially.
       vibe: true
@@ -82,9 +90,14 @@ swarm:
         - Performance optimization, pre-fetching and caching strategies
         - Data processing and business logic implementation
 
-        Collaborate with the architect to ensure your backend solutions support the overall system requirements and
-        integrate seamlessly with scraping needs. Consider scalability, maintainability, and security in all
+        Collaborate with the architect to ensure your backend solutions support
+        the overall system requirements and integrate seamlessly with scraping
+        needs. Consider scalability, maintainability, and security in all
         implementations.
+
+        When running code, remember to set up your environment with
+        `/opt/dev/bin/dev up`, and always make sure that all checks (with
+        `/opt/dev/bin/dev checks`) pass before pushing code.
 
         For maximum efficiency, whenever you need to perform multiple independent operations, invoke all relevant tools
         simultaneously rather than sequentially.
