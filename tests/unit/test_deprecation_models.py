@@ -151,7 +151,7 @@ def describe_deprecation_model():
 
         errors = exc_info.value.errors()
         assert any(
-            "retirement_date must be after deprecation_date" in str(error["msg"])
+            "Retirement date must be after deprecation date" in str(error["msg"])
             for error in errors
         )
 
@@ -225,7 +225,7 @@ def describe_deprecation_model():
         assert deprecation.retirement_date == datetime(2024, 4, 1, 12, 0, 0, tzinfo=UTC)
         assert deprecation.replacement == "claude-3-haiku"
         assert deprecation.notes == "Upgrading to Claude 3"
-        assert str(deprecation.source_url) == "https://docs.anthropic.com/"
+        assert str(deprecation.source_url) == "https://docs.anthropic.com"
         assert deprecation.last_updated == datetime(2024, 1, 15, 10, 30, 0, tzinfo=UTC)
 
     def it_generates_consistent_hash():

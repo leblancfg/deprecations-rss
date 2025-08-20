@@ -80,6 +80,7 @@ class DeprecationEntry(BaseModel):
             "replacement": self.replacement,
             "notes": self.notes,
             "source_url": self.source_url,
+            "last_updated": self.last_updated.isoformat(),
         }
 
     model_config = {
@@ -127,6 +128,20 @@ class DeprecationEntry(BaseModel):
     def same_deprecation(self, other: "DeprecationEntry") -> bool:
         """Check if this represents the same deprecation."""
         return self.get_identity_hash() == other.get_identity_hash()
+
+    def __eq__(self, other: object) -> bool:
+        """Compare deprecations based on core data (excluding last_updated)."""
+        if not isinstance(other, DeprecationEntry):
+            return False
+        return self.get_hash() == other.get_hash()
+
+    def __str__(self) -> str:
+        """String representation of deprecation."""
+        return (
+            f"DeprecationEntry(provider='{self.provider}', model='{self.model}', "
+            f"deprecation_date='{self.deprecation_date.date()}', "
+            f"retirement_date='{self.retirement_date.date()}')"
+        )
 
     @property
     def created_at(self) -> datetime:

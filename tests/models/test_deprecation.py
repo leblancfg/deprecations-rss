@@ -55,6 +55,7 @@ class DescribeDeprecationEntry:
                 model="gpt-3.5-turbo",
                 deprecation_date=datetime(2024, 6, 1),
                 retirement_date=datetime(2024, 1, 1),
+                source_url="https://example.com",
             )
 
         errors = exc_info.value.errors()
@@ -69,6 +70,7 @@ class DescribeDeprecationEntry:
                 model="gpt-3.5-turbo",
                 deprecation_date=datetime(2024, 1, 1),
                 retirement_date=datetime(2024, 1, 1),
+                source_url="https://example.com",
             )
 
         errors = exc_info.value.errors()
@@ -142,6 +144,7 @@ class DescribeDeprecationEntry:
             model="  gpt-3.5-turbo  ",
             deprecation_date=datetime(2024, 1, 1),
             retirement_date=datetime(2024, 6, 1),
+            source_url="https://example.com",
         )
 
         assert entry.provider == "OpenAI"
@@ -158,6 +161,7 @@ class DescribeDeprecationEntryRSSConversion:
             model="gpt-3.5-turbo",
             deprecation_date=datetime(2024, 1, 1, 12, 0, 0),
             retirement_date=datetime(2024, 6, 1, 12, 0, 0),
+            source_url="https://example.com",
         )
 
         rss_item = entry.to_rss_item()
@@ -167,7 +171,7 @@ class DescribeDeprecationEntryRSSConversion:
         assert "Model: gpt-3.5-turbo" in rss_item["description"]
         assert "Deprecation Date: 2024-01-01T12:00:00" in rss_item["description"]
         assert "Retirement Date: 2024-06-01T12:00:00" in rss_item["description"]
-        assert rss_item["link"] == ""
+        assert rss_item["link"] == "https://example.com"
         assert rss_item["guid"] == "OpenAI-gpt-3.5-turbo-2024-01-01T12:00:00"
         assert rss_item["pubDate"] == datetime(2024, 1, 1, 12, 0, 0)
 
@@ -196,6 +200,7 @@ class DescribeDeprecationEntryRSSConversion:
             model="gpt-3.5-turbo",
             deprecation_date=datetime(2024, 1, 1),
             retirement_date=datetime(2024, 6, 1),
+            source_url="https://example.com",
         )
 
         entry2 = DeprecationEntry(
@@ -219,19 +224,20 @@ class DescribeDeprecationEntryJSONConversion:
             model="gpt-3.5-turbo",
             deprecation_date=datetime(2024, 1, 1, 12, 0, 0),
             retirement_date=datetime(2024, 6, 1, 12, 0, 0),
+            source_url="https://example.com",
         )
 
         json_dict = entry.to_json_dict()
 
-        assert json_dict == {
-            "provider": "OpenAI",
-            "model": "gpt-3.5-turbo",
-            "deprecation_date": "2024-01-01T12:00:00",
-            "retirement_date": "2024-06-01T12:00:00",
-            "replacement": None,
-            "notes": None,
-            "source_url": "https://openai.com/blog",
-        }
+        # Check all fields except last_updated which is dynamic
+        assert json_dict["provider"] == "OpenAI"
+        assert json_dict["model"] == "gpt-3.5-turbo"
+        assert json_dict["deprecation_date"] == "2024-01-01T12:00:00"
+        assert json_dict["retirement_date"] == "2024-06-01T12:00:00"
+        assert json_dict["replacement"] is None
+        assert json_dict["notes"] is None
+        assert json_dict["source_url"] == "https://example.com"
+        assert "last_updated" in json_dict  # Dynamic field
 
     def it_converts_to_json_dict_with_all_fields(self) -> None:
         """Test conversion to JSON dict with all fields."""
@@ -261,6 +267,7 @@ class DescribeDeprecationEntryJSONConversion:
             deprecation_date=datetime(2024, 1, 1),
             retirement_date=datetime(2024, 6, 1),
             replacement="gpt-4-turbo",
+            source_url="https://example.com",
         )
 
         json_dict = entry.to_json_dict()
