@@ -11,6 +11,7 @@ import pytest
 from src.models.deprecation import Deprecation
 from src.models.scraper import ScraperConfig
 from src.scrapers.base import BaseScraper
+from src.scrapers.data_manager import DataManager
 from src.scrapers.openai import OpenAIScraper
 from src.scrapers.orchestrator import (
     OrchestratorConfig,
@@ -76,6 +77,17 @@ def temp_data_dir():
     """Create temporary data directory."""
     with tempfile.TemporaryDirectory() as temp_dir:
         yield Path(temp_dir)
+
+
+@pytest.fixture
+def mock_data_manager():
+    """Create a mock DataManager."""
+    from unittest.mock import MagicMock
+
+    mock = MagicMock(spec=DataManager)
+    mock.merge_feed_data.return_value = MagicMock()
+    mock.save_feed_data.return_value = True
+    return mock
 
 
 @pytest.fixture
@@ -178,20 +190,21 @@ def describe_scraper_orchestrator():
     """Test scraper orchestrator functionality."""
 
     @pytest.mark.asyncio
-    async def it_initializes_correctly(temp_data_dir):
+    async def it_initializes_correctly(temp_data_dir, mock_data_manager):
         """Initializes with storage and configuration."""
         storage = JsonStorage(temp_data_dir)
         config = OrchestratorConfig()
 
-        orchestrator = ScraperOrchestrator(storage, config)
+        orchestrator = ScraperOrchestrator(storage, config, data_manager=mock_data_manager)
         assert orchestrator.storage == storage
         assert orchestrator.config == config
+        assert orchestrator.data_manager == mock_data_manager
 
     @pytest.mark.asyncio
-    async def it_runs_single_scraper_successfully(temp_data_dir):
+    async def it_runs_single_scraper_successfully(temp_data_dir, mock_data_manager):
         """Runs a single scraper successfully."""
         storage = JsonStorage(temp_data_dir)
-        orchestrator = ScraperOrchestrator(storage)
+        orchestrator = ScraperOrchestrator(storage, data_manager=mock_data_manager)
 
         scrapers = [_TestScraper("https://openai.com/api", "OpenAI")]
         result = await orchestrator.run(scrapers)
@@ -206,11 +219,13 @@ def describe_scraper_orchestrator():
         assert result.success_rate == 1.0
 
     @pytest.mark.asyncio
-    async def it_runs_multiple_scrapers_concurrently(temp_data_dir, sample_scrapers):
+    async def it_runs_multiple_scrapers_concurrently(
+        temp_data_dir, sample_scrapers, mock_data_manager
+    ):
         """Runs multiple scrapers concurrently."""
         storage = JsonStorage(temp_data_dir)
         config = OrchestratorConfig(max_concurrent=2)
-        orchestrator = ScraperOrchestrator(storage, config)
+        orchestrator = ScraperOrchestrator(storage, config, data_manager=mock_data_manager)
 
         result = await orchestrator.run(sample_scrapers)
 
@@ -222,10 +237,10 @@ def describe_scraper_orchestrator():
         assert result.success_rate == 1.0
 
     @pytest.mark.asyncio
-    async def it_handles_scraper_failures_gracefully(temp_data_dir):
+    async def it_handles_scraper_failures_gracefully(temp_data_dir, mock_data_manager):
         """Handles scraper failures gracefully."""
         storage = JsonStorage(temp_data_dir)
-        orchestrator = ScraperOrchestrator(storage)
+        orchestrator = ScraperOrchestrator(storage, data_manager=mock_data_manager)
 
         scrapers = [
             _TestScraper("https://openai.com/api", "OpenAI", should_fail=False),
@@ -245,11 +260,11 @@ def describe_scraper_orchestrator():
         assert result.success_rate == 2 / 3
 
     @pytest.mark.asyncio
-    async def it_fails_fast_when_configured(temp_data_dir):
+    async def it_fails_fast_when_configured(temp_data_dir, mock_data_manager):
         """Fails fast when fail_fast is enabled."""
         storage = JsonStorage(temp_data_dir)
         config = OrchestratorConfig(fail_fast=True)
-        orchestrator = ScraperOrchestrator(storage, config)
+        orchestrator = ScraperOrchestrator(storage, config, data_manager=mock_data_manager)
 
         scrapers = [
             _TestScraper("https://openai.com/api", "OpenAI", should_fail=True),
@@ -261,11 +276,11 @@ def describe_scraper_orchestrator():
             await orchestrator.run(scrapers)
 
     @pytest.mark.asyncio
-    async def it_respects_concurrency_limits(temp_data_dir, sample_scrapers):
+    async def it_respects_concurrency_limits(temp_data_dir, sample_scrapers, mock_data_manager):
         """Respects concurrency limits."""
         storage = JsonStorage(temp_data_dir)
         config = OrchestratorConfig(max_concurrent=1)
-        orchestrator = ScraperOrchestrator(storage, config)
+        orchestrator = ScraperOrchestrator(storage, config, data_manager=mock_data_manager)
 
         # Mock semaphore to verify it's being used
         with patch("asyncio.Semaphore") as mock_semaphore:
@@ -278,11 +293,11 @@ def describe_scraper_orchestrator():
             mock_semaphore.assert_called_once_with(1)
 
     @pytest.mark.asyncio
-    async def it_handles_timeout_gracefully(temp_data_dir):
+    async def it_handles_timeout_gracefully(temp_data_dir, mock_data_manager):
         """Handles timeout gracefully."""
         storage = JsonStorage(temp_data_dir)
         config = OrchestratorConfig(timeout_seconds=0.1)  # Very short timeout
-        orchestrator = ScraperOrchestrator(storage, config)
+        orchestrator = ScraperOrchestrator(storage, config, data_manager=mock_data_manager)
 
         # Create a slow scraper
         slow_scraper = _TestScraper("https://slow.com/api", "SlowProvider")
@@ -303,10 +318,10 @@ def describe_scraper_orchestrator():
         assert "timed out" in result.errors[0].lower() or "cancelled" in result.errors[0].lower()
 
     @pytest.mark.asyncio
-    async def it_updates_existing_deprecations(temp_data_dir):
+    async def it_updates_existing_deprecations(temp_data_dir, mock_data_manager):
         """Updates existing deprecations when found."""
         storage = JsonStorage(temp_data_dir)
-        orchestrator = ScraperOrchestrator(storage)
+        orchestrator = ScraperOrchestrator(storage, data_manager=mock_data_manager)
 
         # Store initial deprecation
         initial_dep = Deprecation(
@@ -346,10 +361,10 @@ def describe_scraper_orchestrator():
         assert result.updated_deprecations == 1
 
     @pytest.mark.asyncio
-    async def it_tracks_execution_time(temp_data_dir, sample_scrapers):
+    async def it_tracks_execution_time(temp_data_dir, sample_scrapers, mock_data_manager):
         """Tracks execution time."""
         storage = JsonStorage(temp_data_dir)
-        orchestrator = ScraperOrchestrator(storage)
+        orchestrator = ScraperOrchestrator(storage, data_manager=mock_data_manager)
 
         result = await orchestrator.run(sample_scrapers)
 
@@ -357,10 +372,10 @@ def describe_scraper_orchestrator():
         assert isinstance(result.execution_time_seconds, float)
 
     @pytest.mark.asyncio
-    async def it_handles_empty_scraper_list(temp_data_dir):
+    async def it_handles_empty_scraper_list(temp_data_dir, mock_data_manager):
         """Handles empty scraper list gracefully."""
         storage = JsonStorage(temp_data_dir)
-        orchestrator = ScraperOrchestrator(storage)
+        orchestrator = ScraperOrchestrator(storage, data_manager=mock_data_manager)
 
         result = await orchestrator.run([])
 
@@ -374,10 +389,10 @@ def describe_scraper_orchestrator():
         assert result.success_rate == 0.0
 
     @pytest.mark.asyncio
-    async def it_handles_malformed_scraper_data(temp_data_dir):
+    async def it_handles_malformed_scraper_data(temp_data_dir, mock_data_manager):
         """Handles malformed data from scrapers gracefully."""
         storage = JsonStorage(temp_data_dir)
-        orchestrator = ScraperOrchestrator(storage)
+        orchestrator = ScraperOrchestrator(storage, data_manager=mock_data_manager)
 
         class _MalformedScraper(_TestScraper):
             async def scrape_api(self) -> dict:
@@ -402,10 +417,10 @@ def describe_scraper_orchestrator():
         assert len(result.errors) > 0  # Should have parsing errors
 
     @pytest.mark.asyncio
-    async def it_logs_detailed_progress(temp_data_dir, sample_scrapers):
+    async def it_logs_detailed_progress(temp_data_dir, sample_scrapers, mock_data_manager):
         """Logs detailed progress information."""
         storage = JsonStorage(temp_data_dir)
-        orchestrator = ScraperOrchestrator(storage)
+        orchestrator = ScraperOrchestrator(storage, data_manager=mock_data_manager)
 
         # Mock logger to verify logging calls
         with patch("src.scrapers.orchestrator.logger") as mock_logger:
@@ -420,10 +435,10 @@ def describe_scraper_orchestrator():
             assert any("Orchestration completed" in call for call in log_calls)
 
     @pytest.mark.asyncio
-    async def it_preserves_storage_data_integrity(temp_data_dir):
+    async def it_preserves_storage_data_integrity(temp_data_dir, mock_data_manager):
         """Preserves storage data integrity across runs."""
         storage = JsonStorage(temp_data_dir)
-        orchestrator = ScraperOrchestrator(storage)
+        orchestrator = ScraperOrchestrator(storage, data_manager=mock_data_manager)
 
         # First run
         scrapers1 = [_TestScraper("https://openai.com/api", "OpenAI")]
@@ -445,10 +460,10 @@ def describe_openai_scraper_integration():
     """Test OpenAI scraper integration with orchestrator."""
 
     @pytest.mark.asyncio
-    async def it_integrates_openai_scraper_successfully(temp_data_dir):
+    async def it_integrates_openai_scraper_successfully(temp_data_dir, mock_data_manager):
         """Integrates OpenAI scraper successfully."""
         storage = JsonStorage(temp_data_dir)
-        orchestrator = ScraperOrchestrator(storage)
+        orchestrator = ScraperOrchestrator(storage, data_manager=mock_data_manager)
 
         # Mock the OpenAI scraper's scrape method
         openai_scraper = OpenAIScraper()
@@ -479,11 +494,11 @@ def describe_openai_scraper_integration():
         assert result.new_deprecations == 1
 
     @pytest.mark.asyncio
-    async def it_handles_openai_scraper_failures(temp_data_dir):
+    async def it_handles_openai_scraper_failures(temp_data_dir, mock_data_manager):
         """Handles OpenAI scraper failures gracefully."""
         storage = JsonStorage(temp_data_dir)
         config = OrchestratorConfig(fail_fast=False)
-        orchestrator = ScraperOrchestrator(storage, config)
+        orchestrator = ScraperOrchestrator(storage, config, data_manager=mock_data_manager)
 
         # Create OpenAI scraper that will fail
         openai_scraper = OpenAIScraper()
@@ -505,11 +520,11 @@ def describe_openai_scraper_integration():
         assert "OpenAI API rate limit exceeded" in result.errors[0]
 
     @pytest.mark.asyncio
-    async def it_runs_openai_scraper_with_other_scrapers(temp_data_dir):
+    async def it_runs_openai_scraper_with_other_scrapers(temp_data_dir, mock_data_manager):
         """Runs OpenAI scraper concurrently with other scrapers."""
         storage = JsonStorage(temp_data_dir)
         config = OrchestratorConfig(max_concurrent=3)
-        orchestrator = ScraperOrchestrator(storage, config)
+        orchestrator = ScraperOrchestrator(storage, config, data_manager=mock_data_manager)
 
         # Create OpenAI scraper with mock data
         openai_scraper = OpenAIScraper()
@@ -553,11 +568,11 @@ def describe_openai_scraper_integration():
         assert result.new_deprecations == 4
 
     @pytest.mark.asyncio
-    async def it_respects_timeout_for_openai_scraper(temp_data_dir):
+    async def it_respects_timeout_for_openai_scraper(temp_data_dir, mock_data_manager):
         """Respects timeout configuration for OpenAI scraper."""
         storage = JsonStorage(temp_data_dir)
         config = OrchestratorConfig(timeout_seconds=0.1)
-        orchestrator = ScraperOrchestrator(storage, config)
+        orchestrator = ScraperOrchestrator(storage, config, data_manager=mock_data_manager)
 
         # Create OpenAI scraper that will timeout
         openai_scraper = OpenAIScraper()
@@ -577,10 +592,10 @@ def describe_openai_scraper_integration():
         assert "timed out" in result.errors[0].lower() or "cancelled" in result.errors[0].lower()
 
     @pytest.mark.asyncio
-    async def it_handles_duplicate_deprecations_from_openai(temp_data_dir):
+    async def it_handles_duplicate_deprecations_from_openai(temp_data_dir, mock_data_manager):
         """Handles duplicate deprecations from OpenAI scraper correctly."""
         storage = JsonStorage(temp_data_dir)
-        orchestrator = ScraperOrchestrator(storage)
+        orchestrator = ScraperOrchestrator(storage, data_manager=mock_data_manager)
 
         # First run with OpenAI scraper
         openai_scraper1 = OpenAIScraper()

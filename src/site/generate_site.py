@@ -1,14 +1,14 @@
 #!/usr/bin/env python
-"""Generate static site using real scraper data with fallback to mock data."""
+"""Generate static site using real scraper data."""
 
 import asyncio
+import json
 import logging
 from datetime import UTC, datetime
 from pathlib import Path
 
 from src.models.deprecation import Deprecation, FeedData, ProviderStatus
 from src.scrapers.anthropic import AnthropicScraper
-from src.scrapers.mock_data import generate_mock_feed_data
 from src.site.generator import StaticSiteGenerator
 
 # Configure logging
@@ -54,24 +54,97 @@ async def scrape_real_data() -> tuple[list[Deprecation], ProviderStatus]:
         return [], provider_status
 
 
-def use_mock_data_fallback() -> FeedData:
-    """Get mock data as fallback when real scraping fails.
+def load_data_from_json(file_path: Path = Path("data.json")) -> FeedData | None:
+    """Load feed data from JSON file.
+
+    Args:
+        file_path: Path to the JSON data file
 
     Returns:
-        FeedData with mock deprecations
+        FeedData if file exists and is valid, None otherwise
     """
-    logger.warning("Using mock data as fallback")
-    return generate_mock_feed_data()
+    if not file_path.exists():
+        logger.warning(f"Data file {file_path} does not exist")
+        return None
+
+    try:
+        with open(file_path) as f:
+            data = json.load(f)
+
+        # Convert JSON data to FeedData
+        deprecations = []
+        for dep_data in data.get("deprecations", []):
+            # Convert ISO strings back to datetime
+            dep_data["deprecation_date"] = datetime.fromisoformat(dep_data["deprecation_date"])
+            dep_data["retirement_date"] = datetime.fromisoformat(dep_data["retirement_date"])
+            if "last_updated" in dep_data:
+                dep_data["last_updated"] = datetime.fromisoformat(dep_data["last_updated"])
+            deprecations.append(Deprecation(**dep_data))
+
+        provider_statuses = []
+        for status_data in data.get("provider_statuses", []):
+            status_data["last_checked"] = datetime.fromisoformat(status_data["last_checked"])
+            provider_statuses.append(ProviderStatus(**status_data))
+
+        last_updated = (
+            datetime.fromisoformat(data["last_updated"])
+            if "last_updated" in data
+            else datetime.now(UTC)
+        )
+
+        return FeedData(
+            deprecations=deprecations,
+            provider_statuses=provider_statuses,
+            last_updated=last_updated,
+        )
+    except Exception as e:
+        logger.error(f"Failed to load data from {file_path}: {e}")
+        return None
 
 
-async def generate_site_from_real_data(output_dir: Path | None = None) -> None:
-    """Generate static site using real scraper data with fallback to mock.
+def save_data_to_json(feed_data: FeedData, file_path: Path = Path("data.json")) -> None:
+    """Save feed data to JSON file.
+
+    Args:
+        feed_data: The feed data to save
+        file_path: Path to the JSON data file
+    """
+    try:
+        data = {
+            "deprecations": [dep.to_json_dict() for dep in feed_data.deprecations],
+            "provider_statuses": [
+                {
+                    "name": status.name,
+                    "last_checked": status.last_checked.isoformat(),
+                    "is_healthy": status.is_healthy,
+                    "error_message": status.error_message,
+                }
+                for status in feed_data.provider_statuses
+            ],
+            "last_updated": feed_data.last_updated.isoformat(),
+        }
+
+        with open(file_path, "w") as f:
+            json.dump(data, f, indent=2)
+
+        logger.info(f"Saved data to {file_path}")
+    except Exception as e:
+        logger.error(f"Failed to save data to {file_path}: {e}")
+
+
+async def generate_site_from_real_data(
+    output_dir: Path | None = None, data_file: Path = Path("data.json")
+) -> None:
+    """Generate static site using real scraper data.
 
     Args:
         output_dir: Output directory for generated site (defaults to 'docs')
+        data_file: Path to the data.json file
     """
+    feed_data = None
+
     try:
-        # Try to get real data
+        # Try to get real data from scraper
         deprecations, provider_status = await scrape_real_data()
 
         if deprecations:
@@ -82,26 +155,39 @@ async def generate_site_from_real_data(output_dir: Path | None = None) -> None:
                 provider_statuses=[provider_status],
                 last_updated=datetime.now(UTC),
             )
+            # Save the scraped data to data.json
+            save_data_to_json(feed_data, data_file)
         else:
-            # Fall back to mock data if no real data available
-            logger.warning("No real deprecations found, falling back to mock data")
-            feed_data = use_mock_data_fallback()
+            # Try to load from existing data.json if no new deprecations found
+            logger.warning("No new deprecations found from scraping")
+            feed_data = load_data_from_json(data_file)
 
-            # Update the Anthropic provider status to show the scraping attempt
-            for status in feed_data.provider_statuses:
-                if status.name == "Anthropic":
-                    status.last_checked = provider_status.last_checked
-                    status.is_healthy = provider_status.is_healthy
-                    status.error_message = provider_status.error_message or "No deprecations found"
-                    break
+            if feed_data:
+                logger.info(f"Loaded existing data from {data_file}")
+                # Update the Anthropic provider status to show the latest scraping attempt
+                for status in feed_data.provider_statuses:
+                    if status.name == "Anthropic":
+                        status.last_checked = provider_status.last_checked
+                        status.is_healthy = provider_status.is_healthy
+                        status.error_message = (
+                            provider_status.error_message or "No new deprecations found"
+                        )
+                        break
+                else:
+                    # Add the status if Anthropic wasn't in the data
+                    feed_data.provider_statuses.append(provider_status)
             else:
-                # Add the status if Anthropic wasn't in the mock data
-                feed_data.provider_statuses.append(provider_status)
+                logger.error("No data available for site generation")
+                return
 
     except Exception as e:
         logger.error(f"Error during data collection: {e}")
-        logger.info("Falling back to mock data due to error")
-        feed_data = use_mock_data_fallback()
+        # Try to load from existing data.json
+        feed_data = load_data_from_json(data_file)
+
+        if not feed_data:
+            logger.error("No data available for site generation and no cached data found")
+            return
 
     # Generate the static site
     try:
