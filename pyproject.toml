@@ -46,6 +46,7 @@ select = [
 ]
 ignore = [
     "E501",  # line too long (handled by formatter)
+    "SIM117",  # Allow nested with statements for better readability in tests
 ]
 
 [tool.ruff.lint.isort]

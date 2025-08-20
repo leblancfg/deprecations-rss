@@ -84,3 +84,7 @@ class DeprecationEntry(BaseModel):
             datetime: lambda v: v.isoformat(),
         }
     }
+
+
+# Alias for compatibility with other branches that may use Deprecation
+Deprecation = DeprecationEntry
