@@ -18,6 +18,7 @@ class DescribeDeprecationEntry:
             model="gpt-3.5-turbo",
             deprecation_date=datetime(2024, 1, 1),
             retirement_date=datetime(2024, 6, 1),
+            source_url="https://openai.com/blog",
         )
 
         assert entry.provider == "OpenAI"
@@ -26,7 +27,7 @@ class DescribeDeprecationEntry:
         assert entry.retirement_date == datetime(2024, 6, 1)
         assert entry.replacement is None
         assert entry.notes is None
-        assert entry.source_url is None
+        assert entry.source_url == "https://openai.com/blog"
 
     def it_creates_valid_entry_with_all_fields(self) -> None:
         """Test creating entry with all fields."""
@@ -228,7 +229,7 @@ class DescribeDeprecationEntryJSONConversion:
             "retirement_date": "2024-06-01T12:00:00",
             "replacement": None,
             "notes": None,
-            "source_url": None,
+            "source_url": "https://openai.com/blog",
         }
 
     def it_converts_to_json_dict_with_all_fields(self) -> None:

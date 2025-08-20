@@ -14,7 +14,7 @@ class DeprecationEntry(BaseModel):
     retirement_date: datetime = Field(..., description="Date when model stops working")
     replacement: str | None = Field(None, description="Suggested alternative model")
     notes: str | None = Field(None, description="Additional context or information")
-    source_url: str | None = Field(None, description="Link to official announcement")
+    source_url: str = Field(..., description="Link to official announcement")
 
     @field_validator("provider", "model")
     @classmethod
@@ -26,10 +26,8 @@ class DeprecationEntry(BaseModel):
 
     @field_validator("source_url")
     @classmethod
-    def validate_url(cls, v: str | None) -> str | None:
+    def validate_url(cls, v: str) -> str:
         """Basic URL validation."""
-        if v is None:
-            return None
         if not v.startswith(("http://", "https://")):
             raise ValueError("URL must start with http:// or https://")
         return v
@@ -63,7 +61,7 @@ class DeprecationEntry(BaseModel):
         return {
             "title": title,
             "description": description,
-            "link": self.source_url or "",
+            "link": self.source_url,
             "guid": f"{self.provider}-{self.model}-{self.deprecation_date.isoformat()}",
             "pubDate": self.deprecation_date,
         }
@@ -132,6 +130,13 @@ class DeprecationEntry(BaseModel):
     def created_at(self) -> datetime:
         """Alias for compatibility with main branch."""
         return self.deprecation_date
+
+    @property
+    def last_updated(self) -> datetime:
+        """Alias for compatibility with main branch."""
+        from datetime import UTC
+
+        return datetime.now(UTC)
 
 
 # Alias for compatibility with other branches that may use Deprecation
