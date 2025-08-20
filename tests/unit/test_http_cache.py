@@ -210,7 +210,7 @@ class DescribeHTTPCache:
     async def it_handles_cache_directory_creation(self, tmp_path):
         """Should create cache directory if it doesn't exist."""
         non_existent_dir = tmp_path / "new_cache"
-        cache = HTTPCache(cache_dir=non_existent_dir)
+        HTTPCache(cache_dir=non_existent_dir)  # Creating the cache should create the directory
 
         assert non_existent_dir.exists()
         assert non_existent_dir.is_dir()

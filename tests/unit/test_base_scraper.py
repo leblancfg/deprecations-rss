@@ -20,6 +20,8 @@ class _TestScraper(BaseScraper):
 
     def parse_deprecations(self, soup: BeautifulSoup, base_url: str) -> list[DeprecationEntry]:
         """Simple implementation for testing."""
+        # Parameters are required by the abstract method but not used in test
+        _ = soup, base_url
         return []
 
     async def scrape_api(self) -> dict:
