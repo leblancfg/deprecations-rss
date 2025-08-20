@@ -1,188 +1,421 @@
-"""Tests for base scraper with caching functionality."""
+"""Test suite for the enhanced base scraper with HTTP caching."""
 
-from datetime import UTC, datetime
-from unittest.mock import AsyncMock, patch
+import asyncio
+import json
+import tempfile
+from datetime import UTC, datetime, timedelta
+from pathlib import Path
+from unittest.mock import AsyncMock, MagicMock, Mock, patch
 
 import httpx
 import pytest
 from bs4 import BeautifulSoup
 
+from src.models.scraper import CacheEntry, ScraperConfig
 from src.scrapers.base import BaseScraper, DeprecationEntry
 
 
-class MockScraper(BaseScraper):
-    """Concrete implementation of BaseScraper for testing."""
+class _TestScraper(BaseScraper):
+    """Test implementation of BaseScraper."""
 
     def parse_deprecations(self, soup: BeautifulSoup, base_url: str) -> list[DeprecationEntry]:
         """Simple implementation for testing."""
         return []
 
+    async def scrape_api(self) -> dict:
+        """Mock API scraping."""
+        return {"source": "api", "data": "test"}
+
+    async def scrape_html(self) -> dict:
+        """Mock HTML scraping."""
+        return {"source": "html", "data": "test"}
+
+    async def scrape_playwright(self) -> dict:
+        """Mock Playwright scraping."""
+        return {"source": "playwright", "data": "test"}
+
+
+def describe_scraper_config():
+    """Test scraper configuration."""
+
+    def it_creates_with_defaults():
+        """Creates config with default values."""
+        config = ScraperConfig()
+        assert config.rate_limit_delay == 1.0
+        assert config.max_retries == 3
+        assert config.retry_delays == [1, 2, 4]
+        assert config.cache_ttl_hours == 23
+        assert config.timeout == 30.0
+        assert config.cache_dir == Path(".cache")
+        assert config.user_agent.startswith("deprecations-rss/")
+
+    def it_accepts_custom_values():
+        """Accepts custom configuration values."""
+        config = ScraperConfig(
+            rate_limit_delay=2.0,
+            max_retries=5,
+            cache_ttl_hours=12,
+            timeout=60.0,
+            cache_dir=Path("custom_cache"),
+        )
+        assert config.rate_limit_delay == 2.0
+        assert config.max_retries == 5
+        assert config.cache_ttl_hours == 12
+        assert config.timeout == 60.0
+        assert config.cache_dir == Path("custom_cache")
+
+
+def describe_cache_entry():
+    """Test cache entry model."""
+
+    def it_creates_from_data():
+        """Creates cache entry with current timestamp."""
+        data = {"key": "value"}
+        entry = CacheEntry.from_data(data)
+        assert entry.data == data
+        assert isinstance(entry.timestamp, datetime)
+        assert entry.timestamp.tzinfo == UTC
+
+    def it_checks_if_expired():
+        """Checks if cache entry is expired."""
+        old_time = datetime.now(UTC) - timedelta(hours=24)
+        entry = CacheEntry(data={"test": "data"}, timestamp=old_time)
+        assert entry.is_expired(ttl_hours=23)
+
+        recent_time = datetime.now(UTC) - timedelta(hours=1)
+        entry = CacheEntry(data={"test": "data"}, timestamp=recent_time)
+        assert not entry.is_expired(ttl_hours=23)
+
 
 @pytest.fixture
-def temp_cache_dir(tmp_path):
-    """Create a temporary cache directory."""
-    cache_dir = tmp_path / "cache"
-    cache_dir.mkdir()
-    return cache_dir
+def temp_cache_dir():
+    """Create temporary cache directory."""
+    with tempfile.TemporaryDirectory() as temp_dir:
+        yield Path(temp_dir)
 
 
 @pytest.fixture
-def base_scraper(temp_cache_dir):
-    """Create a MockScraper instance with temporary cache."""
-    return MockScraper(cache_dir=temp_cache_dir)
+def config(temp_cache_dir):
+    """Create test configuration."""
+    return ScraperConfig(
+        cache_dir=temp_cache_dir,
+        rate_limit_delay=0.1,  # Speed up tests
+        max_retries=2,
+        retry_delays=[0.1, 0.2],
+    )
 
 
-class DescribeBaseScraper:
-    """Tests for BaseScraper functionality."""
+@pytest.fixture
+def scraper(config):
+    """Create test scraper instance."""
+    return _TestScraper("https://test.com", config)
 
-    @pytest.mark.asyncio
-    async def it_fetches_and_parses_html(self, base_scraper):
-        """Should fetch HTML and return BeautifulSoup object."""
-        url = "https://example.com/deprecations"
-        html_content = b"""
-        <html>
-            <body>
-                <h1>Deprecations</h1>
-                <div class="deprecation">API v1 deprecated</div>
-            </body>
-        </html>
-        """
 
-        with patch.object(base_scraper.cache, "get", new_callable=AsyncMock) as mock_get:
-            mock_get.return_value = html_content
+def describe_base_scraper():
+    """Test base scraper functionality."""
 
-            soup = await base_scraper.fetch_page(url)
+    def it_initializes_correctly(scraper, config):
+        """Initializes with URL and config."""
+        assert scraper.url == "https://test.com"
+        assert scraper.config == config
+        assert scraper._last_request_time == 0
+        assert scraper.http_cache is not None
 
-            assert isinstance(soup, BeautifulSoup)
-            assert soup.find("h1").text == "Deprecations"
-            assert soup.find("div", class_="deprecation").text == "API v1 deprecated"
-            mock_get.assert_called_once_with(url, headers=None)
+    def it_creates_cache_directory(temp_cache_dir):
+        """Creates cache directory if it doesn't exist."""
+        cache_dir = temp_cache_dir / "nested" / "cache"
+        config = ScraperConfig(cache_dir=cache_dir)
+        _TestScraper("https://test.com", config)
+        assert cache_dir.exists()
 
-    @pytest.mark.asyncio
-    async def it_uses_cached_responses(self, base_scraper):
-        """Should use cached responses when available."""
-        url = "https://example.com/deprecations"
-        html_content = b"<html><body>Cached content</body></html>"
+    def describe_http_caching():
+        """Test HTTP caching functionality."""
 
-        # Mock the cache to return cached content
-        with patch.object(base_scraper.cache, "get", new_callable=AsyncMock) as mock_get:
-            mock_get.return_value = html_content
+        @pytest.mark.asyncio
+        async def it_fetches_and_caches_html(scraper):
+            """Fetches HTML and uses cache."""
+            test_html = "<html><body>Test</body></html>"
+            mock_response = Mock()
+            mock_response.content = test_html.encode()
+            mock_response.status_code = 200
+            mock_response.headers = {}
 
-            # First fetch
-            soup1 = await base_scraper.fetch_page(url)
-            # Second fetch
-            soup2 = await base_scraper.fetch_page(url)
+            with patch.object(scraper.http_cache, "get", return_value=mock_response):
+                soup = await scraper.fetch_page("https://test.com/page")
+                assert soup is not None
+                assert soup.find("body").text == "Test"
 
-            # Both should return same content
-            assert soup1.get_text(strip=True) == soup2.get_text(strip=True)
-            # Cache.get should be called twice (caching is handled inside HTTPCache)
-            assert mock_get.call_count == 2
+        @pytest.mark.asyncio
+        async def it_handles_fetch_errors_gracefully(scraper):
+            """Returns None when fetch fails."""
+            with patch.object(scraper.http_cache, "get", side_effect=Exception("Network error")):
+                soup = await scraper.fetch_page("https://test.com/page")
+                assert soup is None
 
-    @pytest.mark.asyncio
-    async def it_handles_network_errors_gracefully(self, base_scraper):
-        """Should handle network errors and return None or cached data."""
-        url = "https://example.com/deprecations"
+    def describe_deprecation_entry():
+        """Test DeprecationEntry model."""
 
-        with patch.object(base_scraper.cache, "get", new_callable=AsyncMock) as mock_get:
-            mock_get.side_effect = httpx.NetworkError("Connection failed")
-
-            soup = await base_scraper.fetch_page(url)
-
-            assert soup is None
-
-    @pytest.mark.asyncio
-    async def it_extracts_deprecation_entries(self, base_scraper):
-        """Should extract deprecation entries from HTML."""
-        html = b"""
-        <html>
-            <body>
-                <div class="deprecation">
-                    <h3>Model GPT-3</h3>
-                    <p>Deprecated on 2024-12-31</p>
-                    <p>Use GPT-4 instead</p>
-                    <a href="/docs/gpt3">Documentation</a>
-                </div>
-                <div class="deprecation">
-                    <h3>API v1</h3>
-                    <p>Deprecated on 2024-06-30</p>
-                    <p>Migrate to API v2</p>
-                    <a href="/docs/api-v1">Learn more</a>
-                </div>
-            </body>
-        </html>
-        """
-
-        # Mock the cache.get to return the HTML
-        with patch.object(base_scraper.cache, "get", new_callable=AsyncMock) as mock_get:
-            mock_get.return_value = html
-
-            # Mock the parse_deprecations method to test base functionality
-            with patch.object(base_scraper, "parse_deprecations") as mock_parse:
-                mock_parse.return_value = [
-                    DeprecationEntry(
-                        title="Model GPT-3",
-                        description="Deprecated on 2024-12-31. Use GPT-4 instead",
-                        deprecation_date=datetime(2024, 12, 31, tzinfo=UTC),
-                        link="https://example.com/docs/gpt3",
-                        provider="Example",
-                    ),
-                    DeprecationEntry(
-                        title="API v1",
-                        description="Deprecated on 2024-06-30. Migrate to API v2",
-                        deprecation_date=datetime(2024, 6, 30, tzinfo=UTC),
-                        link="https://example.com/docs/api-v1",
-                        provider="Example",
-                    ),
-                ]
-
-                entries = await base_scraper.scrape("https://example.com/deprecations")
-
-                # Should return the mocked list of entries
-                assert len(entries) == 2
-                assert entries[0].title == "Model GPT-3"
-                assert entries[1].title == "API v1"
-
-    def it_creates_deprecation_entry(self, base_scraper):
-        """Should create DeprecationEntry objects correctly."""
-        entry = DeprecationEntry(
-            title="Legacy API",
-            description="This API will be deprecated",
-            deprecation_date=datetime(2024, 12, 31, tzinfo=UTC),
-            link="https://example.com/api",
-            provider="Example Provider",
-        )
-
-        assert entry.title == "Legacy API"
-        assert entry.description == "This API will be deprecated"
-        assert entry.deprecation_date == datetime(2024, 12, 31, tzinfo=UTC)
-        assert entry.link == "https://example.com/api"
-        assert entry.provider == "Example Provider"
-
-    @pytest.mark.asyncio
-    async def it_cleans_up_resources(self, base_scraper):
-        """Should properly clean up resources when closed."""
-        with patch.object(base_scraper.cache, "close", new_callable=AsyncMock) as mock_close:
-            await base_scraper.close()
-            mock_close.assert_called_once()
-
-    def it_validates_deprecation_entry_dates(self):
-        """Should validate that deprecation dates are timezone-aware."""
-        # Valid entry with timezone-aware date
-        entry = DeprecationEntry(
-            title="Test",
-            description="Test deprecation",
-            deprecation_date=datetime(2024, 12, 31, tzinfo=UTC),
-            link="https://example.com",
-            provider="Test",
-        )
-        assert entry.deprecation_date.tzinfo is not None
-
-        # Should raise error for naive datetime
-        with pytest.raises(ValueError):
-            DeprecationEntry(
-                title="Test",
-                description="Test deprecation",
-                deprecation_date=datetime(2024, 12, 31),  # Naive datetime
-                link="https://example.com",
-                provider="Test",
+        def it_creates_deprecation_entry():
+            """Creates DeprecationEntry objects correctly."""
+            entry = DeprecationEntry(
+                title="GPT-3.5",
+                description="Model being deprecated",
+                deprecation_date=datetime(2024, 1, 1, tzinfo=UTC),
+                retirement_date=datetime(2024, 6, 1, tzinfo=UTC),
+                replacement="GPT-4",
+                link="https://example.com/deprecation",
+                provider="OpenAI",
+                model="gpt-3.5-turbo",
             )
+            assert entry.title == "GPT-3.5"
+            assert entry.provider == "OpenAI"
+            assert entry.model == "gpt-3.5-turbo"
+
+        def it_validates_deprecation_entry_dates():
+            """Validates that dates are timezone-aware."""
+            with pytest.raises(ValueError):
+                DeprecationEntry(
+                    title="Test",
+                    description="Test deprecation",
+                    deprecation_date=datetime(2024, 12, 31),  # Naive datetime
+                    link="https://example.com",
+                    provider="Test",
+                )
+
+    def describe_rate_limiting():
+        """Test rate limiting functionality."""
+
+        @pytest.mark.asyncio
+        async def it_enforces_rate_limit(scraper):
+            """Enforces minimum delay between requests."""
+            # First request should proceed immediately
+            start_time = asyncio.get_event_loop().time()
+            await scraper._enforce_rate_limit()
+            first_duration = asyncio.get_event_loop().time() - start_time
+            assert first_duration < 0.05  # Should be nearly instant
+
+            # Second request should be delayed
+            start_time = asyncio.get_event_loop().time()
+            await scraper._enforce_rate_limit()
+            second_duration = asyncio.get_event_loop().time() - start_time
+            assert second_duration >= 0.09  # Should wait for rate limit
+
+    def describe_data_caching():
+        """Test data caching functionality."""
+
+        def it_generates_cache_key(scraper):
+            """Generates consistent cache key from URL."""
+            key = scraper._get_cache_key()
+            assert isinstance(key, str)
+            assert len(key) == 64  # SHA-256 hex digest length
+
+            # Same URL should generate same key
+            key2 = scraper._get_cache_key()
+            assert key == key2
+
+        @pytest.mark.asyncio
+        async def it_saves_and_loads_cache(scraper):
+            """Saves and loads data from cache."""
+            test_data = {"result": "cached_data"}
+
+            # Save to cache
+            await scraper._save_to_cache(test_data)
+
+            # Load from cache
+            cached_data = await scraper._load_from_cache()
+            assert cached_data == test_data
+
+        @pytest.mark.asyncio
+        async def it_returns_none_for_missing_cache(scraper):
+            """Returns None when cache file doesn't exist."""
+            cached_data = await scraper._load_from_cache()
+            assert cached_data is None
+
+        @pytest.mark.asyncio
+        async def it_returns_none_for_expired_cache(scraper, temp_cache_dir):
+            """Returns None when cache is expired."""
+            # Create expired cache entry
+            cache_key = scraper._get_cache_key()
+            cache_file = temp_cache_dir / f"{cache_key}.json"
+
+            expired_time = datetime.now(UTC) - timedelta(hours=25)
+            expired_entry = CacheEntry(data={"old": "data"}, timestamp=expired_time)
+
+            with open(cache_file, "w") as f:
+                json.dump(expired_entry.model_dump(), f, default=str)
+
+            cached_data = await scraper._load_from_cache()
+            assert cached_data is None
+
+        @pytest.mark.asyncio
+        async def it_handles_corrupted_cache(scraper, temp_cache_dir):
+            """Returns None when cache file is corrupted."""
+            cache_key = scraper._get_cache_key()
+            cache_file = temp_cache_dir / f"{cache_key}.json"
+
+            # Write invalid JSON
+            with open(cache_file, "w") as f:
+                f.write("invalid json content")
+
+            cached_data = await scraper._load_from_cache()
+            assert cached_data is None
+
+    def describe_http_requests():
+        """Test HTTP request functionality."""
+
+        @pytest.mark.asyncio
+        async def it_makes_http_request_with_retries(scraper):
+            """Makes HTTP requests with proper headers and retries."""
+            mock_response = MagicMock()
+            mock_response.status_code = 200
+            mock_response.json.return_value = {"success": True}
+            mock_response.raise_for_status.return_value = None
+
+            with patch("httpx.AsyncClient.get", return_value=mock_response) as mock_get:
+                response = await scraper._make_request("https://test.com/api")
+
+                assert response == {"success": True}
+                mock_get.assert_called_once_with(
+                    "https://test.com/api",
+                    headers={"User-Agent": scraper.config.user_agent},
+                    timeout=scraper.config.timeout,
+                )
+
+        @pytest.mark.asyncio
+        async def it_retries_on_http_errors(scraper):
+            """Retries requests on HTTP errors with exponential backoff."""
+            mock_response = MagicMock()
+            mock_response.raise_for_status.side_effect = [
+                httpx.HTTPStatusError("Error", request=MagicMock(), response=MagicMock()),
+                httpx.HTTPStatusError("Error", request=MagicMock(), response=MagicMock()),
+                None,  # Success on third try
+            ]
+            mock_response.status_code = 200
+            mock_response.json.return_value = {"success": True}
+
+            with patch("httpx.AsyncClient.get", return_value=mock_response) as mock_get:
+                with patch("asyncio.sleep") as mock_sleep:
+                    response = await scraper._make_request("https://test.com/api")
+
+                    assert response == {"success": True}
+                    assert mock_get.call_count == 3
+                    # Check exponential backoff delays
+                    mock_sleep.assert_any_call(0.1)  # First retry delay
+                    mock_sleep.assert_any_call(0.2)  # Second retry delay
+
+        @pytest.mark.asyncio
+        async def it_gives_up_after_max_retries(scraper):
+            """Gives up after maximum retries and raises exception."""
+            mock_response = MagicMock()
+            mock_response.raise_for_status.side_effect = httpx.HTTPStatusError(
+                "Error", request=MagicMock(), response=MagicMock()
+            )
+
+            with patch("httpx.AsyncClient.get", return_value=mock_response):
+                with patch("asyncio.sleep"):
+                    with pytest.raises(httpx.HTTPStatusError):
+                        await scraper._make_request("https://test.com/api")
+
+    def describe_fallback_pattern():
+        """Test fallback scraping pattern."""
+
+        @pytest.mark.asyncio
+        async def it_tries_api_first(scraper):
+            """Tries API scraping first and returns result."""
+            with patch.object(scraper, "scrape_api", return_value={"source": "api"}):
+                result = await scraper.scrape()
+                assert result == {"source": "api"}
+
+        @pytest.mark.asyncio
+        async def it_falls_back_to_html_when_api_fails(scraper):
+            """Falls back to HTML scraping when API fails."""
+            with patch.object(scraper, "scrape_api", side_effect=Exception("API failed")):
+                with patch.object(scraper, "scrape_html", return_value={"source": "html"}):
+                    result = await scraper.scrape()
+                    assert result == {"source": "html"}
+
+        @pytest.mark.asyncio
+        async def it_falls_back_to_playwright_when_html_fails(scraper):
+            """Falls back to Playwright when HTML fails."""
+            with patch.object(scraper, "scrape_api", side_effect=Exception("API failed")):
+                with patch.object(scraper, "scrape_html", side_effect=Exception("HTML failed")):
+                    with patch.object(
+                        scraper, "scrape_playwright", return_value={"source": "playwright"}
+                    ):
+                        result = await scraper.scrape()
+                        assert result == {"source": "playwright"}
+
+        @pytest.mark.asyncio
+        async def it_raises_exception_when_all_methods_fail(scraper):
+            """Raises exception when all scraping methods fail."""
+            with patch.object(scraper, "scrape_api", side_effect=Exception("API failed")):
+                with patch.object(scraper, "scrape_html", side_effect=Exception("HTML failed")):
+                    with patch.object(
+                        scraper, "scrape_playwright", side_effect=Exception("Playwright failed")
+                    ):
+                        with pytest.raises(Exception, match="All scraping methods failed"):
+                            await scraper.scrape()
+
+    def describe_caching_integration():
+        """Test caching integration with scraping."""
+
+        @pytest.mark.asyncio
+        async def it_returns_cached_data_when_available(scraper):
+            """Returns cached data when available and not expired."""
+            cached_data = {"cached": True}
+
+            with patch.object(scraper, "_load_from_cache", return_value=cached_data):
+                result = await scraper.scrape()
+                assert result == cached_data
+
+        @pytest.mark.asyncio
+        async def it_caches_scraped_data(scraper):
+            """Caches data after successful scraping."""
+            scraped_data = {"source": "api", "fresh": True}
+
+            with patch.object(scraper, "_load_from_cache", return_value=None):
+                with patch.object(scraper, "scrape_api", return_value=scraped_data):
+                    with patch.object(scraper, "_save_to_cache") as mock_save:
+                        result = await scraper.scrape()
+
+                        assert result == scraped_data
+                        mock_save.assert_called_once_with(scraped_data)
+
+    def describe_sync_wrapper():
+        """Test synchronous wrapper functionality."""
+
+        def it_provides_sync_interface():
+            """Provides synchronous interface to async scraping when not in async context."""
+            # Create a new scraper in a non-async context
+            config = ScraperConfig()
+            scraper = _TestScraper("https://test.com", config)
+
+            with patch.object(
+                scraper, "scrape", new_callable=AsyncMock, return_value={"sync": True}
+            ):
+                with patch("asyncio.run", return_value={"sync": True}) as mock_run:
+                    result = scraper.scrape_sync()
+                    assert result == {"sync": True}
+                    mock_run.assert_called_once()
+
+        def it_raises_error_in_async_context():
+            """Raises error when called from async context."""
+            config = ScraperConfig()
+            scraper = _TestScraper("https://test.com", config)
+
+            # Mock get_running_loop to simulate being in an async context
+            with patch("asyncio.get_running_loop", return_value=MagicMock()):
+                with pytest.raises(
+                    RuntimeError, match="Cannot use scrape_sync.*from within an async context"
+                ):
+                    scraper.scrape_sync()
+
+    def describe_resource_cleanup():
+        """Test resource cleanup."""
+
+        @pytest.mark.asyncio
+        async def it_cleans_up_resources(scraper):
+            """Cleans up HTTP cache on close."""
+            with patch.object(scraper.http_cache, "close") as mock_close:
+                await scraper.close()
+                mock_close.assert_called_once()

@@ -3,7 +3,7 @@ name = "deprecations-rss"
 version = "0.1.0"
 description = "Daily-updated RSS feed tracking AI model deprecations"
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.12"
 license = {text = "MIT"}
 authors = [
     {name = "leblancfg"},
@@ -30,7 +30,7 @@ playwright = [
 ]
 [tool.ruff]
 line-length = 100
-target-version = "py313"
+target-version = "py312"
 
 [tool.ruff.lint]
 select = [
@@ -46,13 +46,14 @@ select = [
 ]
 ignore = [
     "E501",  # line too long (handled by formatter)
+    "SIM117",  # Allow nested with statements for better readability in tests
 ]
 
 [tool.ruff.lint.isort]
 known-first-party = ["src"]
 
 [tool.mypy]
-python_version = "3.13"
+python_version = "3.12"
 strict = true
 warn_return_any = true
 warn_unused_configs = true

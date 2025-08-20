@@ -1,77 +1,71 @@
-"""Base scraper class with caching support."""
+"""Abstract base scraper with HTTP caching, retry logic, and rate limiting."""
 
+import asyncio
+import hashlib
+import json
+import logging
 from abc import ABC, abstractmethod
 from datetime import datetime
 from pathlib import Path
+from typing import Any
 
 import httpx
 from bs4 import BeautifulSoup
-from pydantic import BaseModel, field_validator
+from pydantic import BaseModel, Field
+
+from src.cache.http_cache import HTTPCache
+from src.models.scraper import CacheEntry, ScraperConfig
+
+logger = logging.getLogger(__name__)
 
 
 class DeprecationEntry(BaseModel):
-    """Model for deprecation entries."""
+    """Model for a deprecation entry."""
 
-    title: str
-    description: str
-    deprecation_date: datetime
-    link: str
-    provider: str
-
-    @field_validator("deprecation_date")
-    @classmethod
-    def validate_timezone_aware(cls, v: datetime) -> datetime:
-        """Ensure deprecation date is timezone-aware."""
-        if v.tzinfo is None:
-            raise ValueError("Deprecation date must be timezone-aware")
-        return v
+    title: str = Field(..., description="Title or name of the deprecated item")
+    description: str = Field(..., description="Description of the deprecation")
+    deprecation_date: datetime = Field(..., description="Date when deprecation was announced")
+    retirement_date: datetime | None = Field(None, description="Date when item will be retired")
+    replacement: str | None = Field(None, description="Suggested replacement")
+    link: str = Field(..., description="Link to more information")
+    provider: str = Field(..., description="Provider name (e.g., OpenAI, Anthropic)")
+    model: str | None = Field(None, description="Model name if applicable")
 
 
 class BaseScraper(ABC):
-    """Base class for deprecation scrapers with caching support."""
+    """Abstract base scraper with HTTP caching and common functionality."""
 
-    def __init__(self, cache_dir: Path | None = None):
-        """Initialize scraper with cache.
-
-        Args:
-            cache_dir: Directory to store cache files
-        """
-        from src.cache.http_cache import HTTPCache
-
-        self.cache = HTTPCache(cache_dir=cache_dir)
-
-    async def fetch_page(
-        self, url: str, headers: dict[str, str] | None = None
-    ) -> BeautifulSoup | None:
-        """Fetch and parse HTML page.
+    def __init__(self, url: str, config: ScraperConfig | None = None) -> None:
+        """Initialize scraper with URL and configuration.
 
         Args:
-            url: URL to fetch
-            headers: Additional headers to send
-
-        Returns:
-            BeautifulSoup object or None if fetch fails
+            url: Base URL for the scraper
+            config: Scraper configuration
         """
-        try:
-            content = await self.cache.get(url, headers=headers)
-            return BeautifulSoup(content, "html.parser")
-        except (httpx.NetworkError, httpx.TimeoutException):
-            return None
+        self.url = url
+        self.config = config or ScraperConfig()
+        self._last_request_time = 0.0
 
-    async def scrape(self, url: str) -> list[DeprecationEntry] | None:
-        """Scrape deprecation information from URL.
+        # Ensure cache directory exists
+        self.config.cache_dir.mkdir(parents=True, exist_ok=True)
 
-        Args:
-            url: URL to scrape
+        # Initialize HTTP cache for web requests
+        self.http_cache = HTTPCache(cache_dir=self.config.cache_dir)
 
-        Returns:
-            List of deprecation entries or None if scraping fails
-        """
-        soup = await self.fetch_page(url)
-        if soup is None:
-            return None
+    @abstractmethod
+    async def scrape_api(self) -> dict[str, Any]:
+        """Scrape using API endpoint. Must be implemented by subclasses."""
+        raise NotImplementedError
 
-        return self.parse_deprecations(soup, url)
+    @abstractmethod
+    async def scrape_html(self) -> dict[str, Any]:
+        """Scrape using HTML parsing. Must be implemented by subclasses."""
+        raise NotImplementedError
+
+    @abstractmethod
+    async def scrape_playwright(self) -> dict[str, Any]:
+        """Scrape using Playwright for JS rendering. Must be implemented by subclasses."""
+        raise NotImplementedError
 
     @abstractmethod
     def parse_deprecations(self, soup: BeautifulSoup, base_url: str) -> list[DeprecationEntry]:
@@ -86,6 +80,178 @@ class BaseScraper(ABC):
         """
         pass
 
+    async def fetch_page(
+        self, url: str, headers: dict[str, str] | None = None
+    ) -> BeautifulSoup | None:
+        """Fetch and parse HTML page using HTTP cache.
+
+        Args:
+            url: URL to fetch
+            headers: Additional headers to send
+
+        Returns:
+            BeautifulSoup object or None if fetch fails
+        """
+        try:
+            response = await self.http_cache.get(url, headers=headers)
+            if response:
+                return BeautifulSoup(response.content, "html.parser")
+        except Exception as e:
+            logger.error(f"Failed to fetch {url}: {e}")
+        return None
+
+    async def scrape(self) -> dict[str, Any]:
+        """Main scraping method with fallback pattern and caching."""
+        # Check data cache first (not HTTP cache)
+        cached_data = await self._load_from_cache()
+        if cached_data is not None:
+            logger.info("Returning cached data")
+            return cached_data
+
+        # Try scraping methods in order with fallback pattern
+        methods = [
+            ("API", self.scrape_api),
+            ("HTML", self.scrape_html),
+            ("Playwright", self.scrape_playwright),
+        ]
+
+        last_error = None
+        for method_name, method in methods:
+            try:
+                logger.info(f"Attempting {method_name} scraping")
+                data = await method()
+                logger.info(f"Successfully scraped data using {method_name}")
+
+                # Cache successful result
+                await self._save_to_cache(data)
+                return data
+
+            except Exception as e:
+                logger.warning(f"{method_name} scraping failed: {e}")
+                last_error = e
+                continue
+
+        # All methods failed
+        error_msg = f"All scraping methods failed. Last error: {last_error}"
+        logger.error(error_msg)
+        raise Exception(error_msg) from last_error
+
+    def scrape_sync(self) -> dict[str, Any]:
+        """Synchronous wrapper for async scrape method."""
+        try:
+            # Try to get the current event loop
+            asyncio.get_running_loop()
+            # If we get here, there's a running loop, so we can't use asyncio.run()
+            raise RuntimeError(
+                "Cannot use scrape_sync() from within an async context. Use await scrape() instead."
+            )
+        except RuntimeError as e:
+            # Check if the error is specifically about no running loop
+            if (
+                "no running event loop" in str(e).lower()
+                or "no current event loop" in str(e).lower()
+            ):
+                # No event loop running, safe to use asyncio.run()
+                return asyncio.run(self.scrape())
+            else:
+                # Some other RuntimeError, re-raise it
+                raise
+
+    async def _make_request(self, url: str) -> dict[str, Any]:
+        """Make HTTP request with retry logic and rate limiting.
+
+        This method is for API requests that return JSON.
+        For HTML pages, use fetch_page() which uses the HTTP cache.
+        """
+        await self._enforce_rate_limit()
+
+        headers = {"User-Agent": self.config.user_agent}
+        last_error = None
+
+        for attempt in range(self.config.max_retries + 1):
+            try:
+                async with httpx.AsyncClient() as client:
+                    response = await client.get(
+                        url, headers=headers, timeout=self.config.timeout
+                    )
+                    response.raise_for_status()
+                    json_data: dict[str, Any] = response.json()
+                    return json_data
+
+            except (httpx.RequestError, httpx.HTTPStatusError) as e:
+                last_error = e
+                if attempt < self.config.max_retries:
+                    delay = self.config.retry_delays[attempt]
+                    logger.warning(
+                        f"Request failed (attempt {attempt + 1}), retrying in {delay}s: {e}"
+                    )
+                    await asyncio.sleep(delay)
+                else:
+                    logger.error(f"Request failed after {self.config.max_retries + 1} attempts")
+                    break
+
+        # Re-raise the last error if all retries failed
+        if last_error:
+            raise last_error
+        raise Exception("Request failed for unknown reason")
+
+    async def _enforce_rate_limit(self) -> None:
+        """Enforce rate limiting between requests."""
+        current_time = asyncio.get_event_loop().time()
+        time_since_last = current_time - self._last_request_time
+
+        if time_since_last < self.config.rate_limit_delay:
+            sleep_time = self.config.rate_limit_delay - time_since_last
+            await asyncio.sleep(sleep_time)
+
+        self._last_request_time = asyncio.get_event_loop().time()
+
+    def _get_cache_key(self) -> str:
+        """Generate cache key from URL."""
+        return hashlib.sha256(self.url.encode()).hexdigest()
+
+    async def _load_from_cache(self) -> dict[str, Any] | None:
+        """Load data from cache if available and not expired."""
+        cache_key = self._get_cache_key()
+        cache_file = self.config.cache_dir / f"{cache_key}.json"
+
+        if not cache_file.exists():
+            return None
+
+        try:
+            with open(cache_file) as f:
+                cache_data = json.load(f)
+
+            entry = CacheEntry(**cache_data)
+
+            if entry.is_expired(self.config.cache_ttl_hours):
+                logger.info("Cache expired, removing file")
+                cache_file.unlink(missing_ok=True)
+                return None
+
+            logger.info("Loaded data from cache")
+            return entry.data
+
+        except (json.JSONDecodeError, KeyError, TypeError) as e:
+            logger.warning(f"Failed to load cache file: {e}")
+            # Remove corrupted cache file
+            cache_file.unlink(missing_ok=True)
+            return None
+
+    async def _save_to_cache(self, data: dict[str, Any]) -> None:
+        """Save data to cache with timestamp."""
+        cache_key = self._get_cache_key()
+        cache_file = self.config.cache_dir / f"{cache_key}.json"
+
+        entry = CacheEntry.from_data(data)
+
+        try:
+            with open(cache_file, "w") as f:
+                json.dump(entry.model_dump(), f, default=str)
+            logger.info("Saved data to cache")
+        except (OSError, TypeError) as e:
+            logger.warning(f"Failed to save cache file: {e}")
+
     async def close(self) -> None:
         """Clean up resources."""
-        await self.cache.close()
+        await self.http_cache.close()
