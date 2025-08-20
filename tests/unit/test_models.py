@@ -20,7 +20,7 @@ class TestDeprecationEntry:
             retirement_date=datetime(2024, 9, 13, tzinfo=UTC),
             replacement="gpt-3.5-turbo",
             notes="This model will be retired 3 months after deprecation",
-            url="https://platform.openai.com/docs/deprecations",
+            source_url="https://platform.openai.com/docs/deprecations",
         )
 
         assert entry.provider == "OpenAI"
@@ -37,18 +37,18 @@ class TestDeprecationEntry:
             provider="Anthropic",
             model="claude-2",
             deprecation_date=datetime(2024, 7, 1, tzinfo=UTC),
-            retirement_date=None,
+            retirement_date=datetime(2024, 10, 1, tzinfo=UTC),  # Now required
             replacement=None,
             notes=None,
-            url=None,
+            source_url="https://anthropic.com/deprecations",  # Now required
         )
 
         assert entry.provider == "Anthropic"
         assert entry.model == "claude-2"
-        assert entry.retirement_date is None
+        assert entry.retirement_date == datetime(2024, 10, 1, tzinfo=UTC)
         assert entry.replacement is None
         assert entry.notes is None
-        assert entry.url is None
+        assert str(entry.source_url) == "https://anthropic.com/deprecations"
 
     def test_validates_required_fields(self) -> None:
         """It validates that required fields are present."""
@@ -59,9 +59,11 @@ class TestDeprecationEntry:
             )  # type: ignore[call-arg]
 
         errors = exc_info.value.errors()
-        assert len(errors) == 1
-        assert errors[0]["loc"] == ("deprecation_date",)
-        assert errors[0]["type"] == "missing"
+        assert len(errors) >= 3  # deprecation_date, retirement_date, source_url are required
+        field_names = {error["loc"][0] for error in errors}
+        assert "deprecation_date" in field_names
+        assert "retirement_date" in field_names
+        assert "source_url" in field_names
 
     def test_serializes_to_dict(self) -> None:
         """It serializes to dictionary correctly."""
@@ -72,7 +74,7 @@ class TestDeprecationEntry:
             retirement_date=datetime(2025, 3, 1, tzinfo=UTC),
             replacement="gemini-pro",
             notes="Migrating to Gemini models",
-            url="https://ai.google.dev/deprecations",
+            source_url="https://ai.google.dev/deprecations",
         )
 
         data = entry.model_dump()
@@ -136,7 +138,7 @@ class TestFeedData:
             retirement_date=datetime(2024, 4, 4, tzinfo=UTC),
             replacement="gpt-3.5-turbo",
             notes="Legacy model retirement",
-            url="https://platform.openai.com/docs/deprecations",
+            source_url="https://platform.openai.com/docs/deprecations",
         )
 
         provider_status = ProviderStatus(
@@ -179,7 +181,7 @@ class TestFeedData:
             retirement_date=datetime(2024, 12, 1, tzinfo=UTC),
             replacement="claude-3-haiku",
             notes="Upgrading to Claude 3 family",
-            url="https://docs.anthropic.com/deprecations",
+            source_url="https://docs.anthropic.com/deprecations",
         )
 
         feed = FeedData(

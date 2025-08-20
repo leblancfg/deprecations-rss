@@ -22,7 +22,7 @@ def generate_mock_feed_data() -> FeedData:
             retirement_date=datetime(2024, 9, 13, tzinfo=UTC),
             replacement="gpt-3.5-turbo",
             notes="This model snapshot will be retired 3 months after deprecation",
-            url="https://platform.openai.com/docs/deprecations",
+            source_url="https://platform.openai.com/docs/deprecations",
         ),
         DeprecationEntry(
             provider="OpenAI",
@@ -31,7 +31,7 @@ def generate_mock_feed_data() -> FeedData:
             retirement_date=datetime(2024, 6, 4, tzinfo=UTC),
             replacement="gpt-3.5-turbo or gpt-4",
             notes="Legacy completion model being retired",
-            url="https://platform.openai.com/docs/deprecations",
+            source_url="https://platform.openai.com/docs/deprecations",
         ),
         DeprecationEntry(
             provider="OpenAI",
@@ -40,9 +40,8 @@ def generate_mock_feed_data() -> FeedData:
             retirement_date=datetime(2025, 4, 15, tzinfo=UTC),
             replacement="text-embedding-3-small",
             notes="Upgrading to new embedding models with better performance",
-            url="https://platform.openai.com/docs/guides/embeddings",
+            source_url="https://platform.openai.com/docs/guides/embeddings",
         ),
-
         # Anthropic deprecations
         DeprecationEntry(
             provider="Anthropic",
@@ -51,7 +50,7 @@ def generate_mock_feed_data() -> FeedData:
             retirement_date=datetime(2024, 12, 1, tzinfo=UTC),
             replacement="claude-3-haiku",
             notes="Moving to Claude 3 family for improved capabilities",
-            url="https://docs.anthropic.com/en/docs/about-claude/models",
+            source_url="https://docs.anthropic.com/en/docs/about-claude/models",
         ),
         DeprecationEntry(
             provider="Anthropic",
@@ -60,7 +59,7 @@ def generate_mock_feed_data() -> FeedData:
             retirement_date=datetime(2024, 10, 1, tzinfo=UTC),
             replacement="claude-3-sonnet",
             notes="Claude 2 models superseded by Claude 3 family",
-            url="https://docs.anthropic.com/en/docs/about-claude/models",
+            source_url="https://docs.anthropic.com/en/docs/about-claude/models",
         ),
         DeprecationEntry(
             provider="Anthropic",
@@ -69,9 +68,8 @@ def generate_mock_feed_data() -> FeedData:
             retirement_date=datetime(2024, 10, 1, tzinfo=UTC),
             replacement="claude-3-opus",
             notes="Upgrading to Claude 3 for enhanced performance",
-            url="https://docs.anthropic.com/en/docs/about-claude/models",
+            source_url="https://docs.anthropic.com/en/docs/about-claude/models",
         ),
-
         # Google Vertex AI deprecations
         DeprecationEntry(
             provider="Google Vertex AI",
@@ -80,7 +78,7 @@ def generate_mock_feed_data() -> FeedData:
             retirement_date=datetime(2025, 4, 9, tzinfo=UTC),
             replacement="text-bison@002 or gemini-pro",
             notes="PaLM 2 text-bison-001 being retired after 6 months",
-            url="https://cloud.google.com/vertex-ai/generative-ai/docs/model-reference/text",
+            source_url="https://cloud.google.com/vertex-ai/generative-ai/docs/model-reference/text",
         ),
         DeprecationEntry(
             provider="Google Vertex AI",
@@ -89,7 +87,7 @@ def generate_mock_feed_data() -> FeedData:
             retirement_date=datetime(2025, 4, 9, tzinfo=UTC),
             replacement="chat-bison@002 or gemini-pro",
             notes="PaLM 2 chat model being upgraded",
-            url="https://cloud.google.com/vertex-ai/generative-ai/docs/model-reference/text-chat",
+            source_url="https://cloud.google.com/vertex-ai/generative-ai/docs/model-reference/text-chat",
         ),
         DeprecationEntry(
             provider="Google Vertex AI",
@@ -98,9 +96,8 @@ def generate_mock_feed_data() -> FeedData:
             retirement_date=datetime(2025, 6, 1, tzinfo=UTC),
             replacement="code-bison@002 or gemini-code",
             notes="Code generation model update",
-            url="https://cloud.google.com/vertex-ai/generative-ai/docs/model-reference/code-generation",
+            source_url="https://cloud.google.com/vertex-ai/generative-ai/docs/model-reference/code-generation",
         ),
-
         # AWS Bedrock deprecations
         DeprecationEntry(
             provider="AWS Bedrock",
@@ -109,7 +106,7 @@ def generate_mock_feed_data() -> FeedData:
             retirement_date=datetime(2024, 6, 1, tzinfo=UTC),
             replacement="anthropic.claude-v2 or anthropic.claude-3-sonnet",
             notes="First generation Claude model on Bedrock",
-            url="https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
+            source_url="https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
         ),
         DeprecationEntry(
             provider="AWS Bedrock",
@@ -118,7 +115,7 @@ def generate_mock_feed_data() -> FeedData:
             retirement_date=datetime(2025, 2, 15, tzinfo=UTC),
             replacement="amazon.titan-text-express-v1",
             notes="Titan Lite model being consolidated",
-            url="https://docs.aws.amazon.com/bedrock/latest/userguide/titan-models.html",
+            source_url="https://docs.aws.amazon.com/bedrock/latest/userguide/titan-models.html",
         ),
         DeprecationEntry(
             provider="AWS Bedrock",
@@ -127,9 +124,8 @@ def generate_mock_feed_data() -> FeedData:
             retirement_date=datetime(2025, 4, 1, tzinfo=UTC),
             replacement="ai21.j2-ultra-v1",
             notes="Jurassic-2 mid tier being deprecated",
-            url="https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-jurassic2.html",
+            source_url="https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-jurassic2.html",
         ),
-
         # Cohere deprecations
         DeprecationEntry(
             provider="Cohere",
@@ -138,7 +134,7 @@ def generate_mock_feed_data() -> FeedData:
             retirement_date=datetime(2024, 11, 1, tzinfo=UTC),
             replacement="command-r",
             notes="Nightly models being replaced with stable versions",
-            url="https://docs.cohere.com/docs/models",
+            source_url="https://docs.cohere.com/docs/models",
         ),
         DeprecationEntry(
             provider="Cohere",
@@ -147,7 +143,7 @@ def generate_mock_feed_data() -> FeedData:
             retirement_date=datetime(2024, 12, 15, tzinfo=UTC),
             replacement="command-r-plus",
             notes="Older command model snapshot being retired",
-            url="https://docs.cohere.com/docs/models",
+            source_url="https://docs.cohere.com/docs/models",
         ),
         DeprecationEntry(
             provider="Cohere",
@@ -156,7 +152,7 @@ def generate_mock_feed_data() -> FeedData:
             retirement_date=datetime(2025, 5, 1, tzinfo=UTC),
             replacement="embed-english-v3.0",
             notes="Upgrading to v3.0 embeddings with improved multilingual support",
-            url="https://docs.cohere.com/docs/embed-api",
+            source_url="https://docs.cohere.com/docs/embed-api",
         ),
     ]
 

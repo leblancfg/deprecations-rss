@@ -3,10 +3,11 @@
 import shutil
 from datetime import datetime
 from pathlib import Path
+from typing import Any
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
-from src.models.deprecation import DeprecationEntry, FeedData, ProviderStatus
+from src.models.deprecation import DeprecationEntry, FeedData
 
 
 class StaticSiteGenerator:
@@ -14,29 +15,28 @@ class StaticSiteGenerator:
 
     def __init__(self, feed_data: FeedData, output_dir: Path | None = None) -> None:
         """Initialize the generator with feed data.
-        
+
         Args:
             feed_data: The complete feed data with deprecations and provider statuses
             output_dir: Output directory for generated site (defaults to 'docs')
         """
         self.feed_data = feed_data
         self.output_dir = output_dir or Path("docs")
-        
+
         # Set up Jinja2 environment
         template_dir = Path(__file__).parent / "templates"
         self.env = Environment(
-            loader=FileSystemLoader(template_dir),
-            autoescape=select_autoescape(["html", "xml"])
+            loader=FileSystemLoader(template_dir), autoescape=select_autoescape(["html", "xml"])
         )
 
     def generate_site(self) -> None:
         """Generate the complete static site."""
         # Create output directory
         self.output_dir.mkdir(parents=True, exist_ok=True)
-        
+
         # Copy CSS file
         self._copy_static_assets()
-        
+
         # Generate HTML
         self._generate_html()
 
@@ -51,16 +51,16 @@ class StaticSiteGenerator:
         """Generate the main index.html file."""
         template = self.env.get_template("index.html")
         context = self._get_template_context()
-        
+
         html_content = template.render(**context)
-        
+
         output_file = self.output_dir / "index.html"
         with open(output_file, "w", encoding="utf-8") as f:
             f.write(html_content)
 
-    def _get_template_context(self) -> dict:
+    def _get_template_context(self) -> dict[str, Any]:
         """Get the context dictionary for template rendering.
-        
+
         Returns:
             Dictionary with all data needed for template rendering
         """
@@ -69,17 +69,13 @@ class StaticSiteGenerator:
             "provider_statuses": self.feed_data.provider_statuses,
             "last_updated": self.feed_data.last_updated,
             "rss_feed_url": "https://leblancfg.github.io/deprecations-rss/rss/v1/feed.xml",
-            "current_year": datetime.now().year
+            "current_year": datetime.now().year,
         }
 
     def _get_sorted_deprecations(self) -> list[DeprecationEntry]:
         """Get deprecations sorted by announcement date (newest first).
-        
+
         Returns:
             List of deprecations sorted by deprecation_date descending
         """
-        return sorted(
-            self.feed_data.deprecations,
-            key=lambda d: d.deprecation_date,
-            reverse=True
-        )
+        return sorted(self.feed_data.deprecations, key=lambda d: d.deprecation_date, reverse=True)
