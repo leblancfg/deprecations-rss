@@ -182,36 +182,40 @@ class AnthropicScraper(BaseScraper):
             # Check if this is the status table by looking for expected headers
             headers = table.find("thead")
             if not headers:
-                logger.debug(f"Table {i+1}: No thead found")
+                logger.debug(f"Table {i + 1}: No thead found")
                 continue
 
-            header_cells = [cell.get_text().strip().lower() for cell in headers.find_all(["th", "td"])]
+            header_cells = [
+                cell.get_text().strip().lower() for cell in headers.find_all(["th", "td"])
+            ]
             header_text = " ".join(header_cells)
-            logger.debug(f"Table {i+1} headers: {header_cells}")
+            logger.debug(f"Table {i + 1} headers: {header_cells}")
 
             if not ("api model name" in header_text and "current state" in header_text):
-                logger.debug(f"Table {i+1}: Not the status table (missing expected headers)")
+                logger.debug(f"Table {i + 1}: Not the status table (missing expected headers)")
                 continue
 
-            logger.debug(f"Table {i+1}: Identified as status table")
+            logger.debug(f"Table {i + 1}: Identified as status table")
 
             # Parse table rows
             tbody = table.find("tbody")
             if not tbody:
-                logger.debug(f"Table {i+1}: No tbody found")
+                logger.debug(f"Table {i + 1}: No tbody found")
                 continue
 
             rows = tbody.find_all("tr")
-            logger.debug(f"Table {i+1}: Found {len(rows)} body rows")
+            logger.debug(f"Table {i + 1}: Found {len(rows)} body rows")
 
             for j, row in enumerate(rows):
                 dep = self._parse_status_table_row(row)
                 if dep:
-                    logger.debug(f"Table {i+1}, Row {j+1}: Extracted deprecation for {dep.model}")
+                    logger.debug(
+                        f"Table {i + 1}, Row {j + 1}: Extracted deprecation for {dep.model}"
+                    )
                     deprecations.append(dep)
                 else:
                     cells = [cell.get_text().strip() for cell in row.find_all(["td", "th"])]
-                    logger.debug(f"Table {i+1}, Row {j+1}: Skipped row with cells: {cells}")
+                    logger.debug(f"Table {i + 1}, Row {j + 1}: Skipped row with cells: {cells}")
 
         logger.debug(f"Status table parsing found {len(deprecations)} deprecations")
         return deprecations
@@ -229,7 +233,9 @@ class AnthropicScraper(BaseScraper):
             deprecated_date_str = cells[2].get_text().strip()
             retired_date_str = cells[3].get_text().strip()
 
-            logger.debug(f"Parsing row: model={model}, status={status}, dep_date={deprecated_date_str}, ret_date={retired_date_str}")
+            logger.debug(
+                f"Parsing row: model={model}, status={status}, dep_date={deprecated_date_str}, ret_date={retired_date_str}"
+            )
 
             # Skip active models
             if status == "active":
@@ -279,7 +285,9 @@ class AnthropicScraper(BaseScraper):
             if not headers:
                 continue
 
-            header_cells = [cell.get_text().strip().lower() for cell in headers.find_all(["th", "td"])]
+            header_cells = [
+                cell.get_text().strip().lower() for cell in headers.find_all(["th", "td"])
+            ]
             header_text = " ".join(header_cells)
 
             if not ("retirement date" in header_text and "deprecated model" in header_text):
@@ -333,6 +341,7 @@ class AnthropicScraper(BaseScraper):
     def _estimate_deprecation_date(self, retirement_date: datetime) -> datetime:
         """Estimate deprecation date as retirement date minus 60 days."""
         from datetime import timedelta
+
         return retirement_date - timedelta(days=60)
 
     def _merge_duplicate_deprecations(self, deprecations: list[Deprecation]) -> list[Deprecation]:
@@ -360,10 +369,16 @@ class AnthropicScraper(BaseScraper):
                     estimated_best_date = self._estimate_deprecation_date(best_dep.retirement_date)
 
                     # Choose the better deprecation date (non-estimated if available)
-                    if best_dep.deprecation_date == estimated_best_date and dep.deprecation_date != estimated_dep_date:
+                    if (
+                        best_dep.deprecation_date == estimated_best_date
+                        and dep.deprecation_date != estimated_dep_date
+                    ):
                         # dep has actual date, best has estimated - use dep's date
                         deprecation_date = dep.deprecation_date
-                    elif dep.deprecation_date == estimated_dep_date and best_dep.deprecation_date != estimated_best_date:
+                    elif (
+                        dep.deprecation_date == estimated_dep_date
+                        and best_dep.deprecation_date != estimated_best_date
+                    ):
                         # best has actual date, dep has estimated - use best's date
                         deprecation_date = best_dep.deprecation_date
                     else:
@@ -400,14 +415,14 @@ class AnthropicScraper(BaseScraper):
 
         # Try different date formats
         formats = [
-            "%Y-%m-%d",           # 2024-09-04
-            "%B %d, %Y",          # September 4, 2024
-            "%B %d %Y",           # September 4 2024
-            "%d %B %Y",           # 4 September 2024
-            "%m/%d/%Y",           # 09/04/2024
-            "%d/%m/%Y",           # 04/09/2024
-            "%Y/%m/%d",           # 2024/09/04
-            "%B %Y",              # September 2024
+            "%Y-%m-%d",  # 2024-09-04
+            "%B %d, %Y",  # September 4, 2024
+            "%B %d %Y",  # September 4 2024
+            "%d %B %Y",  # 4 September 2024
+            "%m/%d/%Y",  # 09/04/2024
+            "%d/%m/%Y",  # 04/09/2024
+            "%Y/%m/%d",  # 2024/09/04
+            "%B %Y",  # September 2024
         ]
 
         for fmt in formats:
@@ -433,9 +448,9 @@ class AnthropicScraper(BaseScraper):
         # Try parsing various formats with more flexible regex
         date_patterns = [
             (r"(\w+)\s+(\d{1,2}),?\s+(\d{4})", "%B %d %Y"),  # Month DD, YYYY
-            (r"(\d{1,2})\s+(\w+)\s+(\d{4})", "%d %B %Y"),    # DD Month YYYY
-            (r"(\d{4})-(\d{1,2})-(\d{1,2})", "%Y-%m-%d"),    # YYYY-MM-DD
-            (r"(\d{1,2})/(\d{1,2})/(\d{4})", "%m/%d/%Y"),    # MM/DD/YYYY
+            (r"(\d{1,2})\s+(\w+)\s+(\d{4})", "%d %B %Y"),  # DD Month YYYY
+            (r"(\d{4})-(\d{1,2})-(\d{1,2})", "%Y-%m-%d"),  # YYYY-MM-DD
+            (r"(\d{1,2})/(\d{1,2})/(\d{4})", "%m/%d/%Y"),  # MM/DD/YYYY
         ]
 
         for pattern, fmt in date_patterns:

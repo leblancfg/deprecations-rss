@@ -298,9 +298,7 @@ def describe_anthropic_scraper():
                     assert dep.provider == "Anthropic"
 
                 # Find specific models
-                claude_1_0 = next(
-                    (d for d in deprecations if d.model == "claude-1.0"), None
-                )
+                claude_1_0 = next((d for d in deprecations if d.model == "claude-1.0"), None)
                 assert claude_1_0 is not None
                 assert claude_1_0.deprecation_date.date() == datetime(2024, 9, 4).date()
                 assert claude_1_0.retirement_date.date() == datetime(2024, 11, 6).date()
@@ -352,15 +350,12 @@ def describe_anthropic_scraper():
 
                 # Should parse at least some models with valid dates
                 valid_deprecations = [
-                    d for d in deprecations
-                    if d.deprecation_date and d.retirement_date
+                    d for d in deprecations if d.deprecation_date and d.retirement_date
                 ]
                 assert len(valid_deprecations) >= 1
 
                 # Check that dates were parsed correctly
-                model1 = next(
-                    (d for d in valid_deprecations if d.model == "claude-test-1"), None
-                )
+                model1 = next((d for d in valid_deprecations if d.model == "claude-test-1"), None)
                 if model1:
                     assert model1.deprecation_date.month == 1
                     assert model1.deprecation_date.year == 2024
@@ -543,7 +538,10 @@ def describe_anthropic_scraper():
                             assert dep.model
                             assert dep.deprecation_date
                             assert dep.retirement_date
-                            assert str(dep.source_url) == "https://docs.anthropic.com/en/docs/about-claude/model-deprecations"
+                            assert (
+                                str(dep.source_url)
+                                == "https://docs.anthropic.com/en/docs/about-claude/model-deprecations"
+                            )
 
         @pytest.mark.asyncio
         async def it_validates_date_ordering(scraper):
@@ -651,9 +649,7 @@ def describe_anthropic_scraper():
                 # Should extract replacement from history table
                 if deprecations:
                     dep = next(
-                        (d for d in deprecations if d.model == "claude-3-5-sonnet-20240620"),
-                        None
+                        (d for d in deprecations if d.model == "claude-3-5-sonnet-20240620"), None
                     )
                     if dep:
                         assert dep.replacement == "claude-3-5-sonnet-20241022"
-
