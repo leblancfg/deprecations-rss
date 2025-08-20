@@ -38,10 +38,7 @@ class _TestStorage(BaseStorage):
         self, start_date: datetime, end_date: datetime
     ) -> list[Deprecation]:
         """Get deprecations by date range."""
-        return [
-            dep for dep in self.data
-            if start_date <= dep.deprecation_date <= end_date
-        ]
+        return [dep for dep in self.data if start_date <= dep.deprecation_date <= end_date]
 
     async def delete_by_provider(self, provider: str) -> int:
         """Delete deprecations by provider."""
@@ -74,22 +71,22 @@ def sample_deprecations():
             model="gpt-3.5-turbo-0301",
             deprecation_date=base_date,
             retirement_date=base_date + timedelta(days=90),
-            source_url="https://example.com/openai"
+            source_url="https://example.com/openai",
         ),
         Deprecation(
             provider="Anthropic",
             model="claude-v1",
             deprecation_date=base_date + timedelta(days=30),
             retirement_date=base_date + timedelta(days=120),
-            source_url="https://example.com/anthropic"
+            source_url="https://example.com/anthropic",
         ),
         Deprecation(
             provider="OpenAI",
             model="gpt-4-0314",
             deprecation_date=base_date + timedelta(days=60),
             retirement_date=base_date + timedelta(days=150),
-            source_url="https://example.com/openai2"
-        )
+            source_url="https://example.com/openai2",
+        ),
     ]
 
 
@@ -196,7 +193,7 @@ def describe_base_storage():
             model="test-model",
             deprecation_date=datetime.now(UTC),
             retirement_date=datetime.now(UTC) + timedelta(days=30),
-            source_url="https://example.com"
+            source_url="https://example.com",
         )
 
         success = await storage.update(new_dep)
@@ -233,7 +230,7 @@ def describe_json_storage():
                 model="test-model",
                 deprecation_date=datetime.now(UTC),
                 retirement_date=datetime.now(UTC) + timedelta(days=30),
-                source_url="https://example.com"
+                source_url="https://example.com",
             )
 
             await storage.store([test_dep])
@@ -412,7 +409,7 @@ def describe_json_storage():
             model="test-model",
             deprecation_date=datetime.now(UTC),
             retirement_date=datetime.now(UTC) + timedelta(days=30),
-            source_url="https://example.com"
+            source_url="https://example.com",
         )
 
         success = await storage.update(new_dep)

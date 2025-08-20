@@ -31,10 +31,7 @@ class JsonStorage(BaseStorage):
         existing_hashes = {dep.get_hash() for dep in existing}
 
         # Filter out duplicates
-        new_deprecations = [
-            dep for dep in deprecations
-            if dep.get_hash() not in existing_hashes
-        ]
+        new_deprecations = [dep for dep in deprecations if dep.get_hash() not in existing_hashes]
 
         if not new_deprecations:
             return 0
@@ -62,20 +59,14 @@ class JsonStorage(BaseStorage):
     ) -> list[Deprecation]:
         """Retrieve deprecations within a date range."""
         all_deprecations = await self._load_from_file()
-        return [
-            dep for dep in all_deprecations
-            if start_date <= dep.deprecation_date <= end_date
-        ]
+        return [dep for dep in all_deprecations if start_date <= dep.deprecation_date <= end_date]
 
     async def delete_by_provider(self, provider: str) -> int:
         """Delete all deprecations for a specific provider."""
         all_deprecations = await self._load_from_file()
         original_count = len(all_deprecations)
 
-        filtered_deprecations = [
-            dep for dep in all_deprecations
-            if dep.provider != provider
-        ]
+        filtered_deprecations = [dep for dep in all_deprecations if dep.provider != provider]
 
         deleted_count = original_count - len(filtered_deprecations)
 

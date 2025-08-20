@@ -22,7 +22,13 @@ from src.storage.json_storage import JsonStorage
 class _TestScraper(BaseScraper):
     """Test scraper that returns predictable data."""
 
-    def __init__(self, url: str, provider: str, should_fail: bool = False, config: ScraperConfig | None = None):
+    def __init__(
+        self,
+        url: str,
+        provider: str,
+        should_fail: bool = False,
+        config: ScraperConfig | None = None,
+    ):
         super().__init__(url, config)
         self.provider = provider
         self.should_fail = should_fail
@@ -40,7 +46,7 @@ class _TestScraper(BaseScraper):
                     "deprecation_date": "2024-01-01T00:00:00Z",
                     "retirement_date": "2024-04-01T00:00:00Z",
                     "source_url": self.url,
-                    "notes": f"Test deprecation from {self.provider}"
+                    "notes": f"Test deprecation from {self.provider}",
                 }
             ]
         }
@@ -75,10 +81,7 @@ def temp_data_dir():
 def orchestrator_config():
     """Create test orchestrator configuration."""
     return OrchestratorConfig(
-        max_concurrent=2,
-        timeout_seconds=30,
-        retry_failed=True,
-        fail_fast=False
+        max_concurrent=2, timeout_seconds=30, retry_failed=True, fail_fast=False
     )
 
 
@@ -88,7 +91,7 @@ def sample_scrapers():
     return [
         _TestScraper("https://openai.com/api", "OpenAI"),
         _TestScraper("https://anthropic.com/api", "Anthropic"),
-        _TestScraper("https://google.com/api", "Google")
+        _TestScraper("https://google.com/api", "Google"),
     ]
 
 
@@ -106,10 +109,7 @@ def describe_orchestrator_config():
     def it_accepts_custom_values():
         """Accepts custom configuration values."""
         config = OrchestratorConfig(
-            max_concurrent=3,
-            timeout_seconds=60,
-            retry_failed=False,
-            fail_fast=True
+            max_concurrent=3, timeout_seconds=60, retry_failed=False, fail_fast=True
         )
         assert config.max_concurrent == 3
         assert config.timeout_seconds == 60
@@ -130,7 +130,7 @@ def describe_orchestrator_result():
             new_deprecations=3,
             updated_deprecations=2,
             execution_time_seconds=45.5,
-            errors=["OpenAI scraper failed: API error"]
+            errors=["OpenAI scraper failed: API error"],
         )
 
         assert result.total_scrapers == 3
@@ -152,7 +152,7 @@ def describe_orchestrator_result():
             new_deprecations=0,
             updated_deprecations=0,
             execution_time_seconds=0,
-            errors=[]
+            errors=[],
         )
 
         assert result.success_rate == 0.75
@@ -167,7 +167,7 @@ def describe_orchestrator_result():
             new_deprecations=0,
             updated_deprecations=0,
             execution_time_seconds=0,
-            errors=[]
+            errors=[],
         )
 
         assert result.success_rate == 0.0
@@ -241,7 +241,7 @@ def describe_scraper_orchestrator():
         assert result.new_deprecations == 2
         assert len(result.errors) == 1
         assert "Anthropic scraping failed" in result.errors[0]
-        assert result.success_rate == 2/3
+        assert result.success_rate == 2 / 3
 
     @pytest.mark.asyncio
     async def it_fails_fast_when_configured(temp_data_dir):
@@ -267,7 +267,7 @@ def describe_scraper_orchestrator():
         orchestrator = ScraperOrchestrator(storage, config)
 
         # Mock semaphore to verify it's being used
-        with patch('asyncio.Semaphore') as mock_semaphore:
+        with patch("asyncio.Semaphore") as mock_semaphore:
             mock_semaphore.return_value.__aenter__ = AsyncMock()
             mock_semaphore.return_value.__aexit__ = AsyncMock()
 
@@ -314,7 +314,7 @@ def describe_scraper_orchestrator():
             deprecation_date=datetime(2024, 1, 1, tzinfo=UTC),
             retirement_date=datetime(2024, 4, 1, tzinfo=UTC),
             source_url="https://openai.com/api",
-            notes="Initial note"
+            notes="Initial note",
         )
         await storage.store([initial_dep])
 
@@ -330,7 +330,7 @@ def describe_scraper_orchestrator():
                             "retirement_date": "2024-04-01T00:00:00Z",
                             "source_url": "https://openai.com/api",
                             "notes": "Updated note",
-                            "replacement": "new-model"
+                            "replacement": "new-model",
                         }
                     ]
                 }
@@ -407,7 +407,7 @@ def describe_scraper_orchestrator():
         orchestrator = ScraperOrchestrator(storage)
 
         # Mock logger to verify logging calls
-        with patch('src.scrapers.orchestrator.logger') as mock_logger:
+        with patch("src.scrapers.orchestrator.logger") as mock_logger:
             await orchestrator.run(sample_scrapers)
 
             # Verify progress logging

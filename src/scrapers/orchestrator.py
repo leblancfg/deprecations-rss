@@ -33,7 +33,9 @@ class OrchestratorResult(BaseModel):
     new_deprecations: int = Field(description="Number of new deprecations stored")
     updated_deprecations: int = Field(description="Number of updated deprecations")
     execution_time_seconds: float = Field(description="Total execution time in seconds")
-    errors: list[str] = Field(default_factory=list, description="Error messages from failed scrapers")
+    errors: list[str] = Field(
+        default_factory=list, description="Error messages from failed scrapers"
+    )
 
     @property
     def success_rate(self) -> float:
@@ -83,7 +85,7 @@ class ScraperOrchestrator:
                 new_deprecations=0,
                 updated_deprecations=0,
                 execution_time_seconds=0.0,
-                errors=[]
+                errors=[],
             )
 
         # Create semaphore for concurrency control
@@ -154,7 +156,7 @@ class ScraperOrchestrator:
             new_deprecations=new_count,
             updated_deprecations=updated_count,
             execution_time_seconds=execution_time,
-            errors=errors
+            errors=errors,
         )
 
         logger.info(
@@ -181,10 +183,7 @@ class ScraperOrchestrator:
         async with semaphore:
             try:
                 # Run scraper with timeout
-                data = await asyncio.wait_for(
-                    scraper.scrape(),
-                    timeout=self.config.timeout_seconds
-                )
+                data = await asyncio.wait_for(scraper.scrape(), timeout=self.config.timeout_seconds)
 
                 # Parse deprecations from scraper data
                 deprecations, errors = self._parse_scraper_data(data)
@@ -271,7 +270,9 @@ class ScraperOrchestrator:
                     success = await self.storage.update(deprecation)
                     if success:
                         updated_count += 1
-                        logger.debug(f"Updated deprecation: {deprecation.provider} {deprecation.model}")
+                        logger.debug(
+                            f"Updated deprecation: {deprecation.provider} {deprecation.model}"
+                        )
             else:
                 # This is a new deprecation
                 new_deprecations.append(deprecation)

@@ -83,10 +83,15 @@ class BaseScraper(ABC):
             # Try to get the current event loop
             asyncio.get_running_loop()
             # If we get here, there's a running loop, so we can't use asyncio.run()
-            raise RuntimeError("Cannot use scrape_sync() from within an async context. Use await scrape() instead.")
+            raise RuntimeError(
+                "Cannot use scrape_sync() from within an async context. Use await scrape() instead."
+            )
         except RuntimeError as e:
             # Check if the error is specifically about no running loop
-            if "no running event loop" in str(e).lower() or "no current event loop" in str(e).lower():
+            if (
+                "no running event loop" in str(e).lower()
+                or "no current event loop" in str(e).lower()
+            ):
                 # No event loop running, safe to use asyncio.run()
                 return asyncio.run(self.scrape())
             else:
@@ -103,11 +108,7 @@ class BaseScraper(ABC):
         for attempt in range(self.config.max_retries + 1):
             try:
                 async with httpx.AsyncClient() as client:
-                    response = await client.get(
-                        url,
-                        headers=headers,
-                        timeout=self.config.timeout
-                    )
+                    response = await client.get(url, headers=headers, timeout=self.config.timeout)
                     response.raise_for_status()
                     json_data: dict[str, Any] = response.json()
                     return json_data
@@ -116,7 +117,9 @@ class BaseScraper(ABC):
                 last_error = e
                 if attempt < self.config.max_retries:
                     delay = self.config.retry_delays[attempt]
-                    logger.warning(f"Request failed (attempt {attempt + 1}), retrying in {delay}s: {e}")
+                    logger.warning(
+                        f"Request failed (attempt {attempt + 1}), retrying in {delay}s: {e}"
+                    )
                     await asyncio.sleep(delay)
                 else:
                     logger.error(f"Request failed after {self.config.max_retries + 1} attempts")
@@ -183,4 +186,3 @@ class BaseScraper(ABC):
             logger.info("Saved data to cache")
         except (OSError, TypeError) as e:
             logger.warning(f"Failed to save cache file: {e}")
-

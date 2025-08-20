@@ -49,7 +49,7 @@ def describe_deprecation_model():
             replacement="claude-3-haiku",
             notes="This model is being retired in favor of Claude 3.",
             source_url="https://docs.anthropic.com/deprecations",
-            last_updated=last_updated
+            last_updated=last_updated,
         )
 
         assert deprecation.replacement == "claude-3-haiku"
@@ -63,7 +63,7 @@ def describe_deprecation_model():
                 model="test-model",
                 deprecation_date=datetime.now(UTC),
                 retirement_date=datetime.now(UTC) + timedelta(days=30),
-                source_url="https://example.com"
+                source_url="https://example.com",
             )
 
         errors = exc_info.value.errors()
@@ -76,7 +76,7 @@ def describe_deprecation_model():
                 provider="TestProvider",
                 deprecation_date=datetime.now(UTC),
                 retirement_date=datetime.now(UTC) + timedelta(days=30),
-                source_url="https://example.com"
+                source_url="https://example.com",
             )
 
         errors = exc_info.value.errors()
@@ -89,7 +89,7 @@ def describe_deprecation_model():
                 provider="TestProvider",
                 model="test-model",
                 retirement_date=datetime.now(UTC) + timedelta(days=30),
-                source_url="https://example.com"
+                source_url="https://example.com",
             )
 
         errors = exc_info.value.errors()
@@ -102,7 +102,7 @@ def describe_deprecation_model():
                 provider="TestProvider",
                 model="test-model",
                 deprecation_date=datetime.now(UTC),
-                source_url="https://example.com"
+                source_url="https://example.com",
             )
 
         errors = exc_info.value.errors()
@@ -115,7 +115,7 @@ def describe_deprecation_model():
                 provider="TestProvider",
                 model="test-model",
                 deprecation_date=datetime.now(UTC),
-                retirement_date=datetime.now(UTC) + timedelta(days=30)
+                retirement_date=datetime.now(UTC) + timedelta(days=30),
             )
 
         errors = exc_info.value.errors()
@@ -129,7 +129,7 @@ def describe_deprecation_model():
                 model="test-model",
                 deprecation_date=datetime.now(UTC),
                 retirement_date=datetime.now(UTC) + timedelta(days=30),
-                source_url="not-a-url"
+                source_url="not-a-url",
             )
 
         errors = exc_info.value.errors()
@@ -146,11 +146,14 @@ def describe_deprecation_model():
                 model="test-model",
                 deprecation_date=deprecation_date,
                 retirement_date=retirement_date,
-                source_url="https://example.com"
+                source_url="https://example.com",
             )
 
         errors = exc_info.value.errors()
-        assert any("retirement_date must be after deprecation_date" in str(error["msg"]) for error in errors)
+        assert any(
+            "retirement_date must be after deprecation_date" in str(error["msg"])
+            for error in errors
+        )
 
     def it_serializes_to_dict():
         """Serializes deprecation to dictionary."""
@@ -166,7 +169,7 @@ def describe_deprecation_model():
             replacement="gpt-3.5-turbo",
             notes="Upgrading to newer version",
             source_url="https://example.com/notice",
-            last_updated=last_updated
+            last_updated=last_updated,
         )
 
         data = deprecation.model_dump()
@@ -190,7 +193,7 @@ def describe_deprecation_model():
             model="gpt-3.5-turbo-0301",
             deprecation_date=deprecation_date,
             retirement_date=retirement_date,
-            source_url="https://example.com/notice"
+            source_url="https://example.com/notice",
         )
 
         json_str = deprecation.model_dump_json()
@@ -211,7 +214,7 @@ def describe_deprecation_model():
             "replacement": "claude-3-haiku",
             "notes": "Upgrading to Claude 3",
             "source_url": "https://docs.anthropic.com",
-            "last_updated": "2024-01-15T10:30:00+00:00"
+            "last_updated": "2024-01-15T10:30:00+00:00",
         }
 
         deprecation = Deprecation.model_validate(data)
@@ -232,7 +235,7 @@ def describe_deprecation_model():
             model="gpt-3.5-turbo-0301",
             deprecation_date=datetime(2024, 1, 1, tzinfo=UTC),
             retirement_date=datetime(2024, 4, 1, tzinfo=UTC),
-            source_url="https://example.com"
+            source_url="https://example.com",
         )
 
         deprecation2 = Deprecation(
@@ -240,7 +243,7 @@ def describe_deprecation_model():
             model="gpt-3.5-turbo-0301",
             deprecation_date=datetime(2024, 1, 1, tzinfo=UTC),
             retirement_date=datetime(2024, 4, 1, tzinfo=UTC),
-            source_url="https://example.com"
+            source_url="https://example.com",
         )
 
         # Same core data should generate same hash (ignoring last_updated)
@@ -257,7 +260,7 @@ def describe_deprecation_model():
             model="gpt-3.5-turbo-0301",
             deprecation_date=datetime(2024, 1, 1, tzinfo=UTC),
             retirement_date=datetime(2024, 4, 1, tzinfo=UTC),
-            source_url="https://example.com"
+            source_url="https://example.com",
         )
 
         deprecation2 = Deprecation(
@@ -265,7 +268,7 @@ def describe_deprecation_model():
             model="gpt-4",  # Different model
             deprecation_date=datetime(2024, 1, 1, tzinfo=UTC),
             retirement_date=datetime(2024, 4, 1, tzinfo=UTC),
-            source_url="https://example.com"
+            source_url="https://example.com",
         )
 
         hash1 = deprecation1.get_hash()
@@ -280,7 +283,7 @@ def describe_deprecation_model():
             deprecation_date=datetime(2024, 1, 1, tzinfo=UTC),
             retirement_date=datetime(2024, 4, 1, tzinfo=UTC),
             source_url="https://example.com",
-            last_updated=datetime.now(UTC)
+            last_updated=datetime.now(UTC),
         )
 
         deprecation2 = Deprecation(
@@ -289,7 +292,7 @@ def describe_deprecation_model():
             deprecation_date=datetime(2024, 1, 1, tzinfo=UTC),
             retirement_date=datetime(2024, 4, 1, tzinfo=UTC),
             source_url="https://example.com",
-            last_updated=datetime.now(UTC) + timedelta(hours=1)  # Different last_updated
+            last_updated=datetime.now(UTC) + timedelta(hours=1),  # Different last_updated
         )
 
         # Should be equal despite different last_updated (core data is same)
@@ -302,7 +305,7 @@ def describe_deprecation_model():
             model="gpt-3.5-turbo-0301",
             deprecation_date=datetime(2024, 1, 1, tzinfo=UTC),
             retirement_date=datetime(2024, 4, 1, tzinfo=UTC),
-            source_url="https://example.com"
+            source_url="https://example.com",
         )
 
         deprecation2 = Deprecation(
@@ -310,7 +313,7 @@ def describe_deprecation_model():
             model="gpt-3.5-turbo-0301",
             deprecation_date=datetime(2024, 1, 1, tzinfo=UTC),
             retirement_date=datetime(2024, 4, 1, tzinfo=UTC),
-            source_url="https://example.com"
+            source_url="https://example.com",
         )
 
         assert deprecation1 != deprecation2
@@ -322,7 +325,7 @@ def describe_deprecation_model():
             model="gpt-3.5-turbo-0301",
             deprecation_date=datetime(2024, 1, 1, tzinfo=UTC),
             retirement_date=datetime(2024, 4, 1, tzinfo=UTC),
-            source_url="https://example.com"
+            source_url="https://example.com",
         )
 
         str_repr = str(deprecation)
@@ -339,7 +342,7 @@ def describe_deprecation_model():
             deprecation_date=datetime(2024, 1, 1, tzinfo=UTC),
             retirement_date=datetime(2024, 4, 1, tzinfo=UTC),
             source_url="https://example.com",
-            notes="Original note"
+            notes="Original note",
         )
 
         deprecation2 = Deprecation(
@@ -348,7 +351,7 @@ def describe_deprecation_model():
             deprecation_date=datetime(2024, 1, 1, tzinfo=UTC),
             retirement_date=datetime(2024, 4, 1, tzinfo=UTC),
             source_url="https://example.com",
-            notes="Updated note"  # Different notes
+            notes="Updated note",  # Different notes
         )
 
         # Should have same identity hash despite different notes
@@ -366,7 +369,7 @@ def describe_deprecation_model():
             deprecation_date=datetime(2024, 1, 1, tzinfo=UTC),
             retirement_date=datetime(2024, 4, 1, tzinfo=UTC),
             source_url="https://example.com",
-            notes="Original note"
+            notes="Original note",
         )
 
         deprecation2 = Deprecation(
@@ -376,7 +379,7 @@ def describe_deprecation_model():
             retirement_date=datetime(2024, 4, 1, tzinfo=UTC),
             source_url="https://example.com",
             notes="Updated note",
-            replacement="gpt-3.5-turbo"
+            replacement="gpt-3.5-turbo",
         )
 
         # Should recognize as same deprecation despite different notes/replacement
@@ -390,7 +393,7 @@ def describe_deprecation_model():
             model="gpt-3.5-turbo-0301",
             deprecation_date=datetime(2024, 1, 1, tzinfo=UTC),
             retirement_date=datetime(2024, 4, 1, tzinfo=UTC),
-            source_url="https://example.com"
+            source_url="https://example.com",
         )
 
         deprecation2 = Deprecation(
@@ -398,7 +401,7 @@ def describe_deprecation_model():
             model="gpt-4",  # Different model
             deprecation_date=datetime(2024, 1, 1, tzinfo=UTC),
             retirement_date=datetime(2024, 4, 1, tzinfo=UTC),
-            source_url="https://example.com"
+            source_url="https://example.com",
         )
 
         # Should recognize as different deprecations

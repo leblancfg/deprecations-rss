@@ -18,7 +18,7 @@ class Deprecation(BaseModel):
     source_url: HttpUrl = Field(description="URL where the deprecation info came from")
     last_updated: datetime = Field(
         default_factory=lambda: datetime.now(UTC),
-        description="When we last checked this information"
+        description="When we last checked this information",
     )
 
     @field_validator("deprecation_date", "retirement_date", "last_updated")

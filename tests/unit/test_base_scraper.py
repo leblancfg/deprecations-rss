@@ -51,7 +51,7 @@ def describe_scraper_config():
             max_retries=5,
             cache_ttl_hours=12,
             timeout=60.0,
-            cache_dir=Path("custom_cache")
+            cache_dir=Path("custom_cache"),
         )
         assert config.rate_limit_delay == 2.0
         assert config.max_retries == 5
@@ -88,6 +88,7 @@ def temp_cache_dir():
     with tempfile.TemporaryDirectory() as temp_dir:
         yield Path(temp_dir)
 
+
 @pytest.fixture
 def config(temp_cache_dir):
     """Create test configuration."""
@@ -95,8 +96,9 @@ def config(temp_cache_dir):
         cache_dir=temp_cache_dir,
         rate_limit_delay=0.1,  # Speed up tests
         max_retries=2,
-        retry_delays=[0.1, 0.2]
+        retry_delays=[0.1, 0.2],
     )
+
 
 @pytest.fixture
 def scraper(config):
@@ -216,7 +218,7 @@ def describe_base_scraper():
                 mock_get.assert_called_once_with(
                     "https://test.com/api",
                     headers={"User-Agent": scraper.config.user_agent},
-                    timeout=scraper.config.timeout
+                    timeout=scraper.config.timeout,
                 )
 
         @pytest.mark.asyncio
@@ -226,7 +228,7 @@ def describe_base_scraper():
             mock_response.raise_for_status.side_effect = [
                 httpx.HTTPStatusError("Error", request=MagicMock(), response=MagicMock()),
                 httpx.HTTPStatusError("Error", request=MagicMock(), response=MagicMock()),
-                None  # Success on third try
+                None,  # Success on third try
             ]
             mock_response.status_code = 200
             mock_response.json.return_value = {"success": True}
@@ -260,33 +262,37 @@ def describe_base_scraper():
         @pytest.mark.asyncio
         async def it_tries_api_first(scraper):
             """Tries API scraping first and returns result."""
-            with patch.object(scraper, 'scrape_api', return_value={"source": "api"}):
+            with patch.object(scraper, "scrape_api", return_value={"source": "api"}):
                 result = await scraper.scrape()
                 assert result == {"source": "api"}
 
         @pytest.mark.asyncio
         async def it_falls_back_to_html_when_api_fails(scraper):
             """Falls back to HTML scraping when API fails."""
-            with patch.object(scraper, 'scrape_api', side_effect=Exception("API failed")):
-                with patch.object(scraper, 'scrape_html', return_value={"source": "html"}):
+            with patch.object(scraper, "scrape_api", side_effect=Exception("API failed")):
+                with patch.object(scraper, "scrape_html", return_value={"source": "html"}):
                     result = await scraper.scrape()
                     assert result == {"source": "html"}
 
         @pytest.mark.asyncio
         async def it_falls_back_to_playwright_when_html_fails(scraper):
             """Falls back to Playwright when HTML fails."""
-            with patch.object(scraper, 'scrape_api', side_effect=Exception("API failed")):
-                with patch.object(scraper, 'scrape_html', side_effect=Exception("HTML failed")):
-                    with patch.object(scraper, 'scrape_playwright', return_value={"source": "playwright"}):
+            with patch.object(scraper, "scrape_api", side_effect=Exception("API failed")):
+                with patch.object(scraper, "scrape_html", side_effect=Exception("HTML failed")):
+                    with patch.object(
+                        scraper, "scrape_playwright", return_value={"source": "playwright"}
+                    ):
                         result = await scraper.scrape()
                         assert result == {"source": "playwright"}
 
         @pytest.mark.asyncio
         async def it_raises_exception_when_all_methods_fail(scraper):
             """Raises exception when all scraping methods fail."""
-            with patch.object(scraper, 'scrape_api', side_effect=Exception("API failed")):
-                with patch.object(scraper, 'scrape_html', side_effect=Exception("HTML failed")):
-                    with patch.object(scraper, 'scrape_playwright', side_effect=Exception("Playwright failed")):
+            with patch.object(scraper, "scrape_api", side_effect=Exception("API failed")):
+                with patch.object(scraper, "scrape_html", side_effect=Exception("HTML failed")):
+                    with patch.object(
+                        scraper, "scrape_playwright", side_effect=Exception("Playwright failed")
+                    ):
                         with pytest.raises(Exception, match="All scraping methods failed"):
                             await scraper.scrape()
 
@@ -298,7 +304,7 @@ def describe_base_scraper():
             """Returns cached data when available and not expired."""
             cached_data = {"cached": True}
 
-            with patch.object(scraper, '_load_from_cache', return_value=cached_data):
+            with patch.object(scraper, "_load_from_cache", return_value=cached_data):
                 result = await scraper.scrape()
                 assert result == cached_data
 
@@ -307,9 +313,9 @@ def describe_base_scraper():
             """Caches data after successful scraping."""
             scraped_data = {"source": "api", "fresh": True}
 
-            with patch.object(scraper, '_load_from_cache', return_value=None):
-                with patch.object(scraper, 'scrape_api', return_value=scraped_data):
-                    with patch.object(scraper, '_save_to_cache') as mock_save:
+            with patch.object(scraper, "_load_from_cache", return_value=None):
+                with patch.object(scraper, "scrape_api", return_value=scraped_data):
+                    with patch.object(scraper, "_save_to_cache") as mock_save:
                         result = await scraper.scrape()
 
                         assert result == scraped_data
@@ -324,8 +330,10 @@ def describe_base_scraper():
             config = ScraperConfig()
             scraper = _TestScraper("https://test.com", config)
 
-            with patch.object(scraper, 'scrape', new_callable=AsyncMock, return_value={"sync": True}):
-                with patch('asyncio.run', return_value={"sync": True}) as mock_run:
+            with patch.object(
+                scraper, "scrape", new_callable=AsyncMock, return_value={"sync": True}
+            ):
+                with patch("asyncio.run", return_value={"sync": True}) as mock_run:
                     result = scraper.scrape_sync()
                     assert result == {"sync": True}
                     mock_run.assert_called_once()
@@ -336,7 +344,8 @@ def describe_base_scraper():
             scraper = _TestScraper("https://test.com", config)
 
             # Mock get_running_loop to simulate being in an async context
-            with patch('asyncio.get_running_loop', return_value=MagicMock()):
-                with pytest.raises(RuntimeError, match="Cannot use scrape_sync.*from within an async context"):
+            with patch("asyncio.get_running_loop", return_value=MagicMock()):
+                with pytest.raises(
+                    RuntimeError, match="Cannot use scrape_sync.*from within an async context"
+                ):
                     scraper.scrape_sync()
-
