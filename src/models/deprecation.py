@@ -86,6 +86,53 @@ class DeprecationEntry(BaseModel):
         }
     }
 
+    # Compatibility methods for main branch
+    def is_active(self) -> bool:
+        """Check if deprecation is still active (not yet retired)."""
+        from datetime import UTC
+
+        now = datetime.now(UTC)
+        return self.retirement_date > now
+
+    def get_hash(self) -> str:
+        """Generate hash for core deprecation data."""
+        import hashlib
+
+        core_data = {
+            "provider": self.provider,
+            "model": self.model,
+            "deprecation_date": self.deprecation_date.isoformat(),
+            "retirement_date": self.retirement_date.isoformat(),
+            "replacement": self.replacement,
+            "notes": self.notes,
+            "source_url": self.source_url,
+        }
+        data_str = str(sorted(core_data.items()))
+        return hashlib.sha256(data_str.encode()).hexdigest()
+
+    def get_identity_hash(self) -> str:
+        """Generate hash for identifying same deprecation."""
+        import hashlib
+
+        identity_data = {
+            "provider": self.provider,
+            "model": self.model,
+            "deprecation_date": self.deprecation_date.isoformat(),
+            "retirement_date": self.retirement_date.isoformat(),
+            "source_url": self.source_url,
+        }
+        data_str = str(sorted(identity_data.items()))
+        return hashlib.sha256(data_str.encode()).hexdigest()
+
+    def same_deprecation(self, other: "DeprecationEntry") -> bool:
+        """Check if this represents the same deprecation."""
+        return self.get_identity_hash() == other.get_identity_hash()
+
+    @property
+    def created_at(self) -> datetime:
+        """Alias for compatibility with main branch."""
+        return self.deprecation_date
+
 
 # Alias for compatibility with other branches that may use Deprecation
 Deprecation = DeprecationEntry
