@@ -65,13 +65,24 @@ class ScraperRegistry:
             return None
 
         try:
-            # OpenAI scraper doesn't take config in __init__
+            # OpenAI scraper has its own URL and doesn't take arguments
             if name == "openai":
-                scraper = scraper_class()
+                scraper = scraper_class()  # type: ignore[call-arg]
                 if config:
                     scraper.config = config
             else:
-                scraper = scraper_class(config=config) if config else scraper_class()
+                # Try to create with config parameter (for test scrapers)
+                try:
+                    scraper = scraper_class(config=config)  # type: ignore[call-arg]
+                except TypeError:
+                    # If that fails, try without any arguments
+                    try:
+                        scraper = scraper_class()  # type: ignore[call-arg]
+                        if config:
+                            scraper.config = config
+                    except TypeError:
+                        logger.error(f"Cannot instantiate scraper {name} - unknown constructor signature")
+                        return None
 
             logger.debug(f"Created scraper instance: {name}")
             return scraper
