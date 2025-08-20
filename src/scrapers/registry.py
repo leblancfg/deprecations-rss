@@ -3,6 +3,7 @@
 import logging
 
 from src.models.scraper import ScraperConfig
+from src.scrapers.anthropic import AnthropicScraper
 from src.scrapers.base import BaseScraper
 from src.scrapers.openai import OpenAIScraper
 
@@ -19,6 +20,7 @@ class ScraperRegistry:
 
     def _register_default_scrapers(self) -> None:
         """Register all default scrapers."""
+        self.register("anthropic", AnthropicScraper)
         self.register("openai", OpenAIScraper)
         logger.info(f"Registered {len(self._scrapers)} default scrapers")
 
@@ -65,8 +67,8 @@ class ScraperRegistry:
             return None
 
         try:
-            # OpenAI scraper has its own URL and doesn't take arguments
-            if name == "openai":
+            # Both OpenAI and Anthropic scrapers have their own URLs and don't take arguments
+            if name in ("openai", "anthropic"):
                 scraper = scraper_class()  # type: ignore[call-arg]
                 if config:
                     scraper.config = config

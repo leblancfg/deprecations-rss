@@ -29,10 +29,10 @@ scrapers:
     rate_limit_delay: 3.0      # Be conservative with rate limiting
 
   # Additional scrapers can be added here as they are implemented
-  # anthropic:
-  #   enabled: true
-  #   url: "https://docs.anthropic.com/deprecations"
-  #   description: "Anthropic model deprecations"
+  anthropic:
+    enabled: true
+    url: "https://docs.anthropic.com/en/docs/about-claude/model-deprecations"
+    description: "Anthropic Claude model deprecations"
   
   # google:
   #   enabled: true
