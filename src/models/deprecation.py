@@ -2,6 +2,7 @@
 
 import hashlib
 from datetime import UTC, datetime
+from typing import Any
 
 from pydantic import BaseModel, Field, HttpUrl, field_validator, model_validator
 
@@ -19,6 +20,11 @@ class Deprecation(BaseModel):
     last_updated: datetime = Field(
         default_factory=lambda: datetime.now(UTC),
         description="When we last checked this information",
+    )
+    # Alias for compatibility with main branch
+    created_at: datetime = Field(
+        default_factory=lambda: datetime.now(UTC),
+        description="When entry was created (alias for last_updated)",
     )
 
     @field_validator("deprecation_date", "retirement_date", "last_updated")
@@ -89,6 +95,33 @@ class Deprecation(BaseModel):
             f"{self.deprecation_date.date()} -> {self.retirement_date.date()})"
         )
 
+    def is_active(self) -> bool:
+        """Check if the deprecation is still active (not yet retired)."""
+        now = datetime.now(UTC)
+        return self.retirement_date > now
+
+    def to_rss_item(self) -> dict[str, Any]:
+        """Convert deprecation to RSS item format (compatibility with main)."""
+        title = f"{self.provider}: {self.model} Deprecation"
+        description_parts = [
+            f"Model: {self.model}",
+            f"Provider: {self.provider}",
+            f"Deprecation Date: {self.deprecation_date.strftime('%Y-%m-%d')}",
+            f"Retirement Date: {self.retirement_date.strftime('%Y-%m-%d')}",
+        ]
+        if self.replacement:
+            description_parts.append(f"Replacement: {self.replacement}")
+        if self.notes:
+            description_parts.append(f"Notes: {self.notes}")
+
+        return {
+            "title": title,
+            "description": " | ".join(description_parts),
+            "guid": str(self.source_url),
+            "pubDate": self.created_at,
+            "link": str(self.source_url),
+        }
+
     def __repr__(self) -> str:
         """Detailed string representation."""
         return (
@@ -96,3 +129,7 @@ class Deprecation(BaseModel):
             f"deprecation_date={self.deprecation_date.isoformat()}, "
             f"retirement_date={self.retirement_date.isoformat()})"
         )
+
+
+# Main has DeprecationEntry, we use Deprecation, create alias for compatibility
+DeprecationEntry = Deprecation

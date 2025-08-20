@@ -133,7 +133,17 @@ class ScraperOrchestrator:
                 errors.append(error_msg)
                 logger.warning(error_msg)
             else:
-                deprecations, scraper_errors = result
+                # Ensure result is a tuple, not an exception
+                if isinstance(result, tuple) and len(result) == 2:
+                    deprecations, scraper_errors = result
+                else:
+                    # Handle unexpected result format
+                    failed_count += 1
+                    error_msg = f"Scraper {i} returned unexpected data format"
+                    errors.append(error_msg)
+                    logger.warning(error_msg)
+                    continue
+
                 if scraper_errors:
                     # Scraper returned errors - consider it failed
                     failed_count += 1
@@ -148,7 +158,7 @@ class ScraperOrchestrator:
 
         execution_time = time.time() - start_time
 
-        result = OrchestratorResult(
+        orchestration_result = OrchestratorResult(
             total_scrapers=len(scrapers),
             successful_scrapers=successful_count,
             failed_scrapers=failed_count,
@@ -160,12 +170,12 @@ class ScraperOrchestrator:
         )
 
         logger.info(
-            f"Orchestration completed: {result.successful_scrapers}/{result.total_scrapers} "
-            f"scrapers successful, {result.new_deprecations} new deprecations, "
-            f"{result.updated_deprecations} updated, {execution_time:.2f}s"
+            f"Orchestration completed: {orchestration_result.successful_scrapers}/{orchestration_result.total_scrapers} "
+            f"scrapers successful, {orchestration_result.new_deprecations} new deprecations, "
+            f"{orchestration_result.updated_deprecations} updated, {execution_time:.2f}s"
         )
 
-        return result
+        return orchestration_result
 
     async def _run_single_scraper(
         self, scraper: BaseScraper, semaphore: asyncio.Semaphore
