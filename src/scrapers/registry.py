@@ -3,8 +3,8 @@
 import logging
 
 from src.models.scraper import ScraperConfig
-from src.scrapers.base import BaseScraper
 from src.scrapers.anthropic import AnthropicScraper
+from src.scrapers.base import BaseScraper
 from src.scrapers.openai import OpenAIScraper
 
 logger = logging.getLogger(__name__)

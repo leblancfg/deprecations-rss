@@ -11,7 +11,6 @@ import pytest
 from src.models.deprecation import Deprecation
 from src.models.scraper import ScraperConfig
 from src.scrapers.base import BaseScraper
-from src.scrapers.anthropic import AnthropicScraper
 from src.scrapers.openai import OpenAIScraper
 from src.scrapers.orchestrator import (
     OrchestratorConfig,
