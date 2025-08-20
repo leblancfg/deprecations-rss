@@ -11,6 +11,7 @@ import pytest
 from src.models.deprecation import Deprecation
 from src.models.scraper import ScraperConfig
 from src.scrapers.base import BaseScraper
+from src.scrapers.openai import OpenAIScraper
 from src.scrapers.orchestrator import (
     OrchestratorConfig,
     OrchestratorResult,
@@ -438,3 +439,194 @@ def describe_scraper_orchestrator():
         all_deps = await storage.get_all()
         assert len(all_deps) == 2
         assert {dep.provider for dep in all_deps} == {"OpenAI", "Anthropic"}
+
+
+def describe_openai_scraper_integration():
+    """Test OpenAI scraper integration with orchestrator."""
+
+    @pytest.mark.asyncio
+    async def it_integrates_openai_scraper_successfully(temp_data_dir):
+        """Integrates OpenAI scraper successfully."""
+        storage = JsonStorage(temp_data_dir)
+        orchestrator = ScraperOrchestrator(storage)
+
+        # Mock the OpenAI scraper's scrape method
+        openai_scraper = OpenAIScraper()
+
+        async def mock_scrape():
+            return {
+                "deprecations": [
+                    {
+                        "provider": "OpenAI",
+                        "model": "gpt-3.5-turbo-0301",
+                        "deprecation_date": "2024-01-01T00:00:00Z",
+                        "retirement_date": "2024-06-01T00:00:00Z",
+                        "replacement": "gpt-3.5-turbo",
+                        "source_url": "https://platform.openai.com/docs/deprecations",
+                        "notes": "Legacy model being replaced"
+                    }
+                ]
+            }
+
+        openai_scraper.scrape = mock_scrape
+
+        result = await orchestrator.run([openai_scraper])
+
+        assert result.total_scrapers == 1
+        assert result.successful_scrapers == 1
+        assert result.failed_scrapers == 0
+        assert result.total_deprecations == 1
+        assert result.new_deprecations == 1
+
+    @pytest.mark.asyncio
+    async def it_handles_openai_scraper_failures(temp_data_dir):
+        """Handles OpenAI scraper failures gracefully."""
+        storage = JsonStorage(temp_data_dir)
+        config = OrchestratorConfig(fail_fast=False)
+        orchestrator = ScraperOrchestrator(storage, config)
+
+        # Create OpenAI scraper that will fail
+        openai_scraper = OpenAIScraper()
+
+        async def mock_failing_scrape():
+            raise Exception("OpenAI API rate limit exceeded")
+
+        openai_scraper.scrape = mock_failing_scrape
+
+        # Create another working scraper
+        working_scraper = _TestScraper("https://anthropic.com/api", "Anthropic")
+
+        result = await orchestrator.run([openai_scraper, working_scraper])
+
+        assert result.total_scrapers == 2
+        assert result.successful_scrapers == 1
+        assert result.failed_scrapers == 1
+        assert len(result.errors) == 1
+        assert "OpenAI API rate limit exceeded" in result.errors[0]
+
+    @pytest.mark.asyncio
+    async def it_runs_openai_scraper_with_other_scrapers(temp_data_dir):
+        """Runs OpenAI scraper concurrently with other scrapers."""
+        storage = JsonStorage(temp_data_dir)
+        config = OrchestratorConfig(max_concurrent=3)
+        orchestrator = ScraperOrchestrator(storage, config)
+
+        # Create OpenAI scraper with mock data
+        openai_scraper = OpenAIScraper()
+
+        async def mock_openai_scrape():
+            return {
+                "deprecations": [
+                    {
+                        "provider": "OpenAI",
+                        "model": "text-davinci-003",
+                        "deprecation_date": "2024-01-04T00:00:00Z",
+                        "retirement_date": "2025-01-04T00:00:00Z",
+                        "replacement": "gpt-3.5-turbo-instruct",
+                        "source_url": "https://platform.openai.com/docs/deprecations"
+                    },
+                    {
+                        "provider": "OpenAI",
+                        "model": "code-davinci-002",
+                        "deprecation_date": "2024-03-01T00:00:00Z",
+                        "retirement_date": "2024-09-01T00:00:00Z",
+                        "source_url": "https://platform.openai.com/docs/deprecations"
+                    }
+                ]
+            }
+
+        openai_scraper.scrape = mock_openai_scrape
+
+        # Add other scrapers
+        scrapers = [
+            openai_scraper,
+            _TestScraper("https://anthropic.com/api", "Anthropic"),
+            _TestScraper("https://google.com/api", "Google")
+        ]
+
+        result = await orchestrator.run(scrapers)
+
+        assert result.total_scrapers == 3
+        assert result.successful_scrapers == 3
+        assert result.failed_scrapers == 0
+        assert result.total_deprecations == 4  # 2 from OpenAI, 1 each from others
+        assert result.new_deprecations == 4
+
+    @pytest.mark.asyncio
+    async def it_respects_timeout_for_openai_scraper(temp_data_dir):
+        """Respects timeout configuration for OpenAI scraper."""
+        storage = JsonStorage(temp_data_dir)
+        config = OrchestratorConfig(timeout_seconds=0.1)
+        orchestrator = ScraperOrchestrator(storage, config)
+
+        # Create OpenAI scraper that will timeout
+        openai_scraper = OpenAIScraper()
+
+        async def slow_scrape():
+            await asyncio.sleep(1)  # Longer than timeout
+            return {"deprecations": []}
+
+        openai_scraper.scrape = slow_scrape
+
+        result = await orchestrator.run([openai_scraper])
+
+        assert result.total_scrapers == 1
+        assert result.successful_scrapers == 0
+        assert result.failed_scrapers == 1
+        assert len(result.errors) == 1
+        assert "timed out" in result.errors[0].lower() or "cancelled" in result.errors[0].lower()
+
+    @pytest.mark.asyncio
+    async def it_handles_duplicate_deprecations_from_openai(temp_data_dir):
+        """Handles duplicate deprecations from OpenAI scraper correctly."""
+        storage = JsonStorage(temp_data_dir)
+        orchestrator = ScraperOrchestrator(storage)
+
+        # First run with OpenAI scraper
+        openai_scraper1 = OpenAIScraper()
+
+        async def mock_scrape1():
+            return {
+                "deprecations": [
+                    {
+                        "provider": "OpenAI",
+                        "model": "gpt-4-0314",
+                        "deprecation_date": "2024-06-13T00:00:00Z",
+                        "retirement_date": "2025-06-13T00:00:00Z",
+                        "source_url": "https://platform.openai.com/docs/deprecations"
+                    }
+                ]
+            }
+
+        openai_scraper1.scrape = mock_scrape1
+
+        result1 = await orchestrator.run([openai_scraper1])
+        assert result1.new_deprecations == 1
+
+        # Second run with same deprecation but updated notes
+        openai_scraper2 = OpenAIScraper()
+
+        async def mock_scrape2():
+            return {
+                "deprecations": [
+                    {
+                        "provider": "OpenAI",
+                        "model": "gpt-4-0314",
+                        "deprecation_date": "2024-06-13T00:00:00Z",
+                        "retirement_date": "2025-06-13T00:00:00Z",
+                        "source_url": "https://platform.openai.com/docs/deprecations",
+                        "notes": "Updated: Migration guide available"
+                    }
+                ]
+            }
+
+        openai_scraper2.scrape = mock_scrape2
+
+        result2 = await orchestrator.run([openai_scraper2])
+        assert result2.new_deprecations == 0
+        assert result2.updated_deprecations == 1
+
+        # Verify only one deprecation exists
+        all_deps = await storage.get_all()
+        assert len(all_deps) == 1
+        assert all_deps[0].notes == "Updated: Migration guide available"
