@@ -1,288 +1,188 @@
-"""Base scraper class with comprehensive error handling."""
+"""Abstract base scraper with retry logic, rate limiting, and caching."""
 
 import asyncio
-import re
+import hashlib
+import json
+import logging
 from abc import ABC, abstractmethod
-from collections.abc import Callable
-from dataclasses import dataclass
-from datetime import datetime
-from functools import wraps
 from typing import Any
 
 import httpx
 
+from src.models.scraper import CacheEntry, ScraperConfig
 
-class ScraperError(Exception):
-    """Base exception for scraper errors."""
-    pass
-
-
-class URLValidationError(ScraperError):
-    """Raised when a URL doesn't match expected patterns."""
-    pass
-
-
-@dataclass
-class ErrorContext:
-    """Detailed error context for debugging and monitoring."""
-
-    url: str
-    timestamp: datetime
-    provider: str
-    error_type: str
-    status_code: int | None = None
-    headers: dict[str, str] | None = None
-    retry_count: int = 0
-    response_body: str | None = None
-    traceback: str | None = None
-
-
-@dataclass
-class ScraperResult:
-    """Result from a scraping operation."""
-
-    success: bool
-    provider: str
-    timestamp: datetime
-    data: list[dict[str, Any]] | None = None
-    error: ErrorContext | None = None
-    from_cache: bool = False
-    cache_timestamp: datetime | None = None
-
-
-def retry_with_backoff(
-    retries: int = 3,
-    backoff_factor: float = 1.0,
-    exceptions: tuple[type[Exception], ...] = (httpx.HTTPError,)
-) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
-    """Decorator for retry logic with exponential backoff."""
-
-    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
-        @wraps(func)
-        async def wrapper(*args: Any, **kwargs: Any) -> Any:
-            last_exception: Exception | None = None
-
-            for attempt in range(retries):
-                try:
-                    return await func(*args, **kwargs)
-                except exceptions as e:
-                    last_exception = e
-                    if attempt < retries - 1:
-                        delay = backoff_factor * (2 ** attempt)
-                        await asyncio.sleep(delay)
-                    continue
-
-            if last_exception:
-                raise last_exception
-            raise ScraperError("Retry failed with no exception")
-
-        return wrapper
-    return decorator
+logger = logging.getLogger(__name__)
 
 
 class BaseScraper(ABC):
-    """Abstract base class for all provider scrapers."""
+    """Abstract base scraper with common functionality."""
 
-    provider_name: str = ""
-    base_url: str = ""
-    expected_url_patterns: list[str] = []
-    timeout: float = 30.0
-    retry_delay: float = 1.0
-    max_retries: int = 3
+    def __init__(self, url: str, config: ScraperConfig | None = None) -> None:
+        """Initialize scraper with URL and configuration."""
+        self.url = url
+        self.config = config or ScraperConfig()
+        self._last_request_time = 0.0
 
-    def __init__(self) -> None:
-        """Initialize the scraper."""
-        if not self.provider_name:
-            raise ValueError("provider_name must be set")
-        if not self.base_url:
-            raise ValueError("base_url must be set")
+        # Ensure cache directory exists
+        self.config.cache_dir.mkdir(parents=True, exist_ok=True)
 
     @abstractmethod
-    async def extract_deprecations(self, content: str) -> list[dict[str, Any]]:
-        """Extract deprecation data from scraped content.
-        
-        Args:
-            content: Raw HTML/JSON content from the provider
-            
-        Returns:
-            List of deprecation dictionaries with keys:
-                - model: str
-                - deprecation_date: str (ISO format)
-                - retirement_date: Optional[str] (ISO format)
-                - replacement: Optional[str]
-                - notes: Optional[str]
-        """
-        pass
+    async def scrape_api(self) -> dict[str, Any]:
+        """Scrape using API endpoint. Must be implemented by subclasses."""
+        raise NotImplementedError
 
-    async def scrape(self, url: str | None = None) -> ScraperResult:
-        """Main scraping method with error handling.
-        
-        Args:
-            url: Optional custom URL to scrape (defaults to base_url)
-            
-        Returns:
-            ScraperResult with data or error information
-        """
-        url = url or self.base_url
-        timestamp = datetime.now()
+    @abstractmethod
+    async def scrape_html(self) -> dict[str, Any]:
+        """Scrape using HTML parsing. Must be implemented by subclasses."""
+        raise NotImplementedError
+
+    @abstractmethod
+    async def scrape_playwright(self) -> dict[str, Any]:
+        """Scrape using Playwright for JS rendering. Must be implemented by subclasses."""
+        raise NotImplementedError
+
+    async def scrape(self) -> dict[str, Any]:
+        """Main scraping method with fallback pattern and caching."""
+        # Check cache first
+        cached_data = await self._load_from_cache()
+        if cached_data is not None:
+            logger.info("Returning cached data")
+            return cached_data
+
+        # Try scraping methods in order with fallback pattern
+        methods = [
+            ("API", self.scrape_api),
+            ("HTML", self.scrape_html),
+            ("Playwright", self.scrape_playwright),
+        ]
+
+        last_error = None
+        for method_name, method in methods:
+            try:
+                logger.info(f"Attempting {method_name} scraping")
+                data = await method()
+                logger.info(f"Successfully scraped data using {method_name}")
+
+                # Cache successful result
+                await self._save_to_cache(data)
+                return data
+
+            except Exception as e:
+                logger.warning(f"{method_name} scraping failed: {e}")
+                last_error = e
+                continue
+
+        # All methods failed
+        error_msg = f"All scraping methods failed. Last error: {last_error}"
+        logger.error(error_msg)
+        raise Exception(error_msg) from last_error
+
+    def scrape_sync(self) -> dict[str, Any]:
+        """Synchronous wrapper for async scrape method."""
+        try:
+            # Try to get the current event loop
+            asyncio.get_running_loop()
+            # If we get here, there's a running loop, so we can't use asyncio.run()
+            raise RuntimeError(
+                "Cannot use scrape_sync() from within an async context. Use await scrape() instead."
+            )
+        except RuntimeError as e:
+            # Check if the error is specifically about no running loop
+            if (
+                "no running event loop" in str(e).lower()
+                or "no current event loop" in str(e).lower()
+            ):
+                # No event loop running, safe to use asyncio.run()
+                return asyncio.run(self.scrape())
+            else:
+                # Some other RuntimeError, re-raise it
+                raise
+
+    async def _make_request(self, url: str) -> dict[str, Any]:
+        """Make HTTP request with retry logic and rate limiting."""
+        await self._enforce_rate_limit()
+
+        headers = {"User-Agent": self.config.user_agent}
+        last_error = None
+
+        for attempt in range(self.config.max_retries + 1):
+            try:
+                async with httpx.AsyncClient() as client:
+                    response = await client.get(url, headers=headers, timeout=self.config.timeout)
+                    response.raise_for_status()
+                    json_data: dict[str, Any] = response.json()
+                    return json_data
+
+            except (httpx.RequestError, httpx.HTTPStatusError) as e:
+                last_error = e
+                if attempt < self.config.max_retries:
+                    delay = self.config.retry_delays[attempt]
+                    logger.warning(
+                        f"Request failed (attempt {attempt + 1}), retrying in {delay}s: {e}"
+                    )
+                    await asyncio.sleep(delay)
+                else:
+                    logger.error(f"Request failed after {self.config.max_retries + 1} attempts")
+                    break
+
+        # Re-raise the last error if all retries failed
+        if last_error:
+            raise last_error
+        raise Exception("Request failed for unknown reason")
+
+    async def _enforce_rate_limit(self) -> None:
+        """Enforce rate limiting between requests."""
+        current_time = asyncio.get_event_loop().time()
+        time_since_last = current_time - self._last_request_time
+
+        if time_since_last < self.config.rate_limit_delay:
+            sleep_time = self.config.rate_limit_delay - time_since_last
+            await asyncio.sleep(sleep_time)
+
+        self._last_request_time = asyncio.get_event_loop().time()
+
+    def _get_cache_key(self) -> str:
+        """Generate cache key from URL."""
+        return hashlib.sha256(self.url.encode()).hexdigest()
+
+    async def _load_from_cache(self) -> dict[str, Any] | None:
+        """Load data from cache if available and not expired."""
+        cache_key = self._get_cache_key()
+        cache_file = self.config.cache_dir / f"{cache_key}.json"
+
+        if not cache_file.exists():
+            return None
 
         try:
-            # Validate URL if patterns are defined
-            if self.expected_url_patterns:
-                self.validate_url(url)
+            with open(cache_file) as f:
+                cache_data = json.load(f)
 
-            # Fetch content with retries
-            content = await self.fetch_content(url)
+            entry = CacheEntry(**cache_data)
 
-            # Extract deprecations
-            data = await self.extract_deprecations(content)
+            if entry.is_expired(self.config.cache_ttl_hours):
+                logger.info("Cache expired, removing file")
+                cache_file.unlink(missing_ok=True)
+                return None
 
-            return ScraperResult(
-                success=True,
-                provider=self.provider_name,
-                data=data,
-                timestamp=timestamp,
-                from_cache=False,
-            )
+            logger.info("Loaded data from cache")
+            return entry.data
 
-        except httpx.HTTPStatusError as e:
-            return ScraperResult(
-                success=False,
-                provider=self.provider_name,
-                error=self.create_error_context(e, url),
-                timestamp=timestamp,
-            )
+        except (json.JSONDecodeError, KeyError, TypeError) as e:
+            logger.warning(f"Failed to load cache file: {e}")
+            # Remove corrupted cache file
+            cache_file.unlink(missing_ok=True)
+            return None
 
-        except httpx.HTTPError as e:
-            return ScraperResult(
-                success=False,
-                provider=self.provider_name,
-                error=self.create_error_context(e, url),
-                timestamp=timestamp,
-            )
+    async def _save_to_cache(self, data: dict[str, Any]) -> None:
+        """Save data to cache with timestamp."""
+        cache_key = self._get_cache_key()
+        cache_file = self.config.cache_dir / f"{cache_key}.json"
 
-        except Exception as e:
-            return ScraperResult(
-                success=False,
-                provider=self.provider_name,
-                error=self.create_error_context(e, url),
-                timestamp=timestamp,
-            )
+        entry = CacheEntry.from_data(data)
 
-    @retry_with_backoff(retries=3, backoff_factor=1.0)
-    async def fetch_content(self, url: str) -> str:
-        """Fetch content from URL with retries.
-        
-        Args:
-            url: URL to fetch
-            
-        Returns:
-            Response content as string
-            
-        Raises:
-            httpx.HTTPError: On network or HTTP errors
-        """
-        async with httpx.AsyncClient(timeout=self.timeout) as client:
-            response = await client.get(
-                url,
-                follow_redirects=True,
-                headers={
-                    "User-Agent": "deprecations-rss/1.0 (https://github.com/leblancfg/deprecations-rss)"
-                }
-            )
-            response.raise_for_status()
-            return response.text
-
-    def validate_url(self, url: str) -> None:
-        """Validate URL against expected patterns.
-        
-        Args:
-            url: URL to validate
-            
-        Raises:
-            URLValidationError: If URL doesn't match any pattern
-        """
-        if not self.expected_url_patterns:
-            return
-
-        for pattern in self.expected_url_patterns:
-            if re.match(pattern, url):
-                return
-
-        raise URLValidationError(
-            f"URL {url} doesn't match expected patterns for {self.provider_name}"
-        )
-
-    def create_error_context(
-        self,
-        exception: Exception,
-        url: str,
-        retry_count: int = 0
-    ) -> ErrorContext:
-        """Create detailed error context from exception.
-        
-        Args:
-            exception: The exception that occurred
-            url: URL that was being accessed
-            retry_count: Number of retries attempted
-            
-        Returns:
-            ErrorContext with detailed information
-        """
-        context = ErrorContext(
-            url=url,
-            timestamp=datetime.now(),
-            provider=self.provider_name,
-            error_type=type(exception).__name__,
-            retry_count=retry_count,
-        )
-
-        # Extract HTTP-specific information if available
-        if isinstance(exception, httpx.HTTPStatusError):
-            context.status_code = exception.response.status_code
-            context.headers = dict(exception.response.headers)
-            # Limit response body size for storage
-            context.response_body = exception.response.text[:1000] if exception.response.text else None
-        elif isinstance(exception, httpx.HTTPError) and hasattr(exception, "response"):
-            if exception.response:
-                context.status_code = exception.response.status_code
-                context.headers = dict(exception.response.headers)
-
-        return context
-
-    async def scrape_with_fallback(
-        self,
-        urls: list[str],
-        cache_fallback: Callable[[], ScraperResult] | None = None
-    ) -> ScraperResult:
-        """Try multiple URLs with cache fallback.
-        
-        Args:
-            urls: List of URLs to try in order
-            cache_fallback: Optional function to get cached data
-            
-        Returns:
-            ScraperResult with data from first successful source
-        """
-        errors: list[ErrorContext] = []
-
-        for url in urls:
-            result = await self.scrape(url)
-            if result.success:
-                return result
-            if result.error:
-                errors.append(result.error)
-
-        # Try cache fallback if all URLs failed
-        if cache_fallback:
-            cached_result = cache_fallback()
-            if cached_result and cached_result.data:
-                return cached_result
-
-        # Return failure with all error contexts
-        return ScraperResult(
-            success=False,
-            provider=self.provider_name,
-            error=errors[0] if errors else None,
-            timestamp=datetime.now(),
-        )
+        try:
+            with open(cache_file, "w") as f:
+                json.dump(entry.model_dump(), f, default=str)
+            logger.info("Saved data to cache")
+        except (OSError, TypeError) as e:
+            logger.warning(f"Failed to save cache file: {e}")

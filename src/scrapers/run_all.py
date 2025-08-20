@@ -8,13 +8,16 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+from src.errors.analyzer import ErrorAnalyzer
+from src.errors.logger import get_logger
+from src.notifications.notifier import NotificationManager
 from src.scrapers.anthropic import AnthropicScraper
-from src.scrapers.base import ErrorContext, ScraperResult
 from src.scrapers.cache import CacheManager
+from src.scrapers.enhanced_base import ErrorContext, ScraperResult
 from src.scrapers.openai import OpenAIScraper
 
 logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 
 @dataclass
@@ -260,12 +263,41 @@ class ScraperOrchestrator:
 async def main() -> None:
     """Main entry point for running all scrapers."""
     orchestrator = ScraperOrchestrator()
+    error_analyzer = ErrorAnalyzer()
+    notifier = NotificationManager()
 
     logger.info("Starting scraper orchestration")
     result = await orchestrator.run_all()
 
     # Print report
     print(result.generate_report())
+
+    # Analyze errors and send notifications if needed
+    if result.errors:
+        for error in result.errors:
+            error_analyzer.add_error(error)
+        
+        # Check for critical issues
+        critical_issues = error_analyzer.get_critical_issues()
+        if critical_issues:
+            logger.warning(f"Found {len(critical_issues)} critical issues")
+            for issue in critical_issues:
+                await notifier.notify(
+                    title=f"Critical: {issue['provider']} - {issue['error_type']}",
+                    message=issue['description'],
+                    priority="critical",
+                    metadata=issue
+                )
+    
+    # Check for URL changes
+    if result.url_changes:
+        for provider, urls in result.url_changes.items():
+            await notifier.notify(
+                title=f"URL Change Detected: {provider}",
+                message=f"Provider {provider} URL changed from {urls['old_url']} to {urls['new_url']}",
+                priority="warning",
+                metadata=urls
+            )
 
     # Save results to file
     output_dir = Path("output")
