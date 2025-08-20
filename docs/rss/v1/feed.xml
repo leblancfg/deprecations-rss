@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>AI Model Deprecations</title><link>https://leblancfg.github.io/deprecations-rss/</link><description>Daily-updated RSS feed tracking AI model deprecations across providers</description><docs>http://www.rssboard.org/rss-specification</docs><generator>deprecations-rss</generator><language>en</language><lastBuildDate>Wed, 20 Aug 2025 21:42:56 +0000</lastBuildDate><ttl>1440</ttl><item><title>OpenAI - gpt-3.5-turbo Deprecation</title><link>https://openai.com/deprecations</link><description>Provider: OpenAI
+Model: gpt-3.5-turbo
+Deprecation Date: 2024-12-01T00:00:00
+Retirement Date: 2025-01-01T00:00:00
+Replacement: gpt-4
+Notes: Legacy model being phased out</description><guid isPermaLink="false">OpenAI-gpt-3.5-turbo-2024-12-01T00:00:00</guid><pubDate>Sun, 01 Dec 2024 00:00:00 +0000</pubDate></item><item><title>Anthropic - claude-2 Deprecation</title><link>https://anthropic.com/deprecations</link><description>Provider: Anthropic
+Model: claude-2
+Deprecation Date: 2024-11-15T00:00:00
+Retirement Date: 2025-01-15T00:00:00
+Replacement: claude-3</description><guid isPermaLink="false">Anthropic-claude-2-2024-11-15T00:00:00</guid><pubDate>Fri, 15 Nov 2024 00:00:00 +0000</pubDate></item></channel></rss>

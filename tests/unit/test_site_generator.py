@@ -73,6 +73,7 @@ class TestStaticSiteGenerator:
     @patch("builtins.open", new_callable=mock_open)
     def test_generate_site(self, mock_file, mock_copy, mock_mkdir, sample_feed_data: FeedData):
         """Test the generate_site method creates all necessary files."""
+
         generator = StaticSiteGenerator(sample_feed_data)
 
         # Mock template rendering
@@ -80,18 +81,30 @@ class TestStaticSiteGenerator:
             return_value=MagicMock(render=MagicMock(return_value="<html>Rendered HTML</html>"))
         )
 
-        generator.generate_site()
+        # Mock the RSS generator to avoid file system operations
+        with patch("src.site.generator.RSSGenerator") as mock_rss_gen:
+            mock_rss_instance = MagicMock()
+            mock_rss_gen.return_value = mock_rss_instance
+            mock_rss_instance.add_entries.return_value = None
+            mock_rss_instance.save_feed.return_value = Path("docs/rss/v1/feed.xml")
 
-        # Check that output directory is created
-        mock_mkdir.assert_called_with(parents=True, exist_ok=True)
+            generator.generate_site()
 
-        # Check that CSS file is copied
-        mock_copy.assert_called_once()
+            # Check that output directory is created
+            mock_mkdir.assert_called_with(parents=True, exist_ok=True)
 
-        # Check that index.html is written
-        mock_file.assert_called()
-        write_calls = mock_file().write.call_args_list
-        assert any("<html>Rendered HTML</html>" in str(call) for call in write_calls)
+            # Check that CSS file is copied
+            mock_copy.assert_called_once()
+
+            # Check that index.html is written
+            mock_file.assert_called()
+            write_calls = mock_file().write.call_args_list
+            assert any("<html>Rendered HTML</html>" in str(call) for call in write_calls)
+
+            # Check that RSS generator was used
+            mock_rss_gen.assert_called_once()
+            mock_rss_instance.add_entries.assert_called_once()
+            mock_rss_instance.save_feed.assert_called_once()
 
     def test_deprecations_sorted_by_date(self, sample_feed_data: FeedData):
         """Test that deprecations are sorted by announcement date (newest first)."""
@@ -159,3 +172,38 @@ class TestStaticSiteGenerator:
         assert context["deprecations"] == []
         assert context["provider_statuses"] == []
         assert "last_updated" in context
+
+    @patch("builtins.open", new_callable=mock_open)
+    @patch("src.site.generator.Path.mkdir")
+    def test_rss_generation_integration(self, mock_mkdir, mock_file, sample_feed_data: FeedData):
+        """Test that RSS feed is generated alongside HTML."""
+        from pathlib import Path
+
+        # These mocks are needed to prevent actual file operations
+        _ = mock_mkdir  # noqa: F841
+        _ = mock_file  # noqa: F841
+
+        generator = StaticSiteGenerator(sample_feed_data)
+
+        # Mock the RSS generator methods
+        with patch("src.site.generator.RSSGenerator") as mock_rss_gen:
+            mock_rss_instance = MagicMock()
+            mock_rss_gen.return_value = mock_rss_instance
+            mock_rss_instance.add_entries.return_value = None
+            mock_rss_instance.save_feed.return_value = Path("docs/rss/v1/feed.xml")
+
+            # Mock template rendering
+            generator.env.get_template = MagicMock(
+                return_value=MagicMock(render=MagicMock(return_value="<html>Rendered HTML</html>"))
+            )
+
+            generator.generate_site()
+
+            # Verify RSS generator was created and used
+            mock_rss_gen.assert_called_once()
+            mock_rss_instance.add_entries.assert_called_once_with(
+                sample_feed_data.deprecations, version="v1"
+            )
+            mock_rss_instance.save_feed.assert_called_once_with(
+                version="v1", output_path=Path("docs/rss/v1/feed.xml")
+            )
