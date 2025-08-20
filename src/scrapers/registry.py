@@ -81,7 +81,9 @@ class ScraperRegistry:
                         if config:
                             scraper.config = config
                     except TypeError:
-                        logger.error(f"Cannot instantiate scraper {name} - unknown constructor signature")
+                        logger.error(
+                            f"Cannot instantiate scraper {name} - unknown constructor signature"
+                        )
                         return None
 
             logger.debug(f"Created scraper instance: {name}")
