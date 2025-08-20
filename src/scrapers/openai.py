@@ -8,7 +8,7 @@ from typing import Any
 import httpx
 from bs4 import BeautifulSoup
 
-from src.models.deprecation import Deprecation
+from src.models.deprecation import DeprecationEntry
 from src.scrapers.base import BaseScraper
 
 try:
@@ -121,7 +121,7 @@ class OpenAIScraper(BaseScraper):
             logger.error(f"Playwright scraping failed: {e}")
             raise
 
-    def _parse_api_deprecation(self, item: dict[str, Any]) -> Deprecation | None:
+    def _parse_api_deprecation(self, item: dict[str, Any]) -> DeprecationEntry | None:
         """Parse a single deprecation from API response."""
         try:
             model = item.get("model")
@@ -141,21 +141,21 @@ class OpenAIScraper(BaseScraper):
                 logger.warning(f"Invalid date ordering for {model}, skipping")
                 return None
 
-            return Deprecation(
+            return DeprecationEntry(
                 provider="OpenAI",
                 model=model,
                 deprecation_date=deprecation_date,
                 retirement_date=retirement_date,
                 replacement=item.get("replacement"),
                 notes=item.get("notes"),
-                source_url=self.url,  # type: ignore[arg-type]
+                source_url=self.url,
             )
 
         except Exception as e:
             logger.warning(f"Failed to parse API deprecation: {e}")
             return None
 
-    def _parse_html_deprecations(self, soup: BeautifulSoup) -> list[Deprecation]:
+    def _parse_html_deprecations(self, soup: BeautifulSoup) -> list[DeprecationEntry]:
         """Parse deprecations from HTML content."""
         deprecations = []
 
@@ -240,7 +240,7 @@ class OpenAIScraper(BaseScraper):
 
         return has_keyword and has_date
 
-    def _parse_deprecation_block(self, block: Any) -> Deprecation | None:
+    def _parse_deprecation_block(self, block: Any) -> DeprecationEntry | None:
         """Parse a single deprecation block from HTML."""
         try:
             text = block.get_text()
@@ -290,14 +290,14 @@ class OpenAIScraper(BaseScraper):
             # Extract notes
             notes = self._extract_notes(text)
 
-            return Deprecation(
+            return DeprecationEntry(
                 provider="OpenAI",
                 model=model,
                 deprecation_date=deprecation_date,
                 retirement_date=retirement_date,
                 replacement=replacement,
                 notes=notes,
-                source_url=self.url,  # type: ignore[arg-type]
+                source_url=self.url,
             )
 
         except Exception as e:
