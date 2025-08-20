@@ -1,0 +1,40 @@
+name: deprecations-rss
+
+type: python
+
+commands:
+  test:
+    run: uv run pytest
+    desc: Run all tests
+
+  test-cov:
+    run: uv run pytest --cov=src --cov-report=term-missing
+    desc: Run tests with coverage
+
+  lint:
+    run: uv run ruff check .
+    desc: Run linter
+
+  format:
+    run: uv run ruff format .
+    desc: Format code
+
+  format-check:
+    run: uv run ruff format --check .
+    desc: Check code formatting
+
+  typecheck:
+    run: uv run mypy src
+    desc: Run type checking
+
+  install:
+    run: uv sync --all-extras
+    desc: Install all dependencies including dev
+
+  ci-all:
+    run: |
+      uv run ruff format --check .
+      uv run ruff check .
+      uv run mypy src
+      uv run pytest --cov=src --cov-report=term-missing
+    desc: Run all CI checks locally
