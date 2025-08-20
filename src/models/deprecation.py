@@ -148,6 +148,33 @@ class DeprecationEntry(BaseModel):
         """Alias for compatibility with main branch."""
         return self.deprecation_date
 
+    # Compatibility property for static site generator
+    @property
+    def url(self) -> str | None:
+        """Alias for source_url for backward compatibility."""
+        return self.source_url
+
 
 # Alias for compatibility with other branches that may use Deprecation
 Deprecation = DeprecationEntry
+
+
+class ProviderStatus(BaseModel):
+    """Model representing the health status of a provider's deprecation page."""
+
+    name: str = Field(..., description="Provider name")
+    last_checked: datetime = Field(..., description="Last time the provider was checked")
+    is_healthy: bool = Field(..., description="Whether the provider check succeeded")
+    error_message: str | None = Field(None, description="Error message if check failed")
+
+
+class FeedData(BaseModel):
+    """Model representing the complete feed data."""
+
+    deprecations: list[DeprecationEntry] = Field(
+        default_factory=list, description="List of all deprecation entries"
+    )
+    provider_statuses: list[ProviderStatus] = Field(
+        default_factory=list, description="Health status of all providers"
+    )
+    last_updated: datetime = Field(..., description="When the feed was last updated")
