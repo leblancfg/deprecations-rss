@@ -120,4 +120,3 @@ class DeprecationEntry(BaseModel):
 
         now = datetime.now(UTC)
         return self.retirement_date > now
-

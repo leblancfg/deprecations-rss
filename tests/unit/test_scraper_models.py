@@ -75,7 +75,7 @@ def describe_raw_deprecation():
                 "Google Vertex AI",
                 "AWS Bedrock",
                 "Cohere",
-                "Azure OpenAI"
+                "Azure OpenAI",
             ]
 
             for provider in valid_providers:
@@ -120,9 +120,7 @@ def describe_raw_deprecation():
             """Should validate source_url is a valid URL."""
             with pytest.raises(ValidationError) as exc_info:
                 RawDeprecation(
-                    provider="AWS Bedrock",
-                    model_name="claude-v1",
-                    source_url="not-a-url"
+                    provider="AWS Bedrock", model_name="claude-v1", source_url="not-a-url"
                 )
 
             errors = exc_info.value.errors()

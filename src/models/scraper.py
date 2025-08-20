@@ -33,7 +33,11 @@ class RawDeprecation(BaseModel):
     @model_validator(mode="after")
     def validate_dates(self) -> "RawDeprecation":
         """Ensure retirement_date is after deprecation_date if both are present."""
-        if self.deprecation_date and self.retirement_date and self.retirement_date <= self.deprecation_date:
+        if (
+            self.deprecation_date
+            and self.retirement_date
+            and self.retirement_date <= self.deprecation_date
+        ):
             raise ValueError("retirement_date must be after deprecation_date")
         return self
 

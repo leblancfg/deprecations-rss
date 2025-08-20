@@ -39,11 +39,7 @@ class DeprecationFeed(BaseModel):
         fg.lastBuildDate(self.generated_at)
 
         # Sort entries by created date (newest first)
-        sorted_entries = sorted(
-            self.entries,
-            key=lambda e: e.created_at,
-            reverse=True
-        )
+        sorted_entries = sorted(self.entries, key=lambda e: e.created_at, reverse=True)
 
         # Add entries to feed
         for entry in sorted_entries:
@@ -59,4 +55,3 @@ class DeprecationFeed(BaseModel):
         # Generate RSS XML string
         rss_bytes: bytes = fg.rss_str(pretty=True)
         return rss_bytes.decode("utf-8")
-
