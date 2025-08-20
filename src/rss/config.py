@@ -1,4 +1,5 @@
 """RSS feed configuration."""
+
 from pathlib import Path
 from typing import Any
 
@@ -42,9 +43,7 @@ class FeedConfig(BaseModel):
         gt=0,
     )
 
-    model_config = {
-        "validate_assignment": True
-    }
+    model_config = {"validate_assignment": True}
 
 
 class VersionConfig(BaseModel):
@@ -64,9 +63,7 @@ class VersionConfig(BaseModel):
         """Check if a version is supported."""
         return version in self.supported_versions
 
-    model_config = {
-        "validate_assignment": True
-    }
+    model_config = {"validate_assignment": True}
 
 
 class OutputConfig(BaseModel):
@@ -90,9 +87,7 @@ class OutputConfig(BaseModel):
         versioned_dir = self.base_path / version
         versioned_dir.mkdir(parents=True, exist_ok=True)
 
-    model_config = {
-        "validate_assignment": True
-    }
+    model_config = {"validate_assignment": True}
 
 
 class RSSConfig(BaseModel):
@@ -131,9 +126,7 @@ class RSSConfig(BaseModel):
             },
         }
 
-    model_config = {
-        "validate_assignment": True
-    }
+    model_config = {"validate_assignment": True}
 
 
 def get_default_config() -> RSSConfig:

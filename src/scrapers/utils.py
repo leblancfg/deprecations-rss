@@ -81,12 +81,12 @@ def clean_text(
 
     if preserve_lines:
         # Normalize spaces within lines but preserve line breaks
-        lines = text.split('\n')
-        lines = [' '.join(line.split()) for line in lines]
-        text = '\n'.join(lines)
+        lines = text.split("\n")
+        lines = [" ".join(line.split()) for line in lines]
+        text = "\n".join(lines)
     else:
         # Normalize all whitespace
-        text = ' '.join(text.split())
+        text = " ".join(text.split())
 
     return text.strip()
 
@@ -155,17 +155,18 @@ def normalize_url(url: str | None) -> str:
             path = ""
 
         # Reconstruct URL
-        normalized = urlunparse((
-            parsed.scheme,
-            netloc,
-            path,
-            parsed.params,
-            parsed.query,
-            parsed.fragment,
-        ))
+        normalized = urlunparse(
+            (
+                parsed.scheme,
+                netloc,
+                path,
+                parsed.params,
+                parsed.query,
+                parsed.fragment,
+            )
+        )
 
         return normalized
 
     except Exception:
         return ""
-

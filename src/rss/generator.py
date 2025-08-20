@@ -1,4 +1,5 @@
 """RSS feed generator for AI model deprecations."""
+
 from datetime import UTC, datetime
 from pathlib import Path
 

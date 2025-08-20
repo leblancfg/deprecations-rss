@@ -1,4 +1,5 @@
 """Tests for deprecation model."""
+
 from datetime import datetime
 
 import pytest

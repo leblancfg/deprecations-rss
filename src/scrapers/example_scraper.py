@@ -52,13 +52,15 @@ class ExampleScraper(BaseScraper):
             notes_elem = announcement.find("p", class_="notes")
             notes = self.extract_text(notes_elem, default="")
 
-            deprecations.append({
-                "provider": "Example Provider",
-                "model": model,
-                "announcement_date": announcement_date,
-                "retirement_date": retirement_date,
-                "replacement_model": replacement if replacement else None,
-                "notes": notes if notes else None,
-            })
+            deprecations.append(
+                {
+                    "provider": "Example Provider",
+                    "model": model,
+                    "announcement_date": announcement_date,
+                    "retirement_date": retirement_date,
+                    "replacement_model": replacement if replacement else None,
+                    "notes": notes if notes else None,
+                }
+            )
 
         return deprecations

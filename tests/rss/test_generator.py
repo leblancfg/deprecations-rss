@@ -1,4 +1,5 @@
 """Tests for RSS generator."""
+
 import xml.etree.ElementTree as ET
 from datetime import datetime
 from pathlib import Path
@@ -222,7 +223,8 @@ class DescribeAddingEntries:
         # Note: feedgen outputs entries in LIFO order, so we need to check
         # that when sorted newest-first and added, they appear correctly
         import re
-        items = re.findall(r'Model: (.*?)\n', rss_str)
+
+        items = re.findall(r"Model: (.*?)\n", rss_str)
         assert items == ["newest-model", "middle-model", "old-model"]
 
     def it_adds_without_sorting_when_specified(self) -> None:
@@ -249,7 +251,8 @@ class DescribeAddingEntries:
 
         # feedgen outputs in LIFO order, so second added appears first
         import re
-        items = re.findall(r'Model: (.*?)\n', rss_str)
+
+        items = re.findall(r"Model: (.*?)\n", rss_str)
         assert items == ["second", "first"]
 
 

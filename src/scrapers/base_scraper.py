@@ -19,16 +19,20 @@ class ScraperConfig:
     timeout: int = 30
     max_retries: int = 3
     retry_delay: float = 1.0
-    user_agent: str = field(default="DeprecationsRSS/1.0 (+https://github.com/leblancfg/deprecations-rss)")
+    user_agent: str = field(
+        default="DeprecationsRSS/1.0 (+https://github.com/leblancfg/deprecations-rss)"
+    )
 
 
 class ScraperError(Exception):
     """Base exception for scraper errors."""
+
     pass
 
 
 class ExtractionError(ScraperError):
     """Raised when data extraction fails."""
+
     pass
 
 
@@ -91,7 +95,7 @@ class BaseScraper(ABC):
 
                 if attempt < self.config.max_retries - 1:
                     # Exponential backoff
-                    delay = self.config.retry_delay * (2 ** attempt)
+                    delay = self.config.retry_delay * (2**attempt)
                     await asyncio.sleep(delay)
                     continue
 
@@ -125,7 +129,7 @@ class BaseScraper(ABC):
         if element is None:
             return default
 
-        text = element.get_text() if hasattr(element, 'get_text') else str(element)
+        text = element.get_text() if hasattr(element, "get_text") else str(element)
         return clean_text(text)
 
     def extract_date(
@@ -180,4 +184,3 @@ class BaseScraper(ABC):
         if self._client:
             await self._client.aclose()
             self._client = None
-

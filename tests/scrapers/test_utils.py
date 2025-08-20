@@ -145,4 +145,3 @@ class DescribeNormalizeUrl:
     def it_handles_invalid_urls(self):
         assert normalize_url("") == ""
         assert normalize_url(None) == ""
-

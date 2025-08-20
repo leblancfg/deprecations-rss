@@ -98,7 +98,9 @@ class DescribeBaseScraper:
 
         mock_response_fail = Mock(
             status_code=500,
-            raise_for_status=Mock(side_effect=httpx.HTTPStatusError("Server error", request=Mock(), response=Mock())),
+            raise_for_status=Mock(
+                side_effect=httpx.HTTPStatusError("Server error", request=Mock(), response=Mock())
+            ),
         )
         mock_response_success = Mock(
             status_code=200,
@@ -120,7 +122,9 @@ class DescribeBaseScraper:
 
         mock_response = Mock(
             status_code=500,
-            raise_for_status=Mock(side_effect=httpx.HTTPStatusError("Server error", request=Mock(), response=Mock())),
+            raise_for_status=Mock(
+                side_effect=httpx.HTTPStatusError("Server error", request=Mock(), response=Mock())
+            ),
         )
 
         with patch.object(httpx.AsyncClient, "get", new_callable=AsyncMock) as mock_get:
@@ -138,7 +142,9 @@ class DescribeBaseScraper:
 
         mock_response = Mock(
             status_code=500,
-            raise_for_status=Mock(side_effect=httpx.HTTPStatusError("Server error", request=Mock(), response=Mock())),
+            raise_for_status=Mock(
+                side_effect=httpx.HTTPStatusError("Server error", request=Mock(), response=Mock())
+            ),
         )
 
         delays = []
@@ -151,7 +157,7 @@ class DescribeBaseScraper:
         with (
             patch.object(httpx.AsyncClient, "get", new_callable=AsyncMock) as mock_get,
             patch("asyncio.sleep", side_effect=track_sleep),
-            pytest.raises(ScraperError)
+            pytest.raises(ScraperError),
         ):
             mock_get.return_value = mock_response
             await scraper.fetch("https://example.com/page")
@@ -232,4 +238,3 @@ class DescribeBaseScraper:
 
             with pytest.raises(ExtractionError, match="Extraction failed"):
                 await scraper.run()
-

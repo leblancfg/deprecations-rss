@@ -1,4 +1,5 @@
 """Tests for RSS configuration."""
+
 from pathlib import Path
 
 import pytest
@@ -21,7 +22,10 @@ class DescribeFeedConfig:
         config = FeedConfig()
 
         assert config.title == "AI Model Deprecations"
-        assert config.description == "Daily-updated RSS feed tracking AI model deprecations across providers"
+        assert (
+            config.description
+            == "Daily-updated RSS feed tracking AI model deprecations across providers"
+        )
         assert config.link == "https://deprecations.example.com"
         assert config.language == "en"
         assert config.copyright is None
@@ -227,14 +231,15 @@ class DescribeRSSConfig:
 
     def it_creates_from_partial_dict(self) -> None:
         """Test creation from partial dictionary uses defaults."""
-        config_dict = {
-            "feed": {"title": "Partial Title"}
-        }
+        config_dict = {"feed": {"title": "Partial Title"}}
 
         config = RSSConfig.from_dict(config_dict)
 
         assert config.feed.title == "Partial Title"
-        assert config.feed.description == "Daily-updated RSS feed tracking AI model deprecations across providers"
+        assert (
+            config.feed.description
+            == "Daily-updated RSS feed tracking AI model deprecations across providers"
+        )
         assert config.version.version == "v1"
         assert config.output.filename == "feed.xml"
 
