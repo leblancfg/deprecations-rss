@@ -136,7 +136,7 @@ def describe_openai_scraper():
                     "404 Not Found", request=MagicMock(), response=MagicMock()
                 ),
             ):
-                with pytest.raises(Exception):
+                with pytest.raises(httpx.HTTPStatusError):
                     await scraper.scrape_api()
 
         @pytest.mark.asyncio
@@ -258,17 +258,6 @@ def describe_openai_scraper():
         @pytest.mark.asyncio
         async def it_scrapes_with_playwright(scraper):
             """Uses Playwright for JavaScript-rendered content."""
-            expected_deprecations = [
-                Deprecation(
-                    provider="OpenAI",
-                    model="gpt-3.5-turbo-0301",
-                    deprecation_date=datetime(2023, 6, 13, tzinfo=UTC),
-                    retirement_date=datetime(2024, 6, 13, tzinfo=UTC),
-                    replacement="gpt-3.5-turbo-0613",
-                    source_url="https://platform.openai.com/docs/deprecations",
-                )
-            ]
-
             mock_page = AsyncMock()
             mock_page.goto = AsyncMock()
             mock_page.wait_for_load_state = AsyncMock()
@@ -315,7 +304,7 @@ def describe_openai_scraper():
                     create=True,
                     side_effect=Exception("Playwright not available"),
                 ):
-                    with pytest.raises(Exception):
+                    with pytest.raises(Exception, match="Playwright not available"):
                         await scraper.scrape_playwright()
 
     def describe_data_validation():
