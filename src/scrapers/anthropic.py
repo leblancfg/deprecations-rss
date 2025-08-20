@@ -8,7 +8,7 @@ from typing import Any
 import httpx
 from bs4 import BeautifulSoup
 
-from src.models.deprecation import Deprecation
+from src.models.deprecation import DeprecationEntry
 from src.scrapers.base import BaseScraper
 
 try:
@@ -121,7 +121,7 @@ class AnthropicScraper(BaseScraper):
             logger.error(f"Playwright scraping failed: {e}")
             raise
 
-    def _parse_api_deprecation(self, item: dict[str, Any]) -> Deprecation | None:
+    def _parse_api_deprecation(self, item: dict[str, Any]) -> DeprecationEntry | None:
         """Parse a single deprecation from API response."""
         try:
             model = item.get("model")
@@ -139,21 +139,21 @@ class AnthropicScraper(BaseScraper):
                 logger.warning(f"Invalid date ordering for {model}, skipping")
                 return None
 
-            return Deprecation(
+            return DeprecationEntry(
                 provider="Anthropic",
                 model=model,
                 deprecation_date=deprecation_date,
                 retirement_date=retirement_date,
                 replacement=item.get("replacement"),
                 notes=item.get("notes"),
-                source_url=self.url,  # type: ignore[arg-type]
+                source_url=self.url,
             )
 
         except Exception as e:
             logger.warning(f"Failed to parse API deprecation: {e}")
             return None
 
-    def _parse_html_deprecations(self, soup: BeautifulSoup) -> list[Deprecation]:
+    def _parse_html_deprecations(self, soup: BeautifulSoup) -> list[DeprecationEntry]:
         """Parse deprecations from HTML content."""
         deprecations = []
 
@@ -170,7 +170,7 @@ class AnthropicScraper(BaseScraper):
 
         return merged_deprecations
 
-    def _parse_status_table(self, soup: BeautifulSoup) -> list[Deprecation]:
+    def _parse_status_table(self, soup: BeautifulSoup) -> list[DeprecationEntry]:
         """Parse the main model status table."""
         deprecations = []
 
@@ -220,7 +220,7 @@ class AnthropicScraper(BaseScraper):
         logger.debug(f"Status table parsing found {len(deprecations)} deprecations")
         return deprecations
 
-    def _parse_status_table_row(self, row: Any) -> Deprecation | None:
+    def _parse_status_table_row(self, row: Any) -> DeprecationEntry | None:
         """Parse a single row from the status table."""
         try:
             cells = row.find_all(["td", "th"])
@@ -260,19 +260,21 @@ class AnthropicScraper(BaseScraper):
                 logger.warning(f"Invalid date ordering for {model}, skipping")
                 return None
 
-            return Deprecation(
+            return DeprecationEntry(
                 provider="Anthropic",
                 model=model,
                 deprecation_date=deprecation_date,
                 retirement_date=retirement_date,
-                source_url=self.url,  # type: ignore[arg-type]
+                replacement=None,
+                notes=None,
+                source_url=self.url,
             )
 
         except Exception as e:
             logger.warning(f"Failed to parse status table row: {e}")
             return None
 
-    def _parse_history_tables(self, soup: BeautifulSoup) -> list[Deprecation]:
+    def _parse_history_tables(self, soup: BeautifulSoup) -> list[DeprecationEntry]:
         """Parse deprecation history tables."""
         deprecations = []
 
@@ -305,7 +307,7 @@ class AnthropicScraper(BaseScraper):
 
         return deprecations
 
-    def _parse_history_table_row(self, row: Any) -> Deprecation | None:
+    def _parse_history_table_row(self, row: Any) -> DeprecationEntry | None:
         """Parse a single row from a history table."""
         try:
             cells = row.find_all(["td", "th"])
@@ -325,13 +327,14 @@ class AnthropicScraper(BaseScraper):
             # deprecation date as retirement date minus 60 days as a fallback
             deprecation_date = self._estimate_deprecation_date(retirement_date)
 
-            return Deprecation(
+            return DeprecationEntry(
                 provider="Anthropic",
                 model=model,
                 deprecation_date=deprecation_date,
                 retirement_date=retirement_date,
                 replacement=replacement,
-                source_url=self.url,  # type: ignore[arg-type]
+                notes=None,
+                source_url=self.url,
             )
 
         except Exception as e:
@@ -344,10 +347,12 @@ class AnthropicScraper(BaseScraper):
 
         return retirement_date - timedelta(days=60)
 
-    def _merge_duplicate_deprecations(self, deprecations: list[Deprecation]) -> list[Deprecation]:
+    def _merge_duplicate_deprecations(
+        self, deprecations: list[DeprecationEntry]
+    ) -> list[DeprecationEntry]:
         """Merge duplicate deprecations, preferring ones with replacement info."""
         # Group by model name
-        by_model: dict[str, list[Deprecation]] = {}
+        by_model: dict[str, list[DeprecationEntry]] = {}
         for dep in deprecations:
             if dep.model not in by_model:
                 by_model[dep.model] = []
@@ -392,7 +397,7 @@ class AnthropicScraper(BaseScraper):
                     notes = dep.notes if dep.notes else best_dep.notes
 
                     # Create merged deprecation
-                    best_dep = Deprecation(
+                    best_dep = DeprecationEntry(
                         provider=best_dep.provider,
                         model=best_dep.model,
                         deprecation_date=deprecation_date,
