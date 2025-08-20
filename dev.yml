@@ -1,0 +1,18 @@
+name: deprecations-rss
+type: python
+
+up:
+  - uv
+
+commands:
+  test: pytest --cov=src --cov-report=term-missing
+  lint: ruff check . && ruff format --check .
+  format: ruff format .
+  typecheck: mypy src
+  checks:
+    desc: Run all CI checks locally
+    run: |
+      ruff format --check . \
+      && ruff check . \
+      && mypy src \
+      && pytest --cov=src --cov-report=term-missing
