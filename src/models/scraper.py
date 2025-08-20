@@ -1,55 +1,44 @@
-"""Pydantic models for scraping deprecation data from AI providers."""
+"""Data models for scraper configuration and caching."""
 
 from datetime import UTC, datetime
-from enum import Enum
+from pathlib import Path
 from typing import Any
 
-from pydantic import BaseModel, Field, HttpUrl, model_validator
+from pydantic import BaseModel, Field
 
 
-class Provider(str, Enum):
-    """Supported AI providers."""
+class ScraperConfig(BaseModel):
+    """Configuration for base scraper."""
 
-    OPENAI = "OpenAI"
-    ANTHROPIC = "Anthropic"
-    GOOGLE_VERTEX_AI = "Google Vertex AI"
-    AWS_BEDROCK = "AWS Bedrock"
-    COHERE = "Cohere"
-    AZURE_OPENAI = "Azure OpenAI"
+    rate_limit_delay: float = Field(default=1.0, description="Delay between requests in seconds")
+    max_retries: int = Field(default=3, description="Maximum number of retry attempts")
+    retry_delays: list[float] = Field(
+        default=[1, 2, 4], description="Delays for each retry attempt in seconds"
+    )
+    cache_ttl_hours: int = Field(default=23, description="Cache TTL in hours for daily runs")
+    timeout: float = Field(default=30.0, description="HTTP request timeout in seconds")
+    cache_dir: Path = Field(default=Path(".cache"), description="Directory for cache files")
+    user_agent: str = Field(
+        default="deprecations-rss/0.1.0 (+https://github.com/leblancfg/deprecations-rss)",
+        description="User agent string for HTTP requests",
+    )
+
+    model_config = {"arbitrary_types_allowed": True}
 
 
-class RawDeprecation(BaseModel):
-    """Model for scraped deprecation data."""
+class CacheEntry(BaseModel):
+    """Cache entry with timestamp for TTL management."""
 
-    provider: Provider
-    model_name: str
-    deprecation_date: datetime | None = None
-    retirement_date: datetime | None = None
-    replacement: str | None = None
-    notes: str | None = None
-    source_url: HttpUrl | None = None
-    scraped_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
+    data: dict[str, Any] = Field(description="Cached data")
+    timestamp: datetime = Field(description="Cache entry timestamp")
 
-    @model_validator(mode="after")
-    def validate_dates(self) -> "RawDeprecation":
-        """Ensure retirement_date is after deprecation_date if both are present."""
-        if (
-            self.deprecation_date
-            and self.retirement_date
-            and self.retirement_date <= self.deprecation_date
-        ):
-            raise ValueError("retirement_date must be after deprecation_date")
-        return self
+    @classmethod
+    def from_data(cls, data: dict[str, Any]) -> "CacheEntry":
+        """Create cache entry with current UTC timestamp."""
+        return cls(data=data, timestamp=datetime.now(UTC))
 
-    def to_dict(self) -> dict[str, Any]:
-        """Convert model to dictionary for serialization."""
-        return {
-            "provider": self.provider.value,
-            "model_name": self.model_name,
-            "deprecation_date": self.deprecation_date,
-            "retirement_date": self.retirement_date,
-            "replacement": self.replacement,
-            "notes": self.notes,
-            "source_url": str(self.source_url) if self.source_url else None,
-            "scraped_at": self.scraped_at,
-        }
+    def is_expired(self, ttl_hours: int) -> bool:
+        """Check if cache entry is expired based on TTL."""
+        now = datetime.now(UTC)
+        age_hours = (now - self.timestamp).total_seconds() / 3600
+        return age_hours > ttl_hours

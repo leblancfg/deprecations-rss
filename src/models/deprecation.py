@@ -1,122 +1,135 @@
-"""Deprecation entry model for tracking AI model deprecations."""
+"""Data models for deprecation entries."""
 
-import uuid
+import hashlib
 from datetime import UTC, datetime
 from typing import Any
 
-from dateutil import parser
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field, HttpUrl, field_validator, model_validator
 
 
-class DeprecationEntry(BaseModel):
-    """Model representing a single deprecation entry."""
+class Deprecation(BaseModel):
+    """Model for AI model deprecation information."""
 
-    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
-    provider: str
-    model_name: str
-    deprecation_date: datetime | None = None
-    retirement_date: datetime | None = None
-    replacement: str | None = None
-    notes: str | None = None
-    created_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
-    updated_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
+    provider: str = Field(description="Provider name (e.g., 'OpenAI', 'Anthropic')")
+    model: str = Field(description="Affected model name")
+    deprecation_date: datetime = Field(description="When the deprecation was announced")
+    retirement_date: datetime = Field(description="When the model stops working")
+    replacement: str | None = Field(default=None, description="Suggested alternative model")
+    notes: str | None = Field(default=None, description="Additional context")
+    source_url: HttpUrl = Field(description="URL where the deprecation info came from")
+    last_updated: datetime = Field(
+        default_factory=lambda: datetime.now(UTC),
+        description="When we last checked this information",
+    )
+    # Alias for compatibility with main branch
+    created_at: datetime = Field(
+        default_factory=lambda: datetime.now(UTC),
+        description="When entry was created (alias for last_updated)",
+    )
 
-    @field_validator("deprecation_date", "retirement_date", mode="before")
+    @field_validator("deprecation_date", "retirement_date", "last_updated")
     @classmethod
-    def ensure_timezone(cls, v: datetime | None) -> datetime | None:
-        """Ensure datetime fields have timezone information."""
-        if v is not None and isinstance(v, datetime) and v.tzinfo is None:
+    def ensure_utc_timezone(cls, v: datetime) -> datetime:
+        """Ensure datetime fields have UTC timezone."""
+        if v.tzinfo is None:
             return v.replace(tzinfo=UTC)
-        return v
+        return v.astimezone(UTC)
 
-    def to_rss_item(self) -> dict[str, Any]:
-        """Convert deprecation entry to RSS item format."""
-        title = f"{self.provider}: {self.model_name} Deprecation"
+    @model_validator(mode="after")
+    def validate_dates(self) -> "Deprecation":
+        """Validate that retirement_date is after deprecation_date."""
+        if self.retirement_date <= self.deprecation_date:
+            raise ValueError("retirement_date must be after deprecation_date")
+        return self
 
-        description_parts = [
-            f"Model: {self.model_name}",
-            f"Provider: {self.provider}",
-        ]
-
-        if self.deprecation_date:
-            description_parts.append(
-                f"Deprecation Date: {self.deprecation_date.strftime('%Y-%m-%d')}"
-            )
-        else:
-            description_parts.append("No deprecation date announced")
-
-        if self.retirement_date:
-            description_parts.append(
-                f"Retirement Date: {self.retirement_date.strftime('%Y-%m-%d')}"
-            )
-        else:
-            description_parts.append("No retirement date announced")
-
-        if self.replacement:
-            description_parts.append(f"Replacement: {self.replacement}")
-        else:
-            description_parts.append("No replacement specified")
-
-        if self.notes:
-            description_parts.append(f"Notes: {self.notes}")
-
-        description = " | ".join(description_parts)
-
-        return {
-            "title": title,
-            "description": description,
-            "guid": self.id,
-            "pubDate": self.created_at,
-            "link": f"https://deprecations.example.com/models/{self.id}",
+    def get_hash(self) -> str:
+        """Generate hash of core deprecation data (excluding last_updated)."""
+        # Include all fields that identify the unique deprecation, excluding last_updated
+        core_data = {
+            "provider": self.provider,
+            "model": self.model,
+            "deprecation_date": self.deprecation_date.isoformat(),
+            "retirement_date": self.retirement_date.isoformat(),
+            "replacement": self.replacement,
+            "notes": self.notes,
+            "source_url": str(self.source_url),
         }
 
-    @classmethod
-    def from_raw(cls, raw_data: dict[str, Any]) -> "DeprecationEntry":
-        """Create DeprecationEntry from raw deprecation data.
+        # Create deterministic string representation
+        data_str = str(sorted(core_data.items()))
+        return hashlib.sha256(data_str.encode()).hexdigest()
 
-        Handles various field name mappings and date formats.
-        """
-        provider = raw_data.get("provider", "")
-        model_name = raw_data.get("model", "") or raw_data.get("model_name", "")
+    def get_identity_hash(self) -> str:
+        """Generate hash for identifying same deprecation (for updates)."""
+        # Only include immutable fields that identify the unique deprecation
+        identity_data = {
+            "provider": self.provider,
+            "model": self.model,
+            "deprecation_date": self.deprecation_date.isoformat(),
+            "retirement_date": self.retirement_date.isoformat(),
+            "source_url": str(self.source_url),
+        }
 
-        deprecation_date = None
-        if deprecated_date_str := raw_data.get("deprecated_date"):
-            try:
-                deprecation_date = parser.parse(deprecated_date_str)
-                if deprecation_date.tzinfo is None:
-                    deprecation_date = deprecation_date.replace(tzinfo=UTC)
-            except (ValueError, TypeError):
-                pass
+        # Create deterministic string representation
+        data_str = str(sorted(identity_data.items()))
+        return hashlib.sha256(data_str.encode()).hexdigest()
 
-        retirement_date = None
-        if shutdown_date_str := raw_data.get("shutdown_date"):
-            try:
-                retirement_date = parser.parse(shutdown_date_str)
-                if retirement_date.tzinfo is None:
-                    retirement_date = retirement_date.replace(tzinfo=UTC)
-            except (ValueError, TypeError):
-                pass
+    def same_deprecation(self, other: "Deprecation") -> bool:
+        """Check if this represents the same deprecation (for updates)."""
+        return self.get_identity_hash() == other.get_identity_hash()
 
-        replacement = raw_data.get("replacement_model") or raw_data.get("replacement")
-        notes = raw_data.get("additional_info") or raw_data.get("notes")
+    def __eq__(self, other: object) -> bool:
+        """Compare deprecations based on core data (excluding last_updated)."""
+        if not isinstance(other, Deprecation):
+            return False
+        return self.get_hash() == other.get_hash()
 
-        return cls(
-            provider=provider,
-            model_name=model_name,
-            deprecation_date=deprecation_date,
-            retirement_date=retirement_date,
-            replacement=replacement,
-            notes=notes,
+    def __hash__(self) -> int:
+        """Hash based on core data for use in sets/dicts."""
+        return hash(self.get_hash())
+
+    def __str__(self) -> str:
+        """String representation of deprecation."""
+        return (
+            f"Deprecation({self.provider} {self.model}: "
+            f"{self.deprecation_date.date()} -> {self.retirement_date.date()})"
         )
 
     def is_active(self) -> bool:
-        """Check if the deprecation entry is still active.
-
-        Returns False if retirement_date has passed (including today).
-        Returns True if no retirement_date or retirement_date is in the future.
-        """
-        if self.retirement_date is None:
-            return True
-
+        """Check if the deprecation is still active (not yet retired)."""
         now = datetime.now(UTC)
         return self.retirement_date > now
+
+    def to_rss_item(self) -> dict[str, Any]:
+        """Convert deprecation to RSS item format (compatibility with main)."""
+        title = f"{self.provider}: {self.model} Deprecation"
+        description_parts = [
+            f"Model: {self.model}",
+            f"Provider: {self.provider}",
+            f"Deprecation Date: {self.deprecation_date.strftime('%Y-%m-%d')}",
+            f"Retirement Date: {self.retirement_date.strftime('%Y-%m-%d')}",
+        ]
+        if self.replacement:
+            description_parts.append(f"Replacement: {self.replacement}")
+        if self.notes:
+            description_parts.append(f"Notes: {self.notes}")
+
+        return {
+            "title": title,
+            "description": " | ".join(description_parts),
+            "guid": str(self.source_url),
+            "pubDate": self.created_at,
+            "link": str(self.source_url),
+        }
+
+    def __repr__(self) -> str:
+        """Detailed string representation."""
+        return (
+            f"Deprecation(provider='{self.provider}', model='{self.model}', "
+            f"deprecation_date={self.deprecation_date.isoformat()}, "
+            f"retirement_date={self.retirement_date.isoformat()})"
+        )
+
+
+# Main has DeprecationEntry, we use Deprecation, create alias for compatibility
+DeprecationEntry = Deprecation

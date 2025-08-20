@@ -1,333 +1,409 @@
-"""Tests for deprecation models."""
+"""Test suite for deprecation data models."""
 
+import json
 from datetime import UTC, datetime, timedelta
-from unittest.mock import MagicMock, patch
-from uuid import UUID
 
 import pytest
+from pydantic import ValidationError
 
-from src.models.deprecation import DeprecationEntry
-from src.models.feed import DeprecationFeed
+from src.models.deprecation import Deprecation
 
 
-def describe_deprecation_entry():
-    """Test suite for DeprecationEntry model."""
+def describe_deprecation_model():
+    """Test deprecation data model."""
 
-    def test_creates_entry_with_required_fields():
-        """It creates a deprecation entry with only required fields."""
-        entry = DeprecationEntry(
+    def it_creates_with_required_fields():
+        """Creates deprecation with required fields."""
+        deprecation_date = datetime.now(UTC)
+        retirement_date = deprecation_date + timedelta(days=90)
+
+        deprecation = Deprecation(
             provider="OpenAI",
-            model_name="GPT-3",
-        )
-
-        assert entry.provider == "OpenAI"
-        assert entry.model_name == "GPT-3"
-        assert isinstance(entry.id, str)
-        assert UUID(entry.id)  # Validates it's a valid UUID
-        assert entry.deprecation_date is None
-        assert entry.retirement_date is None
-        assert entry.replacement is None
-        assert entry.notes is None
-        assert isinstance(entry.created_at, datetime)
-        assert isinstance(entry.updated_at, datetime)
-
-    def test_creates_entry_with_all_fields():
-        """It creates a deprecation entry with all fields."""
-        deprecation_date = datetime(2024, 6, 1, tzinfo=UTC)
-        retirement_date = datetime(2024, 12, 31, tzinfo=UTC)
-
-        entry = DeprecationEntry(
-            provider="Anthropic",
-            model_name="Claude-1",
+            model="gpt-3.5-turbo-0301",
             deprecation_date=deprecation_date,
             retirement_date=retirement_date,
-            replacement="Claude-2",
-            notes="Significant improvements in Claude-2",
+            source_url="https://example.com/deprecation-notice",
         )
 
-        assert entry.provider == "Anthropic"
-        assert entry.model_name == "Claude-1"
-        assert entry.deprecation_date == deprecation_date
-        assert entry.retirement_date == retirement_date
-        assert entry.replacement == "Claude-2"
-        assert entry.notes == "Significant improvements in Claude-2"
+        assert deprecation.provider == "OpenAI"
+        assert deprecation.model == "gpt-3.5-turbo-0301"
+        assert deprecation.deprecation_date == deprecation_date
+        assert deprecation.retirement_date == retirement_date
+        assert str(deprecation.source_url) == "https://example.com/deprecation-notice"
+        assert deprecation.replacement is None
+        assert deprecation.notes is None
+        assert isinstance(deprecation.last_updated, datetime)
+        assert deprecation.last_updated.tzinfo == UTC
 
-    def test_validates_required_fields():
-        """It raises validation error when required fields are missing."""
-        with pytest.raises(ValueError):
-            DeprecationEntry()  # type: ignore
+    def it_creates_with_optional_fields():
+        """Creates deprecation with all fields including optional ones."""
+        deprecation_date = datetime.now(UTC)
+        retirement_date = deprecation_date + timedelta(days=90)
+        last_updated = datetime.now(UTC) - timedelta(hours=1)
 
-        with pytest.raises(ValueError):
-            DeprecationEntry(provider="OpenAI")  # type: ignore
+        deprecation = Deprecation(
+            provider="Anthropic",
+            model="claude-v1",
+            deprecation_date=deprecation_date,
+            retirement_date=retirement_date,
+            replacement="claude-3-haiku",
+            notes="This model is being retired in favor of Claude 3.",
+            source_url="https://docs.anthropic.com/deprecations",
+            last_updated=last_updated,
+        )
 
-        with pytest.raises(ValueError):
-            DeprecationEntry(model_name="GPT-3")  # type: ignore
+        assert deprecation.replacement == "claude-3-haiku"
+        assert deprecation.notes == "This model is being retired in favor of Claude 3."
+        assert deprecation.last_updated == last_updated
 
-    def describe_to_rss_item():
-        """Test RSS item conversion."""
+    def it_requires_provider():
+        """Raises ValidationError when provider is missing."""
+        with pytest.raises(ValidationError) as exc_info:
+            Deprecation(
+                model="test-model",
+                deprecation_date=datetime.now(UTC),
+                retirement_date=datetime.now(UTC) + timedelta(days=30),
+                source_url="https://example.com",
+            )
 
-        def test_converts_to_rss_format():
-            """It converts deprecation entry to RSS item format."""
-            deprecation_date = datetime(2024, 6, 1, tzinfo=UTC)
-            retirement_date = datetime(2024, 12, 31, tzinfo=UTC)
+        errors = exc_info.value.errors()
+        assert any(error["loc"] == ("provider",) for error in errors)
 
-            entry = DeprecationEntry(
-                provider="OpenAI",
-                model_name="GPT-3",
+    def it_requires_model():
+        """Raises ValidationError when model is missing."""
+        with pytest.raises(ValidationError) as exc_info:
+            Deprecation(
+                provider="TestProvider",
+                deprecation_date=datetime.now(UTC),
+                retirement_date=datetime.now(UTC) + timedelta(days=30),
+                source_url="https://example.com",
+            )
+
+        errors = exc_info.value.errors()
+        assert any(error["loc"] == ("model",) for error in errors)
+
+    def it_requires_deprecation_date():
+        """Raises ValidationError when deprecation_date is missing."""
+        with pytest.raises(ValidationError) as exc_info:
+            Deprecation(
+                provider="TestProvider",
+                model="test-model",
+                retirement_date=datetime.now(UTC) + timedelta(days=30),
+                source_url="https://example.com",
+            )
+
+        errors = exc_info.value.errors()
+        assert any(error["loc"] == ("deprecation_date",) for error in errors)
+
+    def it_requires_retirement_date():
+        """Raises ValidationError when retirement_date is missing."""
+        with pytest.raises(ValidationError) as exc_info:
+            Deprecation(
+                provider="TestProvider",
+                model="test-model",
+                deprecation_date=datetime.now(UTC),
+                source_url="https://example.com",
+            )
+
+        errors = exc_info.value.errors()
+        assert any(error["loc"] == ("retirement_date",) for error in errors)
+
+    def it_requires_source_url():
+        """Raises ValidationError when source_url is missing."""
+        with pytest.raises(ValidationError) as exc_info:
+            Deprecation(
+                provider="TestProvider",
+                model="test-model",
+                deprecation_date=datetime.now(UTC),
+                retirement_date=datetime.now(UTC) + timedelta(days=30),
+            )
+
+        errors = exc_info.value.errors()
+        assert any(error["loc"] == ("source_url",) for error in errors)
+
+    def it_validates_source_url_format():
+        """Validates that source_url is a valid URL."""
+        with pytest.raises(ValidationError) as exc_info:
+            Deprecation(
+                provider="TestProvider",
+                model="test-model",
+                deprecation_date=datetime.now(UTC),
+                retirement_date=datetime.now(UTC) + timedelta(days=30),
+                source_url="not-a-url",
+            )
+
+        errors = exc_info.value.errors()
+        assert any(error["loc"] == ("source_url",) for error in errors)
+
+    def it_validates_retirement_after_deprecation():
+        """Validates that retirement_date is after deprecation_date."""
+        deprecation_date = datetime.now(UTC)
+        retirement_date = deprecation_date - timedelta(days=1)  # Before deprecation
+
+        with pytest.raises(ValidationError) as exc_info:
+            Deprecation(
+                provider="TestProvider",
+                model="test-model",
                 deprecation_date=deprecation_date,
                 retirement_date=retirement_date,
-                replacement="GPT-4",
-                notes="Upgrade to GPT-4 for better performance",
+                source_url="https://example.com",
             )
 
-            rss_item = entry.to_rss_item()
+        errors = exc_info.value.errors()
+        assert any(
+            "retirement_date must be after deprecation_date" in str(error["msg"])
+            for error in errors
+        )
 
-            assert rss_item["title"] == "OpenAI: GPT-3 Deprecation"
-            assert "GPT-3" in rss_item["description"]
-            assert "OpenAI" in rss_item["description"]
-            assert "GPT-4" in rss_item["description"]
-            assert "2024-06-01" in rss_item["description"]
-            assert "2024-12-31" in rss_item["description"]
-            assert rss_item["guid"] == entry.id
-            assert rss_item["pubDate"] == entry.created_at
-            assert rss_item["link"] is not None
+    def it_serializes_to_dict():
+        """Serializes deprecation to dictionary."""
+        deprecation_date = datetime(2024, 1, 1, 12, 0, 0, tzinfo=UTC)
+        retirement_date = datetime(2024, 4, 1, 12, 0, 0, tzinfo=UTC)
+        last_updated = datetime(2024, 1, 15, 10, 30, 0, tzinfo=UTC)
 
-        def test_handles_missing_optional_fields():
-            """It handles RSS conversion when optional fields are missing."""
-            entry = DeprecationEntry(
-                provider="Google",
-                model_name="PaLM",
-            )
+        deprecation = Deprecation(
+            provider="OpenAI",
+            model="gpt-3.5-turbo-0301",
+            deprecation_date=deprecation_date,
+            retirement_date=retirement_date,
+            replacement="gpt-3.5-turbo",
+            notes="Upgrading to newer version",
+            source_url="https://example.com/notice",
+            last_updated=last_updated,
+        )
 
-            rss_item = entry.to_rss_item()
+        data = deprecation.model_dump()
 
-            assert rss_item["title"] == "Google: PaLM Deprecation"
-            assert "No deprecation date announced" in rss_item["description"]
-            assert "No retirement date announced" in rss_item["description"]
-            assert "No replacement specified" in rss_item["description"]
+        assert data["provider"] == "OpenAI"
+        assert data["model"] == "gpt-3.5-turbo-0301"
+        assert data["deprecation_date"] == deprecation_date
+        assert data["retirement_date"] == retirement_date
+        assert data["replacement"] == "gpt-3.5-turbo"
+        assert data["notes"] == "Upgrading to newer version"
+        assert str(data["source_url"]) == "https://example.com/notice"
+        assert data["last_updated"] == last_updated
 
-    def describe_from_raw():
-        """Test factory method from raw data."""
+    def it_serializes_to_json():
+        """Serializes deprecation to JSON string."""
+        deprecation_date = datetime(2024, 1, 1, 12, 0, 0, tzinfo=UTC)
+        retirement_date = datetime(2024, 4, 1, 12, 0, 0, tzinfo=UTC)
 
-        def test_creates_from_raw_deprecation_data():
-            """It creates entry from raw deprecation data."""
-            raw_data = {
-                "provider": "OpenAI",
-                "model": "text-davinci-003",
-                "deprecated_date": "2024-01-04",
-                "shutdown_date": "2024-06-04",
-                "replacement_model": "gpt-3.5-turbo-instruct",
-                "additional_info": "Legacy model being phased out",
-            }
+        deprecation = Deprecation(
+            provider="OpenAI",
+            model="gpt-3.5-turbo-0301",
+            deprecation_date=deprecation_date,
+            retirement_date=retirement_date,
+            source_url="https://example.com/notice",
+        )
 
-            entry = DeprecationEntry.from_raw(raw_data)
+        json_str = deprecation.model_dump_json()
+        parsed = json.loads(json_str)
 
-            assert entry.provider == "OpenAI"
-            assert entry.model_name == "text-davinci-003"
-            assert entry.deprecation_date == datetime(2024, 1, 4, tzinfo=UTC)
-            assert entry.retirement_date == datetime(2024, 6, 4, tzinfo=UTC)
-            assert entry.replacement == "gpt-3.5-turbo-instruct"
-            assert entry.notes == "Legacy model being phased out"
+        assert parsed["provider"] == "OpenAI"
+        assert parsed["model"] == "gpt-3.5-turbo-0301"
+        # Check that datetime is serialized as ISO string
+        assert "2024-01-01T12:00:00" in parsed["deprecation_date"]
 
-        def test_handles_various_date_formats():
-            """It handles various date formats in raw data."""
-            raw_data = {
-                "provider": "Anthropic",
-                "model": "Claude-instant-1",
-                "deprecated_date": "2024-03-15T10:30:00Z",
-                "shutdown_date": "June 30, 2024",
-            }
+    def it_deserializes_from_dict():
+        """Deserializes deprecation from dictionary."""
+        data = {
+            "provider": "Anthropic",
+            "model": "claude-v1",
+            "deprecation_date": "2024-01-01T12:00:00+00:00",
+            "retirement_date": "2024-04-01T12:00:00+00:00",
+            "replacement": "claude-3-haiku",
+            "notes": "Upgrading to Claude 3",
+            "source_url": "https://docs.anthropic.com",
+            "last_updated": "2024-01-15T10:30:00+00:00",
+        }
 
-            entry = DeprecationEntry.from_raw(raw_data)
+        deprecation = Deprecation.model_validate(data)
 
-            assert entry.deprecation_date == datetime(2024, 3, 15, 10, 30, 0, tzinfo=UTC)
-            assert entry.retirement_date == datetime(2024, 6, 30, tzinfo=UTC)
+        assert deprecation.provider == "Anthropic"
+        assert deprecation.model == "claude-v1"
+        assert deprecation.deprecation_date == datetime(2024, 1, 1, 12, 0, 0, tzinfo=UTC)
+        assert deprecation.retirement_date == datetime(2024, 4, 1, 12, 0, 0, tzinfo=UTC)
+        assert deprecation.replacement == "claude-3-haiku"
+        assert deprecation.notes == "Upgrading to Claude 3"
+        assert str(deprecation.source_url) == "https://docs.anthropic.com/"
+        assert deprecation.last_updated == datetime(2024, 1, 15, 10, 30, 0, tzinfo=UTC)
 
-    def describe_is_active():
-        """Test active status checking."""
+    def it_generates_consistent_hash():
+        """Generates consistent hash for same deprecation data."""
+        deprecation1 = Deprecation(
+            provider="OpenAI",
+            model="gpt-3.5-turbo-0301",
+            deprecation_date=datetime(2024, 1, 1, tzinfo=UTC),
+            retirement_date=datetime(2024, 4, 1, tzinfo=UTC),
+            source_url="https://example.com",
+        )
 
-        def test_active_when_no_retirement_date():
-            """It returns True when no retirement date is set."""
-            entry = DeprecationEntry(
-                provider="OpenAI",
-                model_name="GPT-3",
-            )
+        deprecation2 = Deprecation(
+            provider="OpenAI",
+            model="gpt-3.5-turbo-0301",
+            deprecation_date=datetime(2024, 1, 1, tzinfo=UTC),
+            retirement_date=datetime(2024, 4, 1, tzinfo=UTC),
+            source_url="https://example.com",
+        )
 
-            assert entry.is_active() is True
+        # Same core data should generate same hash (ignoring last_updated)
+        hash1 = deprecation1.get_hash()
+        hash2 = deprecation2.get_hash()
+        assert hash1 == hash2
+        assert isinstance(hash1, str)
+        assert len(hash1) == 64  # SHA-256 hex digest length
 
-        def test_active_when_retirement_date_in_future():
-            """It returns True when retirement date is in the future."""
-            future_date = datetime.now(UTC) + timedelta(days=30)
+    def it_generates_different_hash_for_different_data():
+        """Generates different hash for different deprecation data."""
+        deprecation1 = Deprecation(
+            provider="OpenAI",
+            model="gpt-3.5-turbo-0301",
+            deprecation_date=datetime(2024, 1, 1, tzinfo=UTC),
+            retirement_date=datetime(2024, 4, 1, tzinfo=UTC),
+            source_url="https://example.com",
+        )
 
-            entry = DeprecationEntry(
-                provider="OpenAI",
-                model_name="GPT-3",
-                retirement_date=future_date,
-            )
+        deprecation2 = Deprecation(
+            provider="OpenAI",
+            model="gpt-4",  # Different model
+            deprecation_date=datetime(2024, 1, 1, tzinfo=UTC),
+            retirement_date=datetime(2024, 4, 1, tzinfo=UTC),
+            source_url="https://example.com",
+        )
 
-            assert entry.is_active() is True
+        hash1 = deprecation1.get_hash()
+        hash2 = deprecation2.get_hash()
+        assert hash1 != hash2
 
-        def test_inactive_when_retirement_date_passed():
-            """It returns False when retirement date has passed."""
-            past_date = datetime.now(UTC) - timedelta(days=30)
+    def it_supports_equality_comparison():
+        """Supports equality comparison based on core fields."""
+        deprecation1 = Deprecation(
+            provider="OpenAI",
+            model="gpt-3.5-turbo-0301",
+            deprecation_date=datetime(2024, 1, 1, tzinfo=UTC),
+            retirement_date=datetime(2024, 4, 1, tzinfo=UTC),
+            source_url="https://example.com",
+            last_updated=datetime.now(UTC),
+        )
 
-            entry = DeprecationEntry(
-                provider="OpenAI",
-                model_name="GPT-3",
-                retirement_date=past_date,
-            )
+        deprecation2 = Deprecation(
+            provider="OpenAI",
+            model="gpt-3.5-turbo-0301",
+            deprecation_date=datetime(2024, 1, 1, tzinfo=UTC),
+            retirement_date=datetime(2024, 4, 1, tzinfo=UTC),
+            source_url="https://example.com",
+            last_updated=datetime.now(UTC) + timedelta(hours=1),  # Different last_updated
+        )
 
-            assert entry.is_active() is False
+        # Should be equal despite different last_updated (core data is same)
+        assert deprecation1 == deprecation2
 
-        def test_inactive_when_retirement_date_is_today():
-            """It returns False when retirement date is today."""
-            today = datetime.now(UTC).replace(hour=0, minute=0, second=0, microsecond=0)
+    def it_supports_inequality_comparison():
+        """Supports inequality comparison based on core fields."""
+        deprecation1 = Deprecation(
+            provider="OpenAI",
+            model="gpt-3.5-turbo-0301",
+            deprecation_date=datetime(2024, 1, 1, tzinfo=UTC),
+            retirement_date=datetime(2024, 4, 1, tzinfo=UTC),
+            source_url="https://example.com",
+        )
 
-            entry = DeprecationEntry(
-                provider="OpenAI",
-                model_name="GPT-3",
-                retirement_date=today,
-            )
+        deprecation2 = Deprecation(
+            provider="Anthropic",  # Different provider
+            model="gpt-3.5-turbo-0301",
+            deprecation_date=datetime(2024, 1, 1, tzinfo=UTC),
+            retirement_date=datetime(2024, 4, 1, tzinfo=UTC),
+            source_url="https://example.com",
+        )
 
-            assert entry.is_active() is False
+        assert deprecation1 != deprecation2
 
+    def it_has_string_representation():
+        """Has meaningful string representation."""
+        deprecation = Deprecation(
+            provider="OpenAI",
+            model="gpt-3.5-turbo-0301",
+            deprecation_date=datetime(2024, 1, 1, tzinfo=UTC),
+            retirement_date=datetime(2024, 4, 1, tzinfo=UTC),
+            source_url="https://example.com",
+        )
 
-def describe_deprecation_feed():
-    """Test suite for DeprecationFeed model."""
+        str_repr = str(deprecation)
+        assert "OpenAI" in str_repr
+        assert "gpt-3.5-turbo-0301" in str_repr
+        assert "2024-01-01" in str_repr
+        assert "2024-04-01" in str_repr
 
-    def test_creates_empty_feed():
-        """It creates an empty deprecation feed."""
-        feed = DeprecationFeed()
+    def it_generates_identity_hash():
+        """Generates identity hash based on immutable fields."""
+        deprecation1 = Deprecation(
+            provider="OpenAI",
+            model="gpt-3.5-turbo-0301",
+            deprecation_date=datetime(2024, 1, 1, tzinfo=UTC),
+            retirement_date=datetime(2024, 4, 1, tzinfo=UTC),
+            source_url="https://example.com",
+            notes="Original note",
+        )
 
-        assert feed.entries == []
-        assert isinstance(feed.generated_at, datetime)
-        assert feed.version == "v1"
+        deprecation2 = Deprecation(
+            provider="OpenAI",
+            model="gpt-3.5-turbo-0301",
+            deprecation_date=datetime(2024, 1, 1, tzinfo=UTC),
+            retirement_date=datetime(2024, 4, 1, tzinfo=UTC),
+            source_url="https://example.com",
+            notes="Updated note",  # Different notes
+        )
 
-    def test_creates_feed_with_entries():
-        """It creates a feed with initial entries."""
-        entries = [
-            DeprecationEntry(provider="OpenAI", model_name="GPT-3"),
-            DeprecationEntry(provider="Anthropic", model_name="Claude-1"),
-        ]
+        # Should have same identity hash despite different notes
+        identity1 = deprecation1.get_identity_hash()
+        identity2 = deprecation2.get_identity_hash()
+        assert identity1 == identity2
+        assert isinstance(identity1, str)
+        assert len(identity1) == 64
 
-        feed = DeprecationFeed(entries=entries)
+    def it_recognizes_same_deprecation():
+        """Recognizes same deprecation for updates."""
+        deprecation1 = Deprecation(
+            provider="OpenAI",
+            model="gpt-3.5-turbo-0301",
+            deprecation_date=datetime(2024, 1, 1, tzinfo=UTC),
+            retirement_date=datetime(2024, 4, 1, tzinfo=UTC),
+            source_url="https://example.com",
+            notes="Original note",
+        )
 
-        assert len(feed.entries) == 2
-        assert feed.entries[0].model_name == "GPT-3"
-        assert feed.entries[1].model_name == "Claude-1"
+        deprecation2 = Deprecation(
+            provider="OpenAI",
+            model="gpt-3.5-turbo-0301",
+            deprecation_date=datetime(2024, 1, 1, tzinfo=UTC),
+            retirement_date=datetime(2024, 4, 1, tzinfo=UTC),
+            source_url="https://example.com",
+            notes="Updated note",
+            replacement="gpt-3.5-turbo",
+        )
 
-    def describe_add_entry():
-        """Test adding entries to feed."""
+        # Should recognize as same deprecation despite different notes/replacement
+        assert deprecation1.same_deprecation(deprecation2) is True
+        assert deprecation2.same_deprecation(deprecation1) is True
 
-        def test_adds_single_entry():
-            """It adds a single entry to the feed."""
-            feed = DeprecationFeed()
-            entry = DeprecationEntry(provider="Google", model_name="PaLM")
+    def it_recognizes_different_deprecations():
+        """Recognizes different deprecations."""
+        deprecation1 = Deprecation(
+            provider="OpenAI",
+            model="gpt-3.5-turbo-0301",
+            deprecation_date=datetime(2024, 1, 1, tzinfo=UTC),
+            retirement_date=datetime(2024, 4, 1, tzinfo=UTC),
+            source_url="https://example.com",
+        )
 
-            feed.add_entry(entry)
+        deprecation2 = Deprecation(
+            provider="OpenAI",
+            model="gpt-4",  # Different model
+            deprecation_date=datetime(2024, 1, 1, tzinfo=UTC),
+            retirement_date=datetime(2024, 4, 1, tzinfo=UTC),
+            source_url="https://example.com",
+        )
 
-            assert len(feed.entries) == 1
-            assert feed.entries[0].model_name == "PaLM"
-
-        def test_adds_multiple_entries():
-            """It adds multiple entries to the feed."""
-            feed = DeprecationFeed()
-
-            feed.add_entry(DeprecationEntry(provider="OpenAI", model_name="GPT-3"))
-            feed.add_entry(DeprecationEntry(provider="Google", model_name="Bard"))
-
-            assert len(feed.entries) == 2
-
-    def describe_get_active_entries():
-        """Test filtering active entries."""
-
-        def test_returns_only_active_entries():
-            """It returns only active deprecation entries."""
-            past_date = datetime.now(UTC) - timedelta(days=30)
-            future_date = datetime.now(UTC) + timedelta(days=30)
-
-            entries = [
-                DeprecationEntry(provider="OpenAI", model_name="GPT-3", retirement_date=past_date),
-                DeprecationEntry(provider="Google", model_name="PaLM", retirement_date=future_date),
-                DeprecationEntry(provider="Anthropic", model_name="Claude-2"),
-            ]
-
-            feed = DeprecationFeed(entries=entries)
-            active = feed.get_active_entries()
-
-            assert len(active) == 2
-            assert all(e.model_name in ["PaLM", "Claude-2"] for e in active)
-
-        def test_returns_empty_list_when_no_active():
-            """It returns empty list when no entries are active."""
-            past_date = datetime.now(UTC) - timedelta(days=30)
-
-            entries = [
-                DeprecationEntry(provider="OpenAI", model_name="GPT-2", retirement_date=past_date),
-                DeprecationEntry(provider="Google", model_name="LaMDA", retirement_date=past_date),
-            ]
-
-            feed = DeprecationFeed(entries=entries)
-            active = feed.get_active_entries()
-
-            assert active == []
-
-    def describe_to_rss():
-        """Test RSS feed generation."""
-
-        @patch("src.models.feed.FeedGenerator")
-        def test_generates_rss_xml(mock_fg_class):
-            """It generates RSS XML using feedgen."""
-            mock_fg = MagicMock()
-            mock_fg_class.return_value = mock_fg
-            mock_fg.rss_str.return_value = b"<rss>...</rss>"
-
-            entries = [
-                DeprecationEntry(provider="OpenAI", model_name="GPT-3"),
-                DeprecationEntry(provider="Google", model_name="PaLM"),
-            ]
-
-            feed = DeprecationFeed(entries=entries)
-            rss_xml = feed.to_rss()
-
-            assert rss_xml == "<rss>...</rss>"
-            mock_fg.title.assert_called_once_with("AI Model Deprecations")
-            mock_fg.description.assert_called_once()
-            mock_fg.link.assert_called_once()
-            assert mock_fg.add_entry.call_count == 2
-
-        @patch("src.models.feed.FeedGenerator")
-        def test_includes_feed_metadata(mock_fg_class):
-            """It includes proper feed metadata in RSS."""
-            mock_fg = MagicMock()
-            mock_fg_class.return_value = mock_fg
-            mock_fg.rss_str.return_value = b"<rss>...</rss>"
-
-            feed = DeprecationFeed()
-            feed.to_rss()
-
-            mock_fg.title.assert_called_with("AI Model Deprecations")
-            mock_fg.description.assert_called_with(
-                "Track deprecations and retirements of AI models across providers"
-            )
-            mock_fg.language.assert_called_with("en")
-
-        @patch("src.models.feed.FeedGenerator")
-        def test_sorts_entries_by_date(mock_fg_class):
-            """It sorts entries by created date in RSS feed."""
-            mock_fg = MagicMock()
-            mock_fg_class.return_value = mock_fg
-            mock_fg.rss_str.return_value = b"<rss>...</rss>"
-
-            old_entry = DeprecationEntry(provider="OpenAI", model_name="GPT-2")
-            old_entry.created_at = datetime.now(UTC) - timedelta(days=5)
-
-            new_entry = DeprecationEntry(provider="Google", model_name="PaLM")
-            new_entry.created_at = datetime.now(UTC)
-
-            feed = DeprecationFeed(entries=[old_entry, new_entry])
-            feed.to_rss()
-
-            # Verify entries are added in reverse chronological order
-            calls = mock_fg.add_entry.call_args_list
-            assert len(calls) == 2
+        # Should recognize as different deprecations
+        assert deprecation1.same_deprecation(deprecation2) is False
+        assert deprecation2.same_deprecation(deprecation1) is False
