@@ -1,0 +1,126 @@
+name: Daily Deprecation Update
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Run at midnight UTC daily
+  workflow_dispatch:  # Allow manual triggering
+  push:
+    branches: [main]
+    paths:
+      - 'src/**'
+      - '.github/workflows/daily-update.yml'
+
+jobs:
+  update-deprecations:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+          cache-dependency-glob: "pyproject.toml"
+
+      - name: Set up Python
+        run: uv python install 3.13
+
+      - name: Install dependencies
+        run: uv sync --all-extras
+
+      # Set up cache variables
+      - name: Get cache variables
+        id: cache-vars
+        run: |
+          echo "cache-key=deprecations-cache-v1-$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+          echo "cache-restore-key-1=deprecations-cache-v1-$(date +'%Y-%m')" >> $GITHUB_OUTPUT
+          echo "cache-restore-key-2=deprecations-cache-v1-$(date +'%Y')" >> $GITHUB_OUTPUT
+          echo "cache-restore-key-3=deprecations-cache-v1-" >> $GITHUB_OUTPUT
+          echo "cache-path=$GITHUB_WORKSPACE/.github-cache/deprecations" >> $GITHUB_OUTPUT
+
+      # Restore cache from previous runs
+      - name: Restore cache
+        id: cache-restore
+        uses: actions/cache/restore@v4
+        with:
+          path: ${{ steps.cache-vars.outputs.cache-path }}
+          key: ${{ steps.cache-vars.outputs.cache-key }}
+          restore-keys: |
+            ${{ steps.cache-vars.outputs.cache-restore-key-1 }}
+            ${{ steps.cache-vars.outputs.cache-restore-key-2 }}
+            ${{ steps.cache-vars.outputs.cache-restore-key-3 }}
+
+      - name: Display cache status
+        run: |
+          if [ -d "${{ steps.cache-vars.outputs.cache-path }}" ]; then
+            echo "✅ Cache restored from: ${{ steps.cache-restore.outputs.cache-matched-key }}"
+            ls -la "${{ steps.cache-vars.outputs.cache-path }}" || true
+          else
+            echo "ℹ️ No cache found, starting fresh"
+          fi
+
+      # Run the scraper with fallback to cache
+      - name: Update deprecation data
+        id: update-data
+        env:
+          GITHUB_ACTIONS: "true"
+          CACHE_FALLBACK: "true"
+        run: |
+          uv run python main.py update
+        continue-on-error: true
+
+      # If scraping failed, try to use cached data
+      - name: Fallback to cached data
+        if: steps.update-data.outcome == 'failure'
+        run: |
+          echo "⚠️ Scraping failed, attempting to use cached data..."
+          uv run python main.py fallback
+
+      # Save updated cache
+      - name: Save cache
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: ${{ steps.cache-vars.outputs.cache-path }}
+          key: ${{ steps.cache-vars.outputs.cache-key }}
+
+      # Generate RSS feed and static site
+      - name: Generate RSS feed
+        run: uv run python main.py generate-rss
+
+      - name: Generate static site
+        run: uv run python main.py generate-site
+
+      # Commit and push changes
+      - name: Commit changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add -A
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: Update deprecation data $(date +'%Y-%m-%d')"
+            git push
+          fi
+
+      # Deploy to GitHub Pages (if configured)
+      - name: Setup Pages
+        if: success()
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        if: success()
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public
+
+      - name: Deploy to Pages
+        if: success()
+        id: deployment
+        uses: actions/deploy-pages@v4
