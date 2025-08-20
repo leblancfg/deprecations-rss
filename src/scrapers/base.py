@@ -171,9 +171,7 @@ class BaseScraper(ABC):
         for attempt in range(self.config.max_retries + 1):
             try:
                 async with httpx.AsyncClient() as client:
-                    response = await client.get(
-                        url, headers=headers, timeout=self.config.timeout
-                    )
+                    response = await client.get(url, headers=headers, timeout=self.config.timeout)
                     response.raise_for_status()
                     json_data: dict[str, Any] = response.json()
                     return json_data
