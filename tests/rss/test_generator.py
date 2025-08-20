@@ -168,21 +168,21 @@ class DescribeAddingEntries:
                 model="gpt-3.5-turbo",
                 deprecation_date=datetime(2024, 1, 1),
                 retirement_date=datetime(2024, 6, 1),
-            source_url="https://example.com",
+                source_url="https://example.com",
             ),
             DeprecationEntry(
                 provider="Anthropic",
                 model="claude-1",
                 deprecation_date=datetime(2024, 2, 1),
                 retirement_date=datetime(2024, 7, 1),
-            source_url="https://example.com",
+                source_url="https://example.com",
             ),
             DeprecationEntry(
                 provider="Google",
                 model="palm-2",
                 deprecation_date=datetime(2024, 3, 1),
                 retirement_date=datetime(2024, 8, 1),
-            source_url="https://example.com",
+                source_url="https://example.com",
             ),
         ]
 
@@ -204,21 +204,21 @@ class DescribeAddingEntries:
                 model="old-model",
                 deprecation_date=datetime(2024, 1, 1),
                 retirement_date=datetime(2024, 6, 1),
-            source_url="https://example.com",
+                source_url="https://example.com",
             ),
             DeprecationEntry(
                 provider="Anthropic",
                 model="newest-model",
                 deprecation_date=datetime(2024, 3, 1),
                 retirement_date=datetime(2024, 8, 1),
-            source_url="https://example.com",
+                source_url="https://example.com",
             ),
             DeprecationEntry(
                 provider="Google",
                 model="middle-model",
                 deprecation_date=datetime(2024, 2, 1),
                 retirement_date=datetime(2024, 7, 1),
-            source_url="https://example.com",
+                source_url="https://example.com",
             ),
         ]
 
@@ -243,14 +243,14 @@ class DescribeAddingEntries:
                 model="first",
                 deprecation_date=datetime(2024, 3, 1),
                 retirement_date=datetime(2024, 8, 1),
-            source_url="https://example.com",
+                source_url="https://example.com",
             ),
             DeprecationEntry(
                 provider="Anthropic",
                 model="second",
                 deprecation_date=datetime(2024, 1, 1),
                 retirement_date=datetime(2024, 6, 1),
-            source_url="https://example.com",
+                source_url="https://example.com",
             ),
         ]
 
@@ -421,7 +421,7 @@ class DescribeFeedManipulation:
                 model=f"model-{i}",
                 deprecation_date=datetime(2024, 1, i),
                 retirement_date=datetime(2024, 6, i),
-            source_url="https://example.com",
+                source_url="https://example.com",
             )
             for i in range(1, 4)
         ]

@@ -1,6 +1,6 @@
 """Deprecation model for AI model deprecation tracking."""
 
-from datetime import datetime
+from datetime import UTC, datetime
 
 from pydantic import BaseModel, Field, field_validator, model_validator
 
@@ -15,6 +15,10 @@ class DeprecationEntry(BaseModel):
     replacement: str | None = Field(None, description="Suggested alternative model")
     notes: str | None = Field(None, description="Additional context or information")
     source_url: str = Field(..., description="Link to official announcement")
+    last_updated: datetime = Field(
+        default_factory=lambda: datetime.now(UTC),
+        description="When this entry was last updated",
+    )
 
     @field_validator("provider", "model")
     @classmethod
@@ -87,8 +91,6 @@ class DeprecationEntry(BaseModel):
     # Compatibility methods for main branch
     def is_active(self) -> bool:
         """Check if deprecation is still active (not yet retired)."""
-        from datetime import UTC
-
         now = datetime.now(UTC)
         return self.retirement_date > now
 
@@ -130,13 +132,6 @@ class DeprecationEntry(BaseModel):
     def created_at(self) -> datetime:
         """Alias for compatibility with main branch."""
         return self.deprecation_date
-
-    @property
-    def last_updated(self) -> datetime:
-        """Alias for compatibility with main branch."""
-        from datetime import UTC
-
-        return datetime.now(UTC)
 
 
 # Alias for compatibility with other branches that may use Deprecation

@@ -203,6 +203,7 @@ class DescribeDeprecationEntryRSSConversion:
             model="gpt-3.5-turbo",
             deprecation_date=datetime(2024, 2, 1),
             retirement_date=datetime(2024, 7, 1),
+            source_url="https://example.com",
         )
 
         assert entry1.to_rss_item()["guid"] != entry2.to_rss_item()["guid"]
