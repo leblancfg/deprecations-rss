@@ -5,6 +5,7 @@ up:
   - uv
 
 commands:
+  server: cd docs && python -m http.server $PORT
   test: pytest --cov=src --cov-report=term-missing
   lint: ruff check . && ruff format --check .
   format: ruff format .
@@ -16,3 +17,6 @@ commands:
       && ruff check . \
       && mypy src \
       && pytest --cov=src --cov-report=term-missing
+
+open:
+  app: https://deprecations-rss.myshopify.io
