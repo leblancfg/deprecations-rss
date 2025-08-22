@@ -6,8 +6,6 @@ up:
 
 commands:
   scrape: python main.py
-  rss: python rss_gen.py
-  run: python run.py
   server: cd docs && python -m http.server $PORT
   checks: python main.py && python rss_gen.py
 

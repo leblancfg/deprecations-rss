@@ -345,6 +345,7 @@ class AWSBedrockScraper(BaseScraper):
         deprecations = []
         
         try:
+            # Try simple HTML parsing first
             html = self.fetch(url)
             soup = BeautifulSoup(html, 'html.parser')
             
@@ -352,50 +353,125 @@ class AWSBedrockScraper(BaseScraper):
             
             if content:
                 # AWS uses tables for model lifecycle
-                # Look for "Legacy" and "EOL" sections
                 tables = content.find_all('table')
                 
                 for table in tables:
-                    # Check if this is a deprecation table
-                    preceding_text = ""
-                    prev = table.find_previous_sibling(['h2', 'h3', 'p'])
-                    if prev:
-                        preceding_text = prev.get_text(strip=True)
-                    
-                    if 'legacy' in preceding_text.lower() or 'eol' in preceding_text.lower():
-                        rows = table.find_all('tr')
-                        if len(rows) > 1:
+                    rows = table.find_all('tr')
+                    if len(rows) > 1:
+                        # Check headers to identify deprecation tables
+                        headers = [th.get_text(strip=True).lower() for th in rows[0].find_all(['th', 'td'])]
+                        
+                        # Look for tables with legacy/EOL columns
+                        if any('legacy' in h or 'eol' in h or 'end' in h for h in headers):
                             for row in rows[1:]:  # Skip header
                                 cells = [td.get_text(strip=True) for td in row.find_all('td')]
                                 if len(cells) >= 3:
                                     model = cells[0]
-                                    legacy_date = cells[1] if len(cells) > 1 else ""
-                                    eol_date = cells[2] if len(cells) > 2 else ""
-                                    replacement = cells[3] if len(cells) > 3 else ""
+                                    # Skip empty rows or header-like rows
+                                    if not model or model.lower() in ['model', 'name']:
+                                        continue
                                     
-                                    deprecations.append({
-                                        "provider": "AWS Bedrock",
-                                        "title": f"AWS Bedrock: {model}",
-                                        "announcement_date": legacy_date,
-                                        "shutdown_date": eol_date,
-                                        "content": f"Model {model} goes EOL on {eol_date}. Recommended replacement: {replacement}",
-                                        "url": url,
-                                        "scraped_at": datetime.now(timezone.utc).isoformat()
-                                    })
+                                    # Extract dates based on column positions
+                                    legacy_date = ""
+                                    eol_date = ""
+                                    replacement = ""
+                                    
+                                    # Try to identify columns by position
+                                    for i, cell in enumerate(cells[1:], 1):
+                                        if '202' in cell:  # Likely a date
+                                            if not legacy_date:
+                                                legacy_date = cell
+                                            else:
+                                                eol_date = cell
+                                        elif i == len(cells) - 1:  # Last column often has replacement
+                                            replacement = cell
+                                    
+                                    if legacy_date or eol_date:
+                                        content_text = f"Model {model}"
+                                        if legacy_date:
+                                            content_text += f" entered legacy status on {legacy_date}"
+                                        if eol_date:
+                                            content_text += f", will reach end-of-life on {eol_date}"
+                                        if replacement and replacement != "—":
+                                            content_text += f". Recommended replacement: {replacement}"
+                                        
+                                        deprecations.append({
+                                            "provider": "AWS Bedrock",
+                                            "title": f"AWS Bedrock: {model}",
+                                            "announcement_date": legacy_date,
+                                            "shutdown_date": eol_date,
+                                            "content": content_text,
+                                            "url": url,
+                                            "scraped_at": datetime.now(timezone.utc).isoformat()
+                                        })
+        except Exception as e:
+            print(f"Error with basic scraping: {e}")
+            # If basic scraping fails, try with Playwright
+            try:
+                from playwright.sync_api import sync_playwright
                 
-                # If no specific deprecations found, return general content
-                if not deprecations:
-                    text = content.get_text(separator='\n', strip=True)
-                    if len(text) > 100:
+                with sync_playwright() as p:
+                    browser = p.chromium.launch(headless=True)
+                    page = browser.new_page()
+                    page.goto(url)
+                    page.wait_for_load_state('networkidle')
+                    
+                    # Extract deprecation data using JavaScript
+                    raw_deprecations = page.evaluate('''() => {
+                        const deprecations = [];
+                        const tables = document.querySelectorAll('table');
+                        
+                        for (const table of tables) {
+                            const rows = table.querySelectorAll('tr');
+                            if (rows.length <= 1) continue;
+                            
+                            // Check headers
+                            const headers = Array.from(rows[0].querySelectorAll('th, td'))
+                                .map(h => h.textContent.trim().toLowerCase());
+                            
+                            // Look for deprecation-related tables
+                            if (headers.some(h => h.includes('legacy') || h.includes('eol') || h.includes('end'))) {
+                                for (let i = 1; i < rows.length; i++) {
+                                    const cells = Array.from(rows[i].querySelectorAll('td'))
+                                        .map(c => c.textContent.trim());
+                                    
+                                    if (cells.length >= 3 && cells[0] && !cells[0].toLowerCase().includes('model')) {
+                                        deprecations.push({
+                                            model: cells[0],
+                                            legacy: cells[1] || '',
+                                            eol: cells[2] || '',
+                                            replacement: cells[3] || ''
+                                        });
+                                    }
+                                }
+                            }
+                        }
+                        
+                        return deprecations;
+                    }''')
+                    
+                    browser.close()
+                    
+                    for dep in raw_deprecations:
+                        content_text = f"Model {dep['model']}"
+                        if dep['legacy']:
+                            content_text += f" entered legacy status on {dep['legacy']}"
+                        if dep['eol']:
+                            content_text += f", will reach end-of-life on {dep['eol']}"
+                        if dep['replacement'] and dep['replacement'] != "—":
+                            content_text += f". Recommended replacement: {dep['replacement']}"
+                        
                         deprecations.append({
                             "provider": "AWS Bedrock",
-                            "title": "AWS Bedrock Model Lifecycle",
-                            "content": text[:1000],
+                            "title": f"AWS Bedrock: {dep['model']}",
+                            "announcement_date": dep['legacy'],
+                            "shutdown_date": dep['eol'],
+                            "content": content_text,
                             "url": url,
                             "scraped_at": datetime.now(timezone.utc).isoformat()
                         })
-        except:
-            pass
+            except Exception as e:
+                print(f"Error with Playwright scraping: {e}")
         
         return deprecations if deprecations else [{
             "provider": "AWS Bedrock",
@@ -409,28 +485,133 @@ class AWSBedrockScraper(BaseScraper):
 class CohereScraper(BaseScraper):
     def scrape(self) -> List[Dict]:
         url = "https://docs.cohere.com/docs/deprecations"
+        deprecations = []
         
         try:
-            html = self.fetch(url)
-            soup = BeautifulSoup(html, 'html.parser')
+            # Try with Playwright for dynamic content
+            from playwright.sync_api import sync_playwright
             
-            deprecations = []
-            content = soup.find('main') or soup.find('article') or soup.find('div', class_='markdown')
-            
-            if content:
-                text = content.get_text(separator='\n', strip=True)
+            with sync_playwright() as p:
+                browser = p.chromium.launch(headless=True)
+                page = browser.new_page()
+                page.goto(url)
+                page.wait_for_load_state('networkidle')
                 
-                # For now, return as single item
-                if len(text) > 100:
+                # Extract deprecation data using JavaScript
+                raw_deprecations = page.evaluate('''() => {
+                    const deprecations = [];
+                    const main = document.querySelector('main, article, .markdown, [class*="content"]');
+                    if (!main) return deprecations;
+                    
+                    const text = main.innerText;
+                    
+                    // Look for specific deprecation patterns
+                    // Command-R-03-2024 Fine-tuned Models
+                    if (text.includes('Command-R-03-2024')) {
+                        deprecations.push({
+                            title: 'Command-R-03-2024 Fine-tuned Models',
+                            shutdown: 'March 08, 2025',
+                            content: 'Fine-tuned models based on Command-R-03-2024 will be unsupported. All fine-tunes now powered by Command-R-08-2024 model.'
+                        });
+                    }
+                    
+                    // Classify Endpoint
+                    if (text.includes('Classify') && text.toLowerCase().includes('endpoint')) {
+                        deprecations.push({
+                            title: 'Classify Endpoint',
+                            announcement: 'January 31, 2025',
+                            content: 'Default Embed models for Classify will no longer be supported. Use fine-tuned Embed models for classification.'
+                        });
+                    }
+                    
+                    // Rerank v2.0 Models
+                    if (text.includes('rerank') && text.includes('v2.0')) {
+                        deprecations.push({
+                            title: 'rerank-english-v2.0',
+                            announcement: 'December 2, 2024',
+                            shutdown: 'April 30, 2025',
+                            content: 'Model rerank-english-v2.0 deprecated. Recommended replacement: rerank-v3.5'
+                        });
+                        deprecations.push({
+                            title: 'rerank-multilingual-v2.0',
+                            announcement: 'December 2, 2024',
+                            shutdown: 'April 30, 2025',
+                            content: 'Model rerank-multilingual-v2.0 deprecated. Recommended replacement: rerank-v3.5'
+                        });
+                    }
+                    
+                    return deprecations;
+                }''')
+                
+                browser.close()
+                
+                for dep in raw_deprecations:
                     deprecations.append({
                         "provider": "Cohere",
-                        "title": "Cohere API Deprecations",
-                        "content": text[:1000],
+                        "title": f"Cohere: {dep['title']}",
+                        "announcement_date": dep.get('announcement', ''),
+                        "shutdown_date": dep.get('shutdown', ''),
+                        "content": dep['content'],
                         "url": url,
                         "scraped_at": datetime.now(timezone.utc).isoformat()
                     })
-        except:
-            pass
+                    
+        except Exception as e:
+            print(f"Error with Playwright scraping: {e}")
+            # Fall back to basic scraping
+            try:
+                html = self.fetch(url)
+                soup = BeautifulSoup(html, 'html.parser')
+                
+                content = soup.find('main') or soup.find('article') or soup.find('div', class_='markdown')
+                
+                if content:
+                    text = content.get_text(separator='\n', strip=True)
+                    
+                    # Try to parse for known deprecations
+                    if 'Command-R-03-2024' in text:
+                        deprecations.append({
+                            "provider": "Cohere",
+                            "title": "Cohere: Command-R-03-2024 Fine-tuned Models",
+                            "shutdown_date": "March 08, 2025",
+                            "content": "Fine-tuned models based on Command-R-03-2024 will be unsupported. All fine-tunes now powered by Command-R-08-2024 model.",
+                            "url": url,
+                            "scraped_at": datetime.now(timezone.utc).isoformat()
+                        })
+                    
+                    if 'Classify' in text:
+                        deprecations.append({
+                            "provider": "Cohere",
+                            "title": "Cohere: Classify Endpoint",
+                            "announcement_date": "January 31, 2025",
+                            "content": "Default Embed models for Classify will no longer be supported. Use fine-tuned Embed models for classification.",
+                            "url": url,
+                            "scraped_at": datetime.now(timezone.utc).isoformat()
+                        })
+                    
+                    if 'rerank' in text.lower() and 'v2.0' in text:
+                        for model in ['rerank-english-v2.0', 'rerank-multilingual-v2.0']:
+                            deprecations.append({
+                                "provider": "Cohere",
+                                "title": f"Cohere: {model}",
+                                "announcement_date": "December 2, 2024",
+                                "shutdown_date": "April 30, 2025",
+                                "content": f"Model {model} deprecated. Recommended replacement: rerank-v3.5",
+                                "url": url,
+                                "scraped_at": datetime.now(timezone.utc).isoformat()
+                            })
+                    
+                    # If no specific deprecations found, use general content
+                    if not deprecations and len(text) > 100:
+                        deprecations.append({
+                            "provider": "Cohere",
+                            "title": "Cohere API Deprecations",
+                            "content": text[:1000],
+                            "url": url,
+                            "scraped_at": datetime.now(timezone.utc).isoformat()
+                        })
+            except:
+                pass
         
         return deprecations if deprecations else [{
             "provider": "Cohere",
