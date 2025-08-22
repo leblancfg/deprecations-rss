@@ -1,4 +1,3 @@
-/* Simple, minimal styles */
 * {
     margin: 0;
     padding: 0;
@@ -6,166 +5,288 @@
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     line-height: 1.6;
-    color: #333;
-    background: #fff;
-    max-width: 700px;
-    margin: 0 auto;
-    padding: 2rem 1rem;
+    color: #e5e5e5;
+    background: #0a0a0a;
+    font-size: 16px;
 }
 
-header {
-    margin-bottom: 3rem;
-    text-align: center;
+.container {
+    max-width: 1024px;
+    margin: 0 auto;
+    padding: 10px 24px;
 }
 
 h1 {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-}
-
-h2 {
-    font-size: 1.5rem;
-    margin: 2rem 0 1rem;
-    color: #111;
-}
-
-h3 {
-    font-size: 1.2rem;
-    margin: 1.5rem 0 0.5rem;
-    color: #222;
-}
-
-p {
-    margin: 1rem 0;
-}
-
-a {
-    color: #0066cc;
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    background: linear-gradient(to right, #fff, #a0a0a0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .tagline {
-    color: #666;
-    font-size: 1.1rem;
+    font-size: 1.25rem;
+    color: #999;
+    font-weight: 400;
 }
 
-.lead {
-    font-size: 1.1rem;
-    margin: 2rem 0;
-    color: #444;
+h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 48px 0 20px;
+    color: #fff;
 }
 
-/* RSS Subscribe Section */
+h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 28px 0 12px;
+    color: #fff;
+}
+
+p {
+    margin: 16px 0;
+    color: #b0b0b0;
+    line-height: 1.7;
+}
+
+a {
+    color: #f97316;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+a:hover {
+    color: #fb923c;
+}
+
+/* Hero RSS Subscribe */
 .subscribe-card {
-    background: #f7f7f7;
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    padding: 2rem;
-    margin: 2rem 0;
+    background: #111;
+    border: 1px solid #222;
+    border-radius: 12px;
+    padding: 40px;
+    margin: 48px 0;
     text-align: center;
+    position: relative;
+    box-shadow: 8px 8px 0 rgba(249, 115, 22, 0.2);
+}
+
+.subscribe-card h2 {
+    color: #fff;
+    margin: 0 0 16px;
+}
+
+.subscribe-card p {
+    color: #999;
+    margin-bottom: 24px;
 }
 
 .subscribe-button {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    background: #ff9500;
-    color: white;
-    padding: 0.75rem 1.5rem;
-    border-radius: 6px;
-    font-size: 1rem;
-    margin: 1rem 0;
-    transition: background 0.2s;
+    gap: 10px;
+    background: linear-gradient(135deg, #f97316, #ea580c);
+    color: #000;
+    padding: 14px 32px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.2s;
+    border: none;
+    cursor: pointer;
 }
 
 .subscribe-button:hover {
-    background: #e68600;
-    text-decoration: none;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(249, 115, 22, 0.3);
+    color: #000;
 }
 
 .rss-icon {
+    width: 20px;
+    height: 20px;
     fill: currentColor;
 }
 
 .subscribe-help {
     color: #666;
-    font-size: 0.9rem;
+    font-size: 14px;
+    margin-top: 20px;
 }
 
-/* How-to Section */
+/* Method cards */
 .method {
-    margin: 2rem 0;
-    padding: 1.5rem;
-    background: #fafafa;
-    border-left: 3px solid #ff9500;
+    background: #111;
+    border: 1px solid #222;
+    border-radius: 8px;
+    padding: 28px;
+    margin: 24px 0;
+    position: relative;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.method:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 4px 4px 0 rgba(249, 115, 22, 0.1);
+}
+
+.method h3 {
+    margin-top: 0;
+    color: #f97316;
 }
 
 .method ol {
-    margin: 0.5rem 0 0 1.5rem;
+    margin: 16px 0 0 20px;
+    color: #999;
 }
 
 .method li {
-    margin: 0.5rem 0;
+    margin: 10px 0;
 }
 
 code {
-    background: #f0f0f0;
-    padding: 0.2rem 0.4rem;
-    border-radius: 3px;
-    font-family: 'Courier New', monospace;
-    font-size: 0.9em;
+    background: #1a1a1a;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', monospace;
+    font-size: 14px;
+    color: #f97316;
+    border: 1px solid #333;
 }
 
-/* Lists */
+/* Feature list */
 ul {
-    margin: 1rem 0 1rem 1.5rem;
+    margin: 16px 0;
+    padding-left: 24px;
 }
 
 li {
-    margin: 0.5rem 0;
+    margin: 10px 0;
+    color: #999;
+}
+
+li strong {
+    color: #e5e5e5;
 }
 
 section {
-    margin: 3rem 0;
+    margin: 80px 0;
 }
 
-.note {
+/* URL display */
+.url-display {
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 6px;
+    padding: 16px 20px;
+    font-family: 'SF Mono', Monaco, monospace;
+    font-size: 14px;
+    color: #f97316;
+    word-break: break-all;
+    margin: 20px 0;
+    position: relative;
+    overflow-x: auto;
+}
+
+.url-display::before {
+    content: '$';
     color: #666;
-    font-style: italic;
+    margin-right: 8px;
+}
+
+/* Stats grid */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 24px;
+    margin: 40px 0;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #f97316;
+    line-height: 1;
+}
+
+.stat-label {
+    color: #666;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 8px;
 }
 
 /* Footer */
 footer {
-    margin-top: 4rem;
-    padding-top: 2rem;
-    border-top: 1px solid #ddd;
+    margin-top: 120px;
+    padding-top: 40px;
+    border-top: 1px solid #222;
     text-align: center;
     color: #666;
-    font-size: 0.9rem;
+    font-size: 14px;
 }
 
 footer a {
-    color: #666;
+    color: #999;
 }
 
-/* Responsive */
-@media (max-width: 600px) {
-    body {
-        padding: 1rem;
+footer a:hover {
+    color: #f97316;
+}
+
+/* Dotted background accent */
+.hero-section {
+    position: relative;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 200px;
+    height: 200px;
+    background-image: radial-gradient(circle, #f97316 1px, transparent 1px);
+    background-size: 20px 20px;
+    opacity: 0.1;
+    pointer-events: none;
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+    .container {
+        padding: 10px 20px;
     }
     
     h1 {
+        font-size: 2rem;
+    }
+    
+    .tagline {
+        font-size: 1.1rem;
+    }
+    
+    h2 {
         font-size: 1.5rem;
     }
     
-    .subscribe-button {
-        font-size: 0.9rem;
-        word-break: break-all;
+    .subscribe-card {
+        padding: 32px 24px;
+        box-shadow: 4px 4px 0 rgba(249, 115, 22, 0.2);
+    }
+    
+    .stats {
+        grid-template-columns: 1fr;
     }
 }

@@ -6,7 +6,7 @@
     "shutdown_date": "2025-06-10",
     "content": "On June 10th, 2025, we notified developers using gpt-4o-realtime-preview-2024-10-01 of its deprecation and removal from the API in three months. SHUTDOWN DATE\tMODEL / SYSTEM\tRECOMMENDED REPLACEMENT 2025-09-10\tgpt-4o-realtime-preview-2024-10-01\tgpt-4o-realtime-preview",
     "url": "https://platform.openai.com/docs/deprecations#2025-06-10",
-    "scraped_at": "2025-08-22T20:28:47.749593+00:00"
+    "scraped_at": "2025-08-22T20:40:32.551153+00:00"
   },
   {
     "provider": "OpenAI",
@@ -15,7 +15,7 @@
     "shutdown_date": "2025-06-10",
     "content": "On June 10th, 2025, we notified developers using gpt-4o-audio-preview-2024-10-01 of its deprecation and removal from the API in three months. SHUTDOWN DATE\tMODEL / SYSTEM\tRECOMMENDED REPLACEMENT 2025-09-10\tgpt-4o-audio-preview-2024-10-01\tgpt-4o-audio-preview",
     "url": "https://platform.openai.com/docs/deprecations#2025-06-10",
-    "scraped_at": "2025-08-22T20:28:47.750075+00:00"
+    "scraped_at": "2025-08-22T20:40:32.552711+00:00"
   },
   {
     "provider": "OpenAI",
@@ -24,7 +24,7 @@
     "shutdown_date": "2025-04-28",
     "content": "On April 28th, 2025, we notified developers using text-moderation of its deprecation and removal from the API in six months. SHUTDOWN DATE\tMODEL / SYSTEM\tRECOMMENDED REPLACEMENT 2025-10-27\ttext-moderation-007\tomni-moderation 2025-10-27\ttext-moderation-stable\tomni-moderation 2025-10-27\ttext-moderation-latest\tomni-moderation",
     "url": "https://platform.openai.com/docs/deprecations#2025-04-28",
-    "scraped_at": "2025-08-22T20:28:47.750080+00:00"
+    "scraped_at": "2025-08-22T20:40:32.552717+00:00"
   },
   {
     "provider": "OpenAI",
@@ -33,7 +33,7 @@
     "shutdown_date": "2025-04-28",
     "content": "On April 28th, 2025, we notified developers using o1-preview and o1-mini of their deprecations and removal from the API in three months and six months respectively. SHUTDOWN DATE\tMODEL / SYSTEM\tRECOMMENDED REPLACEMENT 2025-07-28\to1-preview\to3 2025-10-27\to1-mini\to4-mini",
     "url": "https://platform.openai.com/docs/deprecations#2025-04-28",
-    "scraped_at": "2025-08-22T20:28:47.750084+00:00"
+    "scraped_at": "2025-08-22T20:40:32.552721+00:00"
   },
   {
     "provider": "OpenAI",
@@ -42,7 +42,7 @@
     "shutdown_date": "2025-04-14",
     "content": "On April 14th, 2025, we notified developers that the gpt-4.5-preview model is deprecated and will be removed from the API in the coming months. SHUTDOWN DATE\tMODEL / SYSTEM\tRECOMMENDED REPLACEMENT 2025-07-14\tgpt-4.5-preview\tgpt-4.1",
     "url": "https://platform.openai.com/docs/deprecations#2025-04-14",
-    "scraped_at": "2025-08-22T20:28:47.750088+00:00"
+    "scraped_at": "2025-08-22T20:40:32.552725+00:00"
   },
   {
     "provider": "OpenAI",
@@ -51,7 +51,7 @@
     "shutdown_date": "2024-10-02",
     "content": "In April 2024 when we released the v2 beta version of the Assistants API, we announced that access to the v1 beta would be shut off by the end of 2024. Access to the v1 beta will be discontinued on December 18, 2024. See the Assistants API v2 beta migration guide to learn more about how to migrate your tool usage to the latest version of the Assistants API. SHUTDOWN DATE\tMODEL / SYSTEM\tRECOMMENDED REPLACEMENT 2024-12-18\tOpenAI-Beta: assistants=v1\tOpenAI-Beta: assistants=v2",
     "url": "https://platform.openai.com/docs/deprecations#2024-10-02",
-    "scraped_at": "2025-08-22T20:28:47.750093+00:00"
+    "scraped_at": "2025-08-22T20:40:32.552731+00:00"
   },
   {
     "provider": "OpenAI",
@@ -60,7 +60,7 @@
     "shutdown_date": "2024-08-29",
     "content": "On August 29th, 2024, we notified developers fine-tuning babbage-002 and davinci-002 that new fine-tuning training runs on these models will no longer be supported starting October 28, 2024. Fine-tuned models created from these base models are not affected by this deprecation, but you will no longer be able to create new fine-tuned versions with these models. SHUTDOWN DATE\tMODEL / SYSTEM\tRECOMMENDED REPLACEMENT 2024-10-28\tNew fine-tuning training on babbage-002\tgpt-4o-mini 2024-10-28\tNew fine-tuning training on davinci-002\tgpt-4o-mini",
     "url": "https://platform.openai.com/docs/deprecations#2024-08-29",
-    "scraped_at": "2025-08-22T20:28:47.750098+00:00"
+    "scraped_at": "2025-08-22T20:40:32.552736+00:00"
   },
   {
     "provider": "OpenAI",
@@ -69,7 +69,7 @@
     "shutdown_date": "2024-06-06",
     "content": "On June 6th, 2024, we notified developers using gpt-4-32k and gpt-4-vision-preview of their upcoming deprecations in one year and six months respectively. As of June 17, 2024, only existing users of these models will be able to continue using them. SHUTDOWN DATE\tDEPRECATED MODEL\tDEPRECATED MODEL PRICE\tRECOMMENDED REPLACEMENT 2025-06-06\tgpt-4-32k\t$60.00 / 1M input tokens + $120 / 1M output tokens\tgpt-4o 2025-06-06\tgpt-4-32k-0613\t$60.00 / 1M input tokens + $120 / 1M output tokens\tgpt-4o 2025-06-06\tgpt-4-32k-0314\t$60.00 / 1M input tokens + $120 / 1M output tokens\tgpt-4o 2024-12-06\tgpt-4-vision-preview\t$10.00 / 1M input tokens + $30 / 1M output tokens\tgpt-4o 2024-12-06\tgpt-4-1106-vision-preview\t$10.00 / 1M input tokens + $30 / 1M output tokens\tgpt-4o",
     "url": "https://platform.openai.com/docs/deprecations#2024-06-06",
-    "scraped_at": "2025-08-22T20:28:47.750105+00:00"
+    "scraped_at": "2025-08-22T20:40:32.552743+00:00"
   },
   {
     "provider": "OpenAI",
@@ -78,7 +78,7 @@
     "shutdown_date": "2023-11-06",
     "content": "On November 6th, 2023, we announced the release of an updated GPT-3.5-Turbo model (which now comes by default with 16k context) along with deprecation of gpt-3.5-turbo-0613 and gpt-3.5-turbo-16k-0613. As of June 17, 2024, only existing users of these models will be able to continue using them. SHUTDOWN DATE\tDEPRECATED MODEL\tDEPRECATED MODEL PRICE\tRECOMMENDED REPLACEMENT 2024-09-13\tgpt-3.5-turbo-0613\t$1.50 / 1M input tokens + $2.00 / 1M output tokens\tgpt-3.5-turbo 2024-09-13\tgpt-3.5-turbo-16k-0613\t$3.00 / 1M input tokens + $4.00 / 1M output tokens\tgpt-3.5-turbo Fine-tuned models created from these base models are not affected by this deprecation, but you will no longer be able to create new fine-tuned versions with these models.",
     "url": "https://platform.openai.com/docs/deprecations#2023-11-06",
-    "scraped_at": "2025-08-22T20:28:47.750112+00:00"
+    "scraped_at": "2025-08-22T20:40:32.552750+00:00"
   },
   {
     "provider": "OpenAI",
@@ -87,7 +87,7 @@
     "shutdown_date": "2023-08-22",
     "content": "On August 22nd, 2023, we announced the new fine-tuning API (/v1/fine_tuning/jobs) and that the original /v1/fine-tunes API along with legacy models (including those fine-tuned with the /v1/fine-tunes API) will be shut down on January 04, 2024. This means that models fine-tuned using the /v1/fine-tunes API will no longer be accessible and you would have to fine-tune new models with the updated endpoint and associated base models. Fine-tunes endpoint SHUTDOWN DATE\tSYSTEM\tRECOMMENDED REPLACEMENT 2024-01-04\t/v1/fine-tunes\t/v1/fine_tuning/jobs",
     "url": "https://platform.openai.com/docs/deprecations#2023-08-22",
-    "scraped_at": "2025-08-22T20:28:47.750117+00:00"
+    "scraped_at": "2025-08-22T20:40:32.552757+00:00"
   },
   {
     "provider": "OpenAI",
@@ -96,7 +96,7 @@
     "shutdown_date": "2023-07-06",
     "content": "On July 06, 2023, we announced the upcoming retirements of older GPT-3 and GPT-3.5 models served via the completions endpoint. We also announced the upcoming retirement of our first-generation text embedding models. They will be shut down on January 04, 2024.",
     "url": "https://platform.openai.com/docs/deprecations#2023-07-06",
-    "scraped_at": "2025-08-22T20:28:47.750121+00:00"
+    "scraped_at": "2025-08-22T20:40:32.552760+00:00"
   },
   {
     "provider": "OpenAI",
@@ -105,7 +105,7 @@
     "shutdown_date": "2023-06-13",
     "content": "On June 13, 2023, we announced new chat model versions in the Function calling and other API updates blog post. The three original versions will be retired in June 2024 at the earliest. As of January 10, 2024, only existing users of these models will be able to continue using them. SHUTDOWN DATE\tLEGACY MODEL\tLEGACY MODEL PRICE\tRECOMMENDED REPLACEMENT at earliest 2024-06-13\tgpt-4-0314\t$30.00 / 1M input tokens + $60.00 / 1M output tokens\tgpt-4o SHUTDOWN DATE\tDEPRECATED MODEL\tDEPRECATED MODEL PRICE\tRECOMMENDED REPLACEMENT 2024-09-13\tgpt-3.5-turbo-0301\t$15.00 / 1M input tokens + $20.00 / 1M output tokens\tgpt-3.5-turbo 2025-06-06\tgpt-4-32k-0314\t$60.00 / 1M input tokens + $120.00 / 1M output tokens\tgpt-4o",
     "url": "https://platform.openai.com/docs/deprecations#2023-06-13",
-    "scraped_at": "2025-08-22T20:28:47.750128+00:00"
+    "scraped_at": "2025-08-22T20:40:32.552767+00:00"
   },
   {
     "provider": "OpenAI",
@@ -114,7 +114,7 @@
     "shutdown_date": "2023-03-20",
     "content": "SHUTDOWN DATE\tDEPRECATED MODEL\tRECOMMENDED REPLACEMENT 2023-03-23\tcode-davinci-002\tgpt-4o 2023-03-23\tcode-davinci-001\tgpt-4o 2023-03-23\tcode-cushman-002\tgpt-4o 2023-03-23\tcode-cushman-001\tgpt-4o",
     "url": "https://platform.openai.com/docs/deprecations#2023-03-20",
-    "scraped_at": "2025-08-22T20:28:47.750131+00:00"
+    "scraped_at": "2025-08-22T20:40:32.552770+00:00"
   },
   {
     "provider": "OpenAI",
@@ -123,7 +123,7 @@
     "shutdown_date": "2022-06-03",
     "content": "SHUTDOWN DATE\tSYSTEM\tRECOMMENDED REPLACEMENT 2022-12-03\t/v1/engines\t/v1/models 2022-12-03\t/v1/search\tView transition guide 2022-12-03\t/v1/classifications\tView transition guide 2022-12-03\t/v1/answers\tView transition guide",
     "url": "https://platform.openai.com/docs/deprecations#2022-06-03",
-    "scraped_at": "2025-08-22T20:28:47.750134+00:00"
+    "scraped_at": "2025-08-22T20:40:32.552773+00:00"
   },
   {
     "provider": "Anthropic",
@@ -132,7 +132,7 @@
     "shutdown_date": "November 6, 2024",
     "content": "Model claude-1.0 was deprecated on September 4, 2024 and retired on November 6, 2024.",
     "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-1.0",
-    "scraped_at": "2025-08-22T20:28:51.898725+00:00"
+    "scraped_at": "2025-08-22T20:40:36.857437+00:00"
   },
   {
     "provider": "Anthropic",
@@ -141,7 +141,7 @@
     "shutdown_date": "November 6, 2024",
     "content": "Model claude-1.1 was deprecated on September 4, 2024 and retired on November 6, 2024.",
     "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-1.1",
-    "scraped_at": "2025-08-22T20:28:51.898748+00:00"
+    "scraped_at": "2025-08-22T20:40:36.857453+00:00"
   },
   {
     "provider": "Anthropic",
@@ -150,7 +150,7 @@
     "shutdown_date": "November 6, 2024",
     "content": "Model claude-1.2 was deprecated on September 4, 2024 and retired on November 6, 2024.",
     "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-1.2",
-    "scraped_at": "2025-08-22T20:28:51.898751+00:00"
+    "scraped_at": "2025-08-22T20:40:36.857456+00:00"
   },
   {
     "provider": "Anthropic",
@@ -159,7 +159,7 @@
     "shutdown_date": "November 6, 2024",
     "content": "Model claude-1.3 was deprecated on September 4, 2024 and retired on November 6, 2024.",
     "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-1.3",
-    "scraped_at": "2025-08-22T20:28:51.898753+00:00"
+    "scraped_at": "2025-08-22T20:40:36.857458+00:00"
   },
   {
     "provider": "Anthropic",
@@ -168,7 +168,7 @@
     "shutdown_date": "November 6, 2024",
     "content": "Model claude-instant-1.0 was deprecated on September 4, 2024 and retired on November 6, 2024.",
     "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-instant-1.0",
-    "scraped_at": "2025-08-22T20:28:51.898755+00:00"
+    "scraped_at": "2025-08-22T20:40:36.857461+00:00"
   },
   {
     "provider": "Anthropic",
@@ -177,7 +177,7 @@
     "shutdown_date": "November 6, 2024",
     "content": "Model claude-instant-1.1 was deprecated on September 4, 2024 and retired on November 6, 2024.",
     "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-instant-1.1",
-    "scraped_at": "2025-08-22T20:28:51.898756+00:00"
+    "scraped_at": "2025-08-22T20:40:36.857463+00:00"
   },
   {
     "provider": "Anthropic",
@@ -186,7 +186,7 @@
     "shutdown_date": "November 6, 2024",
     "content": "Model claude-instant-1.2 was deprecated on September 4, 2024 and retired on November 6, 2024.",
     "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-instant-1.2",
-    "scraped_at": "2025-08-22T20:28:51.898758+00:00"
+    "scraped_at": "2025-08-22T20:40:36.857465+00:00"
   },
   {
     "provider": "Anthropic",
@@ -195,7 +195,7 @@
     "shutdown_date": "July 21, 2025",
     "content": "Model claude-2.0 was deprecated on January 21, 2025 and retired on July 21, 2025.",
     "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-2.0",
-    "scraped_at": "2025-08-22T20:28:51.898760+00:00"
+    "scraped_at": "2025-08-22T20:40:36.857467+00:00"
   },
   {
     "provider": "Anthropic",
@@ -204,7 +204,7 @@
     "shutdown_date": "July 21, 2025",
     "content": "Model claude-2.1 was deprecated on January 21, 2025 and retired on July 21, 2025.",
     "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-2.1",
-    "scraped_at": "2025-08-22T20:28:51.898761+00:00"
+    "scraped_at": "2025-08-22T20:40:36.857468+00:00"
   },
   {
     "provider": "Anthropic",
@@ -213,14 +213,14 @@
     "shutdown_date": "July 21, 2025",
     "content": "Model claude-3-sonnet-20240229 was deprecated on January 21, 2025 and retired on July 21, 2025.",
     "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-3-sonnet-20240229",
-    "scraped_at": "2025-08-22T20:28:51.898763+00:00"
+    "scraped_at": "2025-08-22T20:40:36.857471+00:00"
   },
   {
     "provider": "Google Vertex AI",
     "title": "Google Vertex AI Deprecations",
     "content": "Starting April 29, 2025, Gemini 1.5 Pro and Gemini 1.5 Flash models are not available in projects that have no prior usage of these models, including new projects. For details, see\nModel versions and lifecycle\n.\nHome\nGenerative AI on Vertex AI\nDocumentation\nResources\nSend feedback\nGenerative AI on Vertex AI deprecations\nStay organized with collections\nSave and categorize content based on your preferences.\nThe\nGoogle Cloud Platform Terms of Service (section \"Discontinuation of Services\")\ndefines the deprecation policy that applies to Generative AI on Vertex AI.\n  The\ndeprecation policy\nonly applies to the services,\n  features, or products listed therein.\nAfter a service, feature, or product is officially\n  deprecated, it continues to be available for at least the period of time defined in the\n  Terms of Service. After this period of time, the service is scheduled for shutdown.\nThis page lists deprecations for Generative AI on Vertex AI.\nGenerative AI module in the Vertex AI SDK\nDeprecat",
     "url": "https://cloud.google.com/vertex-ai/generative-ai/docs/deprecations",
-    "scraped_at": "2025-08-22T20:28:52.416131+00:00"
+    "scraped_at": "2025-08-22T20:40:37.520369+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -229,7 +229,7 @@
     "shutdown_date": "March 12, 2025 (only in us-east-1)",
     "content": "Model Ai21 J2 Mid-v1 entered legacy status on October 4, 2024 (only in us-east-1), will reach end-of-life on March 12, 2025 (only in us-east-1). Recommended replacement: ai21.jamba-instruct-v1:0",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "scraped_at": "2025-08-22T20:28:52.793693+00:00"
+    "scraped_at": "2025-08-22T20:40:37.849098+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -238,7 +238,7 @@
     "shutdown_date": "March 12, 2025 (only in us-east-1)",
     "content": "Model Ai21 J2 Ultra-v1 entered legacy status on October 4, 2024 (only in us-east-1), will reach end-of-life on March 12, 2025 (only in us-east-1). Recommended replacement: ai21.jamba-instruct-v1:0",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "scraped_at": "2025-08-22T20:28:52.793714+00:00"
+    "scraped_at": "2025-08-22T20:40:37.849121+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -247,7 +247,7 @@
     "shutdown_date": "March 12, 2025 (only in us-east-1)",
     "content": "Model Ai21 J2-Grande-Instruct entered legacy status on October 4, 2024 (only in us-east-1), will reach end-of-life on March 12, 2025 (only in us-east-1). Recommended replacement: ai21.jamba-instruct-v1:0",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "scraped_at": "2025-08-22T20:28:52.793725+00:00"
+    "scraped_at": "2025-08-22T20:40:37.849134+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -256,7 +256,7 @@
     "shutdown_date": "March 12, 2025 (only in us-east-1)",
     "content": "Model Ai21 J2 Jumbo-Instruct entered legacy status on October 4, 2024 (only in us-east-1), will reach end-of-life on March 12, 2025 (only in us-east-1). Recommended replacement: ai21.jamba-instruct-v1:0",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "scraped_at": "2025-08-22T20:28:52.793735+00:00"
+    "scraped_at": "2025-08-22T20:40:37.849145+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -265,7 +265,7 @@
     "shutdown_date": "May 20, 2025 (us-east-1 and us-west-2)",
     "content": "Model Stable Diffusion XL 1.0 entered legacy status on October 16, 2024 (us-east-1 and us-west-2), will reach end-of-life on May 20, 2025 (us-east-1 and us-west-2). Recommended replacement: stability.stable-image-core-v1:0, stability.stable-image-ultra-v1:0, and stability.sd3-large-v1:0",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "scraped_at": "2025-08-22T20:28:52.793745+00:00"
+    "scraped_at": "2025-08-22T20:40:37.849155+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -274,7 +274,7 @@
     "shutdown_date": "anthropic.claude-3-5-sonnet-20241022-v2:0, anthropic.claude-3-5-sonnet-20240620-v1:0, or anthropic.claude-3-5-haiku-20241022-v1:0",
     "content": "Model Claude v2 entered legacy status on January 21, 2025 (all regions), will reach end-of-life on anthropic.claude-3-5-sonnet-20241022-v2:0, anthropic.claude-3-5-sonnet-20240620-v1:0, or anthropic.claude-3-5-haiku-20241022-v1:0",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "scraped_at": "2025-08-22T20:28:52.793754+00:00"
+    "scraped_at": "2025-08-22T20:40:37.849165+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -283,7 +283,7 @@
     "shutdown_date": "anthropic.claude-3-5-sonnet-20241022-v2:0, anthropic.claude-3-5-sonnet-20240620-v1:0, or anthropic.claude-3-5-haiku-20241022-v1:0",
     "content": "Model Claude v2.1 entered legacy status on January 21, 2025 (all regions), will reach end-of-life on anthropic.claude-3-5-sonnet-20241022-v2:0, anthropic.claude-3-5-sonnet-20240620-v1:0, or anthropic.claude-3-5-haiku-20241022-v1:0",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "scraped_at": "2025-08-22T20:28:52.793763+00:00"
+    "scraped_at": "2025-08-22T20:40:37.849174+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -292,7 +292,7 @@
     "shutdown_date": "anthropic.claude-3-5-sonnet-20241022-v2:0, anthropic.claude-3-5-sonnet-20240620-v1:0, or anthropic.claude-3-5-haiku-20241022-v1:0",
     "content": "Model Claude Instant entered legacy status on January 21, 2025 (all regions), will reach end-of-life on anthropic.claude-3-5-sonnet-20241022-v2:0, anthropic.claude-3-5-sonnet-20240620-v1:0, or anthropic.claude-3-5-haiku-20241022-v1:0",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "scraped_at": "2025-08-22T20:28:52.793772+00:00"
+    "scraped_at": "2025-08-22T20:40:37.849184+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -301,7 +301,7 @@
     "shutdown_date": "anthropic.claude-opus-4-1-20250805-v1:0, anthropic.claude-opus-4-20250514-v1:0, anthropic.claude-sonnet-4-20250514-v1:0",
     "content": "Model Claude 3 Opus entered legacy status on July 15th, 2025 (all regions), will reach end-of-life on anthropic.claude-opus-4-1-20250805-v1:0, anthropic.claude-opus-4-20250514-v1:0, anthropic.claude-sonnet-4-20250514-v1:0",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "scraped_at": "2025-08-22T20:28:52.793781+00:00"
+    "scraped_at": "2025-08-22T20:40:37.849193+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -310,7 +310,7 @@
     "shutdown_date": "anthropic.claude-3-5-sonnet-20241022-v2:0, anthropic.claude-3-5-sonnet-20240620-v1:0, or anthropic.claude-3-5-haiku-20241022-v1:0",
     "content": "Model Claude 3 Sonnet entered legacy status on January 21, 2025 (us-east-1, us-west-2, eu-central-1, eu-west-3, eu-west-1 regions), will reach end-of-life on anthropic.claude-3-5-sonnet-20241022-v2:0, anthropic.claude-3-5-sonnet-20240620-v1:0, or anthropic.claude-3-5-haiku-20241022-v1:0",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "scraped_at": "2025-08-22T20:28:52.793792+00:00"
+    "scraped_at": "2025-08-22T20:40:37.849202+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -319,7 +319,7 @@
     "shutdown_date": "September 4, 2025 (all regions)",
     "content": "Model Stability Image Core v1 entered legacy status on January 31, 2025 (all regions), will reach end-of-life on September 4, 2025 (all regions). Recommended replacement: stability.stable-image-core-v1:1",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "scraped_at": "2025-08-22T20:28:52.793801+00:00"
+    "scraped_at": "2025-08-22T20:40:37.849211+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -328,7 +328,7 @@
     "shutdown_date": "September 4, 2025 (all regions)",
     "content": "Model Stability 3 Large entered legacy status on January 31, 2025 (all regions), will reach end-of-life on September 4, 2025 (all regions). Recommended replacement: stability.sd3-5-large-v1:0",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "scraped_at": "2025-08-22T20:28:52.793809+00:00"
+    "scraped_at": "2025-08-22T20:40:37.849220+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -337,7 +337,7 @@
     "shutdown_date": "September 4, 2025 (all regions)",
     "content": "Model Stability Image Ultra v1 entered legacy status on January 31, 2025 (all regions), will reach end-of-life on September 4, 2025 (all regions). Recommended replacement: stability.stable-image-ultra-v1:1",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "scraped_at": "2025-08-22T20:28:52.793818+00:00"
+    "scraped_at": "2025-08-22T20:40:37.849228+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -346,7 +346,7 @@
     "shutdown_date": "August 1, 2025 (all regions)",
     "content": "Model AI21 Jamba-Instruct entered legacy status on January 31, 2025 (all regions), will reach end-of-life on August 1, 2025 (all regions). Recommended replacement: ai21.jamba-1-5-mini-v1:0 or ai21.jamba-1-5-large-v1:0",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "scraped_at": "2025-08-22T20:28:52.793826+00:00"
+    "scraped_at": "2025-08-22T20:40:37.849237+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -355,7 +355,7 @@
     "shutdown_date": "August 15, 2025 (all regions)",
     "content": "Model Amazon Titan Text G1 - Premier entered legacy status on January 31, 2025 (all regions), will reach end-of-life on August 15, 2025 (all regions). Recommended replacement: amazon.nova-pro-v1:0",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "scraped_at": "2025-08-22T20:28:52.793835+00:00"
+    "scraped_at": "2025-08-22T20:40:37.849246+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -364,7 +364,7 @@
     "shutdown_date": "August 15, 2025 (all regions)",
     "content": "Model Amazon Titan Text G1 - Express entered legacy status on January 31, 2025 (all regions), will reach end-of-life on August 15, 2025 (all regions). Recommended replacement: amazon.nova-micro-v1:0",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "scraped_at": "2025-08-22T20:28:52.793843+00:00"
+    "scraped_at": "2025-08-22T20:40:37.849255+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -373,7 +373,7 @@
     "shutdown_date": "August 15, 2025 (all regions)",
     "content": "Model Amazon Titan Text G1 - Lite entered legacy status on January 31, 2025 (all regions), will reach end-of-life on August 15, 2025 (all regions). Recommended replacement: amazon.nova-lite-v1:0",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "scraped_at": "2025-08-22T20:28:52.793852+00:00"
+    "scraped_at": "2025-08-22T20:40:37.849263+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -382,7 +382,7 @@
     "shutdown_date": "August 15, 2025 (all regions)",
     "content": "Model Amazon Titan Image Generator G1 V1 entered legacy status on January 31, 2025 (all regions), will reach end-of-life on August 15, 2025 (all regions). Recommended replacement: amazon.nova-canvas-v1:0",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "scraped_at": "2025-08-22T20:28:52.793860+00:00"
+    "scraped_at": "2025-08-22T20:40:37.849272+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -391,7 +391,7 @@
     "shutdown_date": "April 30, 2024",
     "content": "Model Stable Diffusion XL 0.8 entered legacy status on February 2, 2024, will reach end-of-life on April 30, 2024. Recommended replacement: stability.stable-diffusion-xl-v1",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "scraped_at": "2025-08-22T20:28:52.793909+00:00"
+    "scraped_at": "2025-08-22T20:40:37.849324+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -400,7 +400,7 @@
     "shutdown_date": "August 12, 2025",
     "content": "Model Cohere Command entered legacy status on October 4, 2024, will reach end-of-life on August 12, 2025. Recommended replacement: cohere.command-r-v1:0 and cohere.command-r-plus-v1:0",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "scraped_at": "2025-08-22T20:28:52.793918+00:00"
+    "scraped_at": "2025-08-22T20:40:37.849333+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -409,7 +409,7 @@
     "shutdown_date": "August 12, 2025",
     "content": "Model Cohere Command Light entered legacy status on October 4, 2024, will reach end-of-life on August 12, 2025. Recommended replacement: cohere.command-r-v1:0 and cohere.command-r-plus-v1:0",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "scraped_at": "2025-08-22T20:28:52.793926+00:00"
+    "scraped_at": "2025-08-22T20:40:37.849343+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -418,7 +418,7 @@
     "shutdown_date": "February 28, 2024",
     "content": "Model Claude v1.3 entered legacy status on November 28, 2023, will reach end-of-life on February 28, 2024. Recommended replacement: anthropic.claude-v2:1",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "scraped_at": "2025-08-22T20:28:52.793935+00:00"
+    "scraped_at": "2025-08-22T20:40:37.849352+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -427,7 +427,7 @@
     "shutdown_date": "February 15, 2024",
     "content": "Model Titan Embeddings - Text v1.1 entered legacy status on November 7, 2023, will reach end-of-life on February 15, 2024. Recommended replacement: amazon.titan-embed-text-v1",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "scraped_at": "2025-08-22T20:28:52.793943+00:00"
+    "scraped_at": "2025-08-22T20:40:37.849361+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -436,7 +436,7 @@
     "shutdown_date": "October 30, 2024",
     "content": "Model Meta Llama 2 13b-chat-v1 entered legacy status on May 12, 2024, will reach end-of-life on October 30, 2024. Recommended replacement: meta.llama3-1-8b-instruct-v1",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "scraped_at": "2025-08-22T20:28:52.793951+00:00"
+    "scraped_at": "2025-08-22T20:40:37.849370+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -445,7 +445,7 @@
     "shutdown_date": "October 30, 2024",
     "content": "Model Meta Llama 2 70b-chat-v1 entered legacy status on May 12, 2024, will reach end-of-life on October 30, 2024. Recommended replacement: meta.llama3-1-70b-instruct-v1",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "scraped_at": "2025-08-22T20:28:52.793960+00:00"
+    "scraped_at": "2025-08-22T20:40:37.849379+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -454,7 +454,7 @@
     "shutdown_date": "October 30, 2024",
     "content": "Model Meta Llama 2-13b entered legacy status on May 12, 2024, will reach end-of-life on October 30, 2024. Recommended replacement: meta.llama3-8b-instruct-v1",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "scraped_at": "2025-08-22T20:28:52.793968+00:00"
+    "scraped_at": "2025-08-22T20:40:37.849388+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -463,7 +463,7 @@
     "shutdown_date": "October 30, 2024",
     "content": "Model Meta Llama 2-70b entered legacy status on May 12, 2024, will reach end-of-life on October 30, 2024. Recommended replacement: meta.llama3-70b-instruct-v1",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "scraped_at": "2025-08-22T20:28:52.793975+00:00"
+    "scraped_at": "2025-08-22T20:40:37.849397+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -472,7 +472,7 @@
     "shutdown_date": "October 4, 2024 (only in us-west-2)",
     "content": "Model Ai21 J2 Mid-v1 entered legacy status on April 30, 2024 (only in us-west-2), will reach end-of-life on October 4, 2024 (only in us-west-2). Recommended replacement: ai21.jamba-instruct-v1:0 in US East (N. Virginia)",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "scraped_at": "2025-08-22T20:28:52.793984+00:00"
+    "scraped_at": "2025-08-22T20:40:37.849406+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -481,7 +481,7 @@
     "shutdown_date": "October 4, 2024 (only in us-west-2)",
     "content": "Model Ai21 J2 Ultra-v1 entered legacy status on April 30, 2024 (only in us-west-2), will reach end-of-life on October 4, 2024 (only in us-west-2). Recommended replacement: ai21.jamba-instruct-v1:0 in US East (N. Virginia)",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "scraped_at": "2025-08-22T20:28:52.793992+00:00"
+    "scraped_at": "2025-08-22T20:40:37.849415+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -490,7 +490,7 @@
     "shutdown_date": "October 4, 2024 (only in us-west-2)",
     "content": "Model Ai21 J2-Grande-Instruct entered legacy status on April 30, 2024 (only in us-west-2), will reach end-of-life on October 4, 2024 (only in us-west-2). Recommended replacement: ai21.jamba-instruct-v1:0 in US East (N. Virginia)",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "scraped_at": "2025-08-22T20:28:52.794000+00:00"
+    "scraped_at": "2025-08-22T20:40:37.849424+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -499,13 +499,13 @@
     "shutdown_date": "October 4, 2024 (only in us-west-2)",
     "content": "Model Ai21 J2 Jumbo-Instruct entered legacy status on April 30, 2024 (only in us-west-2), will reach end-of-life on October 4, 2024 (only in us-west-2). Recommended replacement: ai21.jamba-instruct-v1:0 in US East (N. Virginia)",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "scraped_at": "2025-08-22T20:28:52.794008+00:00"
+    "scraped_at": "2025-08-22T20:40:37.849432+00:00"
   },
   {
     "provider": "Cohere",
     "title": "Cohere API Deprecations",
     "content": "No deprecation content found",
     "url": "https://docs.cohere.com/docs/deprecations",
-    "scraped_at": "2025-08-22T20:28:55.373468+00:00"
+    "scraped_at": "2025-08-22T20:40:40.572858+00:00"
   }
 ]
