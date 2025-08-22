@@ -1,11 +1,541 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>AI Model Deprecations</title><link>https://leblancfg.github.io/deprecations-rss/</link><description>Daily-updated RSS feed tracking AI model deprecations across providers</description><docs>http://www.rssboard.org/rss-specification</docs><generator>deprecations-rss</generator><language>en</language><lastBuildDate>Wed, 20 Aug 2025 21:42:56 +0000</lastBuildDate><ttl>1440</ttl><item><title>OpenAI - gpt-3.5-turbo Deprecation</title><link>https://openai.com/deprecations</link><description>Provider: OpenAI
-Model: gpt-3.5-turbo
-Deprecation Date: 2024-12-01T00:00:00
-Retirement Date: 2025-01-01T00:00:00
-Replacement: gpt-4
-Notes: Legacy model being phased out</description><guid isPermaLink="false">OpenAI-gpt-3.5-turbo-2024-12-01T00:00:00</guid><pubDate>Sun, 01 Dec 2024 00:00:00 +0000</pubDate></item><item><title>Anthropic - claude-2 Deprecation</title><link>https://anthropic.com/deprecations</link><description>Provider: Anthropic
-Model: claude-2
-Deprecation Date: 2024-11-15T00:00:00
-Retirement Date: 2025-01-15T00:00:00
-Replacement: claude-3</description><guid isPermaLink="false">Anthropic-claude-2-2024-11-15T00:00:00</guid><pubDate>Fri, 15 Nov 2024 00:00:00 +0000</pubDate></item></channel></rss>
+<?xml version="1.0" ?>
+<rss version="2.0">
+  <channel>
+    <title>AI Model Deprecations</title>
+    <link>https://leblancfg.com/deprecations-rss/</link>
+    <description>RSS feed tracking deprecations across major AI providers</description>
+    <lastBuildDate>Fri, 22 Aug 2025 20:28:55 GMT</lastBuildDate>
+    <item>
+      <title>OpenAI: gpt-4o-realtime-preview-2024-10-01</title>
+      <link>https://platform.openai.com/docs/deprecations#2025-06-10</link>
+      <description>Announced: 2025-06-10 | Shutdown: 2025-06-10
+
+On June 10th, 2025, we notified developers using gpt-4o-realtime-preview-2024-10-01 of its deprecation and removal from the API in three months. SHUTDOWN DATE	MODEL / SYSTEM	RECOMMENDED REPLACEMENT 2025-09-10	gpt-4o-realtime-preview-2024-10-01	gpt-4o-realtime-preview</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:47 GMT</pubDate>
+      <guid isPermaLink="false">OpenAI-OpenAI_gpt-4o-realtime-preview-2024-10-01-2025-06-10-2025-08-22</guid>
+    </item>
+    <item>
+      <title>OpenAI: gpt-4o-audio-preview-2024-10-01</title>
+      <link>https://platform.openai.com/docs/deprecations#2025-06-10</link>
+      <description>Announced: 2025-06-10 | Shutdown: 2025-06-10
+
+On June 10th, 2025, we notified developers using gpt-4o-audio-preview-2024-10-01 of its deprecation and removal from the API in three months. SHUTDOWN DATE	MODEL / SYSTEM	RECOMMENDED REPLACEMENT 2025-09-10	gpt-4o-audio-preview-2024-10-01	gpt-4o-audio-preview</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:47 GMT</pubDate>
+      <guid isPermaLink="false">OpenAI-OpenAI_gpt-4o-audio-preview-2024-10-01-2025-06-10-2025-08-22</guid>
+    </item>
+    <item>
+      <title>OpenAI: text-moderation</title>
+      <link>https://platform.openai.com/docs/deprecations#2025-04-28</link>
+      <description>Announced: 2025-04-28 | Shutdown: 2025-04-28
+
+On April 28th, 2025, we notified developers using text-moderation of its deprecation and removal from the API in six months. SHUTDOWN DATE	MODEL / SYSTEM	RECOMMENDED REPLACEMENT 2025-10-27	text-moderation-007	omni-moderation 2025-10-27	text-moderation-stable	omni-moderation 2025-10-27	text-moderation-latest	omni-moderation</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:47 GMT</pubDate>
+      <guid isPermaLink="false">OpenAI-OpenAI_text-moderation-2025-04-28-2025-08-22</guid>
+    </item>
+    <item>
+      <title>OpenAI: o1-preview and o1-mini</title>
+      <link>https://platform.openai.com/docs/deprecations#2025-04-28</link>
+      <description>Announced: 2025-04-28 | Shutdown: 2025-04-28
+
+On April 28th, 2025, we notified developers using o1-preview and o1-mini of their deprecations and removal from the API in three months and six months respectively. SHUTDOWN DATE	MODEL / SYSTEM	RECOMMENDED REPLACEMENT 2025-07-28	o1-preview	o3 2025-10-27	o1-mini	o4-mini</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:47 GMT</pubDate>
+      <guid isPermaLink="false">OpenAI-OpenAI_o1-preview_and_o1-mini-2025-04-28-2025-08-22</guid>
+    </item>
+    <item>
+      <title>OpenAI: GPT-4.5-preview</title>
+      <link>https://platform.openai.com/docs/deprecations#2025-04-14</link>
+      <description>Announced: 2025-04-14 | Shutdown: 2025-04-14
+
+On April 14th, 2025, we notified developers that the gpt-4.5-preview model is deprecated and will be removed from the API in the coming months. SHUTDOWN DATE	MODEL / SYSTEM	RECOMMENDED REPLACEMENT 2025-07-14	gpt-4.5-preview	gpt-4.1</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:47 GMT</pubDate>
+      <guid isPermaLink="false">OpenAI-OpenAI_GPT-4.5-preview-2025-04-14-2025-08-22</guid>
+    </item>
+    <item>
+      <title>OpenAI: Assistants API beta v1</title>
+      <link>https://platform.openai.com/docs/deprecations#2024-10-02</link>
+      <description>Announced: 2024-10-02 | Shutdown: 2024-10-02
+
+In April 2024 when we released the v2 beta version of the Assistants API, we announced that access to the v1 beta would be shut off by the end of 2024. Access to the v1 beta will be discontinued on December 18, 2024. See the Assistants API v2 beta migration guide to learn more about how to migrate your tool usage to the latest version of the Assistants API. SHUTDOWN DATE	MODEL / SYSTEM	RECOMMENDED REPLACEMENT 2024-12-18	OpenAI-Beta: assistants=v1	OpenAI-Beta: assistants=v2</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:47 GMT</pubDate>
+      <guid isPermaLink="false">OpenAI-OpenAI_Assistants_API_beta_v1-2024-10-02-2025-08-22</guid>
+    </item>
+    <item>
+      <title>OpenAI: Fine-tuning training on babbage-002 and davinci-002 models</title>
+      <link>https://platform.openai.com/docs/deprecations#2024-08-29</link>
+      <description>Announced: 2024-08-29 | Shutdown: 2024-08-29
+
+On August 29th, 2024, we notified developers fine-tuning babbage-002 and davinci-002 that new fine-tuning training runs on these models will no longer be supported starting October 28, 2024. Fine-tuned models created from these base models are not affected by this deprecation, but you will no longer be able to create new fine-tuned versions with these models. SHUTDOWN DATE	MODEL / SYSTEM	RECOMMENDED REPLACEMENT 2024-10-28	New fine-tuning training on babbage-002	gpt-4o-mini 2024-10-28	New fine-tuning training on davinci-002	gpt-4o-mini</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:47 GMT</pubDate>
+      <guid isPermaLink="false">OpenAI-OpenAI_Fine-tuning_training_on_babbage-002_and_davinci-002_models-2024-08-29-2025-08-22</guid>
+    </item>
+    <item>
+      <title>OpenAI: GPT-4-32K and Vision Preview models</title>
+      <link>https://platform.openai.com/docs/deprecations#2024-06-06</link>
+      <description>Announced: 2024-06-06 | Shutdown: 2024-06-06
+
+On June 6th, 2024, we notified developers using gpt-4-32k and gpt-4-vision-preview of their upcoming deprecations in one year and six months respectively. As of June 17, 2024, only existing users of these models will be able to continue using them. SHUTDOWN DATE	DEPRECATED MODEL	DEPRECATED MODEL PRICE	RECOMMENDED REPLACEMENT 2025-06-06	gpt-4-32k	$60.00 / 1M input tokens + $120 / 1M output tokens	gpt-4o 2025-06-06	gpt-4-32k-0613	$60.00 / 1M input tokens + $120 / 1M output tokens	gpt-4o 2025-06-06	gpt-4-32k-0314	$60.00 / 1M input tokens + $120 / 1M output tokens	gpt-4o 2024-12-06	gpt-4-vision-preview	$10.00 / 1M input tokens + $30 / 1M output tokens	gpt-4o 2024-12-06	gpt-4-1106-vision-preview	$10.00 / 1M input tokens + $30 / 1M output tokens	gpt-4o</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:47 GMT</pubDate>
+      <guid isPermaLink="false">OpenAI-OpenAI_GPT-4-32K_and_Vision_Preview_models-2024-06-06-2025-08-22</guid>
+    </item>
+    <item>
+      <title>OpenAI: Chat model updates</title>
+      <link>https://platform.openai.com/docs/deprecations#2023-11-06</link>
+      <description>Announced: 2023-11-06 | Shutdown: 2023-11-06
+
+On November 6th, 2023, we announced the release of an updated GPT-3.5-Turbo model (which now comes by default with 16k context) along with deprecation of gpt-3.5-turbo-0613 and gpt-3.5-turbo-16k-0613. As of June 17, 2024, only existing users of these models will be able to continue using them. SHUTDOWN DATE	DEPRECATED MODEL	DEPRECATED MODEL PRICE	RECOMMENDED REPLACEMENT 2024-09-13	gpt-3.5-turbo-0613	$1.50 / 1M input tokens + $2.00 / 1M output tokens	gpt-3.5-turbo 2024-09-13	gpt-3.5-turbo-16k-0613	$3.00 / 1M input tokens + $4.00 / 1M output tokens	gpt-3.5-turbo Fine-tuned models created from these base models are not affected by this deprecation, but you will no longer be able to create new fine-tuned versions with these models.</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:47 GMT</pubDate>
+      <guid isPermaLink="false">OpenAI-OpenAI_Chat_model_updates-2023-11-06-2025-08-22</guid>
+    </item>
+    <item>
+      <title>OpenAI: Fine-tunes endpoint</title>
+      <link>https://platform.openai.com/docs/deprecations#2023-08-22</link>
+      <description>Announced: 2023-08-22 | Shutdown: 2023-08-22
+
+On August 22nd, 2023, we announced the new fine-tuning API (/v1/fine_tuning/jobs) and that the original /v1/fine-tunes API along with legacy models (including those fine-tuned with the /v1/fine-tunes API) will be shut down on January 04, 2024. This means that models fine-tuned using the /v1/fine-tunes API will no longer be accessible and you would have to fine-tune new models with the updated endpoint and associated base models. Fine-tunes endpoint SHUTDOWN DATE	SYSTEM	RECOMMENDED REPLACEMENT 2024-01-04	/v1/fine-tunes	/v1/fine_tuning/jobs</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:47 GMT</pubDate>
+      <guid isPermaLink="false">OpenAI-OpenAI_Fine-tunes_endpoint-2023-08-22-2025-08-22</guid>
+    </item>
+    <item>
+      <title>OpenAI: GPT and embeddings</title>
+      <link>https://platform.openai.com/docs/deprecations#2023-07-06</link>
+      <description>Announced: 2023-07-06 | Shutdown: 2023-07-06
+
+On July 06, 2023, we announced the upcoming retirements of older GPT-3 and GPT-3.5 models served via the completions endpoint. We also announced the upcoming retirement of our first-generation text embedding models. They will be shut down on January 04, 2024.</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:47 GMT</pubDate>
+      <guid isPermaLink="false">OpenAI-OpenAI_GPT_and_embeddings-2023-07-06-2025-08-22</guid>
+    </item>
+    <item>
+      <title>OpenAI: Updated chat models</title>
+      <link>https://platform.openai.com/docs/deprecations#2023-06-13</link>
+      <description>Announced: 2023-06-13 | Shutdown: 2023-06-13
+
+On June 13, 2023, we announced new chat model versions in the Function calling and other API updates blog post. The three original versions will be retired in June 2024 at the earliest. As of January 10, 2024, only existing users of these models will be able to continue using them. SHUTDOWN DATE	LEGACY MODEL	LEGACY MODEL PRICE	RECOMMENDED REPLACEMENT at earliest 2024-06-13	gpt-4-0314	$30.00 / 1M input tokens + $60.00 / 1M output tokens	gpt-4o SHUTDOWN DATE	DEPRECATED MODEL	DEPRECATED MODEL PRICE	RECOMMENDED REPLACEMENT 2024-09-13	gpt-3.5-turbo-0301	$15.00 / 1M input tokens + $20.00 / 1M output tokens	gpt-3.5-turbo 2025-06-06	gpt-4-32k-0314	$60.00 / 1M input tokens + $120.00 / 1M output tokens	gpt-4o</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:47 GMT</pubDate>
+      <guid isPermaLink="false">OpenAI-OpenAI_Updated_chat_models-2023-06-13-2025-08-22</guid>
+    </item>
+    <item>
+      <title>OpenAI: Codex models</title>
+      <link>https://platform.openai.com/docs/deprecations#2023-03-20</link>
+      <description>Announced: 2023-03-20 | Shutdown: 2023-03-20
+
+SHUTDOWN DATE	DEPRECATED MODEL	RECOMMENDED REPLACEMENT 2023-03-23	code-davinci-002	gpt-4o 2023-03-23	code-davinci-001	gpt-4o 2023-03-23	code-cushman-002	gpt-4o 2023-03-23	code-cushman-001	gpt-4o</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:47 GMT</pubDate>
+      <guid isPermaLink="false">OpenAI-OpenAI_Codex_models-2023-03-20-2025-08-22</guid>
+    </item>
+    <item>
+      <title>OpenAI: Legacy endpoints</title>
+      <link>https://platform.openai.com/docs/deprecations#2022-06-03</link>
+      <description>Announced: 2022-06-03 | Shutdown: 2022-06-03
+
+SHUTDOWN DATE	SYSTEM	RECOMMENDED REPLACEMENT 2022-12-03	/v1/engines	/v1/models 2022-12-03	/v1/search	View transition guide 2022-12-03	/v1/classifications	View transition guide 2022-12-03	/v1/answers	View transition guide</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:47 GMT</pubDate>
+      <guid isPermaLink="false">OpenAI-OpenAI_Legacy_endpoints-2022-06-03-2025-08-22</guid>
+    </item>
+    <item>
+      <title>Anthropic: claude-1.0</title>
+      <link>https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-1.0</link>
+      <description>Announced: September 4, 2024 | Shutdown: November 6, 2024
+
+Model claude-1.0 was deprecated on September 4, 2024 and retired on November 6, 2024.</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:51 GMT</pubDate>
+      <guid isPermaLink="false">Anthropic-Anthropic_claude-1.0-September_4,_2024-2025-08-22</guid>
+    </item>
+    <item>
+      <title>Anthropic: claude-1.1</title>
+      <link>https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-1.1</link>
+      <description>Announced: September 4, 2024 | Shutdown: November 6, 2024
+
+Model claude-1.1 was deprecated on September 4, 2024 and retired on November 6, 2024.</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:51 GMT</pubDate>
+      <guid isPermaLink="false">Anthropic-Anthropic_claude-1.1-September_4,_2024-2025-08-22</guid>
+    </item>
+    <item>
+      <title>Anthropic: claude-1.2</title>
+      <link>https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-1.2</link>
+      <description>Announced: September 4, 2024 | Shutdown: November 6, 2024
+
+Model claude-1.2 was deprecated on September 4, 2024 and retired on November 6, 2024.</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:51 GMT</pubDate>
+      <guid isPermaLink="false">Anthropic-Anthropic_claude-1.2-September_4,_2024-2025-08-22</guid>
+    </item>
+    <item>
+      <title>Anthropic: claude-1.3</title>
+      <link>https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-1.3</link>
+      <description>Announced: September 4, 2024 | Shutdown: November 6, 2024
+
+Model claude-1.3 was deprecated on September 4, 2024 and retired on November 6, 2024.</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:51 GMT</pubDate>
+      <guid isPermaLink="false">Anthropic-Anthropic_claude-1.3-September_4,_2024-2025-08-22</guid>
+    </item>
+    <item>
+      <title>Anthropic: claude-instant-1.0</title>
+      <link>https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-instant-1.0</link>
+      <description>Announced: September 4, 2024 | Shutdown: November 6, 2024
+
+Model claude-instant-1.0 was deprecated on September 4, 2024 and retired on November 6, 2024.</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:51 GMT</pubDate>
+      <guid isPermaLink="false">Anthropic-Anthropic_claude-instant-1.0-September_4,_2024-2025-08-22</guid>
+    </item>
+    <item>
+      <title>Anthropic: claude-instant-1.1</title>
+      <link>https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-instant-1.1</link>
+      <description>Announced: September 4, 2024 | Shutdown: November 6, 2024
+
+Model claude-instant-1.1 was deprecated on September 4, 2024 and retired on November 6, 2024.</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:51 GMT</pubDate>
+      <guid isPermaLink="false">Anthropic-Anthropic_claude-instant-1.1-September_4,_2024-2025-08-22</guid>
+    </item>
+    <item>
+      <title>Anthropic: claude-instant-1.2</title>
+      <link>https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-instant-1.2</link>
+      <description>Announced: September 4, 2024 | Shutdown: November 6, 2024
+
+Model claude-instant-1.2 was deprecated on September 4, 2024 and retired on November 6, 2024.</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:51 GMT</pubDate>
+      <guid isPermaLink="false">Anthropic-Anthropic_claude-instant-1.2-September_4,_2024-2025-08-22</guid>
+    </item>
+    <item>
+      <title>Anthropic: claude-2.0</title>
+      <link>https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-2.0</link>
+      <description>Announced: January 21, 2025 | Shutdown: July 21, 2025
+
+Model claude-2.0 was deprecated on January 21, 2025 and retired on July 21, 2025.</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:51 GMT</pubDate>
+      <guid isPermaLink="false">Anthropic-Anthropic_claude-2.0-January_21,_2025-2025-08-22</guid>
+    </item>
+    <item>
+      <title>Anthropic: claude-2.1</title>
+      <link>https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-2.1</link>
+      <description>Announced: January 21, 2025 | Shutdown: July 21, 2025
+
+Model claude-2.1 was deprecated on January 21, 2025 and retired on July 21, 2025.</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:51 GMT</pubDate>
+      <guid isPermaLink="false">Anthropic-Anthropic_claude-2.1-January_21,_2025-2025-08-22</guid>
+    </item>
+    <item>
+      <title>Anthropic: claude-3-sonnet-20240229</title>
+      <link>https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-3-sonnet-20240229</link>
+      <description>Announced: January 21, 2025 | Shutdown: July 21, 2025
+
+Model claude-3-sonnet-20240229 was deprecated on January 21, 2025 and retired on July 21, 2025.</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:51 GMT</pubDate>
+      <guid isPermaLink="false">Anthropic-Anthropic_claude-3-sonnet-20240229-January_21,_2025-2025-08-22</guid>
+    </item>
+    <item>
+      <title>Google Vertex AI Deprecations</title>
+      <link>https://cloud.google.com/vertex-ai/generative-ai/docs/deprecations</link>
+      <description>Starting April 29, 2025, Gemini 1.5 Pro and Gemini 1.5 Flash models are not available in projects that have no prior usage of these models, including new projects. For details, see
+Model versions and lifecycle
+.
+Home
+Generative AI on Vertex AI
+Documentation
+Resources
+Send feedback
+Generative AI on Vertex AI deprecations
+Stay organized with collections
+Save and categorize content based on your preferences.
+The
+Google Cloud Platform Terms of Service (section "Discontinuation of Services")
+defines the deprecation policy that applies to Generative AI on Vertex AI.
+  The
+deprecation policy
+only applies to the services,
+  features, or products listed therein.
+After a service, feature, or product is officially
+  deprecated, it continues to be available for at least the period of time defined in the
+  Terms of Service. After this period of time, the service is scheduled for shutdown.
+This page lists deprecations for Generative AI on Vertex AI.
+Generative AI module in the Vertex AI SDK
+Deprecat</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:52 GMT</pubDate>
+      <guid isPermaLink="false">Google_Vertex_AI-Google_Vertex_AI_Deprecations-2025-08-22</guid>
+    </item>
+    <item>
+      <title>AWS Bedrock: Ai21 J2 Mid-v1</title>
+      <link>https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html</link>
+      <description>Announced: October 4, 2024 (only in us-east-1) | Shutdown: March 12, 2025 (only in us-east-1)
+
+Model Ai21 J2 Mid-v1 entered legacy status on October 4, 2024 (only in us-east-1), will reach end-of-life on March 12, 2025 (only in us-east-1). Recommended replacement: ai21.jamba-instruct-v1:0</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:52 GMT</pubDate>
+      <guid isPermaLink="false">AWS_Bedrock-AWS_Bedrock_Ai21_J2_Mid-v1-October_4,_2024_(only_in_us-east-1)-2025-08-22</guid>
+    </item>
+    <item>
+      <title>AWS Bedrock: Ai21 J2 Ultra-v1</title>
+      <link>https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html</link>
+      <description>Announced: October 4, 2024 (only in us-east-1) | Shutdown: March 12, 2025 (only in us-east-1)
+
+Model Ai21 J2 Ultra-v1 entered legacy status on October 4, 2024 (only in us-east-1), will reach end-of-life on March 12, 2025 (only in us-east-1). Recommended replacement: ai21.jamba-instruct-v1:0</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:52 GMT</pubDate>
+      <guid isPermaLink="false">AWS_Bedrock-AWS_Bedrock_Ai21_J2_Ultra-v1-October_4,_2024_(only_in_us-east-1)-2025-08-22</guid>
+    </item>
+    <item>
+      <title>AWS Bedrock: Ai21 J2-Grande-Instruct</title>
+      <link>https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html</link>
+      <description>Announced: October 4, 2024 (only in us-east-1) | Shutdown: March 12, 2025 (only in us-east-1)
+
+Model Ai21 J2-Grande-Instruct entered legacy status on October 4, 2024 (only in us-east-1), will reach end-of-life on March 12, 2025 (only in us-east-1). Recommended replacement: ai21.jamba-instruct-v1:0</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:52 GMT</pubDate>
+      <guid isPermaLink="false">AWS_Bedrock-AWS_Bedrock_Ai21_J2-Grande-Instruct-October_4,_2024_(only_in_us-east-1)-2025-08-22</guid>
+    </item>
+    <item>
+      <title>AWS Bedrock: Ai21 J2 Jumbo-Instruct</title>
+      <link>https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html</link>
+      <description>Announced: October 4, 2024 (only in us-east-1) | Shutdown: March 12, 2025 (only in us-east-1)
+
+Model Ai21 J2 Jumbo-Instruct entered legacy status on October 4, 2024 (only in us-east-1), will reach end-of-life on March 12, 2025 (only in us-east-1). Recommended replacement: ai21.jamba-instruct-v1:0</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:52 GMT</pubDate>
+      <guid isPermaLink="false">AWS_Bedrock-AWS_Bedrock_Ai21_J2_Jumbo-Instruct-October_4,_2024_(only_in_us-east-1)-2025-08-22</guid>
+    </item>
+    <item>
+      <title>AWS Bedrock: Stable Diffusion XL 1.0</title>
+      <link>https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html</link>
+      <description>Announced: October 16, 2024 (us-east-1 and us-west-2) | Shutdown: May 20, 2025 (us-east-1 and us-west-2)
+
+Model Stable Diffusion XL 1.0 entered legacy status on October 16, 2024 (us-east-1 and us-west-2), will reach end-of-life on May 20, 2025 (us-east-1 and us-west-2). Recommended replacement: stability.stable-image-core-v1:0, stability.stable-image-ultra-v1:0, and stability.sd3-large-v1:0</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:52 GMT</pubDate>
+      <guid isPermaLink="false">AWS_Bedrock-AWS_Bedrock_Stable_Diffusion_XL_1.0-October_16,_2024_(us-east-1_and_us-west-2)-2025-08-2</guid>
+    </item>
+    <item>
+      <title>AWS Bedrock: Claude v2</title>
+      <link>https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html</link>
+      <description>Announced: January 21, 2025 (all regions) | Shutdown: anthropic.claude-3-5-sonnet-20241022-v2:0, anthropic.claude-3-5-sonnet-20240620-v1:0, or anthropic.claude-3-5-haiku-20241022-v1:0
+
+Model Claude v2 entered legacy status on January 21, 2025 (all regions), will reach end-of-life on anthropic.claude-3-5-sonnet-20241022-v2:0, anthropic.claude-3-5-sonnet-20240620-v1:0, or anthropic.claude-3-5-haiku-20241022-v1:0</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:52 GMT</pubDate>
+      <guid isPermaLink="false">AWS_Bedrock-AWS_Bedrock_Claude_v2-January_21,_2025_(all_regions)-2025-08-22</guid>
+    </item>
+    <item>
+      <title>AWS Bedrock: Claude v2.1</title>
+      <link>https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html</link>
+      <description>Announced: January 21, 2025 (all regions) | Shutdown: anthropic.claude-3-5-sonnet-20241022-v2:0, anthropic.claude-3-5-sonnet-20240620-v1:0, or anthropic.claude-3-5-haiku-20241022-v1:0
+
+Model Claude v2.1 entered legacy status on January 21, 2025 (all regions), will reach end-of-life on anthropic.claude-3-5-sonnet-20241022-v2:0, anthropic.claude-3-5-sonnet-20240620-v1:0, or anthropic.claude-3-5-haiku-20241022-v1:0</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:52 GMT</pubDate>
+      <guid isPermaLink="false">AWS_Bedrock-AWS_Bedrock_Claude_v2.1-January_21,_2025_(all_regions)-2025-08-22</guid>
+    </item>
+    <item>
+      <title>AWS Bedrock: Claude Instant</title>
+      <link>https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html</link>
+      <description>Announced: January 21, 2025 (all regions) | Shutdown: anthropic.claude-3-5-sonnet-20241022-v2:0, anthropic.claude-3-5-sonnet-20240620-v1:0, or anthropic.claude-3-5-haiku-20241022-v1:0
+
+Model Claude Instant entered legacy status on January 21, 2025 (all regions), will reach end-of-life on anthropic.claude-3-5-sonnet-20241022-v2:0, anthropic.claude-3-5-sonnet-20240620-v1:0, or anthropic.claude-3-5-haiku-20241022-v1:0</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:52 GMT</pubDate>
+      <guid isPermaLink="false">AWS_Bedrock-AWS_Bedrock_Claude_Instant-January_21,_2025_(all_regions)-2025-08-22</guid>
+    </item>
+    <item>
+      <title>AWS Bedrock: Claude 3 Opus</title>
+      <link>https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html</link>
+      <description>Announced: July 15th, 2025 (all regions) | Shutdown: anthropic.claude-opus-4-1-20250805-v1:0, anthropic.claude-opus-4-20250514-v1:0, anthropic.claude-sonnet-4-20250514-v1:0
+
+Model Claude 3 Opus entered legacy status on July 15th, 2025 (all regions), will reach end-of-life on anthropic.claude-opus-4-1-20250805-v1:0, anthropic.claude-opus-4-20250514-v1:0, anthropic.claude-sonnet-4-20250514-v1:0</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:52 GMT</pubDate>
+      <guid isPermaLink="false">AWS_Bedrock-AWS_Bedrock_Claude_3_Opus-July_15th,_2025_(all_regions)-2025-08-22</guid>
+    </item>
+    <item>
+      <title>AWS Bedrock: Claude 3 Sonnet</title>
+      <link>https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html</link>
+      <description>Announced: January 21, 2025 (us-east-1, us-west-2, eu-central-1, eu-west-3, eu-west-1 regions) | Shutdown: anthropic.claude-3-5-sonnet-20241022-v2:0, anthropic.claude-3-5-sonnet-20240620-v1:0, or anthropic.claude-3-5-haiku-20241022-v1:0
+
+Model Claude 3 Sonnet entered legacy status on January 21, 2025 (us-east-1, us-west-2, eu-central-1, eu-west-3, eu-west-1 regions), will reach end-of-life on anthropic.claude-3-5-sonnet-20241022-v2:0, anthropic.claude-3-5-sonnet-20240620-v1:0, or anthropic.claude-3-5-haiku-20241022-v1:0</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:52 GMT</pubDate>
+      <guid isPermaLink="false">AWS_Bedrock-AWS_Bedrock_Claude_3_Sonnet-January_21,_2025_(us-east-1,_us-west-2,_eu-central-1,_eu-wes</guid>
+    </item>
+    <item>
+      <title>AWS Bedrock: Stability Image Core v1</title>
+      <link>https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html</link>
+      <description>Announced: January 31, 2025 (all regions) | Shutdown: September 4, 2025 (all regions)
+
+Model Stability Image Core v1 entered legacy status on January 31, 2025 (all regions), will reach end-of-life on September 4, 2025 (all regions). Recommended replacement: stability.stable-image-core-v1:1</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:52 GMT</pubDate>
+      <guid isPermaLink="false">AWS_Bedrock-AWS_Bedrock_Stability_Image_Core_v1-January_31,_2025_(all_regions)-2025-08-22</guid>
+    </item>
+    <item>
+      <title>AWS Bedrock: Stability 3 Large</title>
+      <link>https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html</link>
+      <description>Announced: January 31, 2025 (all regions) | Shutdown: September 4, 2025 (all regions)
+
+Model Stability 3 Large entered legacy status on January 31, 2025 (all regions), will reach end-of-life on September 4, 2025 (all regions). Recommended replacement: stability.sd3-5-large-v1:0</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:52 GMT</pubDate>
+      <guid isPermaLink="false">AWS_Bedrock-AWS_Bedrock_Stability_3_Large-January_31,_2025_(all_regions)-2025-08-22</guid>
+    </item>
+    <item>
+      <title>AWS Bedrock: Stability Image Ultra v1</title>
+      <link>https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html</link>
+      <description>Announced: January 31, 2025 (all regions) | Shutdown: September 4, 2025 (all regions)
+
+Model Stability Image Ultra v1 entered legacy status on January 31, 2025 (all regions), will reach end-of-life on September 4, 2025 (all regions). Recommended replacement: stability.stable-image-ultra-v1:1</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:52 GMT</pubDate>
+      <guid isPermaLink="false">AWS_Bedrock-AWS_Bedrock_Stability_Image_Ultra_v1-January_31,_2025_(all_regions)-2025-08-22</guid>
+    </item>
+    <item>
+      <title>AWS Bedrock: AI21 Jamba-Instruct</title>
+      <link>https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html</link>
+      <description>Announced: January 31, 2025 (all regions) | Shutdown: August 1, 2025 (all regions)
+
+Model AI21 Jamba-Instruct entered legacy status on January 31, 2025 (all regions), will reach end-of-life on August 1, 2025 (all regions). Recommended replacement: ai21.jamba-1-5-mini-v1:0 or ai21.jamba-1-5-large-v1:0</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:52 GMT</pubDate>
+      <guid isPermaLink="false">AWS_Bedrock-AWS_Bedrock_AI21_Jamba-Instruct-January_31,_2025_(all_regions)-2025-08-22</guid>
+    </item>
+    <item>
+      <title>AWS Bedrock: Amazon Titan Text G1 - Premier</title>
+      <link>https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html</link>
+      <description>Announced: January 31, 2025 (all regions) | Shutdown: August 15, 2025 (all regions)
+
+Model Amazon Titan Text G1 - Premier entered legacy status on January 31, 2025 (all regions), will reach end-of-life on August 15, 2025 (all regions). Recommended replacement: amazon.nova-pro-v1:0</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:52 GMT</pubDate>
+      <guid isPermaLink="false">AWS_Bedrock-AWS_Bedrock_Amazon_Titan_Text_G1_-_Premier-January_31,_2025_(all_regions)-2025-08-22</guid>
+    </item>
+    <item>
+      <title>AWS Bedrock: Amazon Titan Text G1 - Express</title>
+      <link>https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html</link>
+      <description>Announced: January 31, 2025 (all regions) | Shutdown: August 15, 2025 (all regions)
+
+Model Amazon Titan Text G1 - Express entered legacy status on January 31, 2025 (all regions), will reach end-of-life on August 15, 2025 (all regions). Recommended replacement: amazon.nova-micro-v1:0</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:52 GMT</pubDate>
+      <guid isPermaLink="false">AWS_Bedrock-AWS_Bedrock_Amazon_Titan_Text_G1_-_Express-January_31,_2025_(all_regions)-2025-08-22</guid>
+    </item>
+    <item>
+      <title>AWS Bedrock: Amazon Titan Text G1 - Lite</title>
+      <link>https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html</link>
+      <description>Announced: January 31, 2025 (all regions) | Shutdown: August 15, 2025 (all regions)
+
+Model Amazon Titan Text G1 - Lite entered legacy status on January 31, 2025 (all regions), will reach end-of-life on August 15, 2025 (all regions). Recommended replacement: amazon.nova-lite-v1:0</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:52 GMT</pubDate>
+      <guid isPermaLink="false">AWS_Bedrock-AWS_Bedrock_Amazon_Titan_Text_G1_-_Lite-January_31,_2025_(all_regions)-2025-08-22</guid>
+    </item>
+    <item>
+      <title>AWS Bedrock: Amazon Titan Image Generator G1 V1</title>
+      <link>https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html</link>
+      <description>Announced: January 31, 2025 (all regions) | Shutdown: August 15, 2025 (all regions)
+
+Model Amazon Titan Image Generator G1 V1 entered legacy status on January 31, 2025 (all regions), will reach end-of-life on August 15, 2025 (all regions). Recommended replacement: amazon.nova-canvas-v1:0</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:52 GMT</pubDate>
+      <guid isPermaLink="false">AWS_Bedrock-AWS_Bedrock_Amazon_Titan_Image_Generator_G1_V1-January_31,_2025_(all_regions)-2025-08-22</guid>
+    </item>
+    <item>
+      <title>AWS Bedrock: Stable Diffusion XL 0.8</title>
+      <link>https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html</link>
+      <description>Announced: February 2, 2024 | Shutdown: April 30, 2024
+
+Model Stable Diffusion XL 0.8 entered legacy status on February 2, 2024, will reach end-of-life on April 30, 2024. Recommended replacement: stability.stable-diffusion-xl-v1</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:52 GMT</pubDate>
+      <guid isPermaLink="false">AWS_Bedrock-AWS_Bedrock_Stable_Diffusion_XL_0.8-February_2,_2024-2025-08-22</guid>
+    </item>
+    <item>
+      <title>AWS Bedrock: Cohere Command</title>
+      <link>https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html</link>
+      <description>Announced: October 4, 2024 | Shutdown: August 12, 2025
+
+Model Cohere Command entered legacy status on October 4, 2024, will reach end-of-life on August 12, 2025. Recommended replacement: cohere.command-r-v1:0 and cohere.command-r-plus-v1:0</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:52 GMT</pubDate>
+      <guid isPermaLink="false">AWS_Bedrock-AWS_Bedrock_Cohere_Command-October_4,_2024-2025-08-22</guid>
+    </item>
+    <item>
+      <title>AWS Bedrock: Cohere Command Light</title>
+      <link>https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html</link>
+      <description>Announced: October 4, 2024 | Shutdown: August 12, 2025
+
+Model Cohere Command Light entered legacy status on October 4, 2024, will reach end-of-life on August 12, 2025. Recommended replacement: cohere.command-r-v1:0 and cohere.command-r-plus-v1:0</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:52 GMT</pubDate>
+      <guid isPermaLink="false">AWS_Bedrock-AWS_Bedrock_Cohere_Command_Light-October_4,_2024-2025-08-22</guid>
+    </item>
+    <item>
+      <title>AWS Bedrock: Claude v1.3</title>
+      <link>https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html</link>
+      <description>Announced: November 28, 2023 | Shutdown: February 28, 2024
+
+Model Claude v1.3 entered legacy status on November 28, 2023, will reach end-of-life on February 28, 2024. Recommended replacement: anthropic.claude-v2:1</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:52 GMT</pubDate>
+      <guid isPermaLink="false">AWS_Bedrock-AWS_Bedrock_Claude_v1.3-November_28,_2023-2025-08-22</guid>
+    </item>
+    <item>
+      <title>AWS Bedrock: Titan Embeddings - Text v1.1</title>
+      <link>https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html</link>
+      <description>Announced: November 7, 2023 | Shutdown: February 15, 2024
+
+Model Titan Embeddings - Text v1.1 entered legacy status on November 7, 2023, will reach end-of-life on February 15, 2024. Recommended replacement: amazon.titan-embed-text-v1</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:52 GMT</pubDate>
+      <guid isPermaLink="false">AWS_Bedrock-AWS_Bedrock_Titan_Embeddings_-_Text_v1.1-November_7,_2023-2025-08-22</guid>
+    </item>
+    <item>
+      <title>AWS Bedrock: Meta Llama 2 13b-chat-v1</title>
+      <link>https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html</link>
+      <description>Announced: May 12, 2024 | Shutdown: October 30, 2024
+
+Model Meta Llama 2 13b-chat-v1 entered legacy status on May 12, 2024, will reach end-of-life on October 30, 2024. Recommended replacement: meta.llama3-1-8b-instruct-v1</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:52 GMT</pubDate>
+      <guid isPermaLink="false">AWS_Bedrock-AWS_Bedrock_Meta_Llama_2_13b-chat-v1-May_12,_2024-2025-08-22</guid>
+    </item>
+    <item>
+      <title>AWS Bedrock: Meta Llama 2 70b-chat-v1</title>
+      <link>https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html</link>
+      <description>Announced: May 12, 2024 | Shutdown: October 30, 2024
+
+Model Meta Llama 2 70b-chat-v1 entered legacy status on May 12, 2024, will reach end-of-life on October 30, 2024. Recommended replacement: meta.llama3-1-70b-instruct-v1</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:52 GMT</pubDate>
+      <guid isPermaLink="false">AWS_Bedrock-AWS_Bedrock_Meta_Llama_2_70b-chat-v1-May_12,_2024-2025-08-22</guid>
+    </item>
+    <item>
+      <title>AWS Bedrock: Meta Llama 2-13b</title>
+      <link>https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html</link>
+      <description>Announced: May 12, 2024 | Shutdown: October 30, 2024
+
+Model Meta Llama 2-13b entered legacy status on May 12, 2024, will reach end-of-life on October 30, 2024. Recommended replacement: meta.llama3-8b-instruct-v1</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:52 GMT</pubDate>
+      <guid isPermaLink="false">AWS_Bedrock-AWS_Bedrock_Meta_Llama_2-13b-May_12,_2024-2025-08-22</guid>
+    </item>
+    <item>
+      <title>AWS Bedrock: Meta Llama 2-70b</title>
+      <link>https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html</link>
+      <description>Announced: May 12, 2024 | Shutdown: October 30, 2024
+
+Model Meta Llama 2-70b entered legacy status on May 12, 2024, will reach end-of-life on October 30, 2024. Recommended replacement: meta.llama3-70b-instruct-v1</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:52 GMT</pubDate>
+      <guid isPermaLink="false">AWS_Bedrock-AWS_Bedrock_Meta_Llama_2-70b-May_12,_2024-2025-08-22</guid>
+    </item>
+    <item>
+      <title>AWS Bedrock: Ai21 J2 Mid-v1</title>
+      <link>https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html</link>
+      <description>Announced: April 30, 2024 (only in us-west-2) | Shutdown: October 4, 2024 (only in us-west-2)
+
+Model Ai21 J2 Mid-v1 entered legacy status on April 30, 2024 (only in us-west-2), will reach end-of-life on October 4, 2024 (only in us-west-2). Recommended replacement: ai21.jamba-instruct-v1:0 in US East (N. Virginia)</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:52 GMT</pubDate>
+      <guid isPermaLink="false">AWS_Bedrock-AWS_Bedrock_Ai21_J2_Mid-v1-April_30,_2024_(only_in_us-west-2)-2025-08-22</guid>
+    </item>
+    <item>
+      <title>AWS Bedrock: Ai21 J2 Ultra-v1</title>
+      <link>https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html</link>
+      <description>Announced: April 30, 2024 (only in us-west-2) | Shutdown: October 4, 2024 (only in us-west-2)
+
+Model Ai21 J2 Ultra-v1 entered legacy status on April 30, 2024 (only in us-west-2), will reach end-of-life on October 4, 2024 (only in us-west-2). Recommended replacement: ai21.jamba-instruct-v1:0 in US East (N. Virginia)</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:52 GMT</pubDate>
+      <guid isPermaLink="false">AWS_Bedrock-AWS_Bedrock_Ai21_J2_Ultra-v1-April_30,_2024_(only_in_us-west-2)-2025-08-22</guid>
+    </item>
+    <item>
+      <title>AWS Bedrock: Ai21 J2-Grande-Instruct</title>
+      <link>https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html</link>
+      <description>Announced: April 30, 2024 (only in us-west-2) | Shutdown: October 4, 2024 (only in us-west-2)
+
+Model Ai21 J2-Grande-Instruct entered legacy status on April 30, 2024 (only in us-west-2), will reach end-of-life on October 4, 2024 (only in us-west-2). Recommended replacement: ai21.jamba-instruct-v1:0 in US East (N. Virginia)</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:52 GMT</pubDate>
+      <guid isPermaLink="false">AWS_Bedrock-AWS_Bedrock_Ai21_J2-Grande-Instruct-April_30,_2024_(only_in_us-west-2)-2025-08-22</guid>
+    </item>
+    <item>
+      <title>AWS Bedrock: Ai21 J2 Jumbo-Instruct</title>
+      <link>https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html</link>
+      <description>Announced: April 30, 2024 (only in us-west-2) | Shutdown: October 4, 2024 (only in us-west-2)
+
+Model Ai21 J2 Jumbo-Instruct entered legacy status on April 30, 2024 (only in us-west-2), will reach end-of-life on October 4, 2024 (only in us-west-2). Recommended replacement: ai21.jamba-instruct-v1:0 in US East (N. Virginia)</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:52 GMT</pubDate>
+      <guid isPermaLink="false">AWS_Bedrock-AWS_Bedrock_Ai21_J2_Jumbo-Instruct-April_30,_2024_(only_in_us-west-2)-2025-08-22</guid>
+    </item>
+    <item>
+      <title>Cohere API Deprecations</title>
+      <link>https://docs.cohere.com/docs/deprecations</link>
+      <description>No deprecation content found</description>
+      <pubDate>Fri, 22 Aug 2025 20:28:55 GMT</pubDate>
+      <guid isPermaLink="false">Cohere-Cohere_API_Deprecations-2025-08-22</guid>
+    </item>
+  </channel>
+</rss>

@@ -5,18 +5,9 @@ up:
   - uv
 
 commands:
+  scrape: python main.py
   server: cd docs && python -m http.server $PORT
-  test: pytest --cov=src --cov-report=term-missing
-  lint: ruff check . && ruff format --check .
-  format: ruff format .
-  typecheck: mypy src
-  checks:
-    desc: Run all CI checks locally
-    run: |
-      ruff format --check . \
-      && ruff check . \
-      && mypy src \
-      && pytest --cov=src --cov-report=term-missing
+  checks: python main.py && python rss_gen.py
 
 open:
-  app: https://deprecations-rss.myshopify.io
+  app: https://deprecations-rss.myshopify.io/
