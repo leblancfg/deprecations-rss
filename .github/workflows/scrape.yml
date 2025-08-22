@@ -5,12 +5,6 @@ on:
     # Run daily at 2 AM UTC
     - cron: '0 2 * * *'
   workflow_dispatch:
-    inputs:
-      force_backfill:
-        description: 'Force backfill from previous day'
-        required: false
-        default: false
-        type: boolean
 
 jobs:
   scrape:
@@ -18,144 +12,33 @@ jobs:
     
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # Need full history for backfilling
-      
-      - name: Install uv
-        uses: astral-sh/setup-uv@v3
-        with:
-          enable-cache: true
-          cache-dependency-glob: "pyproject.toml"
       
       - name: Set up Python
-        run: uv python install 3.13
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
       
       - name: Install dependencies
-        run: uv sync --all-extras
-      
-      - name: Run scraper orchestrator
-        id: scrape
         run: |
-          uv run python -m src.run_orchestrator
-        continue-on-error: true
+          pip install httpx beautifulsoup4 lxml playwright
+          playwright install chromium
       
-      - name: Check scraping results
-        id: check_results
-        run: |
-          if [ -f data.json ]; then
-            echo "data_exists=true" >> $GITHUB_OUTPUT
-            # Check if file has meaningful content (more than just empty structure)
-            FILE_SIZE=$(stat -f%z data.json 2>/dev/null || stat -c%s data.json 2>/dev/null)
-            if [ "$FILE_SIZE" -gt 100 ]; then
-              echo "has_content=true" >> $GITHUB_OUTPUT
-            else
-              echo "has_content=false" >> $GITHUB_OUTPUT
-            fi
-          else
-            echo "data_exists=false" >> $GITHUB_OUTPUT
-            echo "has_content=false" >> $GITHUB_OUTPUT
-          fi
+      - name: Scrape deprecations
+        run: python main.py
       
-      - name: Backfill from previous day if needed
-        if: steps.check_results.outputs.has_content == 'false' || github.event.inputs.force_backfill == 'true'
-        run: |
-          echo "Attempting to backfill data from previous successful run..."
-          
-          # Get the previous day's data from git history
-          YESTERDAY=$(date -u -d "yesterday" +%Y-%m-%d 2>/dev/null || date -u -v-1d +%Y-%m-%d)
-          
-          # Try to find the most recent commit with valid data.json
-          for commit in $(git rev-list --since="7 days ago" HEAD -- data.json); do
-            echo "Checking commit $commit..."
-            git show $commit:data.json > temp_data.json 2>/dev/null || continue
-            
-            # Check if the file has meaningful content
-            FILE_SIZE=$(stat -f%z temp_data.json 2>/dev/null || stat -c%s temp_data.json 2>/dev/null)
-            if [ "$FILE_SIZE" -gt 100 ]; then
-              echo "Found valid data in commit $commit"
-              
-              # Update provider statuses to indicate backfill
-              uv run python -c "
-import json
-from datetime import datetime
-
-with open('temp_data.json', 'r') as f:
-    data = json.load(f)
-
-# Update provider statuses to indicate this is backfilled data
-if 'provider_statuses' in data:
-    for status in data['provider_statuses']:
-        status['error_message'] = 'Data backfilled from previous run due to scraping failure'
-        status['is_healthy'] = False
-
-# Update last_updated timestamp
-data['last_updated'] = datetime.utcnow().isoformat()
-
-# Add backfill metadata
-data['backfilled'] = True
-data['backfilled_from'] = '$commit'
-data['backfilled_at'] = datetime.utcnow().isoformat()
-
-with open('data.json', 'w') as f:
-    json.dump(data, f, indent=2)
-              "
-              echo "Successfully backfilled data from commit $commit"
-              break
-            fi
-          done
-          
-          # Clean up
-          rm -f temp_data.json
-          
-          # Verify we have data now
-          if [ ! -f data.json ] || [ ! -s data.json ]; then
-            echo "Failed to backfill data"
-            exit 1
-          fi
-      
-      - name: Generate static site
-        if: always()
-        run: |
-          if [ -f data.json ]; then
-            uv run python -m src.site.generate_site
-          else
-            echo "No data.json file found, skipping site generation"
-          fi
+      - name: Generate RSS feed
+        run: python rss_gen.py
       
       - name: Commit and push changes
-        if: always()
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           
-          # Add files
-          git add data.json || true
-          git add index.html || true
-          git add deprecations.xml || true
+          git add data.json docs/feed.xml
           
-          # Check if there are changes to commit
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            COMMIT_MSG="Update deprecation data - $(date -u +%Y-%m-%d)"
-            
-            # Add backfill note if applicable
-            if [ -f data.json ] && grep -q '"backfilled": true' data.json; then
-              COMMIT_MSG="$COMMIT_MSG (backfilled)"
-            fi
-            
-            git commit -m "$COMMIT_MSG"
+            git commit -m "Update deprecation data - $(date -u +%Y-%m-%d)"
             git push
           fi
-      
-      - name: Upload artifacts
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: deprecation-data
-          path: |
-            data.json
-            index.html
-            deprecations.xml
-            orchestrator.log
-          retention-days: 30
