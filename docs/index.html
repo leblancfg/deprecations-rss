@@ -3,599 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Stay updated on AI model deprecations across major providers">
-    <title>AI Model Deprecations Feed</title>
+    <meta name="description" content="RSS feed for AI model deprecations - never miss an API shutdown again">
+    <title>AI Deprecations RSS</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="alternate" type="application/rss+xml" title="AI Model Deprecations RSS Feed" href="https://leblancfg.github.io/deprecations-rss/rss/v1/feed.xml">
+    <link rel="alternate" type="application/rss+xml" title="AI Model Deprecations RSS Feed" href="rss/v1/feed.xml">
 </head>
 <body>
     <header>
         <div class="container">
-            <h1>AI Model Deprecations</h1>
-            <p class="tagline">Track deprecation announcements across major AI providers</p>
+            <h1>🔔 AI Deprecations RSS</h1>
+            <p class="tagline">Never miss an AI model shutdown again</p>
         </div>
     </header>
     
     <main class="container">
         
+<section class="intro">
+    <p class="lead">
+        This is a simple RSS feed that tracks AI model deprecations from OpenAI, Anthropic, Google Vertex AI, AWS Bedrock, and Cohere. 
+        When they announce a model is being shut down, it shows up here. That's it.
+    </p>
+</section>
+
 <section class="subscribe-section">
     <div class="subscribe-card">
-        <h2>Subscribe to Updates</h2>
-        <p>Get notified about new AI model deprecations as they're announced</p>
-        <a href="https://leblancfg.github.io/deprecations-rss/rss/v1/feed.xml" class="subscribe-button" target="_blank" rel="noopener">
+        <h2>📡 The Feed</h2>
+        <a href="rss/v1/feed.xml" class="subscribe-button" target="_blank" rel="noopener">
             <svg class="rss-icon" viewBox="0 0 24 24" width="20" height="20">
                 <path d="M3.429 5.1v2.4c7.248 0 13.114 5.886 13.114 13.142h2.4C18.943 12.18 11.862 5.1 3.429 5.1zm0 4.8v2.4a3.771 3.771 0 013.771 3.771h2.4c0-3.42-2.751-6.171-6.171-6.171zM6.171 15.486a1.2 1.2 0 11-2.4 0 1.2 1.2 0 012.4 0z"/>
             </svg>
-            Subscribe via RSS
+            https://leblancfg.com/deprecations-rss/rss/v1/feed.xml
         </a>
-        <p class="subscribe-help">Copy this link to your RSS reader</p>
+        <p class="subscribe-help">↑ Copy this link to your RSS reader</p>
     </div>
 </section>
 
-<section class="status-section">
-    <h2>Provider Status</h2>
-    <div class="status-grid">
-        
-        <div class="status-card">
-            <span class="provider-name">OpenAI</span>
-            <span class="status-indicator healthy">
-                
-                    <svg viewBox="0 0 24 24" width="16" height="16">
-                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-                    </svg>
-                    Healthy
-                
-            </span>
-            
-            <p class="last-checked">Last checked: 2025-08-20 21:31 UTC</p>
-        </div>
-        
-        <div class="status-card">
-            <span class="provider-name">Anthropic</span>
-            <span class="status-indicator healthy">
-                
-                    <svg viewBox="0 0 24 24" width="16" height="16">
-                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-                    </svg>
-                    Healthy
-                
-            </span>
-            
-            <p class="last-checked">Last checked: 2025-08-20 21:36 UTC</p>
-        </div>
-        
-        <div class="status-card">
-            <span class="provider-name">Google Vertex AI</span>
-            <span class="status-indicator healthy">
-                
-                    <svg viewBox="0 0 24 24" width="16" height="16">
-                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-                    </svg>
-                    Healthy
-                
-            </span>
-            
-            <p class="last-checked">Last checked: 2025-08-20 21:29 UTC</p>
-        </div>
-        
-        <div class="status-card">
-            <span class="provider-name">AWS Bedrock</span>
-            <span class="status-indicator error">
-                
-                    <svg viewBox="0 0 24 24" width="16" height="16">
-                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/>
-                    </svg>
-                    Error
-                
-            </span>
-            
-            <p class="error-message">Rate limit exceeded - retry after 60 seconds</p>
-            
-            <p class="last-checked">Last checked: 2025-08-20 21:33 UTC</p>
-        </div>
-        
-        <div class="status-card">
-            <span class="provider-name">Cohere</span>
-            <span class="status-indicator healthy">
-                
-                    <svg viewBox="0 0 24 24" width="16" height="16">
-                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-                    </svg>
-                    Healthy
-                
-            </span>
-            
-            <p class="last-checked">Last checked: 2025-08-20 21:28 UTC</p>
-        </div>
-        
+<section class="how-to">
+    <h2>How to Use This Feed</h2>
+    
+    <div class="method">
+        <h3>📱 With Feedly</h3>
+        <ol>
+            <li>Open Feedly and click the "+" button</li>
+            <li>Paste the RSS feed URL above</li>
+            <li>Click "Follow"</li>
+        </ol>
+    </div>
+    
+    <div class="method">
+        <h3>📧 Get Email Alerts</h3>
+        <p>Use a service like <a href="https://blogtrottr.com" target="_blank">Blogtrottr</a> or <a href="https://feedrabbit.com" target="_blank">FeedRabbit</a>:</p>
+        <ol>
+            <li>Sign up for the service</li>
+            <li>Add our RSS feed URL</li>
+            <li>Choose your email frequency</li>
+        </ol>
+    </div>
+    
+    <div class="method">
+        <h3>💬 Slack Notifications</h3>
+        <ol>
+            <li>In Slack, go to Apps → Browse → RSS</li>
+            <li>Add to Slack and choose a channel</li>
+            <li>Use <code>/feed subscribe [RSS URL]</code></li>
+        </ol>
+    </div>
+    
+    <div class="method">
+        <h3>🤖 Automation Tools</h3>
+        <p>Connect to Zapier, IFTTT, or Make.com to trigger workflows when new deprecations are announced.</p>
     </div>
 </section>
 
-<section class="deprecations-section">
-    <h2>Latest Deprecations</h2>
-    
-        <div class="deprecations-list">
-            
-            <article class="deprecation-card">
-                <header>
-                    <h3>
-                        <span class="provider-badge">Cohere</span>
-                        embed-english-v2.0
-                    </h3>
-                </header>
-                <div class="deprecation-details">
-                    <div class="date-info">
-                        <p><strong>Deprecation Date:</strong> 2025-02-01</p>
-                        
-                        <p><strong>Retirement Date:</strong> 2025-05-01</p>
-                        
-                    </div>
-                    
-                    <p class="replacement">
-                        <strong>Replacement:</strong> 
-                        <span class="model-name">embed-english-v3.0</span>
-                    </p>
-                    
-                    
-                    <p class="notes">Upgrading to v3.0 embeddings with improved multilingual support</p>
-                    
-                    
-                    <a href="https://docs.cohere.com/docs/embed-api" class="announcement-link" target="_blank" rel="noopener">
-                        View Announcement →
-                    </a>
-                    
-                </div>
-            </article>
-            
-            <article class="deprecation-card">
-                <header>
-                    <h3>
-                        <span class="provider-badge">OpenAI</span>
-                        text-embedding-ada-002-v2
-                    </h3>
-                </header>
-                <div class="deprecation-details">
-                    <div class="date-info">
-                        <p><strong>Deprecation Date:</strong> 2025-01-15</p>
-                        
-                        <p><strong>Retirement Date:</strong> 2025-04-15</p>
-                        
-                    </div>
-                    
-                    <p class="replacement">
-                        <strong>Replacement:</strong> 
-                        <span class="model-name">text-embedding-3-small</span>
-                    </p>
-                    
-                    
-                    <p class="notes">Upgrading to new embedding models with better performance</p>
-                    
-                    
-                    <a href="https://platform.openai.com/docs/guides/embeddings" class="announcement-link" target="_blank" rel="noopener">
-                        View Announcement →
-                    </a>
-                    
-                </div>
-            </article>
-            
-            <article class="deprecation-card">
-                <header>
-                    <h3>
-                        <span class="provider-badge">AWS Bedrock</span>
-                        ai21.j2-mid-v1
-                    </h3>
-                </header>
-                <div class="deprecation-details">
-                    <div class="date-info">
-                        <p><strong>Deprecation Date:</strong> 2025-01-01</p>
-                        
-                        <p><strong>Retirement Date:</strong> 2025-04-01</p>
-                        
-                    </div>
-                    
-                    <p class="replacement">
-                        <strong>Replacement:</strong> 
-                        <span class="model-name">ai21.j2-ultra-v1</span>
-                    </p>
-                    
-                    
-                    <p class="notes">Jurassic-2 mid tier being deprecated</p>
-                    
-                    
-                    <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-jurassic2.html" class="announcement-link" target="_blank" rel="noopener">
-                        View Announcement →
-                    </a>
-                    
-                </div>
-            </article>
-            
-            <article class="deprecation-card">
-                <header>
-                    <h3>
-                        <span class="provider-badge">Google Vertex AI</span>
-                        code-bison@001
-                    </h3>
-                </header>
-                <div class="deprecation-details">
-                    <div class="date-info">
-                        <p><strong>Deprecation Date:</strong> 2024-12-01</p>
-                        
-                        <p><strong>Retirement Date:</strong> 2025-06-01</p>
-                        
-                    </div>
-                    
-                    <p class="replacement">
-                        <strong>Replacement:</strong> 
-                        <span class="model-name">code-bison@002 or gemini-code</span>
-                    </p>
-                    
-                    
-                    <p class="notes">Code generation model update</p>
-                    
-                    
-                    <a href="https://cloud.google.com/vertex-ai/generative-ai/docs/model-reference/code-generation" class="announcement-link" target="_blank" rel="noopener">
-                        View Announcement →
-                    </a>
-                    
-                </div>
-            </article>
-            
-            <article class="deprecation-card">
-                <header>
-                    <h3>
-                        <span class="provider-badge">AWS Bedrock</span>
-                        amazon.titan-text-lite-v1
-                    </h3>
-                </header>
-                <div class="deprecation-details">
-                    <div class="date-info">
-                        <p><strong>Deprecation Date:</strong> 2024-11-15</p>
-                        
-                        <p><strong>Retirement Date:</strong> 2025-02-15</p>
-                        
-                    </div>
-                    
-                    <p class="replacement">
-                        <strong>Replacement:</strong> 
-                        <span class="model-name">amazon.titan-text-express-v1</span>
-                    </p>
-                    
-                    
-                    <p class="notes">Titan Lite model being consolidated</p>
-                    
-                    
-                    <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/titan-models.html" class="announcement-link" target="_blank" rel="noopener">
-                        View Announcement →
-                    </a>
-                    
-                </div>
-            </article>
-            
-            <article class="deprecation-card">
-                <header>
-                    <h3>
-                        <span class="provider-badge">Google Vertex AI</span>
-                        text-bison@001
-                    </h3>
-                </header>
-                <div class="deprecation-details">
-                    <div class="date-info">
-                        <p><strong>Deprecation Date:</strong> 2024-10-09</p>
-                        
-                        <p><strong>Retirement Date:</strong> 2025-04-09</p>
-                        
-                    </div>
-                    
-                    <p class="replacement">
-                        <strong>Replacement:</strong> 
-                        <span class="model-name">text-bison@002 or gemini-pro</span>
-                    </p>
-                    
-                    
-                    <p class="notes">PaLM 2 text-bison-001 being retired after 6 months</p>
-                    
-                    
-                    <a href="https://cloud.google.com/vertex-ai/generative-ai/docs/model-reference/text" class="announcement-link" target="_blank" rel="noopener">
-                        View Announcement →
-                    </a>
-                    
-                </div>
-            </article>
-            
-            <article class="deprecation-card">
-                <header>
-                    <h3>
-                        <span class="provider-badge">Google Vertex AI</span>
-                        chat-bison@001
-                    </h3>
-                </header>
-                <div class="deprecation-details">
-                    <div class="date-info">
-                        <p><strong>Deprecation Date:</strong> 2024-10-09</p>
-                        
-                        <p><strong>Retirement Date:</strong> 2025-04-09</p>
-                        
-                    </div>
-                    
-                    <p class="replacement">
-                        <strong>Replacement:</strong> 
-                        <span class="model-name">chat-bison@002 or gemini-pro</span>
-                    </p>
-                    
-                    
-                    <p class="notes">PaLM 2 chat model being upgraded</p>
-                    
-                    
-                    <a href="https://cloud.google.com/vertex-ai/generative-ai/docs/model-reference/text-chat" class="announcement-link" target="_blank" rel="noopener">
-                        View Announcement →
-                    </a>
-                    
-                </div>
-            </article>
-            
-            <article class="deprecation-card">
-                <header>
-                    <h3>
-                        <span class="provider-badge">Cohere</span>
-                        command-xlarge-20221108
-                    </h3>
-                </header>
-                <div class="deprecation-details">
-                    <div class="date-info">
-                        <p><strong>Deprecation Date:</strong> 2024-09-15</p>
-                        
-                        <p><strong>Retirement Date:</strong> 2024-12-15</p>
-                        
-                    </div>
-                    
-                    <p class="replacement">
-                        <strong>Replacement:</strong> 
-                        <span class="model-name">command-r-plus</span>
-                    </p>
-                    
-                    
-                    <p class="notes">Older command model snapshot being retired</p>
-                    
-                    
-                    <a href="https://docs.cohere.com/docs/models" class="announcement-link" target="_blank" rel="noopener">
-                        View Announcement →
-                    </a>
-                    
-                </div>
-            </article>
-            
-            <article class="deprecation-card">
-                <header>
-                    <h3>
-                        <span class="provider-badge">Anthropic</span>
-                        claude-instant-1
-                    </h3>
-                </header>
-                <div class="deprecation-details">
-                    <div class="date-info">
-                        <p><strong>Deprecation Date:</strong> 2024-09-01</p>
-                        
-                        <p><strong>Retirement Date:</strong> 2024-12-01</p>
-                        
-                    </div>
-                    
-                    <p class="replacement">
-                        <strong>Replacement:</strong> 
-                        <span class="model-name">claude-3-haiku</span>
-                    </p>
-                    
-                    
-                    <p class="notes">Moving to Claude 3 family for improved capabilities</p>
-                    
-                    
-                    <a href="https://docs.anthropic.com/en/docs/about-claude/models" class="announcement-link" target="_blank" rel="noopener">
-                        View Announcement →
-                    </a>
-                    
-                </div>
-            </article>
-            
-            <article class="deprecation-card">
-                <header>
-                    <h3>
-                        <span class="provider-badge">Cohere</span>
-                        command-medium-nightly
-                    </h3>
-                </header>
-                <div class="deprecation-details">
-                    <div class="date-info">
-                        <p><strong>Deprecation Date:</strong> 2024-08-01</p>
-                        
-                        <p><strong>Retirement Date:</strong> 2024-11-01</p>
-                        
-                    </div>
-                    
-                    <p class="replacement">
-                        <strong>Replacement:</strong> 
-                        <span class="model-name">command-r</span>
-                    </p>
-                    
-                    
-                    <p class="notes">Nightly models being replaced with stable versions</p>
-                    
-                    
-                    <a href="https://docs.cohere.com/docs/models" class="announcement-link" target="_blank" rel="noopener">
-                        View Announcement →
-                    </a>
-                    
-                </div>
-            </article>
-            
-            <article class="deprecation-card">
-                <header>
-                    <h3>
-                        <span class="provider-badge">Anthropic</span>
-                        claude-2.0
-                    </h3>
-                </header>
-                <div class="deprecation-details">
-                    <div class="date-info">
-                        <p><strong>Deprecation Date:</strong> 2024-07-01</p>
-                        
-                        <p><strong>Retirement Date:</strong> 2024-10-01</p>
-                        
-                    </div>
-                    
-                    <p class="replacement">
-                        <strong>Replacement:</strong> 
-                        <span class="model-name">claude-3-sonnet</span>
-                    </p>
-                    
-                    
-                    <p class="notes">Claude 2 models superseded by Claude 3 family</p>
-                    
-                    
-                    <a href="https://docs.anthropic.com/en/docs/about-claude/models" class="announcement-link" target="_blank" rel="noopener">
-                        View Announcement →
-                    </a>
-                    
-                </div>
-            </article>
-            
-            <article class="deprecation-card">
-                <header>
-                    <h3>
-                        <span class="provider-badge">Anthropic</span>
-                        claude-2.1
-                    </h3>
-                </header>
-                <div class="deprecation-details">
-                    <div class="date-info">
-                        <p><strong>Deprecation Date:</strong> 2024-07-01</p>
-                        
-                        <p><strong>Retirement Date:</strong> 2024-10-01</p>
-                        
-                    </div>
-                    
-                    <p class="replacement">
-                        <strong>Replacement:</strong> 
-                        <span class="model-name">claude-3-opus</span>
-                    </p>
-                    
-                    
-                    <p class="notes">Upgrading to Claude 3 for enhanced performance</p>
-                    
-                    
-                    <a href="https://docs.anthropic.com/en/docs/about-claude/models" class="announcement-link" target="_blank" rel="noopener">
-                        View Announcement →
-                    </a>
-                    
-                </div>
-            </article>
-            
-            <article class="deprecation-card">
-                <header>
-                    <h3>
-                        <span class="provider-badge">OpenAI</span>
-                        gpt-3.5-turbo-0301
-                    </h3>
-                </header>
-                <div class="deprecation-details">
-                    <div class="date-info">
-                        <p><strong>Deprecation Date:</strong> 2024-06-13</p>
-                        
-                        <p><strong>Retirement Date:</strong> 2024-09-13</p>
-                        
-                    </div>
-                    
-                    <p class="replacement">
-                        <strong>Replacement:</strong> 
-                        <span class="model-name">gpt-3.5-turbo</span>
-                    </p>
-                    
-                    
-                    <p class="notes">This model snapshot will be retired 3 months after deprecation</p>
-                    
-                    
-                    <a href="https://platform.openai.com/docs/deprecations" class="announcement-link" target="_blank" rel="noopener">
-                        View Announcement →
-                    </a>
-                    
-                </div>
-            </article>
-            
-            <article class="deprecation-card">
-                <header>
-                    <h3>
-                        <span class="provider-badge">AWS Bedrock</span>
-                        anthropic.claude-v1
-                    </h3>
-                </header>
-                <div class="deprecation-details">
-                    <div class="date-info">
-                        <p><strong>Deprecation Date:</strong> 2024-03-01</p>
-                        
-                        <p><strong>Retirement Date:</strong> 2024-06-01</p>
-                        
-                    </div>
-                    
-                    <p class="replacement">
-                        <strong>Replacement:</strong> 
-                        <span class="model-name">anthropic.claude-v2 or anthropic.claude-3-sonnet</span>
-                    </p>
-                    
-                    
-                    <p class="notes">First generation Claude model on Bedrock</p>
-                    
-                    
-                    <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html" class="announcement-link" target="_blank" rel="noopener">
-                        View Announcement →
-                    </a>
-                    
-                </div>
-            </article>
-            
-            <article class="deprecation-card">
-                <header>
-                    <h3>
-                        <span class="provider-badge">OpenAI</span>
-                        text-davinci-003
-                    </h3>
-                </header>
-                <div class="deprecation-details">
-                    <div class="date-info">
-                        <p><strong>Deprecation Date:</strong> 2024-01-04</p>
-                        
-                        <p><strong>Retirement Date:</strong> 2024-06-04</p>
-                        
-                    </div>
-                    
-                    <p class="replacement">
-                        <strong>Replacement:</strong> 
-                        <span class="model-name">gpt-3.5-turbo or gpt-4</span>
-                    </p>
-                    
-                    
-                    <p class="notes">Legacy completion model being retired</p>
-                    
-                    
-                    <a href="https://platform.openai.com/docs/deprecations" class="announcement-link" target="_blank" rel="noopener">
-                        View Announcement →
-                    </a>
-                    
-                </div>
-            </article>
-            
-        </div>
-    
+<section class="what-we-track">
+    <h2>What We Track</h2>
+    <p>We check these pages daily:</p>
+    <ul>
+        <li><a href="https://platform.openai.com/docs/deprecations" target="_blank">OpenAI Deprecations</a></li>
+        <li><a href="https://docs.anthropic.com/en/docs/about-claude/model-deprecations" target="_blank">Anthropic Model Deprecations</a></li>
+        <li><a href="https://cloud.google.com/vertex-ai/generative-ai/docs/deprecations" target="_blank">Google Vertex AI Deprecations</a></li>
+        <li><a href="https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html" target="_blank">AWS Bedrock Model Lifecycle</a></li>
+        <li><a href="https://docs.cohere.com/docs/deprecations" target="_blank">Cohere Deprecations</a></li>
+    </ul>
 </section>
 
-<section class="update-info">
-    <p class="last-update">Last updated: 2025-08-20 21:36 UTC</p>
+<section class="why">
+    <h2>Why This Exists</h2>
+    <p>
+        AI providers deprecate models regularly, sometimes with just a few months notice. 
+        If you're not checking their docs constantly, you might miss an announcement and have your app break.
+        This feed does the checking for you.
+    </p>
 </section>
 
     </main>
     
     <footer>
         <div class="container">
-            <p>&copy; 2025 AI Model Deprecations Feed. 
-               <a href="https://github.com/leblancfg/deprecations-rss" target="_blank" rel="noopener">View on GitHub</a>
-            </p>
+            <p>Updated daily • <a href="https://github.com/leblancfg/deprecations-rss" target="_blank" rel="noopener">GitHub</a></p>
         </div>
     </footer>
 </body>

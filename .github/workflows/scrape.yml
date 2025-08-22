@@ -34,7 +34,7 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           
-          git add data.json docs/feed.xml
+          git add data.json docs/feed.xml docs/rss/v1/feed.xml
           
           if git diff --staged --quiet; then
             echo "No changes to commit"

@@ -12,4 +12,4 @@ commands:
   checks: python main.py && python rss_gen.py
 
 open:
-  app: https://leblancfg.com/deprecations-rss/
+  app: https://deprecations-rss.myshopify.io/
