@@ -5,7 +5,7 @@
 }
 
 body {
-    font-family: 'JetBrains Mono', 'Fira Code', 'Source Code Pro', 'IBM Plex Mono', 'Hack', 'Inconsolata', 'Consolas', 'Monaco', 'SF Mono', 'Cascadia Code', 'Roboto Mono', 'Courier New', monospace;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace !important;
     line-height: 1.6;
     color: #e5e5e5;
     background: #1a1a1a;
@@ -14,6 +14,11 @@ body {
     background-attachment: fixed;
     font-size: 14px;
     min-height: 100vh;
+}
+
+/* Ensure all text uses monospace */
+* {
+    font-family: inherit;
 }
 
 .container {
@@ -193,7 +198,7 @@ code {
     background: #2a2a2a;
     padding: 3px 8px;
     border-radius: 4px;
-    font-family: 'JetBrains Mono', 'Fira Code', 'Source Code Pro', 'IBM Plex Mono', 'Hack', 'Inconsolata', 'Consolas', 'Monaco', 'SF Mono', 'Cascadia Code', 'Roboto Mono', 'Courier New', monospace;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
     font-size: 13px;
     color: #f97316;
     border: 1px solid #404040;
@@ -224,7 +229,7 @@ section {
     border: 1px solid #404040;
     border-radius: 6px;
     padding: 16px 20px;
-    font-family: 'JetBrains Mono', 'Fira Code', 'Source Code Pro', 'IBM Plex Mono', 'Hack', 'Inconsolata', 'Consolas', 'Monaco', 'SF Mono', 'Cascadia Code', 'Roboto Mono', 'Courier New', monospace;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
     font-size: 13px;
     color: #f97316;
     word-break: break-all;
@@ -573,21 +578,22 @@ footer a:hover {
     padding: 0 !important;
     border: none !important;
     border-radius: 0;
-    font-family: 'JetBrains Mono', 'Fira Code', 'Source Code Pro', 'IBM Plex Mono', 'Hack', 'Inconsolata', 'Consolas', 'Monaco', 'SF Mono', 'Cascadia Code', 'Roboto Mono', 'Courier New', monospace;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
     display: block;
     text-shadow: none !important;
 }
 
-/* Override Prism.js theme for better dark mode integration */
+/* Override Prism.js theme - Grey and Orange palette */
 .code-content .token.comment,
 .code-content .token.prolog,
 .code-content .token.doctype,
 .code-content .token.cdata {
-    color: #5c6370;
+    color: #666666;
+    font-style: italic;
 }
 
 .code-content .token.punctuation {
-    color: #abb2bf;
+    color: #999999;
 }
 
 .code-content .token.property,
@@ -597,7 +603,7 @@ footer a:hover {
 .code-content .token.constant,
 .code-content .token.symbol,
 .code-content .token.deleted {
-    color: #e06c75;
+    color: #f97316;
 }
 
 .code-content .token.selector,
@@ -606,7 +612,7 @@ footer a:hover {
 .code-content .token.char,
 .code-content .token.builtin,
 .code-content .token.inserted {
-    color: #98c379;
+    color: #fb923c;
 }
 
 .code-content .token.operator,
@@ -614,24 +620,25 @@ footer a:hover {
 .code-content .token.url,
 .code-content .language-css .token.string,
 .code-content .style .token.string {
-    color: #56b6c2;
+    color: #a0a0a0;
 }
 
 .code-content .token.atrule,
 .code-content .token.attr-value,
 .code-content .token.keyword {
-    color: #c678dd;
+    color: #ea580c;
+    font-weight: 500;
 }
 
 .code-content .token.function,
 .code-content .token.class-name {
-    color: #61afef;
+    color: #f59e0b;
 }
 
 .code-content .token.regex,
 .code-content .token.important,
 .code-content .token.variable {
-    color: #c678dd;
+    color: #dc2626;
 }
 
 /* Mobile responsiveness for code examples */
