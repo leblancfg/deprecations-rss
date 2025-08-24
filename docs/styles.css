@@ -5,11 +5,15 @@
 }
 
 body {
-    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Source Code Pro', 'IBM Plex Mono', 'Hack', 'Inconsolata', 'Consolas', 'Monaco', 'SF Mono', 'Cascadia Code', 'Roboto Mono', 'Courier New', monospace;
     line-height: 1.6;
     color: #e5e5e5;
-    background: #0a0a0a;
-    font-size: 16px;
+    background: #1a1a1a;
+    background-image: radial-gradient(ellipse at top center, rgba(249, 115, 22, 0.08) 0%, transparent 60%),
+                      radial-gradient(ellipse at bottom left, rgba(234, 88, 12, 0.06) 0%, transparent 50%);
+    background-attachment: fixed;
+    font-size: 14px;
+    min-height: 100vh;
 }
 
 .container {
@@ -18,8 +22,41 @@ body {
     padding: 10px 24px;
 }
 
+/* Header layout */
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.github-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #999;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 8px 16px;
+    background: #242424;
+    border: 1px solid #333;
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+
+.github-link:hover {
+    color: #f97316;
+    border-color: #f97316;
+    transform: translateY(-1px);
+}
+
+.github-link svg {
+    width: 20px;
+    height: 20px;
+}
+
 h1 {
-    font-size: 3rem;
+    font-size: 2.5rem;
     font-weight: 800;
     line-height: 1.1;
     margin-bottom: 20px;
@@ -30,20 +67,20 @@ h1 {
 }
 
 .tagline {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     color: #999;
     font-weight: 400;
 }
 
 h2 {
-    font-size: 2rem;
+    font-size: 1.75rem;
     font-weight: 700;
     margin: 48px 0 20px;
     color: #fff;
 }
 
 h3 {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     font-weight: 600;
     margin: 28px 0 12px;
     color: #fff;
@@ -53,6 +90,7 @@ p {
     margin: 16px 0;
     color: #b0b0b0;
     line-height: 1.7;
+    font-size: 0.95rem;
 }
 
 a {
@@ -67,14 +105,14 @@ a:hover {
 
 /* Hero RSS Subscribe */
 .subscribe-card {
-    background: #111;
-    border: 1px solid #222;
+    background: #242424;
+    border: 1px solid #333;
     border-radius: 12px;
     padding: 40px;
     margin: 48px 0;
     text-align: center;
     position: relative;
-    box-shadow: 8px 8px 0 rgba(249, 115, 22, 0.2);
+    box-shadow: 8px 8px 0 rgba(249, 115, 22, 0.15);
 }
 
 .subscribe-card h2 {
@@ -93,9 +131,9 @@ a:hover {
     gap: 10px;
     background: linear-gradient(135deg, #f97316, #ea580c);
     color: #000;
-    padding: 14px 32px;
+    padding: 12px 28px;
     border-radius: 8px;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
     transition: all 0.2s;
     border: none;
@@ -124,8 +162,8 @@ a:hover {
 
 /* Method cards */
 .method {
-    background: #111;
-    border: 1px solid #222;
+    background: #242424;
+    border: 1px solid #333;
     border-radius: 8px;
     padding: 28px;
     margin: 24px 0;
@@ -134,7 +172,6 @@ a:hover {
 }
 
 .method:hover {
-    transform: translate(-2px, -2px);
     box-shadow: 4px 4px 0 rgba(249, 115, 22, 0.1);
 }
 
@@ -153,13 +190,13 @@ a:hover {
 }
 
 code {
-    background: #1a1a1a;
+    background: #2a2a2a;
     padding: 3px 8px;
     border-radius: 4px;
-    font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', monospace;
-    font-size: 14px;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Source Code Pro', 'IBM Plex Mono', 'Hack', 'Inconsolata', 'Consolas', 'Monaco', 'SF Mono', 'Cascadia Code', 'Roboto Mono', 'Courier New', monospace;
+    font-size: 13px;
     color: #f97316;
-    border: 1px solid #333;
+    border: 1px solid #404040;
 }
 
 /* Feature list */
@@ -183,12 +220,12 @@ section {
 
 /* URL display */
 .url-display {
-    background: #111;
-    border: 1px solid #333;
+    background: #242424;
+    border: 1px solid #404040;
     border-radius: 6px;
     padding: 16px 20px;
-    font-family: 'SF Mono', Monaco, monospace;
-    font-size: 14px;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Source Code Pro', 'IBM Plex Mono', 'Hack', 'Inconsolata', 'Consolas', 'Monaco', 'SF Mono', 'Cascadia Code', 'Roboto Mono', 'Courier New', monospace;
+    font-size: 13px;
     color: #f97316;
     word-break: break-all;
     margin: 20px 0;
@@ -229,11 +266,46 @@ section {
     margin-top: 8px;
 }
 
+/* Sponsorship section */
+.sponsorship {
+    text-align: center;
+    margin: 80px 0;
+    padding: 48px 32px;
+    background: #242424;
+    border-radius: 12px;
+    border: 1px solid #333;
+}
+
+.sponsorship h2 {
+    margin-top: 0;
+    margin-bottom: 24px;
+    color: #fff;
+}
+
+.sponsorship p {
+    color: #b0b0b0;
+    font-size: 1rem;
+    line-height: 1.8;
+    margin: 16px 0;
+}
+
+.sponsor-link {
+    color: #f97316;
+    font-weight: 500;
+    text-decoration: none;
+    border-bottom: 1px dotted #f97316;
+}
+
+.sponsor-link:hover {
+    color: #fb923c;
+    border-bottom-style: solid;
+}
+
 /* Footer */
 footer {
-    margin-top: 120px;
+    margin-top: 80px;
     padding-top: 40px;
-    border-top: 1px solid #222;
+    border-top: 1px solid #333;
     text-align: center;
     color: #666;
     font-size: 14px;
@@ -271,6 +343,15 @@ footer a:hover {
         padding: 10px 20px;
     }
     
+    .header-content {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .github-link {
+        align-self: flex-start;
+    }
+    
     h1 {
         font-size: 2rem;
     }
@@ -301,7 +382,6 @@ footer a:hover {
     }
     
     .method:hover {
-        transform: translate(-1px, -1px);
         box-shadow: 2px 2px 0 rgba(249, 115, 22, 0.1);
     }
     
@@ -312,6 +392,15 @@ footer a:hover {
     section {
         margin: 60px 0;
     }
+    
+    .sponsorship {
+        padding: 32px 20px;
+        margin: 60px 0;
+    }
+    
+    .sponsorship p {
+        font-size: 1rem;
+    }
 }
 
 /* Extra small mobile */
@@ -321,7 +410,7 @@ footer a:hover {
     }
     
     h1 {
-        font-size: 1.75rem;
+        font-size: 1.5rem;
     }
     
     .subscribe-card {
@@ -330,8 +419,8 @@ footer a:hover {
     }
     
     .subscribe-button {
-        font-size: 13px;
-        padding: 10px 16px;
+        font-size: 12px;
+        padding: 8px 14px;
         flex-direction: column;
         gap: 8px;
         line-height: 1.4;
@@ -353,60 +442,34 @@ footer a:hover {
 }
 
 .examples-intro {
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: #999;
     margin: 20px 0 32px;
 }
 
-.language-selector {
-    margin: 32px 0 24px;
-    padding: 16px;
-    background: #111;
-    border: 1px solid #222;
-    border-radius: 8px;
+/* Automation Cards Grid */
+.automation-cards {
     display: flex;
-    align-items: center;
-    gap: 12px;
+    flex-direction: column;
+    gap: 24px;
+    margin-top: 32px;
 }
 
-.language-selector label {
-    color: #999;
-    font-size: 14px;
-}
-
-.language-selector select {
-    background: #1a1a1a;
-    color: #f97316;
+.automation-card {
+    background: #242424;
     border: 1px solid #333;
-    border-radius: 4px;
-    padding: 8px 12px;
-    font-size: 14px;
-    font-family: inherit;
-    cursor: pointer;
-    min-width: 120px;
-}
-
-.language-selector select:hover {
-    border-color: #f97316;
-}
-
-.language-selector select:focus {
-    outline: none;
-    border-color: #f97316;
-    box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.1);
-}
-
-.example-card {
-    background: #111;
-    border: 1px solid #222;
     border-radius: 12px;
     padding: 32px;
-    margin: 32px 0;
     position: relative;
     overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.example-card::before {
+.automation-card:hover {
+    box-shadow: 6px 6px 0 rgba(249, 115, 22, 0.15);
+}
+
+.automation-card::before {
     content: '';
     position: absolute;
     top: 0;
@@ -416,47 +479,159 @@ footer a:hover {
     background: linear-gradient(90deg, #f97316, #ea580c);
 }
 
-.example-card h3 {
-    margin-top: 0;
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
     margin-bottom: 12px;
+}
+
+.card-header h3 {
+    margin: 0;
     color: #fff;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
+    flex: 1;
 }
 
-.example-card > p {
+.card-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.lang-selector {
+    background: #2a2a2a;
+    color: #f97316;
+    border: 1px solid #404040;
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 13px;
+    font-family: inherit;
+    cursor: pointer;
+    min-width: 100px;
+}
+
+.lang-selector:hover {
+    border-color: #f97316;
+}
+
+.lang-selector:focus {
+    outline: none;
+    border-color: #f97316;
+    box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.1);
+}
+
+.copy-btn {
+    background: #2a2a2a;
     color: #999;
-    margin-bottom: 24px;
+    border: 1px solid #404040;
+    border-radius: 6px;
+    padding: 6px 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
 }
 
-.code-block {
-    background: #0a0a0a;
+.copy-btn:hover {
+    background: #333;
+    color: #f97316;
+    border-color: #f97316;
+}
+
+.copy-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+.automation-card > p {
+    color: #999;
+    margin-bottom: 20px;
+    line-height: 1.6;
+    font-size: 0.9rem;
+}
+
+.code-container {
+    background: #0f0f0f;
     border: 1px solid #333;
     border-radius: 8px;
     overflow: hidden;
-    margin: 20px 0;
+    position: relative;
 }
 
-.code-block pre {
+.code-content {
     margin: 0;
     padding: 20px;
     overflow-x: auto;
-    font-size: 13px;
+    font-size: 12px;
     line-height: 1.6;
 }
 
-.code-block code {
-    background: none;
-    padding: 0;
-    border: none;
+.code-content code {
+    background: none !important;
+    padding: 0 !important;
+    border: none !important;
     border-radius: 0;
-    color: #e5e5e5;
-    font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', monospace;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Source Code Pro', 'IBM Plex Mono', 'Hack', 'Inconsolata', 'Consolas', 'Monaco', 'SF Mono', 'Cascadia Code', 'Roboto Mono', 'Courier New', monospace;
     display: block;
+    text-shadow: none !important;
 }
 
-/* Syntax highlighting hints */
-.code-block code {
+/* Override Prism.js theme for better dark mode integration */
+.code-content .token.comment,
+.code-content .token.prolog,
+.code-content .token.doctype,
+.code-content .token.cdata {
+    color: #5c6370;
+}
+
+.code-content .token.punctuation {
     color: #abb2bf;
+}
+
+.code-content .token.property,
+.code-content .token.tag,
+.code-content .token.boolean,
+.code-content .token.number,
+.code-content .token.constant,
+.code-content .token.symbol,
+.code-content .token.deleted {
+    color: #e06c75;
+}
+
+.code-content .token.selector,
+.code-content .token.attr-name,
+.code-content .token.string,
+.code-content .token.char,
+.code-content .token.builtin,
+.code-content .token.inserted {
+    color: #98c379;
+}
+
+.code-content .token.operator,
+.code-content .token.entity,
+.code-content .token.url,
+.code-content .language-css .token.string,
+.code-content .style .token.string {
+    color: #56b6c2;
+}
+
+.code-content .token.atrule,
+.code-content .token.attr-value,
+.code-content .token.keyword {
+    color: #c678dd;
+}
+
+.code-content .token.function,
+.code-content .token.class-name {
+    color: #61afef;
+}
+
+.code-content .token.regex,
+.code-content .token.important,
+.code-content .token.variable {
+    color: #c678dd;
 }
 
 /* Mobile responsiveness for code examples */
@@ -465,38 +640,56 @@ footer a:hover {
         margin: 60px 0;
     }
     
-    .language-selector {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 8px;
-    }
-    
-    .language-selector select {
-        width: 100%;
-    }
-    
-    .example-card {
+    .automation-card {
         padding: 24px 20px;
     }
     
-    .example-card h3 {
+    .card-header {
+        flex-direction: column;
+        gap: 16px;
+    }
+    
+    .card-header h3 {
         font-size: 1.25rem;
     }
     
-    .code-block pre {
+    .card-controls {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .lang-selector {
+        flex: 1;
+        max-width: none;
+    }
+    
+    .code-content {
         padding: 16px;
         font-size: 12px;
     }
 }
 
 @media (max-width: 480px) {
-    .example-card {
+    .automation-card {
         padding: 20px 16px;
-        margin: 24px 0;
+        margin: 20px 0;
     }
     
-    .code-block pre {
+    .card-header h3 {
+        font-size: 1rem;
+    }
+    
+    .code-content {
         padding: 12px;
-        font-size: 11px;
+        font-size: 10px;
+    }
+    
+    .copy-btn {
+        padding: 4px 6px;
+    }
+    
+    .copy-btn svg {
+        width: 14px;
+        height: 14px;
     }
 }
