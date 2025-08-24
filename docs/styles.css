@@ -346,3 +346,157 @@ footer a:hover {
         padding: 16px 12px;
     }
 }
+
+/* Code Examples Section */
+.code-examples {
+    margin: 80px 0;
+}
+
+.examples-intro {
+    font-size: 1.1rem;
+    color: #999;
+    margin: 20px 0 32px;
+}
+
+.language-selector {
+    margin: 32px 0 24px;
+    padding: 16px;
+    background: #111;
+    border: 1px solid #222;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.language-selector label {
+    color: #999;
+    font-size: 14px;
+}
+
+.language-selector select {
+    background: #1a1a1a;
+    color: #f97316;
+    border: 1px solid #333;
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-family: inherit;
+    cursor: pointer;
+    min-width: 120px;
+}
+
+.language-selector select:hover {
+    border-color: #f97316;
+}
+
+.language-selector select:focus {
+    outline: none;
+    border-color: #f97316;
+    box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.1);
+}
+
+.example-card {
+    background: #111;
+    border: 1px solid #222;
+    border-radius: 12px;
+    padding: 32px;
+    margin: 32px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.example-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #f97316, #ea580c);
+}
+
+.example-card h3 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    color: #fff;
+    font-size: 1.5rem;
+}
+
+.example-card > p {
+    color: #999;
+    margin-bottom: 24px;
+}
+
+.code-block {
+    background: #0a0a0a;
+    border: 1px solid #333;
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 20px 0;
+}
+
+.code-block pre {
+    margin: 0;
+    padding: 20px;
+    overflow-x: auto;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.code-block code {
+    background: none;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    color: #e5e5e5;
+    font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', monospace;
+    display: block;
+}
+
+/* Syntax highlighting hints */
+.code-block code {
+    color: #abb2bf;
+}
+
+/* Mobile responsiveness for code examples */
+@media (max-width: 640px) {
+    .code-examples {
+        margin: 60px 0;
+    }
+    
+    .language-selector {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+    
+    .language-selector select {
+        width: 100%;
+    }
+    
+    .example-card {
+        padding: 24px 20px;
+    }
+    
+    .example-card h3 {
+        font-size: 1.25rem;
+    }
+    
+    .code-block pre {
+        padding: 16px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .example-card {
+        padding: 20px 16px;
+        margin: 24px 0;
+    }
+    
+    .code-block pre {
+        padding: 12px;
+        font-size: 11px;
+    }
+}
