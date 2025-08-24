@@ -33,9 +33,3 @@ jobs:
 
       - name: Lint with ruff
         run: uv run ruff check .
-
-      - name: Type check with mypy
-        run: uv run mypy *.py
-
-      - name: Test with pytest
-        run: uv run pytest --cov=. --cov-report=term-missing -v

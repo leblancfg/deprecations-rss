@@ -17,8 +17,8 @@ def run_command(cmd):
 if __name__ == "__main__":
     # Scrape all providers
     run_command("python main.py")
-    
+
     # Generate RSS feed
     run_command("python rss_gen.py")
-    
+
     print("\n✅ Pipeline complete!")
