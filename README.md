@@ -32,11 +32,13 @@ Use [Blogtrottr](https://blogtrottr.com) or [FeedRabbit](https://feedrabbit.com)
 
 Want to do more than just read notifications? Here are some examples to get you started with automated workflows.
 
-### 📝 Create GitHub Issue on Deprecation
+### Create GitHub Issue on Deprecation
 
 Automatically create a GitHub issue when a model you use is being deprecated.
 
-**Python:**
+<details>
+<summary>Python</summary>
+
 ```python
 import feedparser
 import requests
@@ -82,11 +84,11 @@ for entry in feed.entries:
         if response.status_code == 201:
             print(f"Created issue: {response.json()['html_url']}")
 ```
+</details>
 
 <details>
-<summary>Other Languages</summary>
+<summary>TypeScript</summary>
 
-**TypeScript:**
 ```typescript
 import Parser from 'rss-parser';
 import { Octokit } from '@octokit/rest';
@@ -133,8 +135,11 @@ ${item.contentSnippet}
 
 checkDeprecations().catch(console.error);
 ```
+</details>
 
-**Shell:**
+<details>
+<summary>Shell</summary>
+
 ```bash
 #!/bin/bash
 
@@ -175,8 +180,11 @@ EOF
   done
 done
 ```
+</details>
 
-**Ruby:**
+<details>
+<summary>Ruby</summary>
+
 ```ruby
 require 'rss'
 require 'open-uri'
@@ -224,11 +232,13 @@ end
 ```
 </details>
 
-### ✉️ Send Email Alerts to Your Team
+### Send Email Alerts to Your Team
 
 Send customized email alerts to your engineering team when deprecations are announced.
 
-**Python:**
+<details>
+<summary>Python</summary>
+
 ```python
 import feedparser
 import smtplib
@@ -283,11 +293,11 @@ for entry in feed.entries[:3]:  # Last 3 entries
     
     print(f"Email sent for: {entry.title}")
 ```
+</details>
 
 <details>
-<summary>Other Languages</summary>
+<summary>TypeScript</summary>
 
-**TypeScript:**
 ```typescript
 import Parser from 'rss-parser';
 import nodemailer from 'nodemailer';
@@ -344,8 +354,11 @@ async function sendDeprecationAlerts() {
 
 sendDeprecationAlerts().catch(console.error);
 ```
+</details>
 
-**Shell:**
+<details>
+<summary>Shell</summary>
+
 ```bash
 #!/bin/bash
 
@@ -391,8 +404,11 @@ EOF
   echo "Email sent for: $title"
 done
 ```
+</details>
 
-**Ruby:**
+<details>
+<summary>Ruby</summary>
+
 ```ruby
 require 'rss'
 require 'open-uri'
@@ -454,11 +470,13 @@ end
 ```
 </details>
 
-### 💬 Discord Webhook Notifications
+### Discord Webhook Notifications
 
 Post deprecation alerts directly to your Discord channel for immediate team visibility.
 
-**Python:**
+<details>
+<summary>Python</summary>
+
 ```python
 import feedparser
 import requests
@@ -505,11 +523,11 @@ for entry in feed.entries[:3]:  # Check last 3 entries
     else:
         print(f"Failed to send notification: {response.status_code}")
 ```
+</details>
 
 <details>
-<summary>Other Languages</summary>
+<summary>TypeScript</summary>
 
-**TypeScript:**
 ```typescript
 import Parser from 'rss-parser';
 import axios from 'axios';
@@ -558,8 +576,11 @@ async function sendDiscordAlerts() {
 
 sendDiscordAlerts().catch(console.error);
 ```
+</details>
 
-**Shell:**
+<details>
+<summary>Shell</summary>
+
 ```bash
 #!/bin/bash
 
@@ -611,8 +632,11 @@ EOF
   echo "Discord notification sent for: $title"
 done
 ```
+</details>
 
-**Ruby:**
+<details>
+<summary>Ruby</summary>
+
 ```ruby
 require 'rss'
 require 'open-uri'

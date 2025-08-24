@@ -6,17 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="RSS feed for AI model deprecations - never miss an API shutdown again">
     <title>AI Deprecations RSS</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="alternate" type="application/rss+xml" title="AI Model Deprecations RSS Feed" href="rss/v1/feed.xml">
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔔</text></svg>">
+    <!-- Prism.js for syntax highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
 </head>
 
 <body>
     <header>
         <div class="container">
-            <h1>🔔 AI Deprecations RSS</h1>
-            <p class="tagline">Never miss an AI model shutdown again</p>
+            <div class="header-content">
+                <div>
+                    <h1>AI Deprecations RSS</h1>
+                    <p class="tagline">Never miss an AI model shutdown again</p>
+                </div>
+                <a href="https://github.com/leblancfg/deprecations-rss" target="_blank" rel="noopener" class="github-link">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    GitHub
+                </a>
+            </div>
         </div>
     </header>
 
@@ -54,7 +70,7 @@
             <h2>How to Use This Feed</h2>
 
             <div class="method">
-                <h3>📱 With Feedly</h3>
+                <h3>With Feedly</h3>
                 <ol>
                     <li>Open Feedly and click the "+" button</li>
                     <li>Paste the RSS feed URL above</li>
@@ -63,7 +79,7 @@
             </div>
 
             <div class="method">
-                <h3>📧 Get Email Alerts</h3>
+                <h3>Get Email Alerts</h3>
                 <p>Use a service like <a href="https://blogtrottr.com" target="_blank">Blogtrottr</a> or <a
                         href="https://feedrabbit.com" target="_blank">FeedRabbit</a>:</p>
                 <ol>
@@ -74,41 +90,47 @@
             </div>
 
             <div class="method">
-                <h3>💬 Slack Notifications</h3>
+                <h3>Slack Notifications</h3>
                 <ol>
                     <li>In Slack, go to Apps → Browse → RSS</li>
                     <li>Add to Slack and choose a channel</li>
                     <li>Use <code>/feed subscribe [RSS URL]</code></li>
                 </ol>
             </div>
-
-            <div class="method">
-                <h3>🤖 Automation Tools</h3>
-                <p>Connect to Zapier, IFTTT, or Make.com to trigger workflows when new deprecations are announced.</p>
-            </div>
         </section>
 
         <section class="code-examples">
-            <h2>🚀 Build Your Own Automations</h2>
+            <h2>Build Your Own Automations</h2>
             <p class="examples-intro">
                 Want to do more than just read notifications? Here are some examples to get you started with automated workflows.
             </p>
 
-            <div class="language-selector">
-                <label for="language-select">Choose your language:</label>
-                <select id="language-select" onchange="switchLanguage(this.value)">
-                    <option value="python" selected>Python</option>
-                    <option value="typescript">TypeScript</option>
-                    <option value="shell">Shell</option>
-                    <option value="ruby">Ruby</option>
-                </select>
-            </div>
+            <div class="automation-cards">
+                <div class="automation-card">
+                    <div class="card-header">
+                        <h3>Create GitHub Issue on Deprecation</h3>
+                        <div class="card-controls">
+                            <select class="lang-selector" onchange="switchCardLanguage(this, 'github-issue')">
+                                <option value="python">Python</option>
+                                <option value="typescript">TypeScript</option>
+                                <option value="shell">Shell</option>
+                                <option value="ruby">Ruby</option>
+                            </select>
+                            <button class="copy-btn" onclick="copyCode('github-issue')">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <p>Automatically create a GitHub issue when a model you use is being deprecated.</p>
+                    <div class="code-container" id="github-issue">
+                        <pre class="code-content" data-lang="python"><code class="language-python"># Install dependencies:
+# pip install feedparser requests
+# or: uv add feedparser requests
 
-            <div class="example-card">
-                <h3>📝 Create GitHub Issue on Deprecation</h3>
-                <p>Automatically create a GitHub issue when a model you use is being deprecated.</p>
-                <div class="code-block" data-lang="python">
-                    <pre><code>import feedparser
+import feedparser
 import requests
 from datetime import datetime
 
@@ -126,7 +148,7 @@ for entry in feed.entries:
     if any(model in entry.title.lower() for model in models_i_use):
         # Create GitHub issue
         issue = {
-            'title': f'⚠️ Model Deprecation: {entry.title}',
+            'title': f'Model Deprecation: {entry.title}',
             'body': f'''## Deprecation Notice
             
 {entry.description}
@@ -150,11 +172,13 @@ for entry in feed.entries:
         )
         
         if response.status_code == 201:
-            print(f"Created issue: {response.json()['html_url']}")
-</code></pre>
-                </div>
-                <div class="code-block" data-lang="typescript" style="display: none;">
-                    <pre><code>import Parser from 'rss-parser';
+            print(f"Created issue: {response.json()['html_url']}")</code></pre>
+                        <pre class="code-content" data-lang="typescript" style="display: none;"><code class="language-typescript">// Install dependencies:
+// npm install rss-parser @octokit/rest
+// or: yarn add rss-parser @octokit/rest
+// or: pnpm add rss-parser @octokit/rest
+
+import Parser from 'rss-parser';
 import { Octokit } from '@octokit/rest';
 
 const parser = new Parser();
@@ -176,7 +200,7 @@ async function checkDeprecations() {
       const issue = await octokit.issues.create({
         owner: 'your-org',
         repo: 'your-repo',
-        title: `⚠️ Model Deprecation: ${item.title}`,
+        title: `Model Deprecation: ${item.title}`,
         body: `## Deprecation Notice
 
 ${item.contentSnippet}
@@ -197,11 +221,12 @@ ${item.contentSnippet}
   }
 }
 
-checkDeprecations().catch(console.error);
-</code></pre>
-                </div>
-                <div class="code-block" data-lang="shell" style="display: none;">
-                    <pre><code>#!/bin/bash
+checkDeprecations().catch(console.error);</code></pre>
+                        <pre class="code-content" data-lang="shell" style="display: none;"><code class="language-bash">#!/bin/bash
+# Requires: curl, xmlstarlet
+# Install on macOS: brew install xmlstarlet
+# Install on Ubuntu: apt-get install xmlstarlet
+# Install on RHEL/CentOS: yum install xmlstarlet
 
 # Fetch and parse RSS feed
 FEED_URL="https://leblancfg.com/deprecations-rss/rss/v1/feed.xml"
@@ -219,9 +244,9 @@ while IFS='|' read -r title description link; do
   for model in "${MODELS[@]}"; do
     if echo "$title" | grep -qi "$model"; then
       # Create GitHub issue
-      ISSUE_BODY=$(cat <<EOF
+      ISSUE_BODY=$(cat &lt;&lt;EOF
 {
-  "title": "⚠️ Model Deprecation: $title",
+  "title": "Model Deprecation: $title",
   "body": "## Deprecation Notice\n\n$description\n\n**Source:** $link\n**Date:** $(date -I)\n\n### Action Required\n- [ ] Identify affected code\n- [ ] Plan migration\n- [ ] Test with new model\n- [ ] Deploy changes",
   "labels": ["deprecation", "urgent", "ai-models"]
 }
@@ -238,11 +263,13 @@ EOF
       break
     fi
   done
-done
-</code></pre>
-                </div>
-                <div class="code-block" data-lang="ruby" style="display: none;">
-                    <pre><code>require 'rss'
+done</code></pre>
+                        <pre class="code-content" data-lang="ruby" style="display: none;"><code class="language-ruby"># Install dependencies:
+# gem install octokit
+# or add to Gemfile: gem 'octokit'
+# Note: 'rss', 'open-uri', and 'date' are part of Ruby stdlib
+
+require 'rss'
 require 'open-uri'
 require 'octokit'
 require 'date'
@@ -263,8 +290,8 @@ rss.items.each do |item|
     # Create GitHub issue
     issue = client.create_issue(
       repo,
-      "⚠️ Model Deprecation: #{item.title}",
-      <<~BODY
+      "Model Deprecation: #{item.title}",
+      &lt;&lt;~BODY
         ## Deprecation Notice
         
         #{item.description}
@@ -284,16 +311,36 @@ rss.items.each do |item|
     
     puts "Created issue: #{issue.html_url}"
   end
-end
-</code></pre>
+end</code></pre>
+                    </div>
                 </div>
-            </div>
 
-            <div class="example-card">
-                <h3>✉️ Send Email Alerts to Your Team</h3>
-                <p>Send customized email alerts to your engineering team when deprecations are announced.</p>
-                <div class="code-block" data-lang="python">
-                    <pre><code>import feedparser
+                <div class="automation-card">
+                    <div class="card-header">
+                        <h3>Send Email Alerts to Your Team</h3>
+                        <div class="card-controls">
+                            <select class="lang-selector" onchange="switchCardLanguage(this, 'email-alerts')">
+                                <option value="python">Python</option>
+                                <option value="typescript">TypeScript</option>
+                                <option value="shell">Shell</option>
+                                <option value="ruby">Ruby</option>
+                            </select>
+                            <button class="copy-btn" onclick="copyCode('email-alerts')">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <p>Send customized email alerts to your engineering team when deprecations are announced.</p>
+                    <div class="code-container" id="email-alerts">
+                        <pre class="code-content" data-lang="python"><code class="language-python"># Install dependencies:
+# pip install feedparser
+# or: uv add feedparser
+# Note: smtplib and email modules are part of Python stdlib
+
+import feedparser
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
@@ -311,29 +358,29 @@ TEAM_EMAILS = ['dev1@example.com', 'dev2@example.com']
 # Check for new deprecations (you'd want to track what you've seen)
 for entry in feed.entries[:3]:  # Last 3 entries
     msg = MIMEMultipart('alternative')
-    msg['Subject'] = f'⚠️ AI Model Deprecation Alert: {entry.title}'
+    msg['Subject'] = f'AI Model Deprecation Alert: {entry.title}'
     msg['From'] = EMAIL
     msg['To'] = ', '.join(TEAM_EMAILS)
     
     html = f'''
-    <html>
-      <body style="font-family: Arial, sans-serif;">
-        <h2 style="color: #d73a49;">⚠️ Model Deprecation Alert</h2>
-        <h3>{entry.title}</h3>
-        <p>{entry.description}</p>
-        <p><strong>Details:</strong> <a href="{entry.link}">{entry.link}</a></p>
-        <hr>
-        <h4>Action Items:</h4>
-        <ul>
-          <li>Review our codebase for usage of this model</li>
-          <li>Check the deprecation timeline</li>
-          <li>Plan migration if needed</li>
-        </ul>
-        <p style="color: #666; font-size: 12px;">
+    &lt;html&gt;
+      &lt;body style="font-family: Arial, sans-serif;"&gt;
+        &lt;h2 style="color: #d73a49;"&gt;Model Deprecation Alert&lt;/h2&gt;
+        &lt;h3&gt;{entry.title}&lt;/h3&gt;
+        &lt;p&gt;{entry.description}&lt;/p&gt;
+        &lt;p&gt;&lt;strong&gt;Details:&lt;/strong&gt; &lt;a href="{entry.link}"&gt;{entry.link}&lt;/a&gt;&lt;/p&gt;
+        &lt;hr&gt;
+        &lt;h4&gt;Action Items:&lt;/h4&gt;
+        &lt;ul&gt;
+          &lt;li&gt;Review our codebase for usage of this model&lt;/li&gt;
+          &lt;li&gt;Check the deprecation timeline&lt;/li&gt;
+          &lt;li&gt;Plan migration if needed&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;p style="color: #666; font-size: 12px;"&gt;
           Detected on {datetime.now().strftime('%Y-%m-%d %H:%M')}
-        </p>
-      </body>
-    </html>
+        &lt;/p&gt;
+      &lt;/body&gt;
+    &lt;/html&gt;
     '''
     
     msg.attach(MIMEText(html, 'html'))
@@ -344,11 +391,13 @@ for entry in feed.entries[:3]:  # Last 3 entries
         server.login(EMAIL, PASSWORD)
         server.send_message(msg)
     
-    print(f"Email sent for: {entry.title}")
-</code></pre>
-                </div>
-                <div class="code-block" data-lang="typescript" style="display: none;">
-                    <pre><code>import Parser from 'rss-parser';
+    print(f"Email sent for: {entry.title}")</code></pre>
+                        <pre class="code-content" data-lang="typescript" style="display: none;"><code class="language-typescript">// Install dependencies:
+// npm install rss-parser nodemailer
+// or: yarn add rss-parser nodemailer
+// or: pnpm add rss-parser nodemailer
+
+import Parser from 'rss-parser';
 import nodemailer from 'nodemailer';
 
 const parser = new Parser();
@@ -373,26 +422,26 @@ async function sendDeprecationAlerts() {
     const mailOptions = {
       from: 'your-email@example.com',
       to: teamEmails.join(', '),
-      subject: `⚠️ AI Model Deprecation Alert: ${item.title}`,
+      subject: `AI Model Deprecation Alert: ${item.title}`,
       html: `
-        <html>
-          <body style="font-family: Arial, sans-serif;">
-            <h2 style="color: #d73a49;">⚠️ Model Deprecation Alert</h2>
-            <h3>${item.title}</h3>
-            <p>${item.contentSnippet}</p>
-            <p><strong>Details:</strong> <a href="${item.link}">${item.link}</a></p>
-            <hr>
-            <h4>Action Items:</h4>
-            <ul>
-              <li>Review our codebase for usage of this model</li>
-              <li>Check the deprecation timeline</li>
-              <li>Plan migration if needed</li>
-            </ul>
-            <p style="color: #666; font-size: 12px;">
+        &lt;html&gt;
+          &lt;body style="font-family: Arial, sans-serif;"&gt;
+            &lt;h2 style="color: #d73a49;"&gt;Model Deprecation Alert&lt;/h2&gt;
+            &lt;h3&gt;${item.title}&lt;/h3&gt;
+            &lt;p&gt;${item.contentSnippet}&lt;/p&gt;
+            &lt;p&gt;&lt;strong&gt;Details:&lt;/strong&gt; &lt;a href="${item.link}"&gt;${item.link}&lt;/a&gt;&lt;/p&gt;
+            &lt;hr&gt;
+            &lt;h4&gt;Action Items:&lt;/h4&gt;
+            &lt;ul&gt;
+              &lt;li&gt;Review our codebase for usage of this model&lt;/li&gt;
+              &lt;li&gt;Check the deprecation timeline&lt;/li&gt;
+              &lt;li&gt;Plan migration if needed&lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;p style="color: #666; font-size: 12px;"&gt;
               Detected on ${new Date().toLocaleString()}
-            </p>
-          </body>
-        </html>
+            &lt;/p&gt;
+          &lt;/body&gt;
+        &lt;/html&gt;
       `
     };
     
@@ -401,11 +450,13 @@ async function sendDeprecationAlerts() {
   }
 }
 
-sendDeprecationAlerts().catch(console.error);
-</code></pre>
-                </div>
-                <div class="code-block" data-lang="shell" style="display: none;">
-                    <pre><code>#!/bin/bash
+sendDeprecationAlerts().catch(console.error);</code></pre>
+                        <pre class="code-content" data-lang="shell" style="display: none;"><code class="language-bash">#!/bin/bash
+# Requires: curl, xmlstarlet, sendmail (or postfix/exim)
+# Install xmlstarlet:
+#   macOS: brew install xmlstarlet
+#   Ubuntu: apt-get install xmlstarlet sendmail
+#   RHEL/CentOS: yum install xmlstarlet sendmail
 
 # Email configuration
 SMTP_SERVER="smtp.gmail.com:587"
@@ -416,50 +467,44 @@ TO_EMAILS="dev1@example.com,dev2@example.com"
 FEED_URL="https://leblancfg.com/deprecations-rss/rss/v1/feed.xml"
 
 # Parse RSS and send emails for recent items
-curl -s "$FEED_URL" | xmlstarlet sel -t -m "//item[position()<=3]" \
+curl -s "$FEED_URL" | xmlstarlet sel -t -m "//item[position()&lt;=3]" \
   -v "concat(title, '|', description, '|', link)" -n | \
 while IFS='|' read -r title description link; do
   # Create email body
-  EMAIL_BODY=$(cat <<EOF
-Subject: ⚠️ AI Model Deprecation Alert: $title
+  EMAIL_BODY=$(cat &lt;&lt;EOF
+Subject: AI Model Deprecation Alert: $title
 Content-Type: text/html
 
-<html>
-<body>
-  <h2>⚠️ Model Deprecation Alert</h2>
-  <h3>$title</h3>
-  <p>$description</p>
-  <p><strong>Details:</strong> <a href="$link">$link</a></p>
-  <hr>
-  <h4>Action Items:</h4>
-  <ul>
-    <li>Review codebase for usage</li>
-    <li>Check deprecation timeline</li>
-    <li>Plan migration if needed</li>
-  </ul>
-  <p>Detected on $(date)</p>
-</body>
-</html>
+&lt;html&gt;
+&lt;body&gt;
+  &lt;h2&gt;Model Deprecation Alert&lt;/h2&gt;
+  &lt;h3&gt;$title&lt;/h3&gt;
+  &lt;p&gt;$description&lt;/p&gt;
+  &lt;p&gt;&lt;strong&gt;Details:&lt;/strong&gt; &lt;a href="$link"&gt;$link&lt;/a&gt;&lt;/p&gt;
+  &lt;hr&gt;
+  &lt;h4&gt;Action Items:&lt;/h4&gt;
+  &lt;ul&gt;
+    &lt;li&gt;Review codebase for usage&lt;/li&gt;
+    &lt;li&gt;Check deprecation timeline&lt;/li&gt;
+    &lt;li&gt;Plan migration if needed&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;p&gt;Detected on $(date)&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
 EOF
 )
   
   # Send using sendmail or similar
   echo "$EMAIL_BODY" | sendmail -t "$TO_EMAILS"
   
-  # Or using curl with a mail service API
-  # curl -s --user "api:YOUR_MAILGUN_KEY" \
-  #   https://api.mailgun.net/v3/YOUR_DOMAIN/messages \
-  #   -F from="$FROM_EMAIL" \
-  #   -F to="$TO_EMAILS" \
-  #   -F subject="⚠️ Deprecation: $title" \
-  #   -F html="$EMAIL_BODY"
-  
   echo "Email sent for: $title"
-done
-</code></pre>
-                </div>
-                <div class="code-block" data-lang="ruby" style="display: none;">
-                    <pre><code>require 'rss'
+done</code></pre>
+                        <pre class="code-content" data-lang="ruby" style="display: none;"><code class="language-ruby"># Install dependencies:
+# gem install mail
+# or add to Gemfile: gem 'mail'
+# Note: 'rss', 'open-uri', and 'net/smtp' are part of Ruby stdlib
+
+require 'rss'
 require 'open-uri'
 require 'net/smtp'
 require 'mail'
@@ -487,44 +532,64 @@ rss.items.first(3).each do |item|
   Mail.deliver do
     from     'your-email@example.com'
     to       team_emails.join(', ')
-    subject  "⚠️ AI Model Deprecation Alert: #{item.title}"
+    subject  "AI Model Deprecation Alert: #{item.title}"
     
     html_part do
       content_type 'text/html; charset=UTF-8'
-      body <<~HTML
-        <html>
-          <body style="font-family: Arial, sans-serif;">
-            <h2 style="color: #d73a49;">⚠️ Model Deprecation Alert</h2>
-            <h3>#{item.title}</h3>
-            <p>#{item.description}</p>
-            <p><strong>Details:</strong> <a href="#{item.link}">#{item.link}</a></p>
-            <hr>
-            <h4>Action Items:</h4>
-            <ul>
-              <li>Review our codebase for usage of this model</li>
-              <li>Check the deprecation timeline</li>
-              <li>Plan migration if needed</li>
-            </ul>
-            <p style="color: #666; font-size: 12px;">
+      body &lt;&lt;~HTML
+        &lt;html&gt;
+          &lt;body style="font-family: Arial, sans-serif;"&gt;
+            &lt;h2 style="color: #d73a49;"&gt;Model Deprecation Alert&lt;/h2&gt;
+            &lt;h3&gt;#{item.title}&lt;/h3&gt;
+            &lt;p&gt;#{item.description}&lt;/p&gt;
+            &lt;p&gt;&lt;strong&gt;Details:&lt;/strong&gt; &lt;a href="#{item.link}"&gt;#{item.link}&lt;/a&gt;&lt;/p&gt;
+            &lt;hr&gt;
+            &lt;h4&gt;Action Items:&lt;/h4&gt;
+            &lt;ul&gt;
+              &lt;li&gt;Review our codebase for usage of this model&lt;/li&gt;
+              &lt;li&gt;Check the deprecation timeline&lt;/li&gt;
+              &lt;li&gt;Plan migration if needed&lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;p style="color: #666; font-size: 12px;"&gt;
               Detected on #{Time.now.strftime('%Y-%m-%d %H:%M')}
-            </p>
-          </body>
-        </html>
+            &lt;/p&gt;
+          &lt;/body&gt;
+        &lt;/html&gt;
       HTML
     end
   end
   
   puts "Email sent for: #{item.title}"
-end
-</code></pre>
+end</code></pre>
+                    </div>
                 </div>
-            </div>
 
-            <div class="example-card">
-                <h3>💬 Discord Webhook Notifications</h3>
-                <p>Post deprecation alerts directly to your Discord channel for immediate team visibility.</p>
-                <div class="code-block" data-lang="python">
-                    <pre><code>import feedparser
+                <div class="automation-card">
+                    <div class="card-header">
+                        <h3>Discord Webhook Notifications</h3>
+                        <div class="card-controls">
+                            <select class="lang-selector" onchange="switchCardLanguage(this, 'discord-webhook')">
+                                <option value="python">Python</option>
+                                <option value="typescript">TypeScript</option>
+                                <option value="shell">Shell</option>
+                                <option value="ruby">Ruby</option>
+                            </select>
+                            <button class="copy-btn" onclick="copyCode('discord-webhook')">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <p>Post deprecation alerts directly to your Discord channel for immediate team visibility.</p>
+                    <div class="code-container" id="discord-webhook">
+                        <pre class="code-content" data-lang="python"><code class="language-python"># Install dependencies:
+# pip install feedparser requests
+# or: uv add feedparser requests
+# Note: json and datetime are part of Python stdlib
+
+import feedparser
 import requests
 import json
 from datetime import datetime
@@ -538,7 +603,7 @@ for entry in feed.entries[:3]:  # Check last 3 entries
     # Create Discord embed
     embed = {
         "embeds": [{
-            "title": f"⚠️ {entry.title}",
+            "title": f"{entry.title}",
             "description": entry.description[:2000],  # Discord limit
             "url": entry.link,
             "color": 15158332,  # Red color
@@ -567,11 +632,13 @@ for entry in feed.entries[:3]:  # Check last 3 entries
     if response.status_code == 204:
         print(f"Discord notification sent for: {entry.title}")
     else:
-        print(f"Failed to send notification: {response.status_code}")
-</code></pre>
-                </div>
-                <div class="code-block" data-lang="typescript" style="display: none;">
-                    <pre><code>import Parser from 'rss-parser';
+        print(f"Failed to send notification: {response.status_code}")</code></pre>
+                        <pre class="code-content" data-lang="typescript" style="display: none;"><code class="language-typescript">// Install dependencies:
+// npm install rss-parser axios
+// or: yarn add rss-parser axios
+// or: pnpm add rss-parser axios
+
+import Parser from 'rss-parser';
 import axios from 'axios';
 
 const parser = new Parser();
@@ -583,7 +650,7 @@ async function sendDiscordAlerts() {
   for (const item of feed.items.slice(0, 3)) {
     const embed = {
       embeds: [{
-        title: `⚠️ ${item.title}`,
+        title: `${item.title}`,
         description: item.contentSnippet?.substring(0, 2000),
         url: item.link,
         color: 15158332, // Red
@@ -616,28 +683,29 @@ async function sendDiscordAlerts() {
   }
 }
 
-sendDiscordAlerts().catch(console.error);
-</code></pre>
-                </div>
-                <div class="code-block" data-lang="shell" style="display: none;">
-                    <pre><code>#!/bin/bash
+sendDiscordAlerts().catch(console.error);</code></pre>
+                        <pre class="code-content" data-lang="shell" style="display: none;"><code class="language-bash">#!/bin/bash
+# Requires: curl, xmlstarlet
+# Install on macOS: brew install xmlstarlet
+# Install on Ubuntu: apt-get install xmlstarlet
+# Install on RHEL/CentOS: yum install xmlstarlet
 
 WEBHOOK_URL="https://discord.com/api/webhooks/YOUR_WEBHOOK_URL"
 FEED_URL="https://leblancfg.com/deprecations-rss/rss/v1/feed.xml"
 
 # Parse RSS and send to Discord
-curl -s "$FEED_URL" | xmlstarlet sel -t -m "//item[position()<=3]" \
+curl -s "$FEED_URL" | xmlstarlet sel -t -m "//item[position()&lt;=3]" \
   -v "concat(title, '|', description, '|', link)" -n | \
 while IFS='|' read -r title description link; do
   # Extract provider from URL
   provider=$(echo "$link" | awk -F/ '{print $3}')
   
   # Create Discord embed JSON
-  json_payload=$(cat <<EOF
+  json_payload=$(cat &lt;&lt;EOF
 {
   "content": "@here New model deprecation detected!",
   "embeds": [{
-    "title": "⚠️ $title",
+    "title": "$title",
     "description": "$description",
     "url": "$link",
     "color": 15158332,
@@ -668,11 +736,13 @@ EOF
     "$WEBHOOK_URL"
   
   echo "Discord notification sent for: $title"
-done
-</code></pre>
-                </div>
-                <div class="code-block" data-lang="ruby" style="display: none;">
-                    <pre><code>require 'rss'
+done</code></pre>
+                        <pre class="code-content" data-lang="ruby" style="display: none;"><code class="language-ruby"># Install dependencies:
+# gem install json
+# or add to Gemfile: gem 'json'
+# Note: 'rss', 'open-uri', 'net/http', and 'time' are part of Ruby stdlib
+
+require 'rss'
 require 'open-uri'
 require 'net/http'
 require 'json'
@@ -692,7 +762,7 @@ rss.items.first(3).each do |item|
   payload = {
     content: '@here New model deprecation detected!',
     embeds: [{
-      title: "⚠️ #{item.title}",
+      title: "#{item.title}",
       description: item.description[0..2000], # Discord limit
       url: item.link,
       color: 15158332, # Red
@@ -731,24 +801,53 @@ rss.items.first(3).each do |item|
   else
     puts "Failed to send notification: #{response.code}"
   end
-end
-</code></pre>
+end</code></pre>
+                    </div>
                 </div>
             </div>
         </section>
 
         <script>
-        function switchLanguage(lang) {
-            // Hide all code blocks
-            document.querySelectorAll('.code-block').forEach(block => {
+        function switchCardLanguage(select, cardId) {
+            const container = document.getElementById(cardId);
+            const codeBlocks = container.querySelectorAll('.code-content');
+            
+            codeBlocks.forEach(block => {
                 block.style.display = 'none';
             });
             
-            // Show selected language blocks
-            document.querySelectorAll(`.code-block[data-lang="${lang}"]`).forEach(block => {
-                block.style.display = 'block';
-            });
+            const selectedBlock = container.querySelector(`.code-content[data-lang="${select.value}"]`);
+            if (selectedBlock) {
+                selectedBlock.style.display = 'block';
+                // Re-highlight the code block
+                Prism.highlightElement(selectedBlock.querySelector('code'));
+            }
         }
+
+        function copyCode(cardId) {
+            const container = document.getElementById(cardId);
+            const visibleCode = container.querySelector('.code-content:not([style*="display: none"])');
+            
+            if (visibleCode) {
+                const codeText = visibleCode.textContent || visibleCode.innerText;
+                navigator.clipboard.writeText(codeText).then(() => {
+                    // Find the copy button and briefly change its appearance
+                    const btn = container.parentElement.querySelector('.copy-btn');
+                    const originalHTML = btn.innerHTML;
+                    btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+                    setTimeout(() => {
+                        btn.innerHTML = originalHTML;
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy:', err);
+                });
+            }
+        }
+
+        // Initialize Prism highlighting on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            Prism.highlightAll();
+        });
         </script>
 
         <section class="what-we-track">
@@ -775,14 +874,34 @@ end
             </p>
         </section>
 
+        <section class="sponsorship">
+            <h2>Made with Care</h2>
+            <p>
+                Created by <a href="https://github.com/leblancfg" target="_blank" rel="noopener">François LeBlanc</a>.
+            </p>
+            <p>
+                If this work is useful to you, consider <a href="https://github.com/sponsors/leblancfg" target="_blank" rel="noopener" class="sponsor-link">sponsoring the work</a> and its further maintenance.
+            </p>
+        </section>
+
     </main>
 
     <footer>
         <div class="container">
-            <p>Updated daily • <a href="https://github.com/leblancfg/deprecations-rss" target="_blank"
-                    rel="noopener">GitHub</a></p>
+            <p>
+                Updated daily • 
+                <a href="https://github.com/leblancfg/deprecations-rss" target="_blank" rel="noopener">GitHub</a> • 
+                <a href="https://github.com/sponsors/leblancfg" target="_blank" rel="noopener">Sponsor</a>
+            </p>
         </div>
     </footer>
+
+    <!-- Prism.js scripts for syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
 </body>
 
 </html>
