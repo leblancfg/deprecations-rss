@@ -6,6 +6,7 @@ def test_imports():
     import main
     import providers
     import rss_gen
+
     assert main is not None
     assert providers is not None
     assert rss_gen is not None

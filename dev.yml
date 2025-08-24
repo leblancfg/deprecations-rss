@@ -7,7 +7,10 @@ up:
 commands:
   scrape: python main.py
   server: cd docs && python -m http.server $PORT
-  checks: python main.py && python rss_gen.py
+
+check:
+  format: ruff check --fix --unsafe-fixes . && ruff format .
+  lint: ruff check . && ruff format --check .
 
 open:
   app: https://deprecations-rss.myshopify.io/
