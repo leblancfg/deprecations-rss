@@ -100,6 +100,8 @@ a:hover {
     transition: all 0.2s;
     border: none;
     cursor: pointer;
+    min-width: 0;
+    overflow-wrap: break-word;
 }
 
 .subscribe-button:hover {
@@ -286,7 +288,61 @@ footer a:hover {
         box-shadow: 4px 4px 0 rgba(249, 115, 22, 0.2);
     }
     
+    .subscribe-button {
+        font-size: 14px;
+        padding: 12px 20px;
+        word-break: break-all;
+        text-align: center;
+    }
+    
+    .method {
+        padding: 20px 16px;
+        margin: 20px 0;
+    }
+    
+    .method:hover {
+        transform: translate(-1px, -1px);
+        box-shadow: 2px 2px 0 rgba(249, 115, 22, 0.1);
+    }
+    
     .stats {
         grid-template-columns: 1fr;
+    }
+    
+    section {
+        margin: 60px 0;
+    }
+}
+
+/* Extra small mobile */
+@media (max-width: 480px) {
+    .container {
+        padding: 10px 16px;
+    }
+    
+    h1 {
+        font-size: 1.75rem;
+    }
+    
+    .subscribe-card {
+        padding: 24px 16px;
+        margin: 32px 0;
+    }
+    
+    .subscribe-button {
+        font-size: 13px;
+        padding: 10px 16px;
+        flex-direction: column;
+        gap: 8px;
+        line-height: 1.4;
+    }
+    
+    .rss-icon {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .method {
+        padding: 16px 12px;
     }
 }
