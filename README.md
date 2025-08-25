@@ -5,7 +5,7 @@ Never miss an AI model shutdown again. This is a simple RSS feed that tracks dep
 ## The Feed
 
 ```
-https://leblancfg.com/deprecations-rss/rss/v1/feed.xml
+https://deprecations.info/rss/v1/feed.xml
 ```
 
 Add this to your RSS reader and you'll get notified when OpenAI, Anthropic, Google, AWS, or Cohere announce they're shutting down a model.
@@ -25,7 +25,7 @@ Use [Blogtrottr](https://blogtrottr.com) or [FeedRabbit](https://feedrabbit.com)
 
 ### Slack Notifications
 ```
-/feed subscribe https://leblancfg.com/deprecations-rss/rss/v1/feed.xml
+/feed subscribe https://deprecations.info/rss/v1/feed.xml
 ```
 
 ## Build Your Own Automations
@@ -45,7 +45,7 @@ import requests
 from datetime import datetime
 
 # Parse the RSS feed
-feed = feedparser.parse('https://leblancfg.com/deprecations-rss/rss/v1/feed.xml')
+feed = feedparser.parse('https://deprecations.info/rss/v1/feed.xml')
 
 # Your GitHub token and repo
 GITHUB_TOKEN = 'your_token_here'
@@ -97,7 +97,7 @@ const parser = new Parser();
 const octokit = new Octokit({ auth: 'your_token_here' });
 
 async function checkDeprecations() {
-  const feed = await parser.parseURL('https://leblancfg.com/deprecations-rss/rss/v1/feed.xml');
+  const feed = await parser.parseURL('https://deprecations.info/rss/v1/feed.xml');
   
   // Models you use in your codebase
   const modelsInUse = ['gpt-4', 'claude-2', 'text-davinci-003'];
@@ -144,7 +144,7 @@ checkDeprecations().catch(console.error);
 #!/bin/bash
 
 # Fetch and parse RSS feed
-FEED_URL="https://leblancfg.com/deprecations-rss/rss/v1/feed.xml"
+FEED_URL="https://deprecations.info/rss/v1/feed.xml"
 GITHUB_TOKEN="your_token_here"
 REPO="owner/repo"
 
@@ -199,7 +199,7 @@ repo = 'owner/repo'
 models_in_use = ['gpt-4', 'claude-2', 'text-davinci-003']
 
 # Parse RSS feed
-rss = RSS::Parser.parse(URI.open('https://leblancfg.com/deprecations-rss/rss/v1/feed.xml'))
+rss = RSS::Parser.parse(URI.open('https://deprecations.info/rss/v1/feed.xml'))
 
 rss.items.each do |item|
   # Check if this affects our models
@@ -246,7 +246,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from datetime import datetime
 
-feed = feedparser.parse('https://leblancfg.com/deprecations-rss/rss/v1/feed.xml')
+feed = feedparser.parse('https://deprecations.info/rss/v1/feed.xml')
 
 # Email configuration
 SMTP_SERVER = 'smtp.gmail.com'
@@ -316,7 +316,7 @@ const transporter = nodemailer.createTransporter({
 });
 
 async function sendDeprecationAlerts() {
-  const feed = await parser.parseURL('https://leblancfg.com/deprecations-rss/rss/v1/feed.xml');
+  const feed = await parser.parseURL('https://deprecations.info/rss/v1/feed.xml');
   const teamEmails = ['dev1@example.com', 'dev2@example.com'];
   
   // Process recent entries
@@ -368,7 +368,7 @@ FROM_EMAIL="your-email@example.com"
 TO_EMAILS="dev1@example.com,dev2@example.com"
 
 # Fetch RSS feed
-FEED_URL="https://leblancfg.com/deprecations-rss/rss/v1/feed.xml"
+FEED_URL="https://deprecations.info/rss/v1/feed.xml"
 
 # Parse RSS and send emails for recent items
 curl -s "$FEED_URL" | xmlstarlet sel -t -m "//item[position()<=3]" \
@@ -431,7 +431,7 @@ end
 team_emails = ['dev1@example.com', 'dev2@example.com']
 
 # Parse RSS feed
-rss = RSS::Parser.parse(URI.open('https://leblancfg.com/deprecations-rss/rss/v1/feed.xml'))
+rss = RSS::Parser.parse(URI.open('https://deprecations.info/rss/v1/feed.xml'))
 
 # Send alerts for recent items
 rss.items.first(3).each do |item|
@@ -483,7 +483,7 @@ import requests
 import json
 from datetime import datetime
 
-feed = feedparser.parse('https://leblancfg.com/deprecations-rss/rss/v1/feed.xml')
+feed = feedparser.parse('https://deprecations.info/rss/v1/feed.xml')
 
 # Discord webhook URL
 WEBHOOK_URL = 'https://discord.com/api/webhooks/YOUR_WEBHOOK_URL'
@@ -536,7 +536,7 @@ const parser = new Parser();
 const WEBHOOK_URL = 'https://discord.com/api/webhooks/YOUR_WEBHOOK_URL';
 
 async function sendDiscordAlerts() {
-  const feed = await parser.parseURL('https://leblancfg.com/deprecations-rss/rss/v1/feed.xml');
+  const feed = await parser.parseURL('https://deprecations.info/rss/v1/feed.xml');
   
   for (const item of feed.items.slice(0, 3)) {
     const embed = {
@@ -585,7 +585,7 @@ sendDiscordAlerts().catch(console.error);
 #!/bin/bash
 
 WEBHOOK_URL="https://discord.com/api/webhooks/YOUR_WEBHOOK_URL"
-FEED_URL="https://leblancfg.com/deprecations-rss/rss/v1/feed.xml"
+FEED_URL="https://deprecations.info/rss/v1/feed.xml"
 
 # Parse RSS and send to Discord
 curl -s "$FEED_URL" | xmlstarlet sel -t -m "//item[position()<=3]" \
@@ -647,7 +647,7 @@ require 'time'
 webhook_url = 'https://discord.com/api/webhooks/YOUR_WEBHOOK_URL'
 
 # Parse RSS feed
-rss = RSS::Parser.parse(URI.open('https://leblancfg.com/deprecations-rss/rss/v1/feed.xml'))
+rss = RSS::Parser.parse(URI.open('https://deprecations.info/rss/v1/feed.xml'))
 
 # Send Discord notifications for recent items
 rss.items.first(3).each do |item|
