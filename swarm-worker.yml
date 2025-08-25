@@ -1,0 +1,10 @@
+version: 1
+swarm:
+  name: Swarm Worker
+  instances:
+    expert_software_engineer:
+      description: Is really good
+      directory: .
+      prompt: Does the thing. Work stops when the PR merges. Run any local checks first, don't merge until the PR checks pass.
+      vibe: true
+  main: expert_software_engineer
