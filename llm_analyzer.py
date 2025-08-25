@@ -13,7 +13,7 @@ class LLMAnalyzer:
     def __init__(self):
         self.api_key = os.environ.get('ANTHROPIC_API_KEY') or os.environ.get('ANTHROPIC_API_TOKEN')
         if not self.api_key:
-            raise ValueError("ANTHROPIC_API_KEY or ANTHROPIC_API_TOKEN environment variable not set")
+            raise ValueError("ANTHROPIC_API_KEY or ANTHROPIC_API_TOKEN environment variable required")
         
         self.client = httpx.Client(
             base_url="https://api.anthropic.com",
@@ -24,6 +24,30 @@ class LLMAnalyzer:
             },
             timeout=30.0
         )
+        
+        # Validate API key upfront
+        self._validate_api_key()
+    
+    def _validate_api_key(self):
+        """Test API key with minimal token usage before processing data."""
+        try:
+            response = self.client.post(
+                "/v1/messages",
+                json={
+                    "model": "claude-3-haiku-20240307",
+                    "max_tokens": 1,  # Minimal token usage
+                    "messages": [{
+                        "role": "user", 
+                        "content": "Hi"
+                    }]
+                }
+            )
+            
+            if response.status_code != 200:
+                raise ValueError(f"Invalid API key: {response.status_code} - {response.text}")
+                
+        except httpx.RequestError as e:
+            raise ValueError(f"API connection failed: {e}")
     
     def analyze_batch(self, items: List[Dict]) -> List[Dict]:
         """

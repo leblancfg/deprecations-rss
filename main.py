@@ -36,45 +36,38 @@ def scrape_all():
 
 
 def enhance_with_llm(scraped_data):
-    """Enhance scraped data with LLM analysis when content changes."""
-    if not (os.environ.get('ANTHROPIC_API_KEY') or os.environ.get('ANTHROPIC_API_TOKEN')):
-        print("⚠️  No ANTHROPIC_API_KEY or ANTHROPIC_API_TOKEN found, skipping LLM enhancement")
-        return scraped_data
-    
+    """Enhance scraped data with LLM analysis for changed items only."""
     print("🔍 Checking for content changes...")
     change_detector = ChangeDetector()
-    changed_items, unchanged_items = change_detector.detect_changes(scraped_data)
+    changed_items = change_detector.detect_changes(scraped_data)
     
     if not changed_items:
-        print("✓ No content changes detected, using cached data")
-        return unchanged_items + changed_items  # Return all items
+        print("✓ No content changes detected")
+        return scraped_data
     
     print(f"🧠 Analyzing {len(changed_items)} changed items with LLM...")
     
-    try:
-        analyzer = LLMAnalyzer()
-        enhanced_changed = analyzer.analyze_batch(changed_items)
-        
-        # Cache the LLM analysis results
-        for original, enhanced in zip(changed_items, enhanced_changed):
-            if enhanced.get('llm_enhanced'):
-                llm_analysis = {
-                    'title': enhanced.get('title'),
-                    'content': enhanced.get('content'),
-                    'announcement_date': enhanced.get('announcement_date'),
-                    'shutdown_date': enhanced.get('shutdown_date'),
-                    'llm_enhanced': True,
-                    'llm_enhanced_at': enhanced.get('llm_enhanced_at')
-                }
-                change_detector.cache_llm_analysis(original, llm_analysis)
-        
-        print(f"✓ Enhanced {len(enhanced_changed)} items with LLM analysis")
-        return unchanged_items + enhanced_changed
-        
-    except Exception as e:
-        print(f"✗ LLM enhancement failed: {e}")
-        print("📝 Falling back to original scraped content")
-        return scraped_data
+    # LLMAnalyzer initialization will validate API key and fail fast if invalid
+    analyzer = LLMAnalyzer()
+    enhanced_changed = analyzer.analyze_batch(changed_items)
+    
+    # Create a map of enhanced items by hash for quick lookup
+    enhanced_map = {}
+    for original, enhanced in zip(changed_items, enhanced_changed):
+        item_hash = change_detector._hash_item(original)
+        enhanced_map[item_hash] = enhanced
+    
+    # Build final result: use enhanced version for changed items, original for unchanged
+    result = []
+    for item in scraped_data:
+        item_hash = change_detector._hash_item(item)
+        if item_hash in enhanced_map:
+            result.append(enhanced_map[item_hash])
+        else:
+            result.append(item)
+    
+    print(f"✓ Enhanced {len(enhanced_changed)} items with LLM analysis")
+    return result
 
 
 def save_data(data):

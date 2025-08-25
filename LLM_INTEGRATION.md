@@ -4,42 +4,42 @@ This document explains the LLM integration added to the deprecations scraper to 
 
 ## Overview
 
-The system now uses Anthropic's Claude API to enhance scraped deprecation notices, making them more readable and informative for RSS feed consumers.
+The system uses Anthropic's Claude API to enhance scraped deprecation notices, making them more readable and informative for RSS feed consumers.
 
 ## Key Design Principles
 
 1. **Simplicity**: Minimal code changes to existing workflow
-2. **Token Efficiency**: Only call LLM when content actually changes
-3. **Fail-Safe**: Falls back to original scraped content if LLM fails
-4. **Cost Control**: Uses efficient Claude Haiku model and batching
+2. **Token Efficiency**: Only call LLM when scraped content actually changes
+3. **Fail-Fast**: Required API key - fails immediately if missing/invalid
+4. **Git-Based State**: Uses git history instead of cache files
 
 ## Architecture Components
 
 ### 1. Change Detection (`change_detector.py`)
 
 - **Purpose**: Minimize LLM API calls by detecting content changes
-- **Mechanism**: SHA-256 hashing of key content fields
-- **Cache**: Stores content hashes and LLM analysis results
-- **Benefits**: Avoids redundant API calls, saves costs
+- **Mechanism**: SHA-256 hashing of scraped content fields (before LLM enhancement)
+- **State Storage**: Compares with `git show main:data.json` 
+- **Benefits**: Avoids redundant API calls, no extra files needed
 
 ### 2. LLM Analysis (`llm_analyzer.py`)
 
 - **Model**: Claude 3 Haiku (fast, cost-effective)
+- **API Validation**: Tests key with minimal token usage at startup
 - **Batch Size**: 3 items per batch to optimize token usage
-- **Timeout**: 30 seconds with proper error handling
-- **Output**: Improved titles, cleaner content, standardized dates
+- **Fail-Fast**: Exits immediately on invalid API key
 
 ### 3. Integration (`main.py`)
 
-- **Environment**: Requires `ANTHROPIC_API_KEY` or `ANTHROPIC_API_TOKEN`
-- **Workflow**: Scrape → Detect Changes → Analyze with LLM → Cache Results → Save Data
-- **Graceful Degradation**: Works without API key, just skips enhancement
+- **Environment**: **Requires** `ANTHROPIC_API_KEY` or `ANTHROPIC_API_TOKEN`
+- **Workflow**: Scrape → Detect Changes → Validate API → Analyze → Save Data
+- **No Degradation**: Fails completely if API key missing/invalid
 
 ## Configuration
 
 ### Environment Variables
 
-The system looks for either:
+**Required** - one of:
 - `ANTHROPIC_API_KEY` 
 - `ANTHROPIC_API_TOKEN`
 
@@ -48,18 +48,19 @@ Load from `~/.env` file:
 ANTHROPIC_API_TOKEN=sk-ant-api03-...
 ```
 
-### Files Generated
+### State Management
 
-- `data_cache.json`: Content hashes and LLM analysis cache (gitignored)
-- `data.json`: Enhanced deprecation data with `llm_enhanced` flags
+- **Previous state**: Retrieved via `git show main:data.json`
+- **Current state**: `data.json` with enhanced content
+- **No cache files**: Uses git as the "database"
 
 ## Token Usage Optimization
 
-1. **Change Detection**: Only analyze changed content
-2. **Batch Processing**: Process up to 3 items per API call
-3. **Content Limiting**: Truncate input content to 800 characters
-4. **Token Limits**: Conservative 1000 token response limit
-5. **Efficient Model**: Claude Haiku for speed and cost
+1. **Hash-Based Detection**: Only analyze items with changed scraped content
+2. **Git Comparison**: No need for separate cache files
+3. **Batch Processing**: Process up to 3 items per API call
+4. **Content Limiting**: Truncate input content to 800 characters
+5. **Upfront Validation**: 1 token test to validate API key
 
 ## Example Enhancement
 
@@ -77,36 +78,36 @@ Content: "OpenAI will deprecate the gpt-4o-realtime-preview-2024-10-01 model and
 
 ## Error Handling
 
-- **Missing API Key**: Gracefully skips LLM enhancement
-- **API Failures**: Falls back to original scraped content
-- **Malformed Responses**: Uses original content, logs error
-- **Network Issues**: Continues with cached or original content
+- **Missing API Key**: Process exits immediately with clear error message
+- **Invalid API Key**: Fails fast during initialization with 1-token test
+- **API Failures**: Process exits - no degraded state
+- **Git Errors**: First run treats as "all items changed"
 
 ## Cost Estimation
 
 With 50-60 deprecation notices and typical change rates:
 
-- **First run**: ~$0.10-0.20 (all items analyzed)
-- **Subsequent runs**: ~$0.01-0.05 (only changed items)
-- **Daily cost**: Usually under $0.05 due to change detection
+- **First run**: ~$0.10-0.20 (all items analyzed) + 1 token validation
+- **Subsequent runs**: ~$0.01-0.05 (only changed items)  
+- **Daily cost**: Usually under $0.05 due to hash-based change detection
 
 ## Testing
 
-Run complete workflow:
+Run complete workflow (requires API key):
 ```bash
 uv run python main.py
 ```
 
-Test without API key:
+Test API key validation:
 ```bash
-unset ANTHROPIC_API_KEY ANTHROPIC_API_TOKEN
-uv run python main.py
+export ANTHROPIC_API_TOKEN=invalid_key
+uv run python main.py  # Should fail immediately
 ```
 
 ## Benefits
 
 1. **Improved UX**: More readable titles and content in RSS feeds
-2. **Cost Efficient**: Change detection minimizes API calls
-3. **Reliable**: Graceful fallbacks ensure system always works
-4. **Simple**: Minimal changes to existing codebase
-5. **Maintainable**: Clear separation of concerns
+2. **Cost Efficient**: Hash-based change detection minimizes API calls  
+3. **Reliable**: Fail-fast behavior - either works properly or fails clearly
+4. **Simple**: Git-based state, no cache files
+5. **Maintainable**: Clear separation of concerns, minimal complexity
