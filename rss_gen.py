@@ -25,7 +25,7 @@ def create_rss_feed(data):
 
     # Add channel metadata
     ET.SubElement(channel, "title").text = "AI Model Deprecations"
-    ET.SubElement(channel, "link").text = "https://leblancfg.com/deprecations-rss/"
+    ET.SubElement(channel, "link").text = "https://deprecations.info/"
     ET.SubElement(
         channel, "description"
     ).text = "RSS feed tracking deprecations across major AI providers"
