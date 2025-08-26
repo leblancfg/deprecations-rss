@@ -130,11 +130,24 @@ t19 -45.5t-18.5 -45t-44.5 -19.5zM551 477q-27 0 -46 19t-19 45.5t19 45.5t45.5 19t4
         </section>
 
         <section class="data-preview">
-            <h2>Upcoming Model Shutdowns</h2>
-            <p class="preview-intro">
-                Real-time data showing AI models scheduled for deprecation, sorted by urgency. 
-                Only showing models with confirmed shutdown dates that haven't occurred yet.
-            </p>
+            <div class="section-header">
+                <div>
+                    <h2>Upcoming Model Shutdowns</h2>
+                    <p class="preview-intro">
+                        Real-time data showing AI models scheduled for deprecation, sorted by urgency. 
+                        Only showing models with confirmed shutdown dates that haven't occurred yet.
+                    </p>
+                </div>
+                <div class="filter-badges">
+                    <button class="filter-badge now active" data-filter="now">NOW</button>
+                    <button class="filter-badge openai" data-filter="openai">OAI</button>
+                    <button class="filter-badge anthropic" data-filter="anthropic">ANT</button>
+                    <button class="filter-badge cohere" data-filter="cohere">COH</button>
+                    <button class="filter-badge google" data-filter="google">GCP</button>
+                    <button class="filter-badge aws" data-filter="aws">AWS</button>
+                    <button class="filter-badge azure" data-filter="azure">AZR</button>
+                </div>
+            </div>
 
             <div class="data-table-container">
                 <table class="deprecation-table" id="deprecationTable">
@@ -156,7 +169,8 @@ t19 -45.5t-18.5 -45t-44.5 -19.5zM551 477q-27 0 -46 19t-19 45.5t19 45.5t45.5 19t4
 
             <script>
                 let allDeprecations = [];
-                let displayedCount = 5;
+                let filteredDeprecations = [];
+                let activeFilters = new Set(['now']);
 
                 // Load deprecations data from JSON
                 async function loadDeprecations() {
@@ -166,24 +180,27 @@ t19 -45.5t-18.5 -45t-44.5 -19.5zM551 477q-27 0 -46 19t-19 45.5t19 45.5t45.5 19t4
                         const today = new Date();
                         today.setHours(0, 0, 0, 0);
                         
-                        // Data is already properly formatted from the backend
-                        allDeprecations = data.filter(item => {
-                            // Only show future deprecations with valid shutdown dates
-                            if (!item.shutdown_date) return false;
-                            const shutdownDate = new Date(item.shutdown_date);
-                            return shutdownDate > today;
-                        }).map(item => ({
+                        // Load ALL deprecations, including those without shutdown dates
+                        allDeprecations = data.map(item => ({
                             ...item,
                             provider: item.provider.toLowerCase().replace(/\s+/g, ''),
-                            status: getStatus(item.shutdown_date)
+                            status: getStatus(item.shutdown_date),
+                            daysRemaining: item.shutdown_date ? getDaysRemaining(item.shutdown_date) : Infinity
                         }));
                         
-                        // Sort by shutdown date (soonest first)
+                        // Sort by: 1) days remaining (soonest first), 2) announcement date (newest first)
                         allDeprecations.sort((a, b) => {
-                            return new Date(a.shutdown_date) - new Date(b.shutdown_date);
+                            // First sort by days remaining
+                            if (a.daysRemaining !== b.daysRemaining) {
+                                return a.daysRemaining - b.daysRemaining;
+                            }
+                            // Then by announcement date (newer first)
+                            const dateA = new Date(a.announcement_date || 0);
+                            const dateB = new Date(b.announcement_date || 0);
+                            return dateB - dateA;
                         });
                         
-                        displayInitialRows();
+                        applyFilters();
                     } catch (error) {
                         console.error('Failed to load deprecations:', error);
                         document.getElementById('tableBody').innerHTML = `
@@ -330,12 +347,49 @@ t19 -45.5t-18.5 -45t-44.5 -19.5zM551 477q-27 0 -46 19t-19 45.5t19 45.5t45.5 19t4
                     }
                 }
 
-                function displayInitialRows() {
+                function applyFilters() {
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0);
+                    
+                    if (activeFilters.has('now')) {
+                        // NOW filter: only future deprecations with valid shutdown dates
+                        filteredDeprecations = allDeprecations.filter(item => {
+                            if (!item.shutdown_date) return false;
+                            const shutdownDate = new Date(item.shutdown_date);
+                            return shutdownDate > today;
+                        });
+                    } else {
+                        // Provider filters: show all deprecations for selected providers
+                        filteredDeprecations = allDeprecations.filter(item => {
+                            const normalizedProvider = item.provider.toLowerCase().replace(/[\s-_]/g, '');
+                            
+                            // Map provider names to filter values
+                            const providerMap = {
+                                'openai': 'openai',
+                                'anthropic': 'anthropic',
+                                'google': 'google',
+                                'googlevertexai': 'google',
+                                'cohere': 'cohere',
+                                'aws': 'aws',
+                                'awsbedrock': 'aws',
+                                'azure': 'azure',
+                                'azureopenai': 'azure'
+                            };
+                            
+                            const mappedProvider = providerMap[normalizedProvider] || normalizedProvider;
+                            return activeFilters.has(mappedProvider);
+                        });
+                    }
+                    
+                    displayFilteredRows();
+                }
+
+                function displayFilteredRows() {
                     const tbody = document.getElementById('tableBody');
                     tbody.innerHTML = ''; // Clear existing content
 
                     // Handle case when no deprecations exist
-                    if (allDeprecations.length === 0) {
+                    if (filteredDeprecations.length === 0) {
                         const noDataRow = document.createElement('tr');
                         noDataRow.innerHTML = `
                             <td colspan="6" class="no-data-cell">
@@ -345,8 +399,8 @@ t19 -45.5t-18.5 -45t-44.5 -19.5zM551 477q-27 0 -46 19t-19 45.5t19 45.5t45.5 19t4
                                         <line x1="12" y1="8" x2="12" y2="12"></line>
                                         <line x1="12" y1="16" x2="12.01" y2="16"></line>
                                     </svg>
-                                    <p>No upcoming deprecations found</p>
-                                    <p class="no-data-subtext">All models are currently stable or deprecated models have been filtered out.</p>
+                                    <p>No deprecations found</p>
+                                    <p class="no-data-subtext">Try selecting different providers or the NOW filter.</p>
                                 </div>
                             </td>
                         `;
@@ -354,32 +408,70 @@ t19 -45.5t-18.5 -45t-44.5 -19.5zM551 477q-27 0 -46 19t-19 45.5t19 45.5t45.5 19t4
                         return;
                     }
 
-                    // Display initial rows
-                    for (let i = 0; i < Math.min(displayedCount, allDeprecations.length); i++) {
-                        tbody.appendChild(createTableRow(allDeprecations[i]));
+                    // Display all filtered deprecations
+                    for (const deprecation of filteredDeprecations) {
+                        tbody.appendChild(createTableRow(deprecation));
                     }
 
-                    // Add view feed button if showing limited items
-                    const viewFeedRow = document.createElement('tr');
-                    viewFeedRow.className = 'view-feed-row';
-                    viewFeedRow.innerHTML = `
-                        <td colspan="6" class="view-feed-cell">
-                            <div class="view-feed-content">
-                                <a href="v1/deprecations.json" target="_blank" class="button button-json view-feed-btn">
-                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M8 1.5c.084 0 .167.002.25.005v.002h.07a6.468 6.468 0 012.22.508c.097.051.189.106.277.164.617.402 1.066.967 1.383 1.623.644 1.335.71 2.985.557 4.101-.271 1.899-1.09 2.822-1.907 3.273a3.23 3.23 0 01-.394.184C11.054 10.567 11.5 9.466 11.5 8c0-3.195-2.118-4.65-3.303-4.974l-.017-.004-.017-.004c-.888-.197-2.245-.185-3.488.5-1.283.708-2.339 2.076-2.667 4.376l-.001.004c-.1.73-.126 1.672.014 2.657A6.5 6.5 0 018 1.5zM8.364.008a8 8 0 102.816.649C10.4.255 9.465.023 8.364.008zm5.956 6.465a6.5 6.5 0 01-6.893 8.002c-.84-.075-1.488-.317-1.994-.646-.618-.403-1.066-.968-1.383-1.624-.644-1.335-.71-2.985-.557-4.1.271-1.9 1.09-2.823 1.907-3.273.13-.072.261-.133.394-.184-.597.792-1.044 1.892-1.044 3.36 0 3.195 2.118 4.65 3.303 4.973l.017.005.017.003c.888.198 2.245.186 3.488-.5 1.283-.708 2.339-2.075 2.668-4.376V8.11a9.565 9.565 0 00.077-1.637zM8.133 4.6C8.867 4.954 10 5.943 10 8c0 2.072-1.15 3.06-1.883 3.407-.734-.354-1.867-1.342-1.867-3.4 0-2.071 1.15-3.06 1.883-3.407z" fill="#000000"/>
-                                    </svg>
-                                    View Full JSON Feed
-                                </a>
-                            </div>
-                        </td>
-                    `;
-                    tbody.appendChild(viewFeedRow);
+                    // Update the preview intro text
+                    const previewIntro = document.querySelector('.preview-intro');
+                    if (activeFilters.has('now')) {
+                        previewIntro.textContent = 'Real-time data showing AI models scheduled for deprecation, sorted by urgency. Only showing models with confirmed shutdown dates that haven\'t occurred yet.';
+                    } else {
+                        const providers = Array.from(activeFilters).join(', ').toUpperCase();
+                        previewIntro.textContent = `Showing all deprecations from ${providers}, sorted by urgency and announcement date.`;
+                    }
                 }
 
+                // Set up filter badge event handlers
+                function setupFilterHandlers() {
+                    const filterBadges = document.querySelectorAll('.filter-badge');
+                    
+                    filterBadges.forEach(badge => {
+                        badge.addEventListener('click', function() {
+                            const filter = this.dataset.filter;
+                            
+                            if (filter === 'now') {
+                                // NOW is exclusive - clear all other filters
+                                activeFilters.clear();
+                                activeFilters.add('now');
+                                
+                                // Update UI
+                                filterBadges.forEach(b => b.classList.remove('active'));
+                                this.classList.add('active');
+                            } else {
+                                // Provider filters can be combined
+                                if (activeFilters.has('now')) {
+                                    activeFilters.clear();
+                                    document.querySelector('.filter-badge.now').classList.remove('active');
+                                }
+                                
+                                // Toggle the selected provider
+                                if (activeFilters.has(filter)) {
+                                    activeFilters.delete(filter);
+                                    this.classList.remove('active');
+                                } else {
+                                    activeFilters.add(filter);
+                                    this.classList.add('active');
+                                }
+                                
+                                // If no providers selected, default to NOW
+                                if (activeFilters.size === 0) {
+                                    activeFilters.add('now');
+                                    document.querySelector('.filter-badge.now').classList.add('active');
+                                }
+                            }
+                            
+                            applyFilters();
+                        });
+                    });
+                }
 
                 // Load deprecations when page loads
-                document.addEventListener('DOMContentLoaded', loadDeprecations);
+                document.addEventListener('DOMContentLoaded', function() {
+                    setupFilterHandlers();
+                    loadDeprecations();
+                });
             </script>
         </section>
 
