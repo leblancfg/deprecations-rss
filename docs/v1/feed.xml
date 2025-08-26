@@ -4,7 +4,7 @@
     <title>AI Model Deprecations</title>
     <link>https://deprecations.info/</link>
     <description>RSS feed tracking deprecations across major AI providers</description>
-    <lastBuildDate>Tue, 26 Aug 2025 18:51:55 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 26 Aug 2025 23:11:21 GMT</lastBuildDate>
     <item>
       <title>OpenAI: Assistants API</title>
       <link>https://platform.openai.com/docs/deprecations#2025-08-20-assistants-api</link>
@@ -347,18 +347,6 @@ Shutdown Date: 2026-01-05
       <guid isPermaLink="false">Anthropic-claude-3-opus-20240229-2026-01-05-e3b0c442</guid>
     </item>
     <item>
-      <title>Anthropic: claude-3-haiku-20240307</title>
-      <link>https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-3-haiku-20240307</link>
-      <description>Provider: Anthropic
-Model ID: claude-3-haiku-20240307
-Model: claude-3-haiku-20240307
-Shutdown Date: Not sooner than March 7, 2025
-
-​Model status</description>
-      <pubDate>Tue, 26 Aug 2025 18:51:55 GMT</pubDate>
-      <guid isPermaLink="false">Anthropic-claude-3-haiku-20240307-Not_sooner_than_March_7,_2025-e3b0c442</guid>
-    </item>
-    <item>
       <title>Anthropic: claude-3-5-sonnet-20240620</title>
       <link>https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-3-5-sonnet-20240620</link>
       <description>Provider: Anthropic
@@ -371,18 +359,6 @@ Shutdown Date: 2025-10-22
       <guid isPermaLink="false">Anthropic-claude-3-5-sonnet-20240620-2025-10-22-e3b0c442</guid>
     </item>
     <item>
-      <title>Anthropic: claude-3-5-haiku-20241022</title>
-      <link>https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-3-5-haiku-20241022</link>
-      <description>Provider: Anthropic
-Model ID: claude-3-5-haiku-20241022
-Model: claude-3-5-haiku-20241022
-Shutdown Date: Not sooner than October 22, 2025
-
-​Model status</description>
-      <pubDate>Tue, 26 Aug 2025 18:51:55 GMT</pubDate>
-      <guid isPermaLink="false">Anthropic-claude-3-5-haiku-20241022-Not_sooner_than_October_22,_2025-e3b0c442</guid>
-    </item>
-    <item>
       <title>Anthropic: claude-3-5-sonnet-20241022</title>
       <link>https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-3-5-sonnet-20241022</link>
       <description>Provider: Anthropic
@@ -393,54 +369,6 @@ Shutdown Date: 2025-10-22
 ​Model status</description>
       <pubDate>Tue, 26 Aug 2025 18:51:55 GMT</pubDate>
       <guid isPermaLink="false">Anthropic-claude-3-5-sonnet-20241022-2025-10-22-e3b0c442</guid>
-    </item>
-    <item>
-      <title>Anthropic: claude-3-7-sonnet-20250219</title>
-      <link>https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-3-7-sonnet-20250219</link>
-      <description>Provider: Anthropic
-Model ID: claude-3-7-sonnet-20250219
-Model: claude-3-7-sonnet-20250219
-Shutdown Date: Not sooner than February 19, 2026
-
-​Model status</description>
-      <pubDate>Tue, 26 Aug 2025 18:51:55 GMT</pubDate>
-      <guid isPermaLink="false">Anthropic-claude-3-7-sonnet-20250219-Not_sooner_than_February_19,_2026-e3b0c442</guid>
-    </item>
-    <item>
-      <title>Anthropic: claude-sonnet-4-20250514</title>
-      <link>https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-sonnet-4-20250514</link>
-      <description>Provider: Anthropic
-Model ID: claude-sonnet-4-20250514
-Model: claude-sonnet-4-20250514
-Shutdown Date: Not sooner than May 14, 2026
-
-​Model status</description>
-      <pubDate>Tue, 26 Aug 2025 18:51:55 GMT</pubDate>
-      <guid isPermaLink="false">Anthropic-claude-sonnet-4-20250514-Not_sooner_than_May_14,_2026-e3b0c442</guid>
-    </item>
-    <item>
-      <title>Anthropic: claude-opus-4-20250514</title>
-      <link>https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-opus-4-20250514</link>
-      <description>Provider: Anthropic
-Model ID: claude-opus-4-20250514
-Model: claude-opus-4-20250514
-Shutdown Date: Not sooner than May 14, 2026
-
-​Model status</description>
-      <pubDate>Tue, 26 Aug 2025 18:51:55 GMT</pubDate>
-      <guid isPermaLink="false">Anthropic-claude-opus-4-20250514-Not_sooner_than_May_14,_2026-e3b0c442</guid>
-    </item>
-    <item>
-      <title>Anthropic: claude-opus-4-1-20250805</title>
-      <link>https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-opus-4-1-20250805</link>
-      <description>Provider: Anthropic
-Model ID: claude-opus-4-1-20250805
-Model: claude-opus-4-1-20250805
-Shutdown Date: Not sooner than August 5, 2026
-
-​Model status</description>
-      <pubDate>Tue, 26 Aug 2025 18:51:55 GMT</pubDate>
-      <guid isPermaLink="false">Anthropic-claude-opus-4-1-20250805-Not_sooner_than_August_5,_2026-e3b0c442</guid>
     </item>
     <item>
       <title>Google Vertex AI: Generative AI module in the Vertex AI SDK</title>

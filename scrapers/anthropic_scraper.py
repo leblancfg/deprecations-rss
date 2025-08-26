@@ -105,12 +105,18 @@ class AnthropicScraper(EnhancedBaseScraper):
                             elif i < len(headers) and (
                                 "retire" in header or "deprecat" in header
                             ):
-                                parsed = self.parse_date(cell)
-                                if parsed:
-                                    if "retire" in header:
-                                        shutdown_date = parsed
-                                    else:
-                                        deprecated_date = parsed
+                                # Skip if the cell explicitly says N/A (model is active)
+                                if cell.strip().upper() == "N/A":
+                                    if "deprecat" in header:
+                                        # N/A in deprecation column means model is active - skip this row
+                                        deprecated_date = "N/A"
+                                else:
+                                    parsed = self.parse_date(cell)
+                                    if parsed:
+                                        if "retire" in header:
+                                            shutdown_date = parsed
+                                        else:
+                                            deprecated_date = parsed
 
                             # Replacement detection
                             elif i == len(cells) - 1 and cell not in ["—", "-", "N/A"]:
@@ -136,9 +142,13 @@ class AnthropicScraper(EnhancedBaseScraper):
                             if date_match:
                                 shutdown_date = date_match.group(1)
 
-                        # Skip if we still don't have a valid date
+                        # Skip if deprecated_date is explicitly N/A (model is active)
+                        if deprecated_date == "N/A":
+                            continue
+
+                        # Skip if we don't have a valid date
                         final_shutdown = shutdown_date or deprecated_date
-                        if not final_shutdown or final_shutdown == "N/A":
+                        if not final_shutdown:
                             continue
 
                         item = DeprecationItem(
