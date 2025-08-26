@@ -77,6 +77,9 @@ header {
 .provider-badge.anthropic {
     background: #d4a373;
 }
+.provider-badge.anthropic:hover {
+    color: #000;
+}
 
 .provider-badge.google {
     background: #4285F4;
@@ -84,6 +87,9 @@ header {
 
 .provider-badge.aws {
     background: #FF9900;
+}
+.provider-badge.aws:hover {
+    color: #000;
 }
 
 .provider-badge.cohere {
