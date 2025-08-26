@@ -16,6 +16,11 @@ body {
     min-height: 100vh;
 }
 
+header {
+    padding-top: 40px;
+    margin-bottom: -60px;
+}
+
 /* Ensure all text uses monospace */
 * {
     font-family: inherit;
@@ -130,11 +135,10 @@ a:hover {
     margin-bottom: 24px;
 }
 
-.subscribe-button {
+.button {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    background: linear-gradient(135deg, #f97316, #ea580c);
     color: #000;
     padding: 12px 28px;
     border-radius: 8px;
@@ -147,16 +151,16 @@ a:hover {
     overflow-wrap: break-word;
 }
 
-.subscribe-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 16px rgba(249, 115, 22, 0.3);
-    color: #000;
+.button-rss {
+    background: linear-gradient(135deg, #f97316 0%, #d0440c 80%);
 }
 
-.rss-icon {
-    width: 20px;
-    height: 20px;
-    fill: currentColor;
+.button-jsonfeed {
+    background: linear-gradient(135deg, #00B900 40%, #764ba2 100%);
+}
+
+.button-json {
+    background: linear-gradient(135deg, #a164a8 40%, #f5576c 100%);
 }
 
 .subscribe-help {
@@ -374,7 +378,7 @@ footer a:hover {
         box-shadow: 4px 4px 0 rgba(249, 115, 22, 0.2);
     }
     
-    .subscribe-button {
+    .button-rss {
         font-size: 14px;
         padding: 12px 20px;
         word-break: break-all;
@@ -423,7 +427,7 @@ footer a:hover {
         margin: 32px 0;
     }
     
-    .subscribe-button {
+    .button-rss {
         font-size: 12px;
         padding: 8px 14px;
         flex-direction: column;
@@ -439,6 +443,14 @@ footer a:hover {
     .method {
         padding: 16px 12px;
     }
+}
+
+/* Subscribe section buttons layout */
+.subscribe-section .subscribe-card {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 /* Code Examples Section */
@@ -578,6 +590,7 @@ footer a:hover {
     padding: 0 !important;
     border: none !important;
     border-radius: 0;
+    font-size: 1.0rem;
     font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
     display: block;
     text-shadow: none !important;
@@ -698,5 +711,293 @@ footer a:hover {
     .copy-btn svg {
         width: 14px;
         height: 14px;
+    }
+}
+
+/* Data Preview Table Styles */
+.data-preview {
+    margin: 60px 0;
+}
+
+.preview-intro {
+    color: #999;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.data-refresh-note {
+    display: inline-block;
+    margin-left: 10px;
+    padding: 2px 8px;
+    background: rgba(249, 115, 22, 0.1);
+    border: 1px solid rgba(249, 115, 22, 0.2);
+    border-radius: 4px;
+    font-size: 12px;
+    color: #f97316;
+}
+
+.data-table-container {
+    background: #242424;
+    border: 1px solid #333;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.deprecation-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.deprecation-table thead {
+    background: linear-gradient(135deg, rgba(249, 115, 22, 0.1), rgba(234, 88, 12, 0.1));
+    border-bottom: 2px solid #333;
+}
+
+.deprecation-table th {
+    padding: 16px;
+    text-align: left;
+    font-weight: 600;
+    color: #f97316;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+}
+
+.deprecation-table tbody tr {
+    border-bottom: 1px solid #333;
+    transition: background 0.2s;
+}
+
+.deprecation-table tbody tr:nth-child(even):not(.load-more-row):not(.view-all-row) {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.deprecation-table tbody tr:hover:not(.load-more-row):not(.view-all-row) {
+    background: rgba(249, 115, 22, 0.05);
+}
+
+.deprecation-table td {
+    padding: 14px 16px;
+    color: #e5e5e5;
+}
+
+.provider {
+    font-weight: 500;
+}
+
+.provider.openai {
+    color: #74aa9c;
+}
+
+.provider.anthropic {
+    color: #d4a373;
+}
+
+.provider.google {
+    color: #4285f4;
+}
+
+.provider.cohere {
+    color: #b19cd9;
+}
+
+.provider.aws {
+    color: #ff9900;
+}
+
+.model-name {
+    font-family: 'Fira Code', 'JetBrains Mono', monospace;
+    color: #fbbf24;
+}
+
+.announcement-date {
+    color: #9ca3af;
+    font-size: 13px;
+}
+
+.shutdown-date {
+    color: #ef4444;
+    font-weight: 500;
+}
+
+.migration {
+    color: #10b981;
+    font-size: 12px;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-badge.deprecated {
+    background: rgba(251, 191, 36, 0.15);
+    color: #fbbf24;
+    border: 1px solid rgba(251, 191, 36, 0.3);
+}
+
+.status-badge.shutdown {
+    background: rgba(239, 68, 68, 0.15);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.status-badge.critical {
+    background: rgba(239, 68, 68, 0.15);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.status-badge.warning {
+    background: rgba(251, 146, 60, 0.15);
+    color: #fb923c;
+    border: 1px solid rgba(251, 146, 60, 0.3);
+}
+
+.status-badge.active {
+    background: rgba(16, 185, 129, 0.15);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+/* Days remaining display */
+.days-remaining {
+    text-align: center;
+    font-weight: 500;
+}
+
+.days-critical {
+    color: #f87171;
+    font-weight: 600;
+}
+
+.days-warning {
+    color: #fb923c;
+    font-weight: 600;
+}
+
+.days-normal {
+    color: #9ca3af;
+}
+
+/* No data message */
+.no-data-cell {
+    padding: 60px 40px !important;
+    text-align: center;
+}
+
+.no-data-message {
+    color: #6b7280;
+}
+
+.no-data-message svg {
+    margin: 0 auto 20px;
+    opacity: 0.5;
+}
+
+.no-data-message p {
+    margin: 10px 0;
+    font-size: 16px;
+    color: #9ca3af;
+}
+
+.no-data-subtext {
+    font-size: 14px !important;
+    color: #6b7280 !important;
+}
+
+.load-more-row,
+.view-all-row {
+    background: transparent !important;
+    border: none !important;
+}
+
+.load-more-cell,
+.view-all-cell {
+    text-align: center;
+    padding: 20px !important;
+}
+
+.load-more-btn {
+    background: linear-gradient(135deg, rgba(249, 115, 22, 0.1), rgba(234, 88, 12, 0.1));
+    border: 1px solid #f97316;
+    color: #f97316;
+    padding: 10px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s;
+}
+
+.load-more-btn:hover {
+    background: linear-gradient(135deg, rgba(249, 115, 22, 0.2), rgba(234, 88, 12, 0.2));
+    transform: translateY(2px);
+}
+
+.view-all-btn {
+    background: linear-gradient(135deg, #f97316, #ea580c);
+    color: white;
+    padding: 12px 28px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s;
+}
+
+.view-all-btn:hover {
+    background: linear-gradient(135deg, #ea580c, #dc2626);
+    transform: scale(1.02);
+}
+
+.hidden-row {
+    display: none;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Responsive adjustments for data table */
+@media (max-width: 768px) {
+    .deprecation-table {
+        font-size: 11px;
+    }
+
+    .deprecation-table th,
+    .deprecation-table td {
+        padding: 10px 8px;
+    }
+
+    .migration {
+        font-size: 10px;
     }
 }
