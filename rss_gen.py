@@ -39,9 +39,9 @@ def create_rss_feed(data):
         item = ET.SubElement(channel, "item")
 
         # Build title with model name if available
-        model_id = item_data.get('model_id', '')
-        model_name = item_data.get('model_name', model_id)
-        
+        model_id = item_data.get("model_id", "")
+        model_name = item_data.get("model_name", model_id)
+
         if model_name:
             title = f"{item_data['provider']}: {model_name}"
         elif "title" in item_data:
@@ -61,8 +61,8 @@ def create_rss_feed(data):
         # Add model info if available
         if "model_id" in item_data:
             description_parts.append(f"Model ID: {item_data['model_id']}")
-        
-        model_name = item_data.get('model_name', item_data.get('model_id', None))
+
+        model_name = item_data.get("model_name", item_data.get("model_id", None))
         if model_name:
             model_name = item_data["model_name"]
         else:

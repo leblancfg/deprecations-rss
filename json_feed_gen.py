@@ -54,7 +54,7 @@ def create_json_feed(data):
         # Add all relevant fields if they exist - handle both old and new formats
         if "model_id" in item_data:
             deprecation_data["model_id"] = item_data["model_id"]
-        
+
         if "model_name" in item_data:
             deprecation_data["model_name"] = item_data["model_name"]
         elif "title" in item_data and ": " in item_data["title"]:
@@ -65,7 +65,7 @@ def create_json_feed(data):
 
         if "shutdown_date" in item_data:
             deprecation_data["shutdown_date"] = item_data["shutdown_date"]
-            
+
         if "announcement_date" in item_data:
             deprecation_data["announcement_date"] = item_data["announcement_date"]
 
