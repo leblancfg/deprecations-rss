@@ -156,71 +156,38 @@ t19 -45.5t-18.5 -45t-44.5 -19.5zM551 477q-27 0 -46 19t-19 45.5t19 45.5t45.5 19t4
                         const today = new Date();
                         today.setHours(0, 0, 0, 0);
                         
-                        // Transform the data to match our expected format
-                        allDeprecations = data.map(item => {
-                            const realShutdownDate = extractShutdownDate(item.content);
-                            return {
-                                provider: item.provider.toLowerCase().replace(' ', ''),
-                                model_name: extractModelName(item.title),
-                                announcement_date: item.announcement_date,
-                                shutdown_date: realShutdownDate,
-                                migration_path: extractMigrationPath(item.content),
-                                status: getStatus(realShutdownDate)
-                            };
-                        }).filter(item => {
+                        // Data is already properly formatted from the backend
+                        allDeprecations = data.filter(item => {
                             // Only show future deprecations with valid shutdown dates
-                            if (!item.shutdown_date) return false; // Skip if no date
+                            if (!item.shutdown_date) return false;
                             const shutdownDate = new Date(item.shutdown_date);
                             return shutdownDate > today;
-                        });
+                        }).map(item => ({
+                            ...item,
+                            provider: item.provider.toLowerCase().replace(/\s+/g, ''),
+                            status: getStatus(item.shutdown_date)
+                        }));
                         
                         // Sort by shutdown date (soonest first)
                         allDeprecations.sort((a, b) => {
-                            if (!a.shutdown_date) return 1;
-                            if (!b.shutdown_date) return -1;
                             return new Date(a.shutdown_date) - new Date(b.shutdown_date);
                         });
                         
                         displayInitialRows();
                     } catch (error) {
                         console.error('Failed to load deprecations:', error);
-                        // Fall back to some default data if the JSON fails to load
-                        allDeprecations = getDefaultData();
-                        const today = new Date();
-                        today.setHours(0, 0, 0, 0);
-                        
-                        // Filter out past deprecations and null dates
-                        allDeprecations = allDeprecations.filter(item => {
-                            if (!item.shutdown_date) return false;
-                            const shutdownDate = new Date(item.shutdown_date);
-                            return shutdownDate > today;
-                        });
-                        
-                        // Sort default data too
-                        allDeprecations.sort((a, b) => {
-                            if (!a.shutdown_date) return 1;
-                            if (!b.shutdown_date) return -1;
-                            return new Date(a.shutdown_date) - new Date(b.shutdown_date);
-                        });
-                        displayInitialRows();
+                        document.getElementById('tableBody').innerHTML = `
+                            <tr>
+                                <td colspan="6" class="no-data-cell">
+                                    <div class="no-data-message">
+                                        <p>Failed to load deprecation data. Please try refreshing the page.</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        `;
                     }
                 }
 
-                function extractShutdownDate(content) {
-                    // Try to find a date pattern after "SHUTDOWN DATE"
-                    const shutdownMatch = content.match(/SHUTDOWN DATE[\s\t]+.*?(\d{4}-\d{2}-\d{2})/i);
-                    if (shutdownMatch) {
-                        return shutdownMatch[1];
-                    }
-                    
-                    // Look for date patterns in format YYYY-MM-DD
-                    const dateMatch = content.match(/(\d{4}-\d{2}-\d{2})/);
-                    if (dateMatch) {
-                        return dateMatch[1];
-                    }
-                    
-                    return null;
-                }
 
                 function getStatus(shutdownDate) {
                     if (!shutdownDate) return 'deprecated';
@@ -255,97 +222,29 @@ t19 -45.5t-18.5 -45t-44.5 -19.5zM551 477q-27 0 -46 19t-19 45.5t19 45.5t45.5 19t4
                     return daysLeft;
                 }
 
-                function extractModelName(title) {
-                    // Extract model name from title like "OpenAI: gpt-4o-realtime-preview-2024-10-01"
-                    const parts = title.split(': ');
-                    let modelName = parts.length > 1 ? parts[1] : title;
-                    
-                    // Clean up common patterns
-                    modelName = modelName
-                        .replace(/\s+deprecation$/i, '')
-                        .replace(/\s+and\s+/g, ' & ')
-                        .trim();
-                    
-                    // Shorten very long model names
-                    if (modelName.length > 40) {
-                        // Try to intelligently truncate at a meaningful point
-                        const truncated = modelName.substring(0, 40);
-                        const lastDash = truncated.lastIndexOf('-');
-                        if (lastDash > 20) {
-                            modelName = truncated.substring(0, lastDash) + '…';
-                        } else {
-                            modelName = truncated + '…';
-                        }
-                    }
-                    
-                    return modelName;
-                }
-
-                function extractMigrationPath(content) {
-                    // Try to extract migration path from content
-                    const replacementMatch = content.match(/RECOMMENDED REPLACEMENT[\s\t]+([^\s\t]+)/i);
-                    if (replacementMatch) {
-                        return replacementMatch[1];
-                    }
-                    // Look for other patterns
-                    const migrateMatch = content.match(/migrate to ([^\s.]+)/i);
-                    if (migrateMatch) {
-                        return migrateMatch[1];
-                    }
-                    return 'See documentation';
-                }
-
-                function getDefaultData() {
-                    // Fallback data in case JSON fails to load - using future dates for testing
-                    return [
-                        {
-                            provider: 'openai',
-                            model_name: 'gpt-4o-realtime-preview',
-                            announcement_date: '2025-06-10',
-                            shutdown_date: '2025-09-10',
-                            status: 'deprecated'
-                        },
-                        {
-                            provider: 'anthropic',
-                            model_name: 'claude-3-opus',
-                            announcement_date: '2025-07-01',
-                            shutdown_date: '2025-10-01',
-                            status: 'deprecated'
-                        },
-                        {
-                            provider: 'google',
-                            model_name: 'gemini-pro-1.0',
-                            announcement_date: '2025-07-15',
-                            shutdown_date: '2025-10-15',
-                            status: 'deprecated'
-                        },
-                        {
-                            provider: 'cohere',
-                            model_name: 'command-r',
-                            announcement_date: '2025-08-01',
-                            shutdown_date: '2025-11-01',
-                            status: 'deprecated'
-                        },
-                        {
-                            provider: 'aws',
-                            model_name: 'titan-express-v1',
-                            announcement_date: '2025-08-15',
-                            shutdown_date: '2025-11-15',
-                            status: 'deprecated'
-                        }
-                    ];
-                }
 
                 function formatProviderName(provider) {
                     const providerNames = {
                         'openai': 'OpenAI',
                         'anthropic': 'Anthropic',
                         'google': 'Google',
+                        'googlevertexai': 'Google Vertex AI',
                         'cohere': 'Cohere',
-                        'aws': 'AWS Bedrock',
+                        'aws': 'AWS',
+                        'awsbedrock': 'AWS Bedrock',
                         'azure': 'Azure OpenAI'
                     };
-                    return providerNames[provider.toLowerCase()] || provider;
+                    
+                    // Try exact match first
+                    const normalized = provider.toLowerCase().replace(/[\s-_]/g, '');
+                    if (providerNames[normalized]) {
+                        return providerNames[normalized];
+                    }
+                    
+                    // Clean up provider name if no match found
+                    return provider
+                        .replace(/([a-z])([A-Z])/g, '$1 $2') // Add space between camelCase
+                        .replace(/^./, str => str.toUpperCase()); // Capitalize first letter
                 }
 
                 function createTableRow(deprecation, hidden = false) {
@@ -353,6 +252,13 @@ t19 -45.5t-18.5 -45t-44.5 -19.5zM551 477q-27 0 -46 19t-19 45.5t19 45.5t45.5 19t4
                     if (hidden) {
                         tr.className = 'hidden-row';
                         tr.style.display = 'none';
+                    }
+                    
+                    // Make row clickable if URL exists
+                    if (deprecation.url) {
+                        tr.style.cursor = 'pointer';
+                        tr.onclick = () => window.open(deprecation.url, '_blank');
+                        tr.title = 'Click to view deprecation details';
                     }
                     
                     const providerClass = deprecation.provider.toLowerCase();
@@ -395,7 +301,7 @@ t19 -45.5t-18.5 -45t-44.5 -19.5zM551 477q-27 0 -46 19t-19 45.5t19 45.5t45.5 19t4
                     
                     tr.innerHTML = `
                         <td class="provider ${providerClass}">${formatProviderName(deprecation.provider)}</td>
-                        <td class="model-name">${deprecation.model_name || 'N/A'}</td>
+                        <td class="model-name">${deprecation.model_name || deprecation.model_id || 'N/A'}</td>
                         <td class="announcement-date">${formatDate(deprecation.announcement_date)}</td>
                         <td class="shutdown-date">${formatDate(deprecation.shutdown_date)}</td>
                         <td class="days-remaining">${daysDisplay}</td>
@@ -443,73 +349,24 @@ t19 -45.5t-18.5 -45t-44.5 -19.5zM551 477q-27 0 -46 19t-19 45.5t19 45.5t45.5 19t4
                         tbody.appendChild(createTableRow(allDeprecations[i]));
                     }
 
-                    // Add load more button if there are more items
-                    if (allDeprecations.length > displayedCount) {
-                        const loadMoreRow = document.createElement('tr');
-                        loadMoreRow.className = 'load-more-row';
-                        loadMoreRow.id = 'loadMoreRow';
-                        loadMoreRow.innerHTML = `
-                            <td colspan="6" class="load-more-cell">
-                                <button class="load-more-btn" onclick="loadMoreRows()">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <line x1="12" y1="5" x2="12" y2="19"></line>
-                                        <polyline points="19 12 12 19 5 12"></polyline>
+                    // Add view feed button if showing limited items
+                    const viewFeedRow = document.createElement('tr');
+                    viewFeedRow.className = 'view-feed-row';
+                    viewFeedRow.innerHTML = `
+                        <td colspan="6" class="view-feed-cell">
+                            <div class="view-feed-content">
+                                <a href="v1/deprecations.json" target="_blank" class="button button-json view-feed-btn">
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M8 1.5c.084 0 .167.002.25.005v.002h.07a6.468 6.468 0 012.22.508c.097.051.189.106.277.164.617.402 1.066.967 1.383 1.623.644 1.335.71 2.985.557 4.101-.271 1.899-1.09 2.822-1.907 3.273a3.23 3.23 0 01-.394.184C11.054 10.567 11.5 9.466 11.5 8c0-3.195-2.118-4.65-3.303-4.974l-.017-.004-.017-.004c-.888-.197-2.245-.185-3.488.5-1.283.708-2.339 2.076-2.667 4.376l-.001.004c-.1.73-.126 1.672.014 2.657A6.5 6.5 0 018 1.5zM8.364.008a8 8 0 102.816.649C10.4.255 9.465.023 8.364.008zm5.956 6.465a6.5 6.5 0 01-6.893 8.002c-.84-.075-1.488-.317-1.994-.646-.618-.403-1.066-.968-1.383-1.624-.644-1.335-.71-2.985-.557-4.1.271-1.9 1.09-2.823 1.907-3.273.13-.072.261-.133.394-.184-.597.792-1.044 1.892-1.044 3.36 0 3.195 2.118 4.65 3.303 4.973l.017.005.017.003c.888.198 2.245.186 3.488-.5 1.283-.708 2.339-2.075 2.668-4.376V8.11a9.565 9.565 0 00.077-1.637zM8.133 4.6C8.867 4.954 10 5.943 10 8c0 2.072-1.15 3.06-1.883 3.407-.734-.354-1.867-1.342-1.867-3.4 0-2.071 1.15-3.06 1.883-3.407z" fill="#000000"/>
                                     </svg>
-                                    <span>Load More</span>
-                                </button>
-                            </td>
-                        `;
-                        tbody.appendChild(loadMoreRow);
-
-                        // Add hidden rows
-                        for (let i = displayedCount; i < allDeprecations.length; i++) {
-                            tbody.appendChild(createTableRow(allDeprecations[i], true));
-                        }
-
-                        // Add view all row (hidden initially)
-                        const viewAllRow = document.createElement('tr');
-                        viewAllRow.className = 'view-all-row';
-                        viewAllRow.id = 'viewAllRow';
-                        viewAllRow.style.display = 'none';
-                        viewAllRow.innerHTML = `
-                            <td colspan="6" class="view-all-cell">
-                                <a href="v1/deprecations.json" target="_blank" class="view-all-btn">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-                                        <line x1="12" y1="22.08" x2="12" y2="12"></line>
-                                    </svg>
-                                    View Full JSON Data
+                                    View Full JSON Feed
                                 </a>
-                            </td>
-                        `;
-                        tbody.appendChild(viewAllRow);
-                    }
+                            </div>
+                        </td>
+                    `;
+                    tbody.appendChild(viewFeedRow);
                 }
 
-                function loadMoreRows() {
-                    // Hide the load more button
-                    const loadMoreRow = document.getElementById('loadMoreRow');
-                    if (loadMoreRow) {
-                        loadMoreRow.style.display = 'none';
-                    }
-
-                    // Show all hidden rows
-                    const hiddenRows = document.querySelectorAll('.hidden-row');
-                    hiddenRows.forEach(row => {
-                        row.style.display = '';
-                        row.classList.add('fade-in');
-                    });
-
-                    // Show the view all row
-                    const viewAllRow = document.getElementById('viewAllRow');
-                    if (viewAllRow) {
-                        viewAllRow.style.display = '';
-                        viewAllRow.classList.add('fade-in');
-                    }
-                }
 
                 // Load deprecations when page loads
                 document.addEventListener('DOMContentLoaded', loadDeprecations);

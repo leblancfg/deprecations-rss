@@ -51,21 +51,28 @@ def create_json_feed(data):
             "provider": item_data.get("provider", "Unknown"),
         }
 
-        # Add all relevant fields if they exist
+        # Add all relevant fields if they exist - handle both old and new formats
+        if "model_id" in item_data:
+            deprecation_data["model_id"] = item_data["model_id"]
+
         if "model_name" in item_data:
             deprecation_data["model_name"] = item_data["model_name"]
         elif "title" in item_data and ": " in item_data["title"]:
-            # Try to extract model name from title
+            # Try to extract model name from title (legacy format)
             potential_model = item_data["title"].split(": ", 1)[1]
             if potential_model and "deprecation" not in potential_model.lower():
                 deprecation_data["model_name"] = potential_model
 
         if "shutdown_date" in item_data:
             deprecation_data["shutdown_date"] = item_data["shutdown_date"]
-        elif "announcement_date" in item_data:
+
+        if "announcement_date" in item_data:
             deprecation_data["announcement_date"] = item_data["announcement_date"]
 
-        if "suggested_replacement" in item_data:
+        # Handle both replacement_model (new) and suggested_replacement (old)
+        if "replacement_model" in item_data:
+            deprecation_data["replacement_model"] = item_data["replacement_model"]
+        elif "suggested_replacement" in item_data:
             deprecation_data["suggested_replacement"] = item_data[
                 "suggested_replacement"
             ]
