@@ -45,67 +45,73 @@ def create_rss_feed(data):
             title = item_data.get("title", f"{item_data['provider']} Deprecation")
         else:
             title = f"{item_data['provider']} Deprecation"
-        
+
         ET.SubElement(item, "title").text = title
         ET.SubElement(item, "link").text = item_data["url"]
-        
+
         # Build structured description in plain text format
         description_parts = []
-        
+
         # Add structured metadata in readable format
         description_parts.append(f"Provider: {item_data.get('provider', 'Unknown')}")
-        
+
         # Add model name if available, or extract from title
         model_name = None
         if "model_name" in item_data:
-            model_name = item_data['model_name']
+            model_name = item_data["model_name"]
         else:
             # Try to extract model name from title (format: "Provider: model_name")
-            title = item_data.get('title', '')
-            if ': ' in title:
-                potential_model = title.split(': ', 1)[1]
+            title = item_data.get("title", "")
+            if ": " in title:
+                potential_model = title.split(": ", 1)[1]
                 # Only add if it looks like a model name (not generic like "Deprecations")
-                if potential_model and 'deprecation' not in potential_model.lower():
+                if potential_model and "deprecation" not in potential_model.lower():
                     model_name = potential_model
-        
+
         if model_name:
             description_parts.append(f"Model: {model_name}")
-        
+
         # Add shutdown date if available
         if "shutdown_date" in item_data and item_data["shutdown_date"]:
             description_parts.append(f"Shutdown Date: {item_data['shutdown_date']}")
         elif "announcement_date" in item_data and item_data["announcement_date"]:
-            description_parts.append(f"Announcement Date: {item_data['announcement_date']}")
-        
+            description_parts.append(
+                f"Announcement Date: {item_data['announcement_date']}"
+            )
+
         # Add suggested replacement if available and not placeholder
         if "suggested_replacement" in item_data and item_data["suggested_replacement"]:
             if not item_data["suggested_replacement"].startswith("<"):
-                description_parts.append(f"Replacement: {item_data['suggested_replacement']}")
-        
+                description_parts.append(
+                    f"Replacement: {item_data['suggested_replacement']}"
+                )
+
         # Add deprecation reason if available and not placeholder
         if "deprecation_reason" in item_data and item_data["deprecation_reason"]:
             if not item_data["deprecation_reason"].startswith("<"):
                 description_parts.append(f"Reason: {item_data['deprecation_reason']}")
-        
+
         # Add observation dates
         if "first_observed" in item_data:
             description_parts.append(f"First Observed: {item_data['first_observed']}")
-        
+
         if "last_observed" in item_data:
             description_parts.append(f"Last Observed: {item_data['last_observed']}")
-        
+
         # Add separator before content
         description_parts.append("")  # Empty line
-        
+
         # Add summary or original content
         if "summary" in item_data:
-            description_parts.append(item_data['summary'])
+            description_parts.append(item_data["summary"])
         else:
             # Use the original content
-            original_content = item_data.get("raw_content") or item_data.get("content", "")
+            original_content = item_data.get("raw_content") or item_data.get(
+                "content", ""
+            )
             if original_content:
                 description_parts.append(original_content)
-        
+
         # Join all parts with newlines for readability
         description = "\n".join(description_parts)
         ET.SubElement(item, "description").text = description
@@ -128,13 +134,17 @@ def create_rss_feed(data):
             guid_parts.append(item_data["title"])
         if "shutdown_date" in item_data and item_data["shutdown_date"]:
             guid_parts.append(item_data["shutdown_date"])
-        
+
         content_hash = hashlib.sha256(
             str(item_data.get("content", "")).encode()
         ).hexdigest()[:8]
         guid_parts.append(content_hash)
-        
-        guid = "-".join(str(p) for p in guid_parts).replace(" ", "_").replace(":", "")[:100]
+
+        guid = (
+            "-".join(str(p) for p in guid_parts)
+            .replace(" ", "_")
+            .replace(":", "")[:100]
+        )
         ET.SubElement(item, "guid", isPermaLink="false").text = guid
 
     # Convert to pretty XML string
