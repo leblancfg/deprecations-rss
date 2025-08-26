@@ -4,7 +4,6 @@ import httpx
 import re
 from bs4 import BeautifulSoup
 from datetime import datetime, timezone
-from typing import Dict, List
 
 
 class BaseScraper:
@@ -29,13 +28,13 @@ class BaseScraper:
         response.raise_for_status()
         return response.text
 
-    def scrape(self) -> List[Dict]:
+    def scrape(self) -> list[dict]:
         """Override this method in subclasses."""
         raise NotImplementedError
 
 
 class OpenAIScraper(BaseScraper):
-    def scrape(self) -> List[Dict]:
+    def scrape(self) -> list[dict]:
         url = "https://platform.openai.com/docs/deprecations"
         deprecations = []
 
@@ -165,7 +164,7 @@ class OpenAIScraper(BaseScraper):
 
 
 class AnthropicScraper(BaseScraper):
-    def scrape(self) -> List[Dict]:
+    def scrape(self) -> list[dict]:
         url = "https://docs.anthropic.com/en/docs/about-claude/model-deprecations"
         deprecations = []
 
@@ -308,7 +307,7 @@ class AnthropicScraper(BaseScraper):
 
 
 class GoogleVertexScraper(BaseScraper):
-    def scrape(self) -> List[Dict]:
+    def scrape(self) -> list[dict]:
         url = "https://cloud.google.com/vertex-ai/generative-ai/docs/deprecations"
         deprecations = []
 
@@ -384,7 +383,7 @@ class GoogleVertexScraper(BaseScraper):
 
 
 class AWSBedrockScraper(BaseScraper):
-    def scrape(self) -> List[Dict]:
+    def scrape(self) -> list[dict]:
         url = (
             "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html"
         )
@@ -552,7 +551,7 @@ class AWSBedrockScraper(BaseScraper):
 
 
 class CohereScraper(BaseScraper):
-    def scrape(self) -> List[Dict]:
+    def scrape(self) -> list[dict]:
         url = "https://docs.cohere.com/docs/deprecations"
         deprecations = []
 
@@ -711,7 +710,7 @@ class CohereScraper(BaseScraper):
         )
 
 
-# List of all scrapers
+# list of all scrapers
 SCRAPERS = [
     OpenAIScraper,
     AnthropicScraper,

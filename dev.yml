@@ -5,7 +5,7 @@ up:
   - uv
 
 commands:
-  scrape: python main.py
+  generate: python run.py
   server: cd docs && python -m http.server $PORT
 
 check:

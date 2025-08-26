@@ -1,6 +1,7 @@
-"""Simple RSS feed generator."""
+"""RSS feed generator with structured data in description."""
 
 import json
+import hashlib
 from datetime import datetime, timezone
 from pathlib import Path
 import xml.etree.ElementTree as ET
@@ -18,7 +19,7 @@ def load_data():
 
 
 def create_rss_feed(data):
-    """Create RSS feed from scraped data."""
+    """Create RSS feed with structured data in description field."""
     # Create RSS root element
     rss = ET.Element("rss", version="2.0")
     channel = ET.SubElement(rss, "channel")
@@ -37,44 +38,113 @@ def create_rss_feed(data):
     for item_data in data:
         item = ET.SubElement(channel, "item")
 
-        # Use the title if available, otherwise fallback to provider name
-        title = item_data.get("title", f"{item_data['provider']} Deprecation")
+        # Build title with model name if available
+        if "model_name" in item_data:
+            title = f"{item_data['provider']}: {item_data['model_name']}"
+        elif "title" in item_data:
+            title = item_data.get("title", f"{item_data['provider']} Deprecation")
+        else:
+            title = f"{item_data['provider']} Deprecation"
+
         ET.SubElement(item, "title").text = title
         ET.SubElement(item, "link").text = item_data["url"]
 
-        # Build description with dates if available
+        # Build structured description in plain text format
         description_parts = []
-        if "announcement_date" in item_data and item_data["announcement_date"]:
-            description_parts.append(f"Announced: {item_data['announcement_date']}")
-        if "shutdown_date" in item_data and item_data["shutdown_date"]:
-            description_parts.append(f"Shutdown: {item_data['shutdown_date']}")
 
-        content = item_data["content"]
-        if len(content) > 2000:
-            content = (
-                content[:2000]
-                + "...\n\n[Content truncated. Visit the link for full details.]"
+        # Add structured metadata in readable format
+        description_parts.append(f"Provider: {item_data.get('provider', 'Unknown')}")
+
+        # Add model name if available, or extract from title
+        model_name = None
+        if "model_name" in item_data:
+            model_name = item_data["model_name"]
+        else:
+            # Try to extract model name from title (format: "Provider: model_name")
+            title = item_data.get("title", "")
+            if ": " in title:
+                potential_model = title.split(": ", 1)[1]
+                # Only add if it looks like a model name (not generic like "Deprecations")
+                if potential_model and "deprecation" not in potential_model.lower():
+                    model_name = potential_model
+
+        if model_name:
+            description_parts.append(f"Model: {model_name}")
+
+        # Add shutdown date if available
+        if "shutdown_date" in item_data and item_data["shutdown_date"]:
+            description_parts.append(f"Shutdown Date: {item_data['shutdown_date']}")
+        elif "announcement_date" in item_data and item_data["announcement_date"]:
+            description_parts.append(
+                f"Announcement Date: {item_data['announcement_date']}"
             )
 
-        if description_parts:
-            description = " | ".join(description_parts) + "\n\n" + content
+        # Add suggested replacement if available and not placeholder
+        if "suggested_replacement" in item_data and item_data["suggested_replacement"]:
+            if not item_data["suggested_replacement"].startswith("<"):
+                description_parts.append(
+                    f"Replacement: {item_data['suggested_replacement']}"
+                )
+
+        # Add deprecation reason if available and not placeholder
+        if "deprecation_reason" in item_data and item_data["deprecation_reason"]:
+            if not item_data["deprecation_reason"].startswith("<"):
+                description_parts.append(f"Reason: {item_data['deprecation_reason']}")
+
+        # Add observation dates
+        if "first_observed" in item_data:
+            description_parts.append(f"First Observed: {item_data['first_observed']}")
+
+        if "last_observed" in item_data:
+            description_parts.append(f"Last Observed: {item_data['last_observed']}")
+
+        # Add separator before content
+        description_parts.append("")  # Empty line
+
+        # Add summary or original content
+        if "summary" in item_data:
+            description_parts.append(item_data["summary"])
         else:
-            description = content
+            # Use the original content
+            original_content = item_data.get("raw_content") or item_data.get(
+                "content", ""
+            )
+            if original_content:
+                description_parts.append(original_content)
 
+        # Join all parts with newlines for readability
+        description = "\n".join(description_parts)
         ET.SubElement(item, "description").text = description
-        ET.SubElement(item, "pubDate").text = datetime.fromisoformat(
-            item_data["scraped_at"]
-        ).strftime("%a, %d %b %Y %H:%M:%S GMT")
 
-        # Create unique GUID for each deprecation
+        # Publication date
+        if "scraped_at" in item_data:
+            ET.SubElement(item, "pubDate").text = datetime.fromisoformat(
+                item_data["scraped_at"]
+            ).strftime("%a, %d %b %Y %H:%M:%S GMT")
+        else:
+            ET.SubElement(item, "pubDate").text = datetime.now(timezone.utc).strftime(
+                "%a, %d %b %Y %H:%M:%S GMT"
+            )
+
+        # Create unique GUID
         guid_parts = [item_data["provider"]]
-        if "title" in item_data:
+        if "model_name" in item_data:
+            guid_parts.append(item_data["model_name"])
+        elif "title" in item_data:
             guid_parts.append(item_data["title"])
-        if "announcement_date" in item_data and item_data["announcement_date"]:
-            guid_parts.append(item_data["announcement_date"])
-        guid_parts.append(item_data["scraped_at"][:10])  # Date only
+        if "shutdown_date" in item_data and item_data["shutdown_date"]:
+            guid_parts.append(item_data["shutdown_date"])
 
-        guid = "-".join(guid_parts).replace(" ", "_").replace(":", "")[:100]
+        content_hash = hashlib.sha256(
+            str(item_data.get("content", "")).encode()
+        ).hexdigest()[:8]
+        guid_parts.append(content_hash)
+
+        guid = (
+            "-".join(str(p) for p in guid_parts)
+            .replace(" ", "_")
+            .replace(":", "")[:100]
+        )
         ET.SubElement(item, "guid", isPermaLink="false").text = guid
 
     # Convert to pretty XML string
@@ -84,22 +154,17 @@ def create_rss_feed(data):
 
 
 def save_rss_feed(feed_content):
-    """Save RSS feed to docs/rss/v1/feed.xml."""
-    # Create the full directory structure
-    feed_dir = Path("docs/rss/v1")
+    """Save RSS feed to docs/v1/feed.xml."""
+    # Create the v1 directory
+    feed_dir = Path("docs/v1")
     feed_dir.mkdir(parents=True, exist_ok=True)
 
-    # Save to the versioned path
+    # Save to the v1 path
     feed_file = feed_dir / "feed.xml"
     with open(feed_file, "w") as f:
         f.write(feed_content)
 
-    # Also save to docs/feed.xml for backwards compatibility
-    docs_feed = Path("docs/feed.xml")
-    with open(docs_feed, "w") as f:
-        f.write(feed_content)
-
-    print(f"RSS feed saved to {feed_file} and {docs_feed}")
+    print(f"RSS feed saved to {feed_file}")
 
 
 if __name__ == "__main__":
@@ -107,5 +172,6 @@ if __name__ == "__main__":
     if data:
         feed = create_rss_feed(data)
         save_rss_feed(feed)
+        print(f"Generated RSS feed with {len(data)} items")
     else:
         print("No data found in data.json")
