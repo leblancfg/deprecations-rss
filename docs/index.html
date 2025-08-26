@@ -228,7 +228,7 @@ t19 -45.5t-18.5 -45t-44.5 -19.5zM551 477q-27 0 -46 19t-19 45.5t19 45.5t45.5 19t4
                     
                     if (shutdown <= today) {
                         return 'shutdown';
-                    } else if (daysLeft <= 30) {
+                    } else if (daysLeft <= 14 ) {
                         return 'critical';
                     } else if (daysLeft <= 90) {
                         return 'warning';

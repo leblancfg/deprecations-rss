@@ -583,25 +583,6 @@
       ]
     },
     {
-      "id": "anthropic-claude-3-haiku-20240307",
-      "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-3-haiku-20240307",
-      "title": "Anthropic Deprecation",
-      "content_text": "",
-      "date_published": "2025-08-26T18:51:55.745654+00:00",
-      "_deprecation": {
-        "provider": "Anthropic",
-        "model_id": "claude-3-haiku-20240307",
-        "model_name": "claude-3-haiku-20240307",
-        "shutdown_date": "Not sooner than March 7, 2025",
-        "announcement_date": "N/A",
-        "replacement_model": null
-      },
-      "tags": [
-        "Anthropic",
-        "shutdown-Not "
-      ]
-    },
-    {
       "id": "anthropic-claude-3-5-sonnet-20240620",
       "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-3-5-sonnet-20240620",
       "title": "Anthropic Deprecation",
@@ -621,25 +602,6 @@
       ]
     },
     {
-      "id": "anthropic-claude-3-5-haiku-20241022",
-      "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-3-5-haiku-20241022",
-      "title": "Anthropic Deprecation",
-      "content_text": "",
-      "date_published": "2025-08-26T18:51:55.745707+00:00",
-      "_deprecation": {
-        "provider": "Anthropic",
-        "model_id": "claude-3-5-haiku-20241022",
-        "model_name": "claude-3-5-haiku-20241022",
-        "shutdown_date": "Not sooner than October 22, 2025",
-        "announcement_date": "N/A",
-        "replacement_model": null
-      },
-      "tags": [
-        "Anthropic",
-        "shutdown-Not "
-      ]
-    },
-    {
       "id": "anthropic-claude-3-5-sonnet-20241022",
       "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-3-5-sonnet-20241022",
       "title": "Anthropic Deprecation",
@@ -656,82 +618,6 @@
       "tags": [
         "Anthropic",
         "shutdown-2025"
-      ]
-    },
-    {
-      "id": "anthropic-claude-3-7-sonnet-20250219",
-      "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-3-7-sonnet-20250219",
-      "title": "Anthropic Deprecation",
-      "content_text": "",
-      "date_published": "2025-08-26T18:51:55.745752+00:00",
-      "_deprecation": {
-        "provider": "Anthropic",
-        "model_id": "claude-3-7-sonnet-20250219",
-        "model_name": "claude-3-7-sonnet-20250219",
-        "shutdown_date": "Not sooner than February 19, 2026",
-        "announcement_date": "N/A",
-        "replacement_model": null
-      },
-      "tags": [
-        "Anthropic",
-        "shutdown-Not "
-      ]
-    },
-    {
-      "id": "anthropic-claude-sonnet-4-20250514",
-      "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-sonnet-4-20250514",
-      "title": "Anthropic Deprecation",
-      "content_text": "",
-      "date_published": "2025-08-26T18:51:55.745774+00:00",
-      "_deprecation": {
-        "provider": "Anthropic",
-        "model_id": "claude-sonnet-4-20250514",
-        "model_name": "claude-sonnet-4-20250514",
-        "shutdown_date": "Not sooner than May 14, 2026",
-        "announcement_date": "N/A",
-        "replacement_model": null
-      },
-      "tags": [
-        "Anthropic",
-        "shutdown-Not "
-      ]
-    },
-    {
-      "id": "anthropic-claude-opus-4-20250514",
-      "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-opus-4-20250514",
-      "title": "Anthropic Deprecation",
-      "content_text": "",
-      "date_published": "2025-08-26T18:51:55.745796+00:00",
-      "_deprecation": {
-        "provider": "Anthropic",
-        "model_id": "claude-opus-4-20250514",
-        "model_name": "claude-opus-4-20250514",
-        "shutdown_date": "Not sooner than May 14, 2026",
-        "announcement_date": "N/A",
-        "replacement_model": null
-      },
-      "tags": [
-        "Anthropic",
-        "shutdown-Not "
-      ]
-    },
-    {
-      "id": "anthropic-claude-opus-4-1-20250805",
-      "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-opus-4-1-20250805",
-      "title": "Anthropic Deprecation",
-      "content_text": "",
-      "date_published": "2025-08-26T18:51:55.745818+00:00",
-      "_deprecation": {
-        "provider": "Anthropic",
-        "model_id": "claude-opus-4-1-20250805",
-        "model_name": "claude-opus-4-1-20250805",
-        "shutdown_date": "Not sooner than August 5, 2026",
-        "announcement_date": "N/A",
-        "replacement_model": null
-      },
-      "tags": [
-        "Anthropic",
-        "shutdown-Not "
       ]
     },
     {
