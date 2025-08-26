@@ -804,16 +804,8 @@ footer a:hover {
     margin: 60px 0;
 }
 
-.section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 30px;
-}
-
-.section-header h2 {
+.data-preview h2 {
     margin-bottom: 16px;
-    margin-top: 0;
 }
 
 /* Filter badges */
@@ -821,7 +813,11 @@ footer a:hover {
     display: flex;
     gap: 8px;
     align-items: center;
-    flex-wrap: wrap;
+    margin-bottom: 20px;
+    margin-top: 24px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 2px 0;
 }
 
 .filter-badge {
@@ -838,6 +834,8 @@ footer a:hover {
     cursor: pointer;
     border: none;
     background: #333;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .filter-badge:hover {
@@ -891,7 +889,7 @@ footer a:hover {
 
 .preview-intro {
     color: #999;
-    margin-bottom: 30px;
+    margin-bottom: 0;
     line-height: 1.6;
 }
 
@@ -1225,15 +1223,6 @@ footer a:hover {
 
 /* Responsive adjustments for data table */
 @media (max-width: 768px) {
-    .section-header {
-        flex-direction: column;
-        gap: 20px;
-    }
-    
-    .filter-badges {
-        align-self: flex-start;
-    }
-
     .deprecation-table {
         font-size: 11px;
     }
@@ -1252,5 +1241,11 @@ footer a:hover {
     .filter-badge {
         font-size: 9px;
         padding: 4px 8px;
+    }
+    
+    .filter-badges {
+        gap: 6px;
+        margin-top: 20px;
+        margin-bottom: 16px;
     }
 }
