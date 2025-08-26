@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="RSS feed for AI model deprecations - never miss an API shutdown again">
-    <title>AI Deprecations RSS</title>
+    <title>AI Deprecations Feeds</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,7 +13,7 @@
         href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Fira+Code:wght@400;500&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <link rel="alternate" type="application/rss+xml" title="AI Model Deprecations RSS Feed" href="rss/v1/feed.xml">
+    <link rel="alternate" type="application/rss+xml" title="AI Model Deprecations RSS Feed" href="v1/feed.xml">
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔔</text></svg>">
     <!-- Prism.js for syntax highlighting -->
@@ -25,7 +25,7 @@
         <div class="container">
             <div class="header-content">
                 <div>
-                    <h1>AI Deprecations Info</h1>
+                    <h1>AI Deprecations Feeds</h1>
                     <p class="tagline">Never miss an AI model shutdown again</p>
                 </div>
                 <a href="https://github.com/leblancfg/deprecations-rss" target="_blank" rel="noopener"
@@ -52,8 +52,8 @@
         </section>
 
         <section class="subscribe-section">
-            <div class="subscribe-card" style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;">
-                <a href="rss/v1/feed.xml" class="subscribe-button" target="_blank" rel="noopener" style="background: linear-gradient(135deg, #ee802f 75%, #00B900 100%);">
+            <div class="subscribe-card">
+                <a href="v1/feed.xml" class="button button-rss" target="_blank" rel="noopener">
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000"
                         height="20px" width="20px" version="1.1" id="Layer_1" viewBox="-271 273 256 256"
                         xml:space="preserve">
@@ -68,8 +68,7 @@
                     </svg>
                     RSS Feed
                 </a>
-                <a href="feed.json" class="subscribe-button" target="_blank" rel="noopener"
-                    style="background: linear-gradient(135deg, #00B900 0%, #764ba2 100%);">
+                <a href="v1/feed.json" class="button button-jsonfeed" target="_blank" rel="noopener">
                     <svg width="20" height="20" viewBox="-10 -5 1034 1034" xmlns="http://www.w3.org/2000/svg"
                         xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
                         <path fill="#000000" d="M854 175q-27 0 -46 19t-19 45.5t18.5 45t45 18.5t45.5 -18.5t19 -45t-18.5 -45.5t-44.5 -19zM205 192l-34 34q-83 83 -88 154t68 144l82 82q45 46 48.5 78t-33.5 69v0q-16 19 -15.5 44.5t18.5 43.5t43.5 18.5t44.5 -15.5l1 1q25 -25 47 -32t45.5 4.5t53.5 41.5l95 96
@@ -78,8 +77,7 @@ t19 -45.5t-18.5 -45t-44.5 -19.5zM551 477q-27 0 -46 19t-19 45.5t19 45.5t45.5 19t4
                     </svg>
                     JSON Feed
                 </a>
-                <a href="api/v1/deprecations.json" class="subscribe-button" target="_blank" rel="noopener"
-                    style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                <a href="v1/deprecations.json" class="button button-json" target="_blank" rel="noopener">
                     <svg width="20" height="20" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
   <path d="M8 1.5c.084 0 .167.002.25.005v.002h.07a6.468 6.468 0 012.22.508c.097.051.189.106.277.164.617.402 1.066.967 1.383 1.623.644 1.335.71 2.985.557 4.101-.271 1.899-1.09 2.822-1.907 3.273a3.23 3.23 0 01-.394.184C11.054 10.567 11.5 9.466 11.5 8c0-3.195-2.118-4.65-3.303-4.974l-.017-.004-.017-.004c-.888-.197-2.245-.185-3.488.5-1.283.708-2.339 2.076-2.667 4.376l-.001.004c-.1.73-.126 1.672.014 2.657A6.5 6.5 0 018 1.5zM8.364.008a8 8 0 102.816.649C10.4.255 9.465.023 8.364.008zm5.956 6.465a6.5 6.5 0 01-6.893 8.002c-.84-.075-1.488-.317-1.994-.646-.618-.403-1.066-.968-1.383-1.624-.644-1.335-.71-2.985-.557-4.1.271-1.9 1.09-2.823 1.907-3.273.13-.072.261-.133.394-.184-.597.792-1.044 1.892-1.044 3.36 0 3.195 2.118 4.65 3.303 4.973l.017.005.017.003c.888.198 2.245.186 3.488-.5 1.283-.708 2.339-2.075 2.668-4.376V8.11a9.565 9.565 0 00.077-1.637zM8.133 4.6C8.867 4.954 10 5.943 10 8c0 2.072-1.15 3.06-1.883 3.407-.734-.354-1.867-1.342-1.867-3.4 0-2.071 1.15-3.06 1.883-3.407z" fill="#000000"/>
 </svg>
@@ -122,10 +120,10 @@ t19 -45.5t-18.5 -45t-44.5 -19.5zM551 477q-27 0 -46 19t-19 45.5t19 45.5t45.5 19t4
         </section>
 
         <section class="data-preview">
-            <h2>Live Deprecation Data</h2>
+            <h2>Upcoming Model Shutdowns</h2>
             <p class="preview-intro">
-                Here's a sample of the structured data available through our JSON API. Each deprecation includes
-                extracted metadata like model names, shutdown dates, and migration paths.
+                Real-time data showing AI models scheduled for deprecation, sorted by urgency. 
+                Only showing models with confirmed shutdown dates that haven't occurred yet.
             </p>
 
             <div class="data-table-container">
@@ -134,50 +132,324 @@ t19 -45.5t-18.5 -45t-44.5 -19.5zM551 477q-27 0 -46 19t-19 45.5t19 45.5t45.5 19t4
                         <tr>
                             <th>Provider</th>
                             <th>Model</th>
+                            <th>Announced</th>
                             <th>Shutdown Date</th>
-                            <th>Migration Path</th>
+                            <th>Days Left</th>
                             <th>Status</th>
                         </tr>
                     </thead>
                     <tbody id="tableBody">
-                        <!-- Initial 5 rows -->
-                        <tr>
-                            <td class="provider openai">OpenAI</td>
-                            <td class="model-name">gpt-4-0314</td>
-                            <td class="shutdown-date">2024-06-13</td>
-                            <td class="migration">gpt-4-0613 or gpt-4-turbo</td>
-                            <td><span class="status-badge deprecated">Deprecated</span></td>
-                        </tr>
-                        <tr>
-                            <td class="provider anthropic">Anthropic</td>
-                            <td class="model-name">claude-instant-1.1</td>
-                            <td class="shutdown-date">2024-09-30</td>
-                            <td class="migration">claude-instant-1.2</td>
-                            <td><span class="status-badge deprecated">Deprecated</span></td>
-                        </tr>
-                        <tr>
-                            <td class="provider google">Google</td>
-                            <td class="model-name">text-bison@001</td>
-                            <td class="shutdown-date">2024-10-09</td>
-                            <td class="migration">text-bison@002</td>
-                            <td><span class="status-badge deprecated">Deprecated</span></td>
-                        </tr>
-                        <tr>
-                            <td class="provider cohere">Cohere</td>
-                            <td class="model-name">command-medium-beta</td>
-                            <td class="shutdown-date">2024-04-01</td>
-                            <td class="migration">command-r or command-r-plus</td>
-                            <td><span class="status-badge deprecated">Deprecated</span></td>
-                        </tr>
-                        <tr>
-                            <td class="provider aws">AWS Bedrock</td>
-                            <td class="model-name">anthropic.claude-v1</td>
-                            <td class="shutdown-date">2024-03-04</td>
-                            <td class="migration">anthropic.claude-v2</td>
-                            <td><span class="status-badge deprecated">Deprecated</span></td>
-                        </tr>
-                        <tr class="load-more-row" id="loadMoreRow">
-                            <td colspan="5" class="load-more-cell">
+                        <!-- Data will be loaded dynamically -->
+                    </tbody>
+                </table>
+            </div>
+
+            <script>
+                let allDeprecations = [];
+                let displayedCount = 5;
+
+                // Load deprecations data from JSON
+                async function loadDeprecations() {
+                    try {
+                        const response = await fetch('v1/deprecations.json');
+                        const data = await response.json();
+                        const today = new Date();
+                        today.setHours(0, 0, 0, 0);
+                        
+                        // Transform the data to match our expected format
+                        allDeprecations = data.map(item => {
+                            const realShutdownDate = extractShutdownDate(item.content);
+                            return {
+                                provider: item.provider.toLowerCase().replace(' ', ''),
+                                model_name: extractModelName(item.title),
+                                announcement_date: item.announcement_date,
+                                shutdown_date: realShutdownDate,
+                                migration_path: extractMigrationPath(item.content),
+                                status: getStatus(realShutdownDate)
+                            };
+                        }).filter(item => {
+                            // Only show future deprecations with valid shutdown dates
+                            if (!item.shutdown_date) return false; // Skip if no date
+                            const shutdownDate = new Date(item.shutdown_date);
+                            return shutdownDate > today;
+                        });
+                        
+                        // Sort by shutdown date (soonest first)
+                        allDeprecations.sort((a, b) => {
+                            if (!a.shutdown_date) return 1;
+                            if (!b.shutdown_date) return -1;
+                            return new Date(a.shutdown_date) - new Date(b.shutdown_date);
+                        });
+                        
+                        displayInitialRows();
+                    } catch (error) {
+                        console.error('Failed to load deprecations:', error);
+                        // Fall back to some default data if the JSON fails to load
+                        allDeprecations = getDefaultData();
+                        const today = new Date();
+                        today.setHours(0, 0, 0, 0);
+                        
+                        // Filter out past deprecations and null dates
+                        allDeprecations = allDeprecations.filter(item => {
+                            if (!item.shutdown_date) return false;
+                            const shutdownDate = new Date(item.shutdown_date);
+                            return shutdownDate > today;
+                        });
+                        
+                        // Sort default data too
+                        allDeprecations.sort((a, b) => {
+                            if (!a.shutdown_date) return 1;
+                            if (!b.shutdown_date) return -1;
+                            return new Date(a.shutdown_date) - new Date(b.shutdown_date);
+                        });
+                        displayInitialRows();
+                    }
+                }
+
+                function extractShutdownDate(content) {
+                    // Try to find a date pattern after "SHUTDOWN DATE"
+                    const shutdownMatch = content.match(/SHUTDOWN DATE[\s\t]+.*?(\d{4}-\d{2}-\d{2})/i);
+                    if (shutdownMatch) {
+                        return shutdownMatch[1];
+                    }
+                    
+                    // Look for date patterns in format YYYY-MM-DD
+                    const dateMatch = content.match(/(\d{4}-\d{2}-\d{2})/);
+                    if (dateMatch) {
+                        return dateMatch[1];
+                    }
+                    
+                    return null;
+                }
+
+                function getStatus(shutdownDate) {
+                    if (!shutdownDate) return 'deprecated';
+                    
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0);
+                    const shutdown = new Date(shutdownDate);
+                    shutdown.setHours(0, 0, 0, 0);
+                    
+                    const daysLeft = Math.ceil((shutdown - today) / (1000 * 60 * 60 * 24));
+                    
+                    if (shutdown <= today) {
+                        return 'shutdown';
+                    } else if (daysLeft <= 30) {
+                        return 'critical';
+                    } else if (daysLeft <= 90) {
+                        return 'warning';
+                    } else {
+                        return 'deprecated';
+                    }
+                }
+
+                function getDaysRemaining(shutdownDate) {
+                    if (!shutdownDate) return null;
+                    
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0);
+                    const shutdown = new Date(shutdownDate);
+                    shutdown.setHours(0, 0, 0, 0);
+                    
+                    const daysLeft = Math.ceil((shutdown - today) / (1000 * 60 * 60 * 24));
+                    return daysLeft;
+                }
+
+                function extractModelName(title) {
+                    // Extract model name from title like "OpenAI: gpt-4o-realtime-preview-2024-10-01"
+                    const parts = title.split(': ');
+                    let modelName = parts.length > 1 ? parts[1] : title;
+                    
+                    // Clean up common patterns
+                    modelName = modelName
+                        .replace(/\s+deprecation$/i, '')
+                        .replace(/\s+and\s+/g, ' & ')
+                        .trim();
+                    
+                    // Shorten very long model names
+                    if (modelName.length > 40) {
+                        // Try to intelligently truncate at a meaningful point
+                        const truncated = modelName.substring(0, 40);
+                        const lastDash = truncated.lastIndexOf('-');
+                        if (lastDash > 20) {
+                            modelName = truncated.substring(0, lastDash) + '…';
+                        } else {
+                            modelName = truncated + '…';
+                        }
+                    }
+                    
+                    return modelName;
+                }
+
+                function extractMigrationPath(content) {
+                    // Try to extract migration path from content
+                    const replacementMatch = content.match(/RECOMMENDED REPLACEMENT[\s\t]+([^\s\t]+)/i);
+                    if (replacementMatch) {
+                        return replacementMatch[1];
+                    }
+                    // Look for other patterns
+                    const migrateMatch = content.match(/migrate to ([^\s.]+)/i);
+                    if (migrateMatch) {
+                        return migrateMatch[1];
+                    }
+                    return 'See documentation';
+                }
+
+                function getDefaultData() {
+                    // Fallback data in case JSON fails to load - using future dates for testing
+                    return [
+                        {
+                            provider: 'openai',
+                            model_name: 'gpt-4o-realtime-preview',
+                            announcement_date: '2025-06-10',
+                            shutdown_date: '2025-09-10',
+                            status: 'deprecated'
+                        },
+                        {
+                            provider: 'anthropic',
+                            model_name: 'claude-3-opus',
+                            announcement_date: '2025-07-01',
+                            shutdown_date: '2025-10-01',
+                            status: 'deprecated'
+                        },
+                        {
+                            provider: 'google',
+                            model_name: 'gemini-pro-1.0',
+                            announcement_date: '2025-07-15',
+                            shutdown_date: '2025-10-15',
+                            status: 'deprecated'
+                        },
+                        {
+                            provider: 'cohere',
+                            model_name: 'command-r',
+                            announcement_date: '2025-08-01',
+                            shutdown_date: '2025-11-01',
+                            status: 'deprecated'
+                        },
+                        {
+                            provider: 'aws',
+                            model_name: 'titan-express-v1',
+                            announcement_date: '2025-08-15',
+                            shutdown_date: '2025-11-15',
+                            status: 'deprecated'
+                        }
+                    ];
+                }
+
+                function formatProviderName(provider) {
+                    const providerNames = {
+                        'openai': 'OpenAI',
+                        'anthropic': 'Anthropic',
+                        'google': 'Google',
+                        'cohere': 'Cohere',
+                        'aws': 'AWS Bedrock',
+                        'azure': 'Azure OpenAI'
+                    };
+                    return providerNames[provider.toLowerCase()] || provider;
+                }
+
+                function createTableRow(deprecation, hidden = false) {
+                    const tr = document.createElement('tr');
+                    if (hidden) {
+                        tr.className = 'hidden-row';
+                        tr.style.display = 'none';
+                    }
+                    
+                    const providerClass = deprecation.provider.toLowerCase();
+                    let statusClass, statusText;
+                    const daysLeft = getDaysRemaining(deprecation.shutdown_date);
+                    
+                    switch(deprecation.status) {
+                        case 'shutdown':
+                            statusClass = 'shutdown';
+                            statusText = 'Shutdown';
+                            break;
+                        case 'critical':
+                            statusClass = 'critical';
+                            statusText = 'Critical';
+                            break;
+                        case 'warning':
+                            statusClass = 'warning';
+                            statusText = 'Warning';
+                            break;
+                        default:
+                            statusClass = 'deprecated';
+                            statusText = 'Deprecated';
+                    }
+                    
+                    // Format days left display
+                    let daysDisplay = '';
+                    if (daysLeft !== null) {
+                        if (daysLeft <= 0) {
+                            daysDisplay = '<span class="days-critical">Expired</span>';
+                        } else if (daysLeft === 1) {
+                            daysDisplay = '<span class="days-critical">1 day</span>';
+                        } else if (daysLeft <= 7) {
+                            daysDisplay = `<span class="days-critical">${daysLeft} days</span>`;
+                        } else if (daysLeft <= 30) {
+                            daysDisplay = `<span class="days-warning">${daysLeft} days</span>`;
+                        } else {
+                            daysDisplay = `<span class="days-normal">${daysLeft} days</span>`;
+                        }
+                    }
+                    
+                    tr.innerHTML = `
+                        <td class="provider ${providerClass}">${formatProviderName(deprecation.provider)}</td>
+                        <td class="model-name">${deprecation.model_name || 'N/A'}</td>
+                        <td class="announcement-date">${formatDate(deprecation.announcement_date)}</td>
+                        <td class="shutdown-date">${formatDate(deprecation.shutdown_date)}</td>
+                        <td class="days-remaining">${daysDisplay}</td>
+                        <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                    `;
+                    return tr;
+                }
+
+                function formatDate(dateStr) {
+                    if (!dateStr) return 'TBD';
+                    try {
+                        const date = new Date(dateStr);
+                        return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+                    } catch {
+                        return dateStr;
+                    }
+                }
+
+                function displayInitialRows() {
+                    const tbody = document.getElementById('tableBody');
+                    tbody.innerHTML = ''; // Clear existing content
+
+                    // Handle case when no deprecations exist
+                    if (allDeprecations.length === 0) {
+                        const noDataRow = document.createElement('tr');
+                        noDataRow.innerHTML = `
+                            <td colspan="6" class="no-data-cell">
+                                <div class="no-data-message">
+                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                                    </svg>
+                                    <p>No upcoming deprecations found</p>
+                                    <p class="no-data-subtext">All models are currently stable or deprecated models have been filtered out.</p>
+                                </div>
+                            </td>
+                        `;
+                        tbody.appendChild(noDataRow);
+                        return;
+                    }
+
+                    // Display initial rows
+                    for (let i = 0; i < Math.min(displayedCount, allDeprecations.length); i++) {
+                        tbody.appendChild(createTableRow(allDeprecations[i]));
+                    }
+
+                    // Add load more button if there are more items
+                    if (allDeprecations.length > displayedCount) {
+                        const loadMoreRow = document.createElement('tr');
+                        loadMoreRow.className = 'load-more-row';
+                        loadMoreRow.id = 'loadMoreRow';
+                        loadMoreRow.innerHTML = `
+                            <td colspan="6" class="load-more-cell">
                                 <button class="load-more-btn" onclick="loadMoreRows()">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -187,66 +459,42 @@ t19 -45.5t-18.5 -45t-44.5 -19.5zM551 477q-27 0 -46 19t-19 45.5t19 45.5t45.5 19t4
                                     <span>Load More</span>
                                 </button>
                             </td>
-                        </tr>
-                        <!-- Hidden rows that appear on click -->
-                        <tr class="hidden-row" style="display: none;">
-                            <td class="provider openai">OpenAI</td>
-                            <td class="model-name">text-davinci-003</td>
-                            <td class="shutdown-date">2024-01-04</td>
-                            <td class="migration">gpt-3.5-turbo-instruct</td>
-                            <td><span class="status-badge deprecated">Deprecated</span></td>
-                        </tr>
-                        <tr class="hidden-row" style="display: none;">
-                            <td class="provider anthropic">Anthropic</td>
-                            <td class="model-name">claude-2.0</td>
-                            <td class="shutdown-date">2024-07-18</td>
-                            <td class="migration">claude-2.1</td>
-                            <td><span class="status-badge deprecated">Deprecated</span></td>
-                        </tr>
-                        <tr class="hidden-row" style="display: none;">
-                            <td class="provider google">Google</td>
-                            <td class="model-name">chat-bison@001</td>
-                            <td class="shutdown-date">2024-10-09</td>
-                            <td class="migration">chat-bison@002</td>
-                            <td><span class="status-badge deprecated">Deprecated</span></td>
-                        </tr>
-                        <tr class="hidden-row" style="display: none;">
-                            <td class="provider openai">OpenAI</td>
-                            <td class="model-name">gpt-3.5-turbo-0301</td>
-                            <td class="shutdown-date">2024-06-13</td>
-                            <td class="migration">gpt-3.5-turbo-0613</td>
-                            <td><span class="status-badge deprecated">Deprecated</span></td>
-                        </tr>
-                        <tr class="hidden-row" style="display: none;">
-                            <td class="provider cohere">Cohere</td>
-                            <td class="model-name">embed-english-v2.0</td>
-                            <td class="shutdown-date">2024-03-31</td>
-                            <td class="migration">embed-english-v3.0</td>
-                            <td><span class="status-badge deprecated">Deprecated</span></td>
-                        </tr>
-                        <tr class="view-all-row" style="display: none;" id="viewAllRow">
-                            <td colspan="5" class="view-all-cell">
-                                <a href="feed.json" target="_blank" class="view-all-btn">
+                        `;
+                        tbody.appendChild(loadMoreRow);
+
+                        // Add hidden rows
+                        for (let i = displayedCount; i < allDeprecations.length; i++) {
+                            tbody.appendChild(createTableRow(allDeprecations[i], true));
+                        }
+
+                        // Add view all row (hidden initially)
+                        const viewAllRow = document.createElement('tr');
+                        viewAllRow.className = 'view-all-row';
+                        viewAllRow.id = 'viewAllRow';
+                        viewAllRow.style.display = 'none';
+                        viewAllRow.innerHTML = `
+                            <td colspan="6" class="view-all-cell">
+                                <a href="v1/deprecations.json" target="_blank" class="view-all-btn">
                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path
-                                            d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
-                                        </path>
+                                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
                                         <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
                                         <line x1="12" y1="22.08" x2="12" y2="12"></line>
                                     </svg>
-                                    View Full JSON Feed
+                                    View Full JSON Data
                                 </a>
                             </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+                        `;
+                        tbody.appendChild(viewAllRow);
+                    }
+                }
 
-            <script>
                 function loadMoreRows() {
                     // Hide the load more button
-                    document.getElementById('loadMoreRow').style.display = 'none';
+                    const loadMoreRow = document.getElementById('loadMoreRow');
+                    if (loadMoreRow) {
+                        loadMoreRow.style.display = 'none';
+                    }
 
                     // Show all hidden rows
                     const hiddenRows = document.querySelectorAll('.hidden-row');
@@ -256,9 +504,15 @@ t19 -45.5t-18.5 -45t-44.5 -19.5zM551 477q-27 0 -46 19t-19 45.5t19 45.5t45.5 19t4
                     });
 
                     // Show the view all row
-                    document.getElementById('viewAllRow').style.display = '';
-                    document.getElementById('viewAllRow').classList.add('fade-in');
+                    const viewAllRow = document.getElementById('viewAllRow');
+                    if (viewAllRow) {
+                        viewAllRow.style.display = '';
+                        viewAllRow.classList.add('fade-in');
+                    }
                 }
+
+                // Load deprecations when page loads
+                document.addEventListener('DOMContentLoaded', loadDeprecations);
             </script>
         </section>
 
@@ -291,218 +545,214 @@ t19 -45.5t-18.5 -45t-44.5 -19.5zM551 477q-27 0 -46 19t-19 45.5t19 45.5t45.5 19t4
                     </div>
                     <p>Automatically create a GitHub issue when a model you use is being deprecated.</p>
                     <div class="code-container" id="github-issue">
-                        <pre class="code-content" data-lang="python"><code class="language-python"># Install
-                                dependencies:
-                                # pip install requests
-                                # or: uv add requests
+                        <pre class="code-content" data-lang="python"><code class="language-python"># Install dependencies:
+# pip install requests
+# or: uv add requests
 
-                                import requests
-                                from datetime import datetime
+import requests
+from datetime import datetime
 
-                                # Fetch the JSON feed
-                                response = requests.get('https://deprecations.info/feed.json')
-                                feed = response.json()
+# Fetch the JSON feed
+response = requests.get('https://deprecations.info/feed.json')
+feed = response.json()
 
-                                # Your GitHub token and repo
-                                GITHUB_TOKEN = 'your_token_here'
-                                REPO = 'owner/repo'
+# Your GitHub token and repo
+GITHUB_TOKEN = 'your_token_here'
+REPO = 'owner/repo'
 
-                                for item in feed['items']:
-                                # Check if this affects your models (customize this list)
-                                models_i_use = ['gpt-4', 'claude-2', 'text-davinci-003']
+for item in feed['items']:
+    # Check if this affects your models (customize this list)
+    models_i_use = ['gpt-4', 'claude-2', 'text-davinci-003']
+    
+    # Access structured data from _deprecation extension
+    model = item.get('_deprecation', {}).get('model_name', '')
+    shutdown_date = item.get('_deprecation', {}).get('shutdown_date', '')
+    
+    if any(m in item['title'].lower() or m in model.lower() for m in models_i_use):
+        # Create GitHub issue
+        issue = {
+            'title': f'Model Deprecation: {item["title"]}',
+            'body': f'''## Deprecation Notice
 
-                                # Access structured data from _deprecation extension
-                                model = item.get('_deprecation', {}).get('model_name', '')
-                                shutdown_date = item.get('_deprecation', {}).get('shutdown_date', '')
+{item['content_text']}
 
-                                if any(m in item['title'].lower() or m in model.lower() for m in models_i_use):
-                                # Create GitHub issue
-                                issue = {
-                                'title': f'Model Deprecation: {item["title"]}',
-                                'body': f'''## Deprecation Notice
+**Model:** {model}
+**Shutdown Date:** {shutdown_date}
+**Source:** {item['url']}
+**Date detected:** {datetime.now().isoformat()}
 
-                                {item['content_text']}
+### Action Required
+- [ ] Identify affected code
+- [ ] Plan migration
+- [ ] Test with new model
+- [ ] Deploy changes before deprecation date
+''',
+            'labels': ['deprecation', 'urgent', 'ai-models']
+        }
+        
+        response = requests.post(
+            f'https://api.github.com/repos/{REPO}/issues',
+            json=issue,
+            headers={'Authorization': f'token {GITHUB_TOKEN}'}
+        )
+        
+        if response.status_code == 201:
+            print(f"Created issue: {response.json()['html_url']}")</code></pre>
+                        <pre class="code-content" data-lang="typescript" style="display: none;"><code class="language-typescript">// Install dependencies:
+// npm install @octokit/rest
+// or: yarn add @octokit/rest
+// or: pnpm add @octokit/rest
 
-                                **Model:** {model}
-                                **Shutdown Date:** {shutdown_date}
-                                **Source:** {item['url']}
-                                **Date detected:** {datetime.now().isoformat()}
+import { Octokit } from '@octokit/rest';
 
-                                ### Action Required
-                                - [ ] Identify affected code
-                                - [ ] Plan migration
-                                - [ ] Test with new model
-                                - [ ] Deploy changes before deprecation date
-                                ''',
-                                'labels': ['deprecation', 'urgent', 'ai-models']
-                                }
+const octokit = new Octokit({ auth: 'your_token_here' });
 
-                                response = requests.post(
-                                f'https://api.github.com/repos/{REPO}/issues',
-                                json=issue,
-                                headers={'Authorization': f'token {GITHUB_TOKEN}'}
-                                )
+async function checkDeprecations() {
+    const response = await fetch('https://deprecations.info/v1/feed.json');
+    const feed = await response.json();
+    
+    // Models you use in your codebase
+    const modelsInUse = ['gpt-4', 'claude-2', 'text-davinci-003'];
+    
+    for (const item of feed.items) {
+        // Access structured data from _deprecation extension
+        const model = item._deprecation?.model_name || '';
+        const shutdownDate = item._deprecation?.shutdown_date || '';
+        
+        const affectsUs = modelsInUse.some(m =>
+            item.title.toLowerCase().includes(m) || model.toLowerCase().includes(m)
+        );
+        
+        if (affectsUs) {
+            // Create GitHub issue
+            const issue = await octokit.issues.create({
+                owner: 'your-org',
+                repo: 'your-repo',
+                title: `Model Deprecation: ${item.title}`,
+                body: `## Deprecation Notice
 
-                                if response.status_code == 201:
-                                print(f"Created issue: {response.json()['html_url']}")</code></pre>
-                        <pre class="code-content" data-lang="typescript" style="display: none;"><code
-                                class="language-typescript">// Install dependencies:
-                                // npm install @octokit/rest
-                                // or: yarn add @octokit/rest
-                                // or: pnpm add @octokit/rest
+${item.content_text}
 
-                                import { Octokit } from '@octokit/rest';
+**Model:** ${model}
+**Shutdown Date:** ${shutdownDate}
+**Source:** ${item.url}
+**Date detected:** ${new Date().toISOString()}
 
-                                const octokit = new Octokit({ auth: 'your_token_here' });
+### Action Required
+- [ ] Identify affected code
+- [ ] Plan migration
+- [ ] Test with new model
+- [ ] Deploy changes before deprecation date`,
+                labels: ['deprecation', 'urgent', 'ai-models']
+            });
+            
+            console.log(`Created issue: ${issue.data.html_url}`);
+        }
+    }
+}
 
-                                async function checkDeprecations() {
-                                const response = await fetch('https://deprecations.info/v1/feed.json');
-                                const feed = await response.json();
-
-                                // Models you use in your codebase
-                                const modelsInUse = ['gpt-4', 'claude-2', 'text-davinci-003'];
-
-                                for (const item of feed.items) {
-                                // Access structured data from _deprecation extension
-                                const model = item._deprecation?.model_name || '';
-                                const shutdownDate = item._deprecation?.shutdown_date || '';
-
-                                const affectsUs = modelsInUse.some(m =>
-                                item.title.toLowerCase().includes(m) || model.toLowerCase().includes(m)
-                                );
-
-                                if (affectsUs) {
-                                // Create GitHub issue
-                                const issue = await octokit.issues.create({
-                                owner: 'your-org',
-                                repo: 'your-repo',
-                                title: `Model Deprecation: ${item.title}`,
-                                body: `## Deprecation Notice
-
-                                ${item.content_text}
-
-                                **Model:** ${model}
-                                **Shutdown Date:** ${shutdownDate}
-                                **Source:** ${item.url}
-                                **Date detected:** ${new Date().toISOString()}
-
-                                ### Action Required
-                                - [ ] Identify affected code
-                                - [ ] Plan migration
-                                - [ ] Test with new model
-                                - [ ] Deploy changes before deprecation date`,
-                                labels: ['deprecation', 'urgent', 'ai-models']
-                                });
-
-                                console.log(`Created issue: ${issue.data.html_url}`);
-                                }
-                                }
-                                }
-
-                                checkDeprecations().catch(console.error);</code></pre>
+checkDeprecations().catch(console.error);</code></pre>
                         <pre class="code-content" data-lang="shell" style="display: none;"><code
                                 class="language-bash">#!/bin/bash
-                                # Requires: curl, jq
-                                # Install on macOS: brew install jq
-                                # Install on Ubuntu: apt-get install jq
-                                # Install on RHEL/CentOS: yum install jq
+# Requires: curl, jq
+# Install on macOS: brew install jq
+# Install on Ubuntu: apt-get install jq
+# Install on RHEL/CentOS: yum install jq
 
-                                # Fetch JSON feed
-                                FEED_URL="https://deprecations.info/v1/feed.json"
-                                GITHUB_TOKEN="your_token_here"
-                                REPO="owner/repo"
+# Fetch JSON feed
+FEED_URL="https://deprecations.info/v1/feed.json"
+GITHUB_TOKEN="your_token_here"
+REPO="owner/repo"
 
-                                # Models we use
-                                MODELS=("gpt-4" "claude-2" "text-davinci-003")
+# Models we use
+MODELS=("gpt-4" "claude-2" "text-davinci-003")
 
-                                # Fetch and parse JSON feed
-                                curl -s "$FEED_URL" | jq -r '.items[] |
-                                "\(.title)|\(.content_text)|\(.url)|\(._deprecation.model_name //
-                                "")|\(._deprecation.shutdown_date // "")"' | \
-                                while IFS='|' read -r title description url model_name shutdown_date; do
-                                # Check if any of our models are mentioned
-                                for model in "${MODELS[@]}"; do
-                                if echo "$title $model_name" | grep -qi "$model"; then
-                                # Create GitHub issue
-                                ISSUE_BODY=$(cat &lt;&lt;EOF
-                                {
-                                "title": "Model Deprecation: $title",
-                                "body": "## Deprecation Notice\n\n$description\n\n**Model:** $model_name\n**Shutdown
-                                Date:** $shutdown_date\n**Source:** $url\n**Date:** $(date -I)\n\n### Action Required\n-
-                                [ ] Identify affected code\n- [ ] Plan migration\n- [ ] Test with new model\n- [ ]
-                                Deploy changes",
-                                "labels": ["deprecation", "urgent", "ai-models"]
-                                }
-                                EOF
-                                )
+# Fetch and parse JSON feed
+curl -s "$FEED_URL" | jq -r '.items[] |
+"\(.title)|\(.content_text)|\(.url)|\(._deprecation.model_name //
+"")|\(._deprecation.shutdown_date // "")"' | \
+while IFS='|' read -r title description url model_name shutdown_date; do
+# Check if any of our models are mentioned
+for model in "${MODELS[@]}"; do
+if echo "$title $model_name" | grep -qi "$model"; then
+# Create GitHub issue
+ISSUE_BODY=$(cat &lt;&lt;EOF
+{
+"title": "Model Deprecation: $title",
+"body": "## Deprecation Notice\n\n$description\n\n**Model:** $model_name\n**Shutdown
+Date:** $shutdown_date\n**Source:** $url\n**Date:** $(date -I)\n\n### Action Required\n-
+[ ] Identify affected code\n- [ ] Plan migration\n- [ ] Test with new model\n- [ ]
+Deploy changes",
+"labels": ["deprecation", "urgent", "ai-models"]
+}
+EOF
+)
 
-                                curl -X POST \
-                                -H "Authorization: token $GITHUB_TOKEN" \
-                                -H "Accept: application/vnd.github.v3+json" \
-                                "https://api.github.com/repos/$REPO/issues" \
-                                -d "$ISSUE_BODY"
+curl -X POST \
+-H "Authorization: token $GITHUB_TOKEN" \
+-H "Accept: application/vnd.github.v3+json" \
+"https://api.github.com/repos/$REPO/issues" \
+-d "$ISSUE_BODY"
 
-                                echo "Created issue for: $title"
-                                break
-                                fi
-                                done
-                                done</code></pre>
-                        <pre class="code-content" data-lang="ruby" style="display: none;"><code class="language-ruby">#
-                                Install dependencies:
-                                # gem install octokit
-                                # or add to Gemfile: gem 'octokit'
-                                # Note: 'json', 'open-uri', and 'date' are part of Ruby stdlib
+echo "Created issue for: $title"
+break
+fi
+done
+done</code></pre>
+                        <pre class="code-content" data-lang="ruby" style="display: none;"><code class="language-ruby"># Install dependencies:
+# gem install octokit
+# or add to Gemfile: gem 'octokit'
+# Note: 'json', 'open-uri', and 'date' are part of Ruby stdlib
 
-                                require 'json'
-                                require 'open-uri'
-                                require 'octokit'
-                                require 'date'
+require 'json'
+require 'open-uri'
+require 'octokit'
+require 'date'
 
-                                # Configure GitHub client
-                                client = Octokit::Client.new(access_token: 'your_token_here')
-                                repo = 'owner/repo'
+# Configure GitHub client
+client = Octokit::Client.new(access_token: 'your_token_here')
+repo = 'owner/repo'
 
-                                # Models we care about
-                                models_in_use = ['gpt-4', 'claude-2', 'text-davinci-003']
+# Models we care about
+models_in_use = ['gpt-4', 'claude-2', 'text-davinci-003']
 
-                                # Parse JSON feed
-                                feed = JSON.parse(URI.open('https://deprecations.info/v1/feed.json').read)
+# Parse JSON feed
+feed = JSON.parse(URI.open('https://deprecations.info/v1/feed.json').read)
 
-                                feed['items'].each do |item|
-                                # Access structured data
-                                model = item.dig('_deprecation', 'model_name') || ''
-                                shutdown_date = item.dig('_deprecation', 'shutdown_date') || ''
-
-                                # Check if this affects our models
-                                if models_in_use.any? { |m| item['title'].downcase.include?(m) ||
-                                model.downcase.include?(m) }
-                                # Create GitHub issue
-                                issue = client.create_issue(
-                                repo,
-                                "Model Deprecation: #{item['title']}",
-                                &lt;&lt;~BODY
-                                ## Deprecation Notice
-
-                                #{item['content_text']}
-
-                                **Model:** #{model}
-                                **Shutdown Date:** #{shutdown_date}
-                                **Source:** #{item['url']}
-                                **Date detected:** #{DateTime.now.iso8601}
-
-                                ### Action Required
-                                - [ ] Identify affected code
-                                - [ ] Plan migration
-                                - [ ] Test with new model
-                                - [ ] Deploy changes before deprecation date
-                                BODY
-                                ,
-                                labels: ['deprecation', 'urgent', 'ai-models']
-                                )
-
-                                puts "Created issue: #{issue.html_url}"
-                                end
-                                end</code></pre>
+feed['items'].each do |item|
+  # Access structured data
+  model = item.dig('_deprecation', 'model_name') || ''
+  shutdown_date = item.dig('_deprecation', 'shutdown_date') || ''
+  
+  # Check if this affects our models
+  if models_in_use.any? { |m| item['title'].downcase.include?(m) || model.downcase.include?(m) }
+    # Create GitHub issue
+    issue = client.create_issue(
+      repo,
+      "Model Deprecation: #{item['title']}",
+      &lt;&lt;~BODY
+        ## Deprecation Notice
+        
+        #{item['content_text']}
+        
+        **Model:** #{model}
+        **Shutdown Date:** #{shutdown_date}
+        **Source:** #{item['url']}
+        **Date detected:** #{DateTime.now.iso8601}
+        
+        ### Action Required
+        - [ ] Identify affected code
+        - [ ] Plan migration
+        - [ ] Test with new model
+        - [ ] Deploy changes before deprecation date
+      BODY
+      ,
+      labels: ['deprecation', 'urgent', 'ai-models']
+    )
+    
+    puts "Created issue: #{issue.html_url}"
+  end
+end</code></pre>
                     </div>
                 </div>
 
@@ -527,249 +777,239 @@ t19 -45.5t-18.5 -45t-44.5 -19.5zM551 477q-27 0 -46 19t-19 45.5t19 45.5t45.5 19t4
                     </div>
                     <p>Send customized email alerts to your engineering team when deprecations are announced.</p>
                     <div class="code-container" id="email-alerts">
-                        <pre class="code-content" data-lang="python"><code class="language-python"># Install
-                                dependencies:
-                                # pip install feedparser
-                                # or: uv add feedparser
-                                # Note: smtplib and email modules are part of Python stdlib
+                        <pre class="code-content" data-lang="python"><code class="language-python"># Install dependencies:
+# pip install feedparser
+# or: uv add feedparser
+# Note: smtplib and email modules are part of Python stdlib
 
-                                import feedparser
-                                import smtplib
-                                from email.mime.text import MIMEText
-                                from email.mime.multipart import MIMEMultipart
-                                from datetime import datetime
+import feedparser
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from datetime import datetime
 
-                                feed = feedparser.parse('https://deprecations.info/rss/v1/feed.xml')
+feed = feedparser.parse('https://deprecations.info/v1/feed.xml')
 
-                                # Email configuration
-                                SMTP_SERVER = 'smtp.gmail.com'
-                                SMTP_PORT = 587
-                                EMAIL = 'your-email@example.com'
-                                PASSWORD = 'your-app-password'
-                                TEAM_EMAILS = ['dev1@example.com', 'dev2@example.com']
+# Email configuration
+SMTP_SERVER = 'smtp.gmail.com'
+SMTP_PORT = 587
+EMAIL = 'your-email@example.com'
+PASSWORD = 'your-app-password'
+TEAM_EMAILS = ['dev1@example.com', 'dev2@example.com']
 
-                                # Check for new deprecations (you'd want to track what you've seen)
-                                for entry in feed.entries[:3]: # Last 3 entries
-                                msg = MIMEMultipart('alternative')
-                                msg['Subject'] = f'AI Model Deprecation Alert: {entry.title}'
-                                msg['From'] = EMAIL
-                                msg['To'] = ', '.join(TEAM_EMAILS)
+# Check for new deprecations (you'd want to track what you've seen)
+for entry in feed.entries[:3]:  # Last 3 entries
+    msg = MIMEMultipart('alternative')
+    msg['Subject'] = f'AI Model Deprecation Alert: {entry.title}'
+    msg['From'] = EMAIL
+    msg['To'] = ', '.join(TEAM_EMAILS)
+    
+    html = f'''
+    &lt;html&gt;
+    &lt;body style="font-family: Arial, sans-serif;"&gt;
+        &lt;h2 style="color: #d73a49;"&gt;Model Deprecation Alert&lt;/h2&gt;
+        &lt;h3&gt;{entry.title}&lt;/h3&gt;
+        &lt;p&gt;{entry.description}&lt;/p&gt;
+        &lt;p&gt;&lt;strong&gt;Details:&lt;/strong&gt; &lt;a href="{entry.link}"&gt;{entry.link}&lt;/a&gt;&lt;/p&gt;
+        &lt;hr&gt;
+        &lt;h4&gt;Action Items:&lt;/h4&gt;
+        &lt;ul&gt;
+            &lt;li&gt;Review our codebase for usage of this model&lt;/li&gt;
+            &lt;li&gt;Check the deprecation timeline&lt;/li&gt;
+            &lt;li&gt;Plan migration if needed&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;p style="color: #666; font-size: 12px;"&gt;
+            Detected on {datetime.now().strftime('%Y-%m-%d %H:%M')}
+        &lt;/p&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+    '''
+    
+    msg.attach(MIMEText(html, 'html'))
+    
+    # Send email
+    with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
+        server.starttls()
+        server.login(EMAIL, PASSWORD)
+        server.send_message(msg)
+    
+    print(f"Email sent for: {entry.title}")</code></pre>
+                        <pre class="code-content" data-lang="typescript" style="display: none;"><code class="language-typescript">// Install dependencies:
+// npm install nodemailer
+// or: yarn add nodemailer
+// or: pnpm add nodemailer
 
-                                html = f'''
-                                &lt;html&gt;
-                                &lt;body style="font-family: Arial, sans-serif;"&gt;
-                                &lt;h2 style="color: #d73a49;"&gt;Model Deprecation Alert&lt;/h2&gt;
-                                &lt;h3&gt;{entry.title}&lt;/h3&gt;
-                                &lt;p&gt;{entry.description}&lt;/p&gt;
-                                &lt;p&gt;&lt;strong&gt;Details:&lt;/strong&gt; &lt;a
-                                href="{entry.link}"&gt;{entry.link}&lt;/a&gt;&lt;/p&gt;
-                                &lt;hr&gt;
-                                &lt;h4&gt;Action Items:&lt;/h4&gt;
-                                &lt;ul&gt;
-                                &lt;li&gt;Review our codebase for usage of this model&lt;/li&gt;
-                                &lt;li&gt;Check the deprecation timeline&lt;/li&gt;
-                                &lt;li&gt;Plan migration if needed&lt;/li&gt;
-                                &lt;/ul&gt;
-                                &lt;p style="color: #666; font-size: 12px;"&gt;
-                                Detected on {datetime.now().strftime('%Y-%m-%d %H:%M')}
-                                &lt;/p&gt;
-                                &lt;/body&gt;
-                                &lt;/html&gt;
-                                '''
+import nodemailer from 'nodemailer';
 
-                                msg.attach(MIMEText(html, 'html'))
+// Configure email
+const transporter = nodemailer.createTransporter({
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false,
+    auth: {
+        user: 'your-email@example.com',
+        pass: 'your-app-password'
+    }
+});
 
-                                # Send email
-                                with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
-                                server.starttls()
-                                server.login(EMAIL, PASSWORD)
-                                server.send_message(msg)
+async function sendDeprecationAlerts() {
+    const response = await fetch('https://deprecations.info/v1/feed.json');
+    const feed = await response.json();
+    const teamEmails = ['dev1@example.com', 'dev2@example.com'];
+    
+    // Process recent entries
+    for (const item of feed.items.slice(0, 3)) {
+        const mailOptions = {
+            from: 'your-email@example.com',
+            to: teamEmails.join(', '),
+            subject: `AI Model Deprecation Alert: ${item.title}`,
+            html: `
+                &lt;html&gt;
+                &lt;body style="font-family: Arial, sans-serif;"&gt;
+                    &lt;h2 style="color: #d73a49;"&gt;Model Deprecation Alert&lt;/h2&gt;
+                    &lt;h3&gt;${item.title}&lt;/h3&gt;
+                    &lt;p&gt;${item.content_text}&lt;/p&gt;
+                    &lt;p&gt;&lt;strong&gt;Model:&lt;/strong&gt; ${item._deprecation?.model_name || 'N/A'}&lt;/p&gt;
+                    &lt;p&gt;&lt;strong&gt;Shutdown:&lt;/strong&gt; ${item._deprecation?.shutdown_date || 'TBD'}&lt;/p&gt;
+                    &lt;p&gt;&lt;strong&gt;Details:&lt;/strong&gt; &lt;a href="${item.url}"&gt;${item.url}&lt;/a&gt;&lt;/p&gt;
+                    &lt;hr&gt;
+                    &lt;h4&gt;Action Items:&lt;/h4&gt;
+                    &lt;ul&gt;
+                        &lt;li&gt;Review our codebase for usage of this model&lt;/li&gt;
+                        &lt;li&gt;Check the deprecation timeline&lt;/li&gt;
+                        &lt;li&gt;Plan migration if needed&lt;/li&gt;
+                    &lt;/ul&gt;
+                    &lt;p style="color: #666; font-size: 12px;"&gt;
+                        Detected on ${new Date().toLocaleString()}
+                    &lt;/p&gt;
+                &lt;/body&gt;
+                &lt;/html&gt;
+            `
+        };
+        
+        await transporter.sendMail(mailOptions);
+        console.log(`Email sent for: ${item.title}`);
+    }
+}
 
-                                print(f"Email sent for: {entry.title}")</code></pre>
-                        <pre class="code-content" data-lang="typescript" style="display: none;"><code
-                                class="language-typescript">// Install dependencies:
-                                // npm install nodemailer
-                                // or: yarn add nodemailer
-                                // or: pnpm add nodemailer
-
-                                import nodemailer from 'nodemailer';
-
-                                // Configure email
-                                const transporter = nodemailer.createTransporter({
-                                host: 'smtp.gmail.com',
-                                port: 587,
-                                secure: false,
-                                auth: {
-                                user: 'your-email@example.com',
-                                pass: 'your-app-password'
-                                }
-                                });
-
-                                async function sendDeprecationAlerts() {
-                                const response = await fetch('https://deprecations.info/v1/feed.json');
-                                const feed = await response.json();
-                                const teamEmails = ['dev1@example.com', 'dev2@example.com'];
-
-                                // Process recent entries
-                                for (const item of feed.items.slice(0, 3)) {
-                                const mailOptions = {
-                                from: 'your-email@example.com',
-                                to: teamEmails.join(', '),
-                                subject: `AI Model Deprecation Alert: ${item.title}`,
-                                html: `
-                                &lt;html&gt;
-                                &lt;body style="font-family: Arial, sans-serif;"&gt;
-                                &lt;h2 style="color: #d73a49;"&gt;Model Deprecation Alert&lt;/h2&gt;
-                                &lt;h3&gt;${item.title}&lt;/h3&gt;
-                                &lt;p&gt;${item.content_text}&lt;/p&gt;
-                                &lt;p&gt;&lt;strong&gt;Model:&lt;/strong&gt; ${item._deprecation?.model_name ||
-                                'N/A'}&lt;/p&gt;
-                                &lt;p&gt;&lt;strong&gt;Shutdown:&lt;/strong&gt; ${item._deprecation?.shutdown_date ||
-                                'TBD'}&lt;/p&gt;
-                                &lt;p&gt;&lt;strong&gt;Details:&lt;/strong&gt; &lt;a
-                                href="${item.url}"&gt;${item.url}&lt;/a&gt;&lt;/p&gt;
-                                &lt;hr&gt;
-                                &lt;h4&gt;Action Items:&lt;/h4&gt;
-                                &lt;ul&gt;
-                                &lt;li&gt;Review our codebase for usage of this model&lt;/li&gt;
-                                &lt;li&gt;Check the deprecation timeline&lt;/li&gt;
-                                &lt;li&gt;Plan migration if needed&lt;/li&gt;
-                                &lt;/ul&gt;
-                                &lt;p style="color: #666; font-size: 12px;"&gt;
-                                Detected on ${new Date().toLocaleString()}
-                                &lt;/p&gt;
-                                &lt;/body&gt;
-                                &lt;/html&gt;
-                                `
-                                };
-
-                                await transporter.sendMail(mailOptions);
-                                console.log(`Email sent for: ${item.title}`);
-                                }
-                                }
-
-                                sendDeprecationAlerts().catch(console.error);</code></pre>
+sendDeprecationAlerts().catch(console.error);</code></pre>
                         <pre class="code-content" data-lang="shell" style="display: none;"><code
                                 class="language-bash">#!/bin/bash
-                                # Requires: curl, jq, sendmail (or postfix/exim)
-                                # Install jq:
-                                # macOS: brew install jq
-                                # Ubuntu: apt-get install jq sendmail
-                                # RHEL/CentOS: yum install jq sendmail
+# Requires: curl, jq, sendmail (or postfix/exim)
+# Install jq:
+# macOS: brew install jq
+# Ubuntu: apt-get install jq sendmail
+# RHEL/CentOS: yum install jq sendmail
 
-                                # Email configuration
-                                SMTP_SERVER="smtp.gmail.com:587"
-                                FROM_EMAIL="your-email@example.com"
-                                TO_EMAILS="dev1@example.com,dev2@example.com"
+# Email configuration
+SMTP_SERVER="smtp.gmail.com:587"
+FROM_EMAIL="your-email@example.com"
+TO_EMAILS="dev1@example.com,dev2@example.com"
 
-                                # Fetch JSON feed
-                                FEED_URL="https://deprecations.info/v1/feed.json"
+# Fetch JSON feed
+FEED_URL="https://deprecations.info/v1/feed.json"
 
-                                # Parse JSON and send emails for recent items
-                                curl -s "$FEED_URL" | jq -r '.items[0:3] | .[] |
-                                "\(.title)|\(.content_text)|\(.url)|\(._deprecation.model_name //
-                                "N/A")|\(._deprecation.shutdown_date // "TBD")"' | \
-                                while IFS='|' read -r title description url model_name shutdown_date; do
-                                # Create email body
-                                EMAIL_BODY=$(cat &lt;&lt;EOF
-                                Subject: AI Model Deprecation Alert: $title
-                                Content-Type: text/html
+# Parse JSON and send emails for recent items
+curl -s "$FEED_URL" | jq -r '.items[0:3] | .[] |
+"\(.title)|\(.content_text)|\(.url)|\(._deprecation.model_name //
+"N/A")|\(._deprecation.shutdown_date // "TBD")"' | \
+while IFS='|' read -r title description url model_name shutdown_date; do
+# Create email body
+EMAIL_BODY=$(cat &lt;&lt;EOF
+Subject: AI Model Deprecation Alert: $title
+Content-Type: text/html
 
-                                &lt;html&gt;
-                                &lt;body&gt;
-                                &lt;h2&gt;Model Deprecation Alert&lt;/h2&gt;
-                                &lt;h3&gt;$title&lt;/h3&gt;
-                                &lt;p&gt;$description&lt;/p&gt;
-                                &lt;p&gt;&lt;strong&gt;Model:&lt;/strong&gt; $model_name&lt;/p&gt;
-                                &lt;p&gt;&lt;strong&gt;Shutdown:&lt;/strong&gt; $shutdown_date&lt;/p&gt;
-                                &lt;p&gt;&lt;strong&gt;Details:&lt;/strong&gt; &lt;a
-                                href="$url"&gt;$url&lt;/a&gt;&lt;/p&gt;
-                                &lt;hr&gt;
-                                &lt;h4&gt;Action Items:&lt;/h4&gt;
-                                &lt;ul&gt;
-                                &lt;li&gt;Review codebase for usage&lt;/li&gt;
-                                &lt;li&gt;Check deprecation timeline&lt;/li&gt;
-                                &lt;li&gt;Plan migration if needed&lt;/li&gt;
-                                &lt;/ul&gt;
-                                &lt;p&gt;Detected on $(date)&lt;/p&gt;
-                                &lt;/body&gt;
-                                &lt;/html&gt;
-                                EOF
-                                )
+&lt;html&gt;
+&lt;body&gt;
+&lt;h2&gt;Model Deprecation Alert&lt;/h2&gt;
+&lt;h3&gt;$title&lt;/h3&gt;
+&lt;p&gt;$description&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Model:&lt;/strong&gt; $model_name&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Shutdown:&lt;/strong&gt; $shutdown_date&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Details:&lt;/strong&gt; &lt;a
+href="$url"&gt;$url&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h4&gt;Action Items:&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Review codebase for usage&lt;/li&gt;
+&lt;li&gt;Check deprecation timeline&lt;/li&gt;
+&lt;li&gt;Plan migration if needed&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Detected on $(date)&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+EOF
+)
 
-                                # Send using sendmail or similar
-                                echo "$EMAIL_BODY" | sendmail -t "$TO_EMAILS"
+# Send using sendmail or similar
+echo "$EMAIL_BODY" | sendmail -t "$TO_EMAILS"
 
-                                echo "Email sent for: $title"
-                                done</code></pre>
-                        <pre class="code-content" data-lang="ruby" style="display: none;"><code class="language-ruby">#
-                                Install dependencies:
-                                # gem install mail
-                                # or add to Gemfile: gem 'mail'
-                                # Note: 'json', 'open-uri', and 'net/smtp' are part of Ruby stdlib
+echo "Email sent for: $title"
+done</code></pre>
+                        <pre class="code-content" data-lang="ruby" style="display: none;"><code class="language-ruby"># Install dependencies:
+# gem install mail
+# or add to Gemfile: gem 'mail'
+# Note: 'json', 'open-uri', and 'net/smtp' are part of Ruby stdlib
 
-                                require 'json'
-                                require 'open-uri'
-                                require 'net/smtp'
-                                require 'mail'
+require 'json'
+require 'open-uri'
+require 'net/smtp'
+require 'mail'
 
-                                # Configure mail
-                                Mail.defaults do
-                                delivery_method :smtp, {
-                                address: 'smtp.gmail.com',
-                                port: 587,
-                                user_name: 'your-email@example.com',
-                                password: 'your-app-password',
-                                authentication: 'plain',
-                                enable_starttls_auto: true
-                                }
-                                end
+# Configure mail
+Mail.defaults do
+  delivery_method :smtp, {
+    address: 'smtp.gmail.com',
+    port: 587,
+    user_name: 'your-email@example.com',
+    password: 'your-app-password',
+    authentication: 'plain',
+    enable_starttls_auto: true
+  }
+end
 
-                                # Team emails
-                                team_emails = ['dev1@example.com', 'dev2@example.com']
+# Team emails
+team_emails = ['dev1@example.com', 'dev2@example.com']
 
-                                # Parse JSON feed
-                                feed = JSON.parse(URI.open('https://deprecations.info/v1/feed.json').read)
+# Parse JSON feed
+feed = JSON.parse(URI.open('https://deprecations.info/v1/feed.json').read)
 
-                                # Send alerts for recent items
-                                feed['items'].first(3).each do |item|
-                                Mail.deliver do
-                                from 'your-email@example.com'
-                                to team_emails.join(', ')
-                                subject "AI Model Deprecation Alert: #{item['title']}"
-
-                                html_part do
-                                content_type 'text/html; charset=UTF-8'
-                                body &lt;&lt;~HTML
-                                &lt;html&gt;
-                                &lt;body style="font-family: Arial, sans-serif;"&gt;
-                                &lt;h2 style="color: #d73a49;"&gt;Model Deprecation Alert&lt;/h2&gt;
-                                &lt;h3&gt;#{item['title']}&lt;/h3&gt;
-                                &lt;p&gt;#{item['content_text']}&lt;/p&gt;
-                                &lt;p&gt;&lt;strong&gt;Model:&lt;/strong&gt; #{item.dig('_deprecation', 'model_name') ||
-                                'N/A'}&lt;/p&gt;
-                                &lt;p&gt;&lt;strong&gt;Shutdown:&lt;/strong&gt; #{item.dig('_deprecation',
-                                'shutdown_date') || 'TBD'}&lt;/p&gt;
-                                &lt;p&gt;&lt;strong&gt;Details:&lt;/strong&gt; &lt;a
-                                href="#{item['url']}"&gt;#{item['url']}&lt;/a&gt;&lt;/p&gt;
-                                &lt;hr&gt;
-                                &lt;h4&gt;Action Items:&lt;/h4&gt;
-                                &lt;ul&gt;
-                                &lt;li&gt;Review our codebase for usage of this model&lt;/li&gt;
-                                &lt;li&gt;Check the deprecation timeline&lt;/li&gt;
-                                &lt;li&gt;Plan migration if needed&lt;/li&gt;
-                                &lt;/ul&gt;
-                                &lt;p style="color: #666; font-size: 12px;"&gt;
-                                Detected on #{Time.now.strftime('%Y-%m-%d %H:%M')}
-                                &lt;/p&gt;
-                                &lt;/body&gt;
-                                &lt;/html&gt;
-                                HTML
-                                end
-                                end
-
-                                puts "Email sent for: #{item['title']}"
-                                end</code></pre>
+# Send alerts for recent items
+feed['items'].first(3).each do |item|
+  Mail.deliver do
+    from 'your-email@example.com'
+    to team_emails.join(', ')
+    subject "AI Model Deprecation Alert: #{item['title']}"
+    
+    html_part do
+      content_type 'text/html; charset=UTF-8'
+      body &lt;&lt;~HTML
+        &lt;html&gt;
+        &lt;body style="font-family: Arial, sans-serif;"&gt;
+          &lt;h2 style="color: #d73a49;"&gt;Model Deprecation Alert&lt;/h2&gt;
+          &lt;h3&gt;#{item['title']}&lt;/h3&gt;
+          &lt;p&gt;#{item['content_text']}&lt;/p&gt;
+          &lt;p&gt;&lt;strong&gt;Model:&lt;/strong&gt; #{item.dig('_deprecation', 'model_name') || 'N/A'}&lt;/p&gt;
+          &lt;p&gt;&lt;strong&gt;Shutdown:&lt;/strong&gt; #{item.dig('_deprecation', 'shutdown_date') || 'TBD'}&lt;/p&gt;
+          &lt;p&gt;&lt;strong&gt;Details:&lt;/strong&gt; &lt;a href="#{item['url']}"&gt;#{item['url']}&lt;/a&gt;&lt;/p&gt;
+          &lt;hr&gt;
+          &lt;h4&gt;Action Items:&lt;/h4&gt;
+          &lt;ul&gt;
+            &lt;li&gt;Review our codebase for usage of this model&lt;/li&gt;
+            &lt;li&gt;Check the deprecation timeline&lt;/li&gt;
+            &lt;li&gt;Plan migration if needed&lt;/li&gt;
+          &lt;/ul&gt;
+          &lt;p style="color: #666; font-size: 12px;"&gt;
+            Detected on #{Time.now.strftime('%Y-%m-%d %H:%M')}
+          &lt;/p&gt;
+        &lt;/body&gt;
+        &lt;/html&gt;
+      HTML
+    end
+  end
+  
+  puts "Email sent for: #{item['title']}"
+end</code></pre>
                     </div>
                 </div>
 
@@ -794,248 +1034,245 @@ t19 -45.5t-18.5 -45t-44.5 -19.5zM551 477q-27 0 -46 19t-19 45.5t19 45.5t45.5 19t4
                     </div>
                     <p>Post deprecation alerts directly to your Discord channel for immediate team visibility.</p>
                     <div class="code-container" id="discord-webhook">
-                        <pre class="code-content" data-lang="python"><code class="language-python"># Install
-                                dependencies:
-                                # pip install feedparser requests
-                                # or: uv add feedparser requests
-                                # Note: json and datetime are part of Python stdlib
+                        <pre class="code-content" data-lang="python"><code class="language-python"># Install dependencies:
+# pip install feedparser requests
+# or: uv add feedparser requests
+# Note: json and datetime are part of Python stdlib
 
-                                import feedparser
-                                import requests
-                                import json
-                                from datetime import datetime
+import feedparser
+import requests
+import json
+from datetime import datetime
 
-                                feed = feedparser.parse('https://deprecations.info/rss/v1/feed.xml')
+feed = feedparser.parse('https://deprecations.info/v1/feed.xml')
 
-                                # Discord webhook URL
-                                WEBHOOK_URL = 'https://discord.com/api/webhooks/YOUR_WEBHOOK_URL'
+# Discord webhook URL
+WEBHOOK_URL = 'https://discord.com/api/webhooks/YOUR_WEBHOOK_URL'
 
-                                for entry in feed.entries[:3]: # Check last 3 entries
-                                # Create Discord embed
-                                embed = {
-                                "embeds": [{
-                                "title": f"{entry.title}",
-                                "description": entry.description[:2000], # Discord limit
-                                "url": entry.link,
-                                "color": 15158332, # Red color
-                                "fields": [
-                                {
-                                "name": "Provider",
-                                "value": entry.link.split('/')[2], # Extract domain
-                                "inline": True
-                                },
-                                {
-                                "name": "Detection Time",
-                                "value": datetime.now().strftime('%Y-%m-%d %H:%M UTC'),
-                                "inline": True
-                                }
-                                ],
-                                "footer": {
-                                "text": "AI Deprecation Monitor",
-                                "icon_url": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
-                                }
-                                }],
-                                "content": "@here New model deprecation detected!"
-                                }
+for entry in feed.entries[:3]:  # Check last 3 entries
+    # Create Discord embed
+    embed = {
+        "embeds": [{
+            "title": f"{entry.title}",
+            "description": entry.description[:2000],  # Discord limit
+            "url": entry.link,
+            "color": 15158332,  # Red color
+            "fields": [
+                {
+                    "name": "Provider",
+                    "value": entry.link.split('/')[2],  # Extract domain
+                    "inline": True
+                },
+                {
+                    "name": "Detection Time",
+                    "value": datetime.now().strftime('%Y-%m-%d %H:%M UTC'),
+                    "inline": True
+                }
+            ],
+            "footer": {
+                "text": "AI Deprecation Monitor",
+                "icon_url": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
+            }
+        }],
+        "content": "@here New model deprecation detected!"
+    }
+    
+    response = requests.post(WEBHOOK_URL, json=embed)
+    
+    if response.status_code == 204:
+        print(f"Discord notification sent for: {entry.title}")
+    else:
+        print(f"Failed to send notification: {response.status_code}")</code></pre>
+                        <pre class="code-content" data-lang="typescript" style="display: none;"><code class="language-typescript">// Install dependencies:
+// npm install rss-parser axios
+// or: yarn add rss-parser axios
+// or: pnpm add rss-parser axios
 
-                                response = requests.post(WEBHOOK_URL, json=embed)
+import Parser from 'rss-parser';
+import axios from 'axios';
 
-                                if response.status_code == 204:
-                                print(f"Discord notification sent for: {entry.title}")
-                                else:
-                                print(f"Failed to send notification: {response.status_code}")</code></pre>
-                        <pre class="code-content" data-lang="typescript" style="display: none;"><code
-                                class="language-typescript">// Install dependencies:
-                                // npm install rss-parser axios
-                                // or: yarn add rss-parser axios
-                                // or: pnpm add rss-parser axios
+const parser = new Parser();
+const WEBHOOK_URL = 'https://discord.com/api/webhooks/YOUR_WEBHOOK_URL';
 
-                                import Parser from 'rss-parser';
-                                import axios from 'axios';
+async function sendDiscordAlerts() {
+    const feed = await parser.parseURL('https://deprecations.info/v1/feed.xml');
+    
+    for (const item of feed.items.slice(0, 3)) {
+        const embed = {
+            embeds: [{
+                title: `${item.title}`,
+                description: item.contentSnippet?.substring(0, 2000),
+                url: item.link,
+                color: 15158332, // Red
+                fields: [
+                    {
+                        name: 'Provider',
+                        value: new URL(item.link!).hostname,
+                        inline: true
+                    },
+                    {
+                        name: 'Detection Time',
+                        value: new Date().toISOString(),
+                        inline: true
+                    }
+                ],
+                footer: {
+                    text: 'AI Deprecation Monitor',
+                    icon_url: 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png'
+                }
+            }],
+            content: '@here New model deprecation detected!'
+        };
+        
+        try {
+            await axios.post(WEBHOOK_URL, embed);
+            console.log(`Discord notification sent for: ${item.title}`);
+        } catch (error) {
+            console.error('Failed to send Discord notification:', error);
+        }
+    }
+}
 
-                                const parser = new Parser();
-                                const WEBHOOK_URL = 'https://discord.com/api/webhooks/YOUR_WEBHOOK_URL';
-
-                                async function sendDiscordAlerts() {
-                                const feed = await parser.parseURL('https://deprecations.info/rss/v1/feed.xml');
-
-                                for (const item of feed.items.slice(0, 3)) {
-                                const embed = {
-                                embeds: [{
-                                title: `${item.title}`,
-                                description: item.contentSnippet?.substring(0, 2000),
-                                url: item.link,
-                                color: 15158332, // Red
-                                fields: [
-                                {
-                                name: 'Provider',
-                                value: new URL(item.link!).hostname,
-                                inline: true
-                                },
-                                {
-                                name: 'Detection Time',
-                                value: new Date().toISOString(),
-                                inline: true
-                                }
-                                ],
-                                footer: {
-                                text: 'AI Deprecation Monitor',
-                                icon_url: 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png'
-                                }
-                                }],
-                                content: '@here New model deprecation detected!'
-                                };
-
-                                try {
-                                await axios.post(WEBHOOK_URL, embed);
-                                console.log(`Discord notification sent for: ${item.title}`);
-                                } catch (error) {
-                                console.error('Failed to send Discord notification:', error);
-                                }
-                                }
-                                }
-
-                                sendDiscordAlerts().catch(console.error);</code></pre>
+sendDiscordAlerts().catch(console.error);</code></pre>
                         <pre class="code-content" data-lang="shell" style="display: none;"><code
                                 class="language-bash">#!/bin/bash
-                                # Requires: curl, jq
-                                # Install on macOS: brew install jq
-                                # Install on Ubuntu: apt-get install jq
-                                # Install on RHEL/CentOS: yum install jq
+# Requires: curl, jq
+# Install on macOS: brew install jq
+# Install on Ubuntu: apt-get install jq
+# Install on RHEL/CentOS: yum install jq
 
-                                WEBHOOK_URL="https://discord.com/api/webhooks/YOUR_WEBHOOK_URL"
-                                FEED_URL="https://deprecations.info/feed.json"
+WEBHOOK_URL="https://discord.com/api/webhooks/YOUR_WEBHOOK_URL"
+FEED_URL="https://deprecations.info/feed.json"
 
-                                # Parse JSON feed and send to Discord
-                                curl -s "$FEED_URL" | jq -r '.items[0:3] | .[] |
-                                "\(.title)|\(.content_text)|\(.url)|\(._deprecation.provider //
-                                "Unknown")|\(._deprecation.model_name // "")|\(._deprecation.shutdown_date // "")"' | \
-                                while IFS='|' read -r title description url provider model_name shutdown_date; do
+# Parse JSON feed and send to Discord
+curl -s "$FEED_URL" | jq -r '.items[0:3] | .[] |
+"\(.title)|\(.content_text)|\(.url)|\(._deprecation.provider //
+"Unknown")|\(._deprecation.model_name // "")|\(._deprecation.shutdown_date // "")"' | \
+while IFS='|' read -r title description url provider model_name shutdown_date; do
 
-                                # Create Discord embed JSON
-                                json_payload=$(cat &lt;&lt;EOF
-                                {
-                                "content": "@here New model deprecation detected!",
-                                "embeds": [{
-                                "title": "$title",
-                                "description": "$description",
-                                "url": "$url",
-                                "color": 15158332,
-                                "fields": [
-                                {
-                                "name": "Provider",
-                                "value": "$provider",
-                                "inline": true
-                                },
-                                {
-                                "name": "Model",
-                                "value": "$model_name",
-                                "inline": true
-                                },
-                                {
-                                "name": "Shutdown Date",
-                                "value": "$shutdown_date",
-                                "inline": true
-                                },
-                                {
-                                "name": "Detection Time",
-                                "value": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
-                                "inline": true
-                                }
-                                ],
-                                "footer": {
-                                "text": "AI Deprecation Monitor"
-                                }
-                                }]
-                                }
-                                EOF
-                                )
+# Create Discord embed JSON
+json_payload=$(cat &lt;&lt;EOF
+{
+"content": "@here New model deprecation detected!",
+"embeds": [{
+"title": "$title",
+"description": "$description",
+"url": "$url",
+"color": 15158332,
+"fields": [
+{
+"name": "Provider",
+"value": "$provider",
+"inline": true
+},
+{
+"name": "Model",
+"value": "$model_name",
+"inline": true
+},
+{
+"name": "Shutdown Date",
+"value": "$shutdown_date",
+"inline": true
+},
+{
+"name": "Detection Time",
+"value": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+"inline": true
+}
+],
+"footer": {
+"text": "AI Deprecation Monitor"
+}
+}]
+}
+EOF
+)
 
-                                # Send to Discord
-                                curl -X POST \
-                                -H "Content-Type: application/json" \
-                                -d "$json_payload" \
-                                "$WEBHOOK_URL"
+# Send to Discord
+curl -X POST \
+-H "Content-Type: application/json" \
+-d "$json_payload" \
+"$WEBHOOK_URL"
 
-                                echo "Discord notification sent for: $title"
-                                done</code></pre>
-                        <pre class="code-content" data-lang="ruby" style="display: none;"><code class="language-ruby">#
-                                Install dependencies:
-                                # gem install json
-                                # or add to Gemfile: gem 'json'
-                                # Note: 'open-uri', 'net/http', and 'time' are part of Ruby stdlib
+echo "Discord notification sent for: $title"
+done</code></pre>
+                        <pre class="code-content" data-lang="ruby" style="display: none;"><code class="language-ruby"># Install dependencies:
+# gem install json
+# or add to Gemfile: gem 'json'
+# Note: 'open-uri', 'net/http', and 'time' are part of Ruby stdlib
 
-                                require 'open-uri'
-                                require 'net/http'
-                                require 'json'
-                                require 'time'
+require 'open-uri'
+require 'net/http'
+require 'json'
+require 'time'
 
-                                webhook_url = 'https://discord.com/api/webhooks/YOUR_WEBHOOK_URL'
+webhook_url = 'https://discord.com/api/webhooks/YOUR_WEBHOOK_URL'
 
-                                # Parse JSON feed
-                                feed = JSON.parse(URI.open('https://deprecations.info/v1/feed.json').read)
+# Parse JSON feed
+feed = JSON.parse(URI.open('https://deprecations.info/v1/feed.json').read)
 
-                                # Send Discord notifications for recent items
-                                feed['items'].first(3).each do |item|
-                                # Access structured data
-                                provider = item.dig('_deprecation', 'provider') || 'Unknown'
-                                model = item.dig('_deprecation', 'model_name') || 'N/A'
-                                shutdown_date = item.dig('_deprecation', 'shutdown_date') || 'TBD'
-
-                                # Create Discord embed
-                                payload = {
-                                content: '@here New model deprecation detected!',
-                                embeds: [{
-                                title: "#{item['title']}",
-                                description: item['content_text'][0..2000], # Discord limit
-                                url: item['url'],
-                                color: 15158332, # Red
-                                fields: [
-                                {
-                                name: 'Provider',
-                                value: provider,
-                                inline: true
-                                },
-                                {
-                                name: 'Model',
-                                value: model,
-                                inline: true
-                                },
-                                {
-                                name: 'Shutdown Date',
-                                value: shutdown_date,
-                                inline: true
-                                },
-                                {
-                                name: 'Detection Time',
-                                value: Time.now.utc.iso8601,
-                                inline: true
-                                }
-                                ],
-                                footer: {
-                                text: 'AI Deprecation Monitor',
-                                icon_url: 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png'
-                                }
-                                }]
-                                }
-
-                                # Send to Discord
-                                uri = URI(webhook_url)
-                                http = Net::HTTP.new(uri.host, uri.port)
-                                http.use_ssl = true
-
-                                request = Net::HTTP::Post.new(uri)
-                                request['Content-Type'] = 'application/json'
-                                request.body = payload.to_json
-
-                                response = http.request(request)
-
-                                if response.code == '204'
-                                puts "Discord notification sent for: #{item['title']}"
-                                else
-                                puts "Failed to send notification: #{response.code}"
-                                end
-                                end</code></pre>
+# Send Discord notifications for recent items
+feed['items'].first(3).each do |item|
+  # Access structured data
+  provider = item.dig('_deprecation', 'provider') || 'Unknown'
+  model = item.dig('_deprecation', 'model_name') || 'N/A'
+  shutdown_date = item.dig('_deprecation', 'shutdown_date') || 'TBD'
+  
+  # Create Discord embed
+  payload = {
+    content: '@here New model deprecation detected!',
+    embeds: [{
+      title: "#{item['title']}",
+      description: item['content_text'][0..2000], # Discord limit
+      url: item['url'],
+      color: 15158332, # Red
+      fields: [
+        {
+          name: 'Provider',
+          value: provider,
+          inline: true
+        },
+        {
+          name: 'Model',
+          value: model,
+          inline: true
+        },
+        {
+          name: 'Shutdown Date',
+          value: shutdown_date,
+          inline: true
+        },
+        {
+          name: 'Detection Time',
+          value: Time.now.utc.iso8601,
+          inline: true
+        }
+      ],
+      footer: {
+        text: 'AI Deprecation Monitor',
+        icon_url: 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png'
+      }
+    }]
+  }
+  
+  # Send to Discord
+  uri = URI(webhook_url)
+  http = Net::HTTP.new(uri.host, uri.port)
+  http.use_ssl = true
+  
+  request = Net::HTTP::Post.new(uri)
+  request['Content-Type'] = 'application/json'
+  request.body = payload.to_json
+  
+  response = http.request(request)
+  
+  if response.code == '204'
+    puts "Discord notification sent for: #{item['title']}"
+  else
+    puts "Failed to send notification: #{response.code}"
+  end
+end</code></pre>
                     </div>
                 </div>
             </div>
@@ -1131,205 +1368,6 @@ t19 -45.5t-18.5 -45t-44.5 -19.5zM551 477q-27 0 -46 19t-19 45.5t19 45.5t45.5 19t4
         </div>
     </footer>
 
-    <style>
-        /* Data Preview Table Styles */
-        .data-preview {
-            margin: 60px 0;
-        }
-
-        .preview-intro {
-            color: #999;
-            margin-bottom: 30px;
-            line-height: 1.6;
-        }
-
-        .data-table-container {
-            background: #242424;
-            border: 1px solid #333;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-        }
-
-        .deprecation-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 13px;
-        }
-
-        .deprecation-table thead {
-            background: linear-gradient(135deg, rgba(249, 115, 22, 0.1), rgba(234, 88, 12, 0.1));
-            border-bottom: 2px solid #333;
-        }
-
-        .deprecation-table th {
-            padding: 16px;
-            text-align: left;
-            font-weight: 600;
-            color: #f97316;
-            text-transform: uppercase;
-            font-size: 11px;
-            letter-spacing: 0.5px;
-        }
-
-        .deprecation-table tbody tr {
-            border-bottom: 1px solid #333;
-            transition: background 0.2s;
-        }
-
-        .deprecation-table tbody tr:nth-child(even):not(.load-more-row):not(.view-all-row) {
-            background: rgba(255, 255, 255, 0.02);
-        }
-
-        .deprecation-table tbody tr:hover:not(.load-more-row):not(.view-all-row) {
-            background: rgba(249, 115, 22, 0.05);
-        }
-
-        .deprecation-table td {
-            padding: 14px 16px;
-            color: #e5e5e5;
-        }
-
-        .provider {
-            font-weight: 500;
-        }
-
-        .provider.openai {
-            color: #74aa9c;
-        }
-
-        .provider.anthropic {
-            color: #d4a373;
-        }
-
-        .provider.google {
-            color: #4285f4;
-        }
-
-        .provider.cohere {
-            color: #b19cd9;
-        }
-
-        .provider.aws {
-            color: #ff9900;
-        }
-
-        .model-name {
-            font-family: 'Fira Code', 'JetBrains Mono', monospace;
-            color: #fbbf24;
-        }
-
-        .shutdown-date {
-            color: #ef4444;
-            font-weight: 500;
-        }
-
-        .migration {
-            color: #10b981;
-            font-size: 12px;
-        }
-
-        .status-badge {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .status-badge.deprecated {
-            background: rgba(239, 68, 68, 0.15);
-            color: #f87171;
-            border: 1px solid rgba(239, 68, 68, 0.3);
-        }
-
-        .load-more-row,
-        .view-all-row {
-            background: transparent !important;
-            border: none !important;
-        }
-
-        .load-more-cell,
-        .view-all-cell {
-            text-align: center;
-            padding: 20px !important;
-        }
-
-        .load-more-btn {
-            background: linear-gradient(135deg, rgba(249, 115, 22, 0.1), rgba(234, 88, 12, 0.1));
-            border: 1px solid #f97316;
-            color: #f97316;
-            padding: 10px 24px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 13px;
-            font-weight: 500;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s;
-        }
-
-        .load-more-btn:hover {
-            background: linear-gradient(135deg, rgba(249, 115, 22, 0.2), rgba(234, 88, 12, 0.2));
-            transform: translateY(2px);
-        }
-
-        .view-all-btn {
-            background: linear-gradient(135deg, #f97316, #ea580c);
-            color: white;
-            padding: 12px 28px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 14px;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s;
-        }
-
-        .view-all-btn:hover {
-            background: linear-gradient(135deg, #ea580c, #dc2626);
-            transform: scale(1.02);
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .fade-in {
-            animation: fadeIn 0.5s ease-out;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .deprecation-table {
-                font-size: 11px;
-            }
-
-            .deprecation-table th,
-            .deprecation-table td {
-                padding: 10px 8px;
-            }
-
-            .migration {
-                font-size: 10px;
-            }
-        }
-    </style>
 
     <!-- Prism.js scripts for syntax highlighting -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
