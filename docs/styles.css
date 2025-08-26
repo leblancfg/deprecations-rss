@@ -39,6 +39,61 @@ header {
     align-items: center;
 }
 
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Provider badges */
+.provider-badges {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.provider-badge {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #fff;
+    transition: all 0.2s;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.5px;
+    opacity: 0.8;
+}
+
+.provider-badge:hover {
+    opacity: 1;
+    transform: translateY(-1px);
+}
+
+.provider-badge.openai {
+    background: #412991;
+}
+
+.provider-badge.anthropic {
+    background: #d4a373;
+}
+
+.provider-badge.google {
+    background: #4285F4;
+}
+
+.provider-badge.aws {
+    background: #FF9900;
+}
+
+.provider-badge.cohere {
+    background: #39594d;
+}
+
+.provider-badge.azure {
+    background: #0078D4;
+}
+
 .github-link {
     display: flex;
     align-items: center;
@@ -357,8 +412,19 @@ footer a:hover {
         gap: 20px;
     }
     
-    .github-link {
+    .header-right {
         align-self: flex-start;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+    
+    .provider-badges {
+        gap: 6px;
+    }
+    
+    .provider-badge {
+        font-size: 9px;
+        padding: 3px 6px;
     }
     
     h1 {
@@ -457,81 +523,6 @@ footer a:hover {
     margin: 0;
 }
 
-/* Provider logos */
-.provider-logos {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    margin-bottom: 32px;
-    padding: 0;
-    flex-wrap: wrap;
-}
-
-.logo-link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.3s;
-}
-
-.logo-link:hover {
-    transform: scale(1.1);
-}
-
-.logo-wrapper {
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 8px;
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.3s, box-shadow 0.3s;
-}
-
-.logo-link:hover .logo-wrapper {
-    background: rgba(255, 255, 255, 1);
-    box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
-}
-
-.logo-link svg {
-    width: 32px;
-    height: 32px;
-}
-
-/* Mobile adjustments for provider logos */
-@media (max-width: 640px) {
-    .provider-logos {
-        gap: 12px;
-        margin-bottom: 24px;
-    }
-    
-    .logo-wrapper {
-        padding: 8px;
-    }
-    
-    .logo-link svg {
-        width: 28px;
-        height: 28px;
-    }
-}
-
-@media (max-width: 480px) {
-    .provider-logos {
-        gap: 10px;
-        margin-bottom: 20px;
-    }
-    
-    .logo-wrapper {
-        padding: 6px;
-        border-radius: 6px;
-    }
-    
-    .logo-link svg {
-        width: 24px;
-        height: 24px;
-    }
-}
 
 /* Subscribe section buttons layout */
 .subscribe-section .subscribe-card {
