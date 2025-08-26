@@ -770,12 +770,13 @@ footer a:hover {
     transition: background 0.2s;
 }
 
-.deprecation-table tbody tr:nth-child(even):not(.load-more-row):not(.view-all-row) {
+.deprecation-table tbody tr:nth-child(even):not(.view-feed-row) {
     background: rgba(255, 255, 255, 0.02);
 }
 
-.deprecation-table tbody tr:hover:not(.load-more-row):not(.view-all-row) {
+.deprecation-table tbody tr:hover:not(.view-feed-row) {
     background: rgba(249, 115, 22, 0.05);
+    cursor: pointer;
 }
 
 .deprecation-table td {
@@ -805,6 +806,18 @@ footer a:hover {
 
 .provider.aws {
     color: #ff9900;
+}
+
+.provider.awsbedrock {
+    color: #ff9900;
+}
+
+.provider.googlevertexai {
+    color: #4285f4;
+}
+
+.provider.azure {
+    color: #0078d4;
 }
 
 .model-name {
@@ -968,6 +981,60 @@ footer a:hover {
 
 .hidden-row {
     display: none;
+}
+
+/* View Feed Row Styles */
+.view-feed-row {
+    background: transparent !important;
+    border: none !important;
+}
+
+.view-feed-cell {
+    text-align: center;
+    padding: 20px !important;
+}
+
+.view-feed-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.view-feed-content p {
+    margin: 0;
+    font-size: 14px;
+    color: #999;
+}
+
+.view-feed-btn {
+    background: linear-gradient(135deg, rgba(249, 115, 22, 0.1), rgba(234, 88, 12, 0.1));
+    border: 1px solid #f97316;
+    color: #f97316;
+    padding: 10px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    margin: 0 auto;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s;
+}
+
+.view-feed-btn:hover {
+    background: linear-gradient(135deg, rgba(249, 115, 22, 0.2), rgba(234, 88, 12, 0.2));
+    transform: translateY(-2px);
+}
+
+.view-feed-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+.view-feed-btn svg path {
+    fill: #f97316;
+    transition: fill 0.3s;
 }
 
 @keyframes fadeIn {
