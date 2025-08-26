@@ -13,28 +13,34 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
         with:
-          python-version: '3.11'
+          enable-cache: true
+          cache-dependency-glob: "pyproject.toml"
+      
+      - name: Set up Python
+        run: uv python install 3.11
       
       - name: Install dependencies
         run: |
-          pip install httpx beautifulsoup4 lxml playwright
-          playwright install chromium
+          uv sync
+          uv run playwright install chromium
       
-      - name: Scrape deprecations
-        run: python main.py
+      - name: Set up environment
+        run: |
+          echo "ANTHROPIC_API_KEY=${{ secrets.ANTHROPIC_API_KEY }}" >> $GITHUB_ENV
       
-      - name: Generate RSS feed
-        run: python rss_gen.py
+      - name: Scrape and generate all feeds
+        run: uv run python main.py
       
       - name: Commit and push changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           
-          git add data.json docs/feed.xml docs/rss/v1/feed.xml
+          # Add all generated files in the new v1 structure
+          git add data.json docs/v1/
           
           if git diff --staged --quiet; then
             echo "No changes to commit"
