@@ -39,6 +39,67 @@ header {
     align-items: center;
 }
 
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Provider badges */
+.provider-badges {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.provider-badge {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #fff;
+    transition: all 0.2s;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.5px;
+    opacity: 0.8;
+}
+
+.provider-badge:hover {
+    opacity: 1;
+    transform: translateY(-1px);
+}
+
+.provider-badge.openai {
+    background: #412991;
+}
+
+.provider-badge.anthropic {
+    background: #d4a373;
+}
+.provider-badge.anthropic:hover {
+    color: #000;
+}
+
+.provider-badge.google {
+    background: #4285F4;
+}
+
+.provider-badge.aws {
+    background: #FF9900;
+}
+.provider-badge.aws:hover {
+    color: #000;
+}
+
+.provider-badge.cohere {
+    background: #39594d;
+}
+
+.provider-badge.azure {
+    background: #0078D4;
+}
+
 .github-link {
     display: flex;
     align-items: center;
@@ -357,8 +418,19 @@ footer a:hover {
         gap: 20px;
     }
     
-    .github-link {
+    .header-right {
         align-self: flex-start;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+    
+    .provider-badges {
+        gap: 6px;
+    }
+    
+    .provider-badge {
+        font-size: 9px;
+        padding: 3px 6px;
     }
     
     h1 {
@@ -444,6 +516,19 @@ footer a:hover {
         padding: 16px 12px;
     }
 }
+
+/* Intro section */
+.intro {
+    margin-top: 48px;
+}
+
+.lead {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #b0b0b0;
+    margin: 0;
+}
+
 
 /* Subscribe section buttons layout */
 .subscribe-section .subscribe-card {
