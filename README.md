@@ -1,14 +1,60 @@
 # AI Deprecations RSS
+[![RSS
+Feed](https://badges.ws/badge/RSS-Feed-orange?style=flat&logo=RSS)](https://deprecations.info/rss/v1/feed.xml)
+[![JSON
+Feed](https://badges.ws/badge/JSON-Feed-green?style=flat&logo=RSS)](https://deprecations.info/feed.json)
+[![Raw
+JSON](https://badges.ws/badge/Raw-JSON-blue?style=flat&logo=JSON)](https://deprecations.info/api/v1/deprecations.json)
+[![Github
+Sponsors](https://badges.ws/badge/Github-Sponsors-red?style=flat&logo=githubsponsors)](https://github.com/sponsors/leblancfg)
 
-Never miss an AI model shutdown again. This is a simple RSS feed that tracks deprecation announcements from major AI providers.
+Never miss an AI model shutdown again. Track AI model deprecation announcements
+from major AI providers via JSON API, JSON Feed, or RSS.
 
-## The Feed
+## Available Formats
 
+### RSS Feed (For feed readers)
+Traditional RSS format for feed readers like Feedly.
 ```
 https://deprecations.info/rss/v1/feed.xml
 ```
 
-Add this to your RSS reader and you'll get notified when OpenAI, Anthropic, Google, AWS, or Cohere announce they're shutting down a model.
+### JSON Feed
+Recommended for programmatic access. Structured JSON format with extracted
+metadata (model names, shutdown dates, providers).
+```
+https://deprecations.info/feed.json
+```
+
+### Raw API Endpoint
+Direct access to all deprecation data. Useful in scripts or custom integrations.
+```
+https://deprecations.info/api/v1/deprecations.json
+```
+
+
+## What We Track
+We check these pages daily:
+- [OpenAI Deprecations](https://platform.openai.com/docs/deprecations)
+- [Anthropic Model Deprecations](https://docs.anthropic.com/en/docs/about-claude/model-deprecations)
+- [Google Vertex AI Deprecations](https://cloud.google.com/vertex-ai/generative-ai/docs/deprecations)
+- [AWS Bedrock Model Lifecycle](https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html)
+- [Cohere Deprecations](https://docs.cohere.com/docs/deprecations)
+
+## Why This Exists
+AI providers deprecate models regularly, sometimes with just a few months
+notice. If you're not checking their docs constantly, you might miss an
+announcement and have your app break. This feed does the checking for you.
+
+## How It Works
+
+1. GitHub Actions runs daily at 2 AM UTC
+2. Scrapes each provider's deprecation page
+3. Extracts individual deprecation notices
+4. Updates the data feed
+5. You get notified in your RSS reader, etc.
+
+Simple as that. No authentication needed, no API keys, just simple data feeds.
 
 ## How to Use It
 
@@ -28,12 +74,12 @@ Use [Blogtrottr](https://blogtrottr.com) or [FeedRabbit](https://feedrabbit.com)
 /feed subscribe https://deprecations.info/rss/v1/feed.xml
 ```
 
-## Build Your Own Automations
 
-Want to do more than just read notifications? Here are some examples to get you started with automated workflows.
+## Build Your Own Automations
+Want to do more than just read notifications? Here are some examples to get you
+started with automated workflows.
 
 ### Create GitHub Issue on Deprecation
-
 Automatically create a GitHub issue when a model you use is being deprecated.
 
 <details>
@@ -234,19 +280,21 @@ end
 
 ### Send Email Alerts to Your Team
 
-Send customized email alerts to your engineering team when deprecations are announced.
+Send customized email alerts to your engineering team when deprecations are
+announced.
 
 <details>
 <summary>Python</summary>
 
 ```python
-import feedparser
+import requests
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from datetime import datetime
 
-feed = feedparser.parse('https://deprecations.info/rss/v1/feed.xml')
+response = requests.get('https://deprecations.info/v1/feed.json')
+feed = response.json()
 
 # Email configuration
 SMTP_SERVER = 'smtp.gmail.com'
@@ -256,9 +304,9 @@ PASSWORD = 'your-app-password'
 TEAM_EMAILS = ['dev1@example.com', 'dev2@example.com']
 
 # Check for new deprecations (you'd want to track what you've seen)
-for entry in feed.entries[:3]:  # Last 3 entries
+for item in feed['items'][:3]:  # Last 3 entries
     msg = MIMEMultipart('alternative')
-    msg['Subject'] = f'⚠️ AI Model Deprecation Alert: {entry.title}'
+    msg['Subject'] = f'⚠️ AI Model Deprecation Alert: {item["title"]}'
     msg['From'] = EMAIL
     msg['To'] = ', '.join(TEAM_EMAILS)
     
@@ -266,9 +314,11 @@ for entry in feed.entries[:3]:  # Last 3 entries
     <html>
       <body style="font-family: Arial, sans-serif;">
         <h2 style="color: #d73a49;">⚠️ Model Deprecation Alert</h2>
-        <h3>{entry.title}</h3>
-        <p>{entry.description}</p>
-        <p><strong>Details:</strong> <a href="{entry.link}">{entry.link}</a></p>
+        <h3>{item['title']}</h3>
+        <p>{item['content_text']}</p>
+        <p><strong>Model:</strong> {item.get('_deprecation', {}).get('model_name', 'N/A')}</p>
+        <p><strong>Shutdown:</strong> {item.get('_deprecation', {}).get('shutdown_date', 'TBD')}</p>
+        <p><strong>Details:</strong> <a href="{item['url']}">{item['url']}</a></p>
         <hr>
         <h4>Action Items:</h4>
         <ul>
@@ -291,7 +341,7 @@ for entry in feed.entries[:3]:  # Last 3 entries
         server.login(EMAIL, PASSWORD)
         server.send_message(msg)
     
-    print(f"Email sent for: {entry.title}")
+    print(f"Email sent for: {item['title']}")
 ```
 </details>
 
@@ -299,10 +349,7 @@ for entry in feed.entries[:3]:  # Last 3 entries
 <summary>TypeScript</summary>
 
 ```typescript
-import Parser from 'rss-parser';
 import nodemailer from 'nodemailer';
-
-const parser = new Parser();
 
 // Configure email
 const transporter = nodemailer.createTransporter({
@@ -316,7 +363,8 @@ const transporter = nodemailer.createTransporter({
 });
 
 async function sendDeprecationAlerts() {
-  const feed = await parser.parseURL('https://deprecations.info/rss/v1/feed.xml');
+  const response = await fetch('https://deprecations.info/v1/feed.json');
+  const feed = await response.json();
   const teamEmails = ['dev1@example.com', 'dev2@example.com'];
   
   // Process recent entries
@@ -330,8 +378,10 @@ async function sendDeprecationAlerts() {
           <body style="font-family: Arial, sans-serif;">
             <h2 style="color: #d73a49;">⚠️ Model Deprecation Alert</h2>
             <h3>${item.title}</h3>
-            <p>${item.contentSnippet}</p>
-            <p><strong>Details:</strong> <a href="${item.link}">${item.link}</a></p>
+            <p>${item.content_text}</p>
+            <p><strong>Model:</strong> ${item._deprecation?.model_name || 'N/A'}</p>
+            <p><strong>Shutdown:</strong> ${item._deprecation?.shutdown_date || 'TBD'}</p>
+            <p><strong>Details:</strong> <a href="${item.url}">${item.url}</a></p>
             <hr>
             <h4>Action Items:</h4>
             <ul>
@@ -367,13 +417,12 @@ SMTP_SERVER="smtp.gmail.com:587"
 FROM_EMAIL="your-email@example.com"
 TO_EMAILS="dev1@example.com,dev2@example.com"
 
-# Fetch RSS feed
-FEED_URL="https://deprecations.info/rss/v1/feed.xml"
+# Fetch JSON feed
+FEED_URL="https://deprecations.info/feed.json"
 
-# Parse RSS and send emails for recent items
-curl -s "$FEED_URL" | xmlstarlet sel -t -m "//item[position()<=3]" \
-  -v "concat(title, '|', description, '|', link)" -n | \
-while IFS='|' read -r title description link; do
+# Parse JSON and send emails for recent items
+curl -s "$FEED_URL" | jq -r '.items[0:3] | .[] | "\(.title)|\(.content_text)|\(.url)|\(._deprecation.model_name // "N/A")|\(._deprecation.shutdown_date // "TBD")"' | \
+while IFS='|' read -r title description url model_name shutdown_date; do
   # Create email body
   EMAIL_BODY=$(cat <<EOF
 Subject: ⚠️ AI Model Deprecation Alert: $title
@@ -384,7 +433,9 @@ Content-Type: text/html
   <h2>⚠️ Model Deprecation Alert</h2>
   <h3>$title</h3>
   <p>$description</p>
-  <p><strong>Details:</strong> <a href="$link">$link</a></p>
+  <p><strong>Model:</strong> $model_name</p>
+  <p><strong>Shutdown:</strong> $shutdown_date</p>
+  <p><strong>Details:</strong> <a href="$url">$url</a></p>
   <hr>
   <h4>Action Items:</h4>
   <ul>
@@ -410,7 +461,7 @@ done
 <summary>Ruby</summary>
 
 ```ruby
-require 'rss'
+require 'json'
 require 'open-uri'
 require 'net/smtp'
 require 'mail'
@@ -430,15 +481,15 @@ end
 # Team emails
 team_emails = ['dev1@example.com', 'dev2@example.com']
 
-# Parse RSS feed
-rss = RSS::Parser.parse(URI.open('https://deprecations.info/rss/v1/feed.xml'))
+# Parse JSON feed
+feed = JSON.parse(URI.open('https://deprecations.info/v1/feed.json').read)
 
 # Send alerts for recent items
-rss.items.first(3).each do |item|
+feed['items'].first(3).each do |item|
   Mail.deliver do
     from     'your-email@example.com'
     to       team_emails.join(', ')
-    subject  "⚠️ AI Model Deprecation Alert: #{item.title}"
+    subject  "⚠️ AI Model Deprecation Alert: #{item['title']}"
     
     html_part do
       content_type 'text/html; charset=UTF-8'
@@ -446,9 +497,11 @@ rss.items.first(3).each do |item|
         <html>
           <body style="font-family: Arial, sans-serif;">
             <h2 style="color: #d73a49;">⚠️ Model Deprecation Alert</h2>
-            <h3>#{item.title}</h3>
-            <p>#{item.description}</p>
-            <p><strong>Details:</strong> <a href="#{item.link}">#{item.link}</a></p>
+            <h3>#{item['title']}</h3>
+            <p>#{item['content_text']}</p>
+            <p><strong>Model:</strong> #{item.dig('_deprecation', 'model_name') || 'N/A'}</p>
+            <p><strong>Shutdown:</strong> #{item.dig('_deprecation', 'shutdown_date') || 'TBD'}</p>
+            <p><strong>Details:</strong> <a href="#{item['url']}">#{item['url']}</a></p>
             <hr>
             <h4>Action Items:</h4>
             <ul>
@@ -465,7 +518,7 @@ rss.items.first(3).each do |item|
     end
   end
   
-  puts "Email sent for: #{item.title}"
+  puts "Email sent for: #{item['title']}"
 end
 ```
 </details>
@@ -478,28 +531,41 @@ Post deprecation alerts directly to your Discord channel for immediate team visi
 <summary>Python</summary>
 
 ```python
-import feedparser
 import requests
 import json
 from datetime import datetime
 
-feed = feedparser.parse('https://deprecations.info/rss/v1/feed.xml')
+response = requests.get('https://deprecations.info/v1/feed.json')
+feed = response.json()
 
 # Discord webhook URL
 WEBHOOK_URL = 'https://discord.com/api/webhooks/YOUR_WEBHOOK_URL'
 
-for entry in feed.entries[:3]:  # Check last 3 entries
+for item in feed['items'][:3]:  # Check last 3 entries
+    # Access structured data
+    deprecation = item.get('_deprecation', {})
+    
     # Create Discord embed
     embed = {
         "embeds": [{
-            "title": f"⚠️ {entry.title}",
-            "description": entry.description[:2000],  # Discord limit
-            "url": entry.link,
+            "title": f"⚠️ {item['title']}",
+            "description": item['content_text'][:2000],  # Discord limit
+            "url": item['url'],
             "color": 15158332,  # Red color
             "fields": [
                 {
                     "name": "Provider",
-                    "value": entry.link.split('/')[2],  # Extract domain
+                    "value": deprecation.get('provider', 'Unknown'),
+                    "inline": True
+                },
+                {
+                    "name": "Model",
+                    "value": deprecation.get('model_name', 'N/A'),
+                    "inline": True
+                },
+                {
+                    "name": "Shutdown Date",
+                    "value": deprecation.get('shutdown_date', 'TBD'),
                     "inline": True
                 },
                 {
@@ -519,7 +585,7 @@ for entry in feed.entries[:3]:  # Check last 3 entries
     response = requests.post(WEBHOOK_URL, json=embed)
     
     if response.status_code == 204:
-        print(f"Discord notification sent for: {entry.title}")
+        print(f"Discord notification sent for: {item['title']}")
     else:
         print(f"Failed to send notification: {response.status_code}")
 ```
@@ -529,26 +595,35 @@ for entry in feed.entries[:3]:  # Check last 3 entries
 <summary>TypeScript</summary>
 
 ```typescript
-import Parser from 'rss-parser';
 import axios from 'axios';
 
-const parser = new Parser();
 const WEBHOOK_URL = 'https://discord.com/api/webhooks/YOUR_WEBHOOK_URL';
 
 async function sendDiscordAlerts() {
-  const feed = await parser.parseURL('https://deprecations.info/rss/v1/feed.xml');
+  const response = await fetch('https://deprecations.info/v1/feed.json');
+  const feed = await response.json();
   
   for (const item of feed.items.slice(0, 3)) {
     const embed = {
       embeds: [{
         title: `⚠️ ${item.title}`,
-        description: item.contentSnippet?.substring(0, 2000),
-        url: item.link,
+        description: item.content_text?.substring(0, 2000),
+        url: item.url,
         color: 15158332, // Red
         fields: [
           {
             name: 'Provider',
-            value: new URL(item.link!).hostname,
+            value: item._deprecation?.provider || 'Unknown',
+            inline: true
+          },
+          {
+            name: 'Model',
+            value: item._deprecation?.model_name || 'N/A',
+            inline: true
+          },
+          {
+            name: 'Shutdown Date',
+            value: item._deprecation?.shutdown_date || 'TBD',
             inline: true
           },
           {
@@ -585,14 +660,11 @@ sendDiscordAlerts().catch(console.error);
 #!/bin/bash
 
 WEBHOOK_URL="https://discord.com/api/webhooks/YOUR_WEBHOOK_URL"
-FEED_URL="https://deprecations.info/rss/v1/feed.xml"
+FEED_URL="https://deprecations.info/feed.json"
 
-# Parse RSS and send to Discord
-curl -s "$FEED_URL" | xmlstarlet sel -t -m "//item[position()<=3]" \
-  -v "concat(title, '|', description, '|', link)" -n | \
-while IFS='|' read -r title description link; do
-  # Extract provider from URL
-  provider=$(echo "$link" | awk -F/ '{print $3}')
+# Parse JSON feed and send to Discord
+curl -s "$FEED_URL" | jq -r '.items[0:3] | .[] | "\(.title)|\(.content_text)|\(.url)|\(._deprecation.provider // "Unknown")|\(._deprecation.model_name // "")|\(._deprecation.shutdown_date // "")"' | \
+while IFS='|' read -r title description url provider model_name shutdown_date; do
   
   # Create Discord embed JSON
   json_payload=$(cat <<EOF
@@ -601,12 +673,22 @@ while IFS='|' read -r title description link; do
   "embeds": [{
     "title": "⚠️ $title",
     "description": "$description",
-    "url": "$link",
+    "url": "$url",
     "color": 15158332,
     "fields": [
       {
         "name": "Provider",
         "value": "$provider",
+        "inline": true
+      },
+      {
+        "name": "Model",
+        "value": "$model_name",
+        "inline": true
+      },
+      {
+        "name": "Shutdown Date",
+        "value": "$shutdown_date",
         "inline": true
       },
       {
@@ -638,34 +720,45 @@ done
 <summary>Ruby</summary>
 
 ```ruby
-require 'rss'
+require 'json'
 require 'open-uri'
 require 'net/http'
-require 'json'
 require 'time'
 
 webhook_url = 'https://discord.com/api/webhooks/YOUR_WEBHOOK_URL'
 
-# Parse RSS feed
-rss = RSS::Parser.parse(URI.open('https://deprecations.info/rss/v1/feed.xml'))
+# Parse JSON feed
+feed = JSON.parse(URI.open('https://deprecations.info/v1/feed.json').read)
 
 # Send Discord notifications for recent items
-rss.items.first(3).each do |item|
-  # Extract provider from URL
-  provider = URI.parse(item.link).host
+feed['items'].first(3).each do |item|
+  # Access structured data
+  provider = item.dig('_deprecation', 'provider') || 'Unknown'
+  model = item.dig('_deprecation', 'model_name') || 'N/A'
+  shutdown_date = item.dig('_deprecation', 'shutdown_date') || 'TBD'
   
   # Create Discord embed
   payload = {
     content: '@here New model deprecation detected!',
     embeds: [{
-      title: "⚠️ #{item.title}",
-      description: item.description[0..2000], # Discord limit
-      url: item.link,
+      title: "⚠️ #{item['title']}",
+      description: item['content_text'][0..2000], # Discord limit
+      url: item['url'],
       color: 15158332, # Red
       fields: [
         {
           name: 'Provider',
           value: provider,
+          inline: true
+        },
+        {
+          name: 'Model',
+          value: model,
+          inline: true
+        },
+        {
+          name: 'Shutdown Date',
+          value: shutdown_date,
           inline: true
         },
         {
@@ -693,7 +786,7 @@ rss.items.first(3).each do |item|
   response = http.request(request)
   
   if response.code == '204'
-    puts "Discord notification sent for: #{item.title}"
+    puts "Discord notification sent for: #{item['title']}"
   else
     puts "Failed to send notification: #{response.code}"
   end
@@ -701,48 +794,18 @@ end
 ```
 </details>
 
-## What We Track
-
-We check these pages daily:
-- [OpenAI Deprecations](https://platform.openai.com/docs/deprecations)
-- [Anthropic Model Deprecations](https://docs.anthropic.com/en/docs/about-claude/model-deprecations)
-- [Google Vertex AI Deprecations](https://cloud.google.com/vertex-ai/generative-ai/docs/deprecations)
-- [AWS Bedrock Model Lifecycle](https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html)
-- [Cohere Deprecations](https://docs.cohere.com/docs/deprecations)
-
-## Why This Exists
-
-AI providers deprecate models regularly, sometimes with just a few months notice. If you're not checking their docs constantly, you might miss an announcement and have your app break. This feed does the checking for you.
-
-## How It Works
-
-1. GitHub Actions runs daily at 2 AM UTC
-2. Scrapes each provider's deprecation page
-3. Extracts individual deprecation notices
-4. Updates the RSS feed
-5. You get notified in your RSS reader
-
-Simple as that. No authentication needed, no API keys, just an RSS feed.
-
-## Development
-
-It's ~250 lines of Python that scrapes deprecation pages and generates an RSS feed.
-
-```bash
-# Install dependencies
-uv sync
-
-# Run the scraper
-uv run python main.py
-
-# Generate RSS
-uv run python rss_gen.py
-```
 
 ## Contributing
+See [CONTRIBUTING.md](CONTRIBUTING.md). Found a bug? Provider changed their
+page format? Open an
+[issue](https://github.com/leblancfg/deprecations-rss/issues), or submit a PR!
 
-Found a bug? Provider changed their page format? Open an issue or PR.
+
+## Sponsors
+This project is maintained by [@leblancfg](https://leblancfg.com). If you or
+your company use this feed, consider [sponsoring this
+work](https://github.com/sponsors/leblancfg).
+
 
 ## License
-
 MIT
