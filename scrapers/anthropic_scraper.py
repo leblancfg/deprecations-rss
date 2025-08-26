@@ -145,7 +145,7 @@ class AnthropicScraper(EnhancedBaseScraper):
                         # Skip if deprecated_date is explicitly N/A (model is active)
                         if deprecated_date == "N/A":
                             continue
-                            
+
                         # Skip if we don't have a valid date
                         final_shutdown = shutdown_date or deprecated_date
                         if not final_shutdown:
