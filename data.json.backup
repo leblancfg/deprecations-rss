@@ -8,8 +8,8 @@
     "replacement_model": null,
     "deprecation_context": "",
     "url": "https://platform.openai.com/docs/deprecations#2025-08-20-assistants-api",
-    "content_hash": "14f6a7ddfa7bea0d",
-    "scraped_at": "2025-08-26T18:51:55.717376+00:00"
+    "content_hash": "",
+    "scraped_at": "2025-08-26T18:37:44.462834+00:00"
   },
   {
     "provider": "OpenAI",
@@ -20,8 +20,8 @@
     "replacement_model": null,
     "deprecation_context": "",
     "url": "https://platform.openai.com/docs/deprecations#2025-06-10-gpt-4o-realtime-preview-2024-10-01",
-    "content_hash": "311491367c636bfa",
-    "scraped_at": "2025-08-26T18:51:55.717435+00:00"
+    "content_hash": "",
+    "scraped_at": "2025-08-26T18:37:44.462855+00:00"
   },
   {
     "provider": "OpenAI",
@@ -32,8 +32,8 @@
     "replacement_model": null,
     "deprecation_context": "",
     "url": "https://platform.openai.com/docs/deprecations#2025-06-10-gpt-4o-audio-preview-2024-10-01",
-    "content_hash": "8bd7268628abfe7b",
-    "scraped_at": "2025-08-26T18:51:55.717444+00:00"
+    "content_hash": "",
+    "scraped_at": "2025-08-26T18:37:44.462862+00:00"
   },
   {
     "provider": "OpenAI",
@@ -44,8 +44,8 @@
     "replacement_model": null,
     "deprecation_context": "",
     "url": "https://platform.openai.com/docs/deprecations#2025-04-28-text-moderation",
-    "content_hash": "978ef701f57e4953",
-    "scraped_at": "2025-08-26T18:51:55.717449+00:00"
+    "content_hash": "",
+    "scraped_at": "2025-08-26T18:37:44.462867+00:00"
   },
   {
     "provider": "OpenAI",
@@ -56,8 +56,8 @@
     "replacement_model": null,
     "deprecation_context": "",
     "url": "https://platform.openai.com/docs/deprecations#2025-04-28-o1-preview-and-o1-mini",
-    "content_hash": "83a8712a656f7b2d",
-    "scraped_at": "2025-08-26T18:51:55.717457+00:00"
+    "content_hash": "",
+    "scraped_at": "2025-08-26T18:42:19.962515+00:00"
   },
   {
     "provider": "OpenAI",
@@ -68,8 +68,8 @@
     "replacement_model": null,
     "deprecation_context": "",
     "url": "https://platform.openai.com/docs/deprecations#2025-04-28-o1-preview-and-o1-mini",
-    "content_hash": "b921a30889b07441",
-    "scraped_at": "2025-08-26T18:51:55.717460+00:00"
+    "content_hash": "",
+    "scraped_at": "2025-08-26T18:42:19.962517+00:00"
   },
   {
     "provider": "OpenAI",
@@ -80,8 +80,8 @@
     "replacement_model": null,
     "deprecation_context": "",
     "url": "https://platform.openai.com/docs/deprecations#2025-04-14-gpt-4-5-preview",
-    "content_hash": "65721aadc86481d7",
-    "scraped_at": "2025-08-26T18:51:55.717464+00:00"
+    "content_hash": "",
+    "scraped_at": "2025-08-26T18:37:44.462874+00:00"
   },
   {
     "provider": "OpenAI",
@@ -92,8 +92,8 @@
     "replacement_model": null,
     "deprecation_context": "",
     "url": "https://platform.openai.com/docs/deprecations#2024-10-02-assistants-api-beta-v1",
-    "content_hash": "2c2a8d60d3be5a67",
-    "scraped_at": "2025-08-26T18:51:55.717468+00:00"
+    "content_hash": "",
+    "scraped_at": "2025-08-26T18:37:44.462877+00:00"
   },
   {
     "provider": "OpenAI",
@@ -104,8 +104,8 @@
     "replacement_model": null,
     "deprecation_context": "",
     "url": "https://platform.openai.com/docs/deprecations#2024-08-29-fine-tuning-training-on-babbage-002-and-davinci-002-models",
-    "content_hash": "8795b3dd31712016",
-    "scraped_at": "2025-08-26T18:51:55.717475+00:00"
+    "content_hash": "",
+    "scraped_at": "2025-08-26T18:42:19.962531+00:00"
   },
   {
     "provider": "OpenAI",
@@ -116,8 +116,8 @@
     "replacement_model": null,
     "deprecation_context": "",
     "url": "https://platform.openai.com/docs/deprecations#2024-08-29-fine-tuning-training-on-babbage-002-and-davinci-002-models",
-    "content_hash": "5a39892de0d0d1a8",
-    "scraped_at": "2025-08-26T18:51:55.717477+00:00"
+    "content_hash": "",
+    "scraped_at": "2025-08-26T18:42:19.962532+00:00"
   },
   {
     "provider": "OpenAI",
@@ -128,8 +128,8 @@
     "replacement_model": null,
     "deprecation_context": "",
     "url": "https://platform.openai.com/docs/deprecations#2024-06-06-gpt-4-32k-and-vision-preview-models",
-    "content_hash": "027345505d456906",
-    "scraped_at": "2025-08-26T18:51:55.717482+00:00"
+    "content_hash": "",
+    "scraped_at": "2025-08-26T18:42:19.962537+00:00"
   },
   {
     "provider": "OpenAI",
@@ -140,8 +140,8 @@
     "replacement_model": null,
     "deprecation_context": "",
     "url": "https://platform.openai.com/docs/deprecations#2024-06-06-gpt-4-32k-and-vision-preview-models",
-    "content_hash": "eace4868d5fe873c",
-    "scraped_at": "2025-08-26T18:51:55.717483+00:00"
+    "content_hash": "",
+    "scraped_at": "2025-08-26T18:42:19.962538+00:00"
   },
   {
     "provider": "OpenAI",
@@ -152,8 +152,8 @@
     "replacement_model": null,
     "deprecation_context": "",
     "url": "https://platform.openai.com/docs/deprecations#2023-11-06-chat-model-updates",
-    "content_hash": "bb0c72e5b8bfa274",
-    "scraped_at": "2025-08-26T18:51:55.717487+00:00"
+    "content_hash": "",
+    "scraped_at": "2025-08-26T18:37:44.462887+00:00"
   },
   {
     "provider": "OpenAI",
@@ -164,8 +164,8 @@
     "replacement_model": null,
     "deprecation_context": "",
     "url": "https://platform.openai.com/docs/deprecations#2023-08-22-fine-tunes-endpoint",
-    "content_hash": "19c0acfa0b0bb8de",
-    "scraped_at": "2025-08-26T18:51:55.717491+00:00"
+    "content_hash": "",
+    "scraped_at": "2025-08-26T18:37:44.462890+00:00"
   },
   {
     "provider": "OpenAI",
@@ -176,8 +176,8 @@
     "replacement_model": null,
     "deprecation_context": "",
     "url": "https://platform.openai.com/docs/deprecations#2023-07-06-gpt-and-embeddings",
-    "content_hash": "2ae202ff9e3ce6b1",
-    "scraped_at": "2025-08-26T18:51:55.717496+00:00"
+    "content_hash": "",
+    "scraped_at": "2025-08-26T18:42:19.962550+00:00"
   },
   {
     "provider": "OpenAI",
@@ -188,8 +188,8 @@
     "replacement_model": null,
     "deprecation_context": "",
     "url": "https://platform.openai.com/docs/deprecations#2023-07-06-gpt-and-embeddings",
-    "content_hash": "ba1bb16c82f4aac9",
-    "scraped_at": "2025-08-26T18:51:55.717498+00:00"
+    "content_hash": "",
+    "scraped_at": "2025-08-26T18:42:19.962551+00:00"
   },
   {
     "provider": "OpenAI",
@@ -200,8 +200,8 @@
     "replacement_model": null,
     "deprecation_context": "",
     "url": "https://platform.openai.com/docs/deprecations#2023-06-13-updated-chat-models",
-    "content_hash": "1033fbf923b2d9c0",
-    "scraped_at": "2025-08-26T18:51:55.717506+00:00"
+    "content_hash": "",
+    "scraped_at": "2025-08-26T18:37:44.462902+00:00"
   },
   {
     "provider": "OpenAI",
@@ -212,8 +212,8 @@
     "replacement_model": null,
     "deprecation_context": "",
     "url": "https://platform.openai.com/docs/deprecations#2023-03-20-codex-models",
-    "content_hash": "52cc1899027233cd",
-    "scraped_at": "2025-08-26T18:51:55.717510+00:00"
+    "content_hash": "",
+    "scraped_at": "2025-08-26T18:37:44.462905+00:00"
   },
   {
     "provider": "OpenAI",
@@ -224,224 +224,8 @@
     "replacement_model": null,
     "deprecation_context": "",
     "url": "https://platform.openai.com/docs/deprecations#2022-06-03-legacy-endpoints",
-    "content_hash": "88646db41ba07365",
-    "scraped_at": "2025-08-26T18:51:55.717513+00:00"
-  },
-  {
-    "provider": "Anthropic",
-    "model_id": "claude-1.0",
-    "model_name": "claude-1.0",
-    "announcement_date": "2024-09-04",
-    "shutdown_date": "2024-11-06",
-    "replacement_model": null,
-    "deprecation_context": "​Model status",
-    "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-1.0",
-    "content_hash": "89a6928123874785",
-    "scraped_at": "2025-08-26T18:51:55.745105+00:00"
-  },
-  {
-    "provider": "Anthropic",
-    "model_id": "claude-1.1",
-    "model_name": "claude-1.1",
-    "announcement_date": "2024-09-04",
-    "shutdown_date": "2024-11-06",
-    "replacement_model": null,
-    "deprecation_context": "​Model status",
-    "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-1.1",
-    "content_hash": "5f631e704998d2a6",
-    "scraped_at": "2025-08-26T18:51:55.745165+00:00"
-  },
-  {
-    "provider": "Anthropic",
-    "model_id": "claude-1.2",
-    "model_name": "claude-1.2",
-    "announcement_date": "2024-09-04",
-    "shutdown_date": "2024-11-06",
-    "replacement_model": null,
-    "deprecation_context": "​Model status",
-    "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-1.2",
-    "content_hash": "489238880c27f44d",
-    "scraped_at": "2025-08-26T18:51:55.745192+00:00"
-  },
-  {
-    "provider": "Anthropic",
-    "model_id": "claude-1.3",
-    "model_name": "claude-1.3",
-    "announcement_date": "2024-09-04",
-    "shutdown_date": "2024-11-06",
-    "replacement_model": null,
-    "deprecation_context": "​Model status",
-    "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-1.3",
-    "content_hash": "47b02ade04b5f2dc",
-    "scraped_at": "2025-08-26T18:51:55.745213+00:00"
-  },
-  {
-    "provider": "Anthropic",
-    "model_id": "claude-instant-1.0",
-    "model_name": "claude-instant-1.0",
-    "announcement_date": "2024-09-04",
-    "shutdown_date": "2024-11-06",
-    "replacement_model": null,
-    "deprecation_context": "​Model status",
-    "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-instant-1.0",
-    "content_hash": "378291045ca0f101",
-    "scraped_at": "2025-08-26T18:51:55.745231+00:00"
-  },
-  {
-    "provider": "Anthropic",
-    "model_id": "claude-instant-1.1",
-    "model_name": "claude-instant-1.1",
-    "announcement_date": "2024-09-04",
-    "shutdown_date": "2024-11-06",
-    "replacement_model": null,
-    "deprecation_context": "​Model status",
-    "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-instant-1.1",
-    "content_hash": "916812de562d6a23",
-    "scraped_at": "2025-08-26T18:51:55.745251+00:00"
-  },
-  {
-    "provider": "Anthropic",
-    "model_id": "claude-instant-1.2",
-    "model_name": "claude-instant-1.2",
-    "announcement_date": "2024-09-04",
-    "shutdown_date": "2024-11-06",
-    "replacement_model": null,
-    "deprecation_context": "​Model status",
-    "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-instant-1.2",
-    "content_hash": "7dccd347de315e0d",
-    "scraped_at": "2025-08-26T18:51:55.745267+00:00"
-  },
-  {
-    "provider": "Anthropic",
-    "model_id": "claude-2.0",
-    "model_name": "claude-2.0",
-    "announcement_date": "2025-01-21",
-    "shutdown_date": "2025-07-21",
-    "replacement_model": null,
-    "deprecation_context": "​Model status",
-    "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-2.0",
-    "content_hash": "8c697ef2b96ee609",
-    "scraped_at": "2025-08-26T18:51:55.745287+00:00"
-  },
-  {
-    "provider": "Anthropic",
-    "model_id": "claude-2.1",
-    "model_name": "claude-2.1",
-    "announcement_date": "2025-01-21",
-    "shutdown_date": "2025-07-21",
-    "replacement_model": null,
-    "deprecation_context": "​Model status",
-    "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-2.1",
-    "content_hash": "e37921e6e321d1c2",
-    "scraped_at": "2025-08-26T18:51:55.745304+00:00"
-  },
-  {
-    "provider": "Anthropic",
-    "model_id": "claude-3-sonnet-20240229",
-    "model_name": "claude-3-sonnet-20240229",
-    "announcement_date": "2025-01-21",
-    "shutdown_date": "2025-07-21",
-    "replacement_model": null,
-    "deprecation_context": "​Model status",
-    "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-3-sonnet-20240229",
-    "content_hash": "69d262f21a747fe7",
-    "scraped_at": "2025-08-26T18:51:55.745320+00:00"
-  },
-  {
-    "provider": "Anthropic",
-    "model_id": "claude-3-opus-20240229",
-    "model_name": "claude-3-opus-20240229",
-    "announcement_date": "2025-06-30",
-    "shutdown_date": "2026-01-05",
-    "replacement_model": null,
-    "deprecation_context": "​Model status",
-    "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-3-opus-20240229",
-    "content_hash": "f05fdc4a8221d16d",
-    "scraped_at": "2025-08-26T18:51:55.745337+00:00"
-  },
-  {
-    "provider": "Anthropic",
-    "model_id": "claude-3-haiku-20240307",
-    "model_name": "claude-3-haiku-20240307",
-    "announcement_date": "N/A",
-    "shutdown_date": "Not sooner than March 7, 2025",
-    "replacement_model": null,
-    "deprecation_context": "​Model status",
-    "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-3-haiku-20240307",
-    "content_hash": "08d256490edbf58e",
-    "scraped_at": "2025-08-26T18:51:55.745654+00:00"
-  },
-  {
-    "provider": "Anthropic",
-    "model_id": "claude-3-5-sonnet-20240620",
-    "model_name": "claude-3-5-sonnet-20240620",
-    "announcement_date": "2025-08-13",
-    "shutdown_date": "2025-10-22",
-    "replacement_model": null,
-    "deprecation_context": "​Model status",
-    "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-3-5-sonnet-20240620",
-    "content_hash": "bba5202d8880fbad",
-    "scraped_at": "2025-08-26T18:51:55.745682+00:00"
-  },
-  {
-    "provider": "Anthropic",
-    "model_id": "claude-3-5-haiku-20241022",
-    "model_name": "claude-3-5-haiku-20241022",
-    "announcement_date": "N/A",
-    "shutdown_date": "Not sooner than October 22, 2025",
-    "replacement_model": null,
-    "deprecation_context": "​Model status",
-    "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-3-5-haiku-20241022",
-    "content_hash": "129154289daba78b",
-    "scraped_at": "2025-08-26T18:51:55.745707+00:00"
-  },
-  {
-    "provider": "Anthropic",
-    "model_id": "claude-3-5-sonnet-20241022",
-    "model_name": "claude-3-5-sonnet-20241022",
-    "announcement_date": "2025-08-13",
-    "shutdown_date": "2025-10-22",
-    "replacement_model": null,
-    "deprecation_context": "​Model status",
-    "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-3-5-sonnet-20241022",
-    "content_hash": "c1ef78d7c840343e",
-    "scraped_at": "2025-08-26T18:51:55.745728+00:00"
-  },
-  {
-    "provider": "Anthropic",
-    "model_id": "claude-3-7-sonnet-20250219",
-    "model_name": "claude-3-7-sonnet-20250219",
-    "announcement_date": "N/A",
-    "shutdown_date": "Not sooner than February 19, 2026",
-    "replacement_model": null,
-    "deprecation_context": "​Model status",
-    "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-3-7-sonnet-20250219",
-    "content_hash": "681dc5c012edc6f3",
-    "scraped_at": "2025-08-26T18:51:55.745752+00:00"
-  },
-  {
-    "provider": "Anthropic",
-    "model_id": "claude-sonnet-4-20250514",
-    "model_name": "claude-sonnet-4-20250514",
-    "announcement_date": "N/A",
-    "shutdown_date": "Not sooner than May 14, 2026",
-    "replacement_model": null,
-    "deprecation_context": "​Model status",
-    "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-sonnet-4-20250514",
-    "content_hash": "00122f322929744e",
-    "scraped_at": "2025-08-26T18:51:55.745774+00:00"
-  },
-  {
-    "provider": "Anthropic",
-    "model_id": "claude-opus-4-20250514",
-    "model_name": "claude-opus-4-20250514",
-    "announcement_date": "N/A",
-    "shutdown_date": "Not sooner than May 14, 2026",
-    "replacement_model": null,
-    "deprecation_context": "​Model status",
-    "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-opus-4-20250514",
-    "content_hash": "f778ec4dfc172423",
-    "scraped_at": "2025-08-26T18:51:55.745796+00:00"
+    "content_hash": "",
+    "scraped_at": "2025-08-26T18:37:44.462909+00:00"
   },
   {
     "provider": "Anthropic",
@@ -450,10 +234,274 @@
     "announcement_date": "N/A",
     "shutdown_date": "Not sooner than August 5, 2026",
     "replacement_model": null,
-    "deprecation_context": "​Model status",
+    "deprecation_context": "\u200bModel status",
     "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-opus-4-1-20250805",
-    "content_hash": "62e9bab99b200103",
-    "scraped_at": "2025-08-26T18:51:55.745818+00:00"
+    "content_hash": "dcd6c576d064add2",
+    "scraped_at": "2025-08-26T18:45:46.347178+00:00"
+  },
+  {
+    "provider": "Anthropic",
+    "model_id": "claude-opus-4-1-20250805",
+    "model_name": "claude-opus-4-1-20250805",
+    "announcement_date": "N/A",
+    "shutdown_date": "Not sooner than August 5, 2026",
+    "replacement_model": null,
+    "deprecation_context": "\u200bModel status",
+    "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-opus-4-1-20250805",
+    "content_hash": "dcd6c576d064add2",
+    "scraped_at": "2025-08-26T18:45:46.347178+00:00"
+  },
+  {
+    "provider": "Anthropic",
+    "model_id": "claude-opus-4-1-20250805",
+    "model_name": "claude-opus-4-1-20250805",
+    "announcement_date": "N/A",
+    "shutdown_date": "Not sooner than August 5, 2026",
+    "replacement_model": null,
+    "deprecation_context": "\u200bModel status",
+    "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-opus-4-1-20250805",
+    "content_hash": "dcd6c576d064add2",
+    "scraped_at": "2025-08-26T18:45:46.347178+00:00"
+  },
+  {
+    "provider": "Anthropic",
+    "model_id": "claude-opus-4-1-20250805",
+    "model_name": "claude-opus-4-1-20250805",
+    "announcement_date": "N/A",
+    "shutdown_date": "Not sooner than August 5, 2026",
+    "replacement_model": null,
+    "deprecation_context": "\u200bModel status",
+    "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-opus-4-1-20250805",
+    "content_hash": "dcd6c576d064add2",
+    "scraped_at": "2025-08-26T18:45:46.347178+00:00"
+  },
+  {
+    "provider": "Anthropic",
+    "model_id": "claude-opus-4-1-20250805",
+    "model_name": "claude-opus-4-1-20250805",
+    "announcement_date": "N/A",
+    "shutdown_date": "Not sooner than August 5, 2026",
+    "replacement_model": null,
+    "deprecation_context": "\u200bModel status",
+    "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-opus-4-1-20250805",
+    "content_hash": "dcd6c576d064add2",
+    "scraped_at": "2025-08-26T18:45:46.347178+00:00"
+  },
+  {
+    "provider": "Anthropic",
+    "model_id": "claude-opus-4-1-20250805",
+    "model_name": "claude-opus-4-1-20250805",
+    "announcement_date": "N/A",
+    "shutdown_date": "Not sooner than August 5, 2026",
+    "replacement_model": null,
+    "deprecation_context": "\u200bModel status",
+    "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-opus-4-1-20250805",
+    "content_hash": "dcd6c576d064add2",
+    "scraped_at": "2025-08-26T18:45:46.347178+00:00"
+  },
+  {
+    "provider": "Anthropic",
+    "model_id": "claude-opus-4-1-20250805",
+    "model_name": "claude-opus-4-1-20250805",
+    "announcement_date": "N/A",
+    "shutdown_date": "Not sooner than August 5, 2026",
+    "replacement_model": null,
+    "deprecation_context": "\u200bModel status",
+    "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-opus-4-1-20250805",
+    "content_hash": "dcd6c576d064add2",
+    "scraped_at": "2025-08-26T18:45:46.347178+00:00"
+  },
+  {
+    "provider": "Anthropic",
+    "model_id": "claude-opus-4-1-20250805",
+    "model_name": "claude-opus-4-1-20250805",
+    "announcement_date": "N/A",
+    "shutdown_date": "Not sooner than August 5, 2026",
+    "replacement_model": null,
+    "deprecation_context": "\u200bModel status",
+    "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-opus-4-1-20250805",
+    "content_hash": "dcd6c576d064add2",
+    "scraped_at": "2025-08-26T18:45:46.347178+00:00"
+  },
+  {
+    "provider": "Anthropic",
+    "model_id": "claude-opus-4-1-20250805",
+    "model_name": "claude-opus-4-1-20250805",
+    "announcement_date": "N/A",
+    "shutdown_date": "Not sooner than August 5, 2026",
+    "replacement_model": null,
+    "deprecation_context": "\u200bModel status",
+    "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-opus-4-1-20250805",
+    "content_hash": "dcd6c576d064add2",
+    "scraped_at": "2025-08-26T18:45:46.347178+00:00"
+  },
+  {
+    "provider": "Anthropic",
+    "model_id": "claude-opus-4-1-20250805",
+    "model_name": "claude-opus-4-1-20250805",
+    "announcement_date": "N/A",
+    "shutdown_date": "Not sooner than August 5, 2026",
+    "replacement_model": null,
+    "deprecation_context": "\u200bModel status",
+    "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-opus-4-1-20250805",
+    "content_hash": "dcd6c576d064add2",
+    "scraped_at": "2025-08-26T18:45:46.347178+00:00"
+  },
+  {
+    "provider": "Anthropic",
+    "model_id": "claude-opus-4-1-20250805",
+    "model_name": "claude-opus-4-1-20250805",
+    "announcement_date": "N/A",
+    "shutdown_date": "Not sooner than August 5, 2026",
+    "replacement_model": null,
+    "deprecation_context": "\u200bModel status",
+    "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-opus-4-1-20250805",
+    "content_hash": "dcd6c576d064add2",
+    "scraped_at": "2025-08-26T18:45:46.347178+00:00"
+  },
+  {
+    "provider": "Anthropic",
+    "model_id": "claude-opus-4-1-20250805",
+    "model_name": "claude-opus-4-1-20250805",
+    "announcement_date": "N/A",
+    "shutdown_date": "Not sooner than August 5, 2026",
+    "replacement_model": null,
+    "deprecation_context": "\u200bModel status",
+    "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-opus-4-1-20250805",
+    "content_hash": "dcd6c576d064add2",
+    "scraped_at": "2025-08-26T18:45:46.347178+00:00"
+  },
+  {
+    "provider": "Anthropic",
+    "model_id": "claude-opus-4-1-20250805",
+    "model_name": "claude-opus-4-1-20250805",
+    "announcement_date": "N/A",
+    "shutdown_date": "Not sooner than August 5, 2026",
+    "replacement_model": null,
+    "deprecation_context": "\u200bModel status",
+    "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-opus-4-1-20250805",
+    "content_hash": "dcd6c576d064add2",
+    "scraped_at": "2025-08-26T18:45:46.347178+00:00"
+  },
+  {
+    "provider": "Anthropic",
+    "model_id": "claude-opus-4-1-20250805",
+    "model_name": "claude-opus-4-1-20250805",
+    "announcement_date": "N/A",
+    "shutdown_date": "Not sooner than August 5, 2026",
+    "replacement_model": null,
+    "deprecation_context": "\u200bModel status",
+    "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-opus-4-1-20250805",
+    "content_hash": "dcd6c576d064add2",
+    "scraped_at": "2025-08-26T18:45:46.347178+00:00"
+  },
+  {
+    "provider": "Anthropic",
+    "model_id": "claude-opus-4-1-20250805",
+    "model_name": "claude-opus-4-1-20250805",
+    "announcement_date": "N/A",
+    "shutdown_date": "Not sooner than August 5, 2026",
+    "replacement_model": null,
+    "deprecation_context": "\u200bModel status",
+    "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-opus-4-1-20250805",
+    "content_hash": "dcd6c576d064add2",
+    "scraped_at": "2025-08-26T18:45:46.347178+00:00"
+  },
+  {
+    "provider": "Anthropic",
+    "model_id": "claude-opus-4-1-20250805",
+    "model_name": "claude-opus-4-1-20250805",
+    "announcement_date": "N/A",
+    "shutdown_date": "Not sooner than August 5, 2026",
+    "replacement_model": null,
+    "deprecation_context": "\u200bModel status",
+    "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-opus-4-1-20250805",
+    "content_hash": "dcd6c576d064add2",
+    "scraped_at": "2025-08-26T18:45:46.347178+00:00"
+  },
+  {
+    "provider": "Anthropic",
+    "model_id": "claude-opus-4-1-20250805",
+    "model_name": "claude-opus-4-1-20250805",
+    "announcement_date": "N/A",
+    "shutdown_date": "Not sooner than August 5, 2026",
+    "replacement_model": null,
+    "deprecation_context": "\u200bModel status",
+    "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-opus-4-1-20250805",
+    "content_hash": "dcd6c576d064add2",
+    "scraped_at": "2025-08-26T18:45:46.347178+00:00"
+  },
+  {
+    "provider": "Anthropic",
+    "model_id": "claude-opus-4-1-20250805",
+    "model_name": "claude-opus-4-1-20250805",
+    "announcement_date": "N/A",
+    "shutdown_date": "Not sooner than August 5, 2026",
+    "replacement_model": null,
+    "deprecation_context": "\u200bModel status",
+    "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-opus-4-1-20250805",
+    "content_hash": "dcd6c576d064add2",
+    "scraped_at": "2025-08-26T18:45:46.347178+00:00"
+  },
+  {
+    "provider": "Anthropic",
+    "model_id": "claude-opus-4-1-20250805",
+    "model_name": "claude-opus-4-1-20250805",
+    "announcement_date": "N/A",
+    "shutdown_date": "Not sooner than August 5, 2026",
+    "replacement_model": null,
+    "deprecation_context": "\u200bModel status",
+    "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-opus-4-1-20250805",
+    "content_hash": "dcd6c576d064add2",
+    "scraped_at": "2025-08-26T18:45:46.347178+00:00"
+  },
+  {
+    "provider": "Anthropic",
+    "model_id": "October 22, 2025",
+    "model_name": "October 22, 2025",
+    "announcement_date": "claude-3-5-sonnet-20240620",
+    "shutdown_date": "2025-10-22",
+    "replacement_model": "claude-sonnet-4-20250514",
+    "deprecation_context": "\u200b2025-08-13: Claude Sonnet 3.5 models",
+    "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#october-22,-2025",
+    "content_hash": "5c58bb91504321c0",
+    "scraped_at": "2025-08-26T18:45:46.347252+00:00"
+  },
+  {
+    "provider": "Anthropic",
+    "model_id": "January 5, 2026",
+    "model_name": "January 5, 2026",
+    "announcement_date": "claude-3-opus-20240229",
+    "shutdown_date": "2026-01-05",
+    "replacement_model": "claude-opus-4-1-20250805",
+    "deprecation_context": "\u200b2025-06-30: Claude Opus 3 model",
+    "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#january-5,-2026",
+    "content_hash": "0e98726712239df5",
+    "scraped_at": "2025-08-26T18:45:46.347324+00:00"
+  },
+  {
+    "provider": "Anthropic",
+    "model_id": "July 21, 2025",
+    "model_name": "July 21, 2025",
+    "announcement_date": "claude-2.0",
+    "shutdown_date": "2025-07-21",
+    "replacement_model": "claude-sonnet-4-20250514",
+    "deprecation_context": "\u200b2025-01-21: Claude 2, Claude 2.1, and Claude Sonnet 3 models",
+    "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#july-21,-2025",
+    "content_hash": "1fb5d466d332e0eb",
+    "scraped_at": "2025-08-26T18:45:46.347364+00:00"
+  },
+  {
+    "provider": "Anthropic",
+    "model_id": "November 6, 2024",
+    "model_name": "November 6, 2024",
+    "announcement_date": "claude-1.0",
+    "shutdown_date": "2024-11-06",
+    "replacement_model": "claude-3-5-haiku-20241022",
+    "deprecation_context": "\u200b2024-09-04: Claude 1 and Instant models",
+    "url": "https://docs.anthropic.com/en/docs/about-claude/model-deprecations#november-6,-2024",
+    "content_hash": "d0a891e66f57c10d",
+    "scraped_at": "2025-08-26T18:45:46.347443+00:00"
   },
   {
     "provider": "Google Vertex AI",
@@ -464,32 +512,8 @@
     "replacement_model": null,
     "deprecation_context": "Starting on June 24, 2025, the Generative AI module in the\n        Vertex AI SDK is deprecated. The Generative AI module will be\n        removed on June 24, 2026. For information about migrating to the\n        Google Gen AI SDK, seeVertex AI SDK migration guide.",
     "url": "https://cloud.google.com/vertex-ai/generative-ai/docs/deprecations",
-    "content_hash": "e9f5ff0f2c629c71",
-    "scraped_at": "2025-08-26T18:51:55.769414+00:00"
-  },
-  {
-    "provider": "Google Vertex AI",
-    "model_id": "imagegeneration@002",
-    "model_name": "Imagen imagegeneration@002",
-    "announcement_date": "2025-06-24",
-    "shutdown_date": "2025-09-24",
-    "replacement_model": "Imagen 3",
-    "deprecation_context": "Starting on June 24, 2025, Imagen versions 1 and 2,\n          image captioning, and visual question answering are deprecated.On September 24, 2025 , the following features and models will\n          be removed:image captioningvisual question answeringImagen 1 modelsimagegeneration@002Imagen 2 modelsimagegeneration@005andimagegeneration@006For more information about migrating to Imagen 3,\n          seeMigrate\n          to Imagen 3.",
-    "url": "https://cloud.google.com/vertex-ai/generative-ai/docs/deprecations",
-    "content_hash": "1633ac9cf65096dc",
-    "scraped_at": "2025-08-26T18:51:55.769525+00:00"
-  },
-  {
-    "provider": "Google Vertex AI",
-    "model_id": "imagegeneration@005",
-    "model_name": "Imagen imagegeneration@005",
-    "announcement_date": "2025-06-24",
-    "shutdown_date": "2025-09-24",
-    "replacement_model": "Imagen 3",
-    "deprecation_context": "Starting on June 24, 2025, Imagen versions 1 and 2,\n          image captioning, and visual question answering are deprecated.On September 24, 2025 , the following features and models will\n          be removed:image captioningvisual question answeringImagen 1 modelsimagegeneration@002Imagen 2 modelsimagegeneration@005andimagegeneration@006For more information about migrating to Imagen 3,\n          seeMigrate\n          to Imagen 3.",
-    "url": "https://cloud.google.com/vertex-ai/generative-ai/docs/deprecations",
-    "content_hash": "08b85ccf80d5c2b4",
-    "scraped_at": "2025-08-26T18:51:55.769532+00:00"
+    "content_hash": "c586e740f8e5d7cd",
+    "scraped_at": "2025-08-26T18:42:24.991308+00:00"
   },
   {
     "provider": "Google Vertex AI",
@@ -500,8 +524,32 @@
     "replacement_model": "Imagen 3",
     "deprecation_context": "Starting on June 24, 2025, Imagen versions 1 and 2,\n          image captioning, and visual question answering are deprecated.On September 24, 2025 , the following features and models will\n          be removed:image captioningvisual question answeringImagen 1 modelsimagegeneration@002Imagen 2 modelsimagegeneration@005andimagegeneration@006For more information about migrating to Imagen 3,\n          seeMigrate\n          to Imagen 3.",
     "url": "https://cloud.google.com/vertex-ai/generative-ai/docs/deprecations",
-    "content_hash": "dcd9d46d03e7e0c9",
-    "scraped_at": "2025-08-26T18:51:55.769535+00:00"
+    "content_hash": "cb25d40bf014d408",
+    "scraped_at": "2025-08-26T18:42:24.991475+00:00"
+  },
+  {
+    "provider": "Google Vertex AI",
+    "model_id": "imagegeneration@006",
+    "model_name": "Imagen imagegeneration@006",
+    "announcement_date": "2025-06-24",
+    "shutdown_date": "2025-09-24",
+    "replacement_model": "Imagen 3",
+    "deprecation_context": "Starting on June 24, 2025, Imagen versions 1 and 2,\n          image captioning, and visual question answering are deprecated.On September 24, 2025 , the following features and models will\n          be removed:image captioningvisual question answeringImagen 1 modelsimagegeneration@002Imagen 2 modelsimagegeneration@005andimagegeneration@006For more information about migrating to Imagen 3,\n          seeMigrate\n          to Imagen 3.",
+    "url": "https://cloud.google.com/vertex-ai/generative-ai/docs/deprecations",
+    "content_hash": "cb25d40bf014d408",
+    "scraped_at": "2025-08-26T18:42:24.991475+00:00"
+  },
+  {
+    "provider": "Google Vertex AI",
+    "model_id": "imagegeneration@006",
+    "model_name": "Imagen imagegeneration@006",
+    "announcement_date": "2025-06-24",
+    "shutdown_date": "2025-09-24",
+    "replacement_model": "Imagen 3",
+    "deprecation_context": "Starting on June 24, 2025, Imagen versions 1 and 2,\n          image captioning, and visual question answering are deprecated.On September 24, 2025 , the following features and models will\n          be removed:image captioningvisual question answeringImagen 1 modelsimagegeneration@002Imagen 2 modelsimagegeneration@005andimagegeneration@006For more information about migrating to Imagen 3,\n          seeMigrate\n          to Imagen 3.",
+    "url": "https://cloud.google.com/vertex-ai/generative-ai/docs/deprecations",
+    "content_hash": "cb25d40bf014d408",
+    "scraped_at": "2025-08-26T18:42:24.991475+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -512,8 +560,8 @@
     "replacement_model": null,
     "deprecation_context": "Model ai21.jamba-instruct-v1:0. entered legacy status on October 4, 2024 (only in us-east-1). and will reach end-of-life on March 12, 2025 (only in us-east-1).",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "content_hash": "8d252c20ff825603",
-    "scraped_at": "2025-08-26T18:51:55.802530+00:00"
+    "content_hash": "7d5bdf57e2931985",
+    "scraped_at": "2025-08-26T18:37:49.744369+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -524,8 +572,8 @@
     "replacement_model": null,
     "deprecation_context": "Model stability.stable-image-core-v1:0, stability.stable-image-ultra-v1:0, and stability.sd3-large-v1:0. entered legacy status on October 16, 2024 (us-east-1 and us-west-2). and will reach end-of-life on May 20, 2025 (us-east-1 and us-west-2).",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "content_hash": "d8d77ba9c21556ae",
-    "scraped_at": "2025-08-26T18:51:55.802647+00:00"
+    "content_hash": "a7bd6116b5ed3cf0",
+    "scraped_at": "2025-08-26T18:37:49.744514+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -536,8 +584,8 @@
     "replacement_model": null,
     "deprecation_context": "Model anthropic.claude-3-5-sonnet-20241022-v2:0, anthropic.claude-3-5-sonnet-20240620-v1:0, or anthropic.claude-3-5-haiku-20241022-v1:0. entered legacy status on January 21, 2025 (all regions). and will reach end-of-life on July 21, 2025 (all regions).",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "content_hash": "bf39fa9da03a842d",
-    "scraped_at": "2025-08-26T18:51:55.802670+00:00"
+    "content_hash": "5fdd9539edb22b65",
+    "scraped_at": "2025-08-26T18:37:49.744538+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -548,8 +596,8 @@
     "replacement_model": null,
     "deprecation_context": "Model anthropic.claude-opus-4-1-20250805-v1:0, anthropic.claude-opus-4-20250514-v1:0, anthropic.claude-sonnet-4-20250514-v1:0. entered legacy status on July 15th, 2025 (all regions). and will reach end-of-life on January 15th, 2026 (all regions).",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "content_hash": "4cb6c113621b57b7",
-    "scraped_at": "2025-08-26T18:51:55.802734+00:00"
+    "content_hash": "eb4deda239e30349",
+    "scraped_at": "2025-08-26T18:37:49.744601+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -560,8 +608,8 @@
     "replacement_model": null,
     "deprecation_context": "Model stability.stable-image-core-v1:1. entered legacy status on January 31, 2025 (all regions). and will reach end-of-life on September 4, 2025 (all regions).",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "content_hash": "9c06e545ef314b56",
-    "scraped_at": "2025-08-26T18:51:55.802779+00:00"
+    "content_hash": "2f03d337bafa4a54",
+    "scraped_at": "2025-08-26T18:37:49.744646+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -572,8 +620,8 @@
     "replacement_model": null,
     "deprecation_context": "Model stability.sd3-5-large-v1:0. entered legacy status on January 31, 2025 (all regions). and will reach end-of-life on September 4, 2025 (all regions).",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "content_hash": "f086b03a87f53c9d",
-    "scraped_at": "2025-08-26T18:51:55.802800+00:00"
+    "content_hash": "64f8787eb2564e1c",
+    "scraped_at": "2025-08-26T18:37:49.744667+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -584,8 +632,8 @@
     "replacement_model": null,
     "deprecation_context": "Model stability.stable-image-ultra-v1:1. entered legacy status on January 31, 2025 (all regions). and will reach end-of-life on September 4, 2025 (all regions).",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "content_hash": "d9f97886c2f52ac3",
-    "scraped_at": "2025-08-26T18:51:55.802825+00:00"
+    "content_hash": "7fe9cc81126b8eab",
+    "scraped_at": "2025-08-26T18:37:49.744688+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -596,8 +644,8 @@
     "replacement_model": null,
     "deprecation_context": "Model ai21.jamba-1-5-mini-v1:0 or ai21.jamba-1-5-large-v1:0. entered legacy status on January 31, 2025 (all regions). and will reach end-of-life on August 1, 2025 (all regions).",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "content_hash": "12084ed985d6825d",
-    "scraped_at": "2025-08-26T18:51:55.802847+00:00"
+    "content_hash": "cc2b6160a058a8b0",
+    "scraped_at": "2025-08-26T18:37:49.744710+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -608,8 +656,8 @@
     "replacement_model": null,
     "deprecation_context": "Model amazon.nova-pro-v1:0. entered legacy status on January 31, 2025 (all regions). and will reach end-of-life on August 15, 2025 (all regions).",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "content_hash": "e27473c65fc2caa5",
-    "scraped_at": "2025-08-26T18:51:55.802868+00:00"
+    "content_hash": "2020184eb5a1e5c4",
+    "scraped_at": "2025-08-26T18:37:49.744731+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -620,8 +668,8 @@
     "replacement_model": null,
     "deprecation_context": "Model amazon.nova-micro-v1:0. entered legacy status on January 31, 2025 (all regions). and will reach end-of-life on August 15, 2025 (all regions).",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "content_hash": "907357a69d3c16a9",
-    "scraped_at": "2025-08-26T18:51:55.802890+00:00"
+    "content_hash": "1a676d8bb2fbe67c",
+    "scraped_at": "2025-08-26T18:37:49.744751+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -632,8 +680,8 @@
     "replacement_model": null,
     "deprecation_context": "Model amazon.nova-lite-v1:0. entered legacy status on January 31, 2025 (all regions). and will reach end-of-life on August 15, 2025 (all regions).",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "content_hash": "d46cb39c978c32f1",
-    "scraped_at": "2025-08-26T18:51:55.802912+00:00"
+    "content_hash": "ac3f0fc94a2c1bd0",
+    "scraped_at": "2025-08-26T18:37:49.744772+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -644,8 +692,8 @@
     "replacement_model": null,
     "deprecation_context": "Model amazon.nova-canvas-v1:0. entered legacy status on January 31, 2025 (all regions). and will reach end-of-life on August 15, 2025 (all regions).",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "content_hash": "dda2edcf7de04159",
-    "scraped_at": "2025-08-26T18:51:55.802934+00:00"
+    "content_hash": "eebceb2a102c66f8",
+    "scraped_at": "2025-08-26T18:37:49.744792+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -656,8 +704,8 @@
     "replacement_model": null,
     "deprecation_context": "Model stability.stable-diffusion-xl-v1. entered legacy status on 2024-02-02. and will reach end-of-life on 2024-04-30.",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "content_hash": "8e3769d5b194cda0",
-    "scraped_at": "2025-08-26T18:51:55.803001+00:00"
+    "content_hash": "26a322bac0c12669",
+    "scraped_at": "2025-08-26T18:37:49.744866+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -668,8 +716,8 @@
     "replacement_model": null,
     "deprecation_context": "Model cohere.command-r-v1:0 and cohere.command-r-plus-v1:0. entered legacy status on 2024-10-04. and will reach end-of-life on 2025-08-12.",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "content_hash": "4735494a1455be55",
-    "scraped_at": "2025-08-26T18:51:55.803022+00:00"
+    "content_hash": "da2f91ddbe58697e",
+    "scraped_at": "2025-08-26T18:37:49.744887+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -680,8 +728,8 @@
     "replacement_model": null,
     "deprecation_context": "Model anthropic.claude-v2:1. entered legacy status on 2023-11-28. and will reach end-of-life on 2024-02-28.",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "content_hash": "fc74ff71133c1174",
-    "scraped_at": "2025-08-26T18:51:55.803057+00:00"
+    "content_hash": "7b2725ab390643f1",
+    "scraped_at": "2025-08-26T18:37:49.744921+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -692,8 +740,8 @@
     "replacement_model": null,
     "deprecation_context": "Model amazon.titan-embed-text-v1. entered legacy status on 2023-11-07. and will reach end-of-life on 2024-02-15.",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "content_hash": "64afdbd11555e150",
-    "scraped_at": "2025-08-26T18:51:55.803075+00:00"
+    "content_hash": "7404d1856a43d6b3",
+    "scraped_at": "2025-08-26T18:37:49.744937+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -704,8 +752,8 @@
     "replacement_model": null,
     "deprecation_context": "Model meta.llama3-1-8b-instruct-v1. entered legacy status on 2024-05-12. and will reach end-of-life on 2024-10-30.",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "content_hash": "74f8c2507bd81431",
-    "scraped_at": "2025-08-26T18:51:55.803097+00:00"
+    "content_hash": "4dd484522104d699",
+    "scraped_at": "2025-08-26T18:37:49.744952+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -716,8 +764,8 @@
     "replacement_model": null,
     "deprecation_context": "Model meta.llama3-1-70b-instruct-v1. entered legacy status on 2024-05-12. and will reach end-of-life on 2024-10-30.",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "content_hash": "caeff8f4ee35f586",
-    "scraped_at": "2025-08-26T18:51:55.803113+00:00"
+    "content_hash": "50002788bd5e23a7",
+    "scraped_at": "2025-08-26T18:37:49.744967+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -728,8 +776,8 @@
     "replacement_model": null,
     "deprecation_context": "Model meta.llama3-8b-instruct-v1. entered legacy status on 2024-05-12. and will reach end-of-life on 2024-10-30.",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "content_hash": "3bd44d93d1b0e60f",
-    "scraped_at": "2025-08-26T18:51:55.803132+00:00"
+    "content_hash": "d1e553d669a3dbee",
+    "scraped_at": "2025-08-26T18:37:49.744982+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -740,8 +788,8 @@
     "replacement_model": null,
     "deprecation_context": "Model meta.llama3-70b-instruct-v1. entered legacy status on 2024-05-12. and will reach end-of-life on 2024-10-30.",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "content_hash": "45fa9c3a2d6d5575",
-    "scraped_at": "2025-08-26T18:51:55.803153+00:00"
+    "content_hash": "6c4292a2cf0b5398",
+    "scraped_at": "2025-08-26T18:37:49.744998+00:00"
   },
   {
     "provider": "AWS Bedrock",
@@ -752,8 +800,8 @@
     "replacement_model": null,
     "deprecation_context": "Model ai21.jamba-instruct-v1:0 in US East (N. Virginia). entered legacy status on April 30, 2024 (only in us-west-2). and will reach end-of-life on October 4, 2024 (only in us-west-2).",
     "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
-    "content_hash": "787eb25201c9bd0c",
-    "scraped_at": "2025-08-26T18:51:55.803179+00:00"
+    "content_hash": "6f355ba58d53b337",
+    "scraped_at": "2025-08-26T18:37:49.745020+00:00"
   },
   {
     "provider": "Cohere",
@@ -764,8 +812,8 @@
     "replacement_model": "Command-R-08-2024",
     "deprecation_context": "2025-03-08: Command-R-03-2024 Fine-tuned Models\nOn March 08, 2025, we will sunset all models fine-tuned with Command-R-03-2024. As part of our ongoing efforts to enhance our services, we are making the following changes to our fine-tuning capabilities:\nDeprecating fine-tuning with the older Command-R-03-2024 modelAll fine-tunes are now powered by the Command-R-08-2024 model.\nModels fine-tuned with Command-R-03-2024 will continue to be supported until March 08, 2025. After this date, all requests to these models will return an error.",
     "url": "https://docs.cohere.com/docs/deprecations#2025-03-08",
-    "content_hash": "3856e88a1bb1f802",
-    "scraped_at": "2025-08-26T18:51:55.823412+00:00"
+    "content_hash": "664bedcbc5ad552e",
+    "scraped_at": "2025-08-26T18:37:53.876626+00:00"
   },
   {
     "provider": "Cohere",
@@ -776,20 +824,8 @@
     "replacement_model": "Fine-tuned Embed models",
     "deprecation_context": "2025-01-31: Default Classify endpoint\nAfter January 31st, 2025, usage of Classify endpoint via the default Embed models will be deprecated.\nHowever, you can still use the Classify endpoint with a fine-tuned Embed model. By leveraging fine-tuning, you can achieve even better performance and accuracy in your classification tasks. Read the documentation onClassify fine-tuningfor more information.",
     "url": "https://docs.cohere.com/docs/deprecations#2025-01-31",
-    "content_hash": "54559187a18af059",
-    "scraped_at": "2025-08-26T18:51:55.823483+00:00"
-  },
-  {
-    "provider": "Cohere",
-    "model_id": "rerank-english-v2.0",
-    "model_name": "rerank-english-v2.0",
-    "announcement_date": "2024-12-02",
-    "shutdown_date": "2025-04-30",
-    "replacement_model": "rerank-v3.5",
-    "deprecation_context": "2024-12-02: Rerank v2.0\nOn December 2nd, 2024, we announced the release of Rerank-v3.5 along with the deprecation of the Rerank-v2.0 model family.\nFine-tuned models created from these base models are not affected by this deprecation.\nShutdown DateDeprecated ModelDeprecated Model PriceRecommended Replacement2025-04-30rerank-english-v2.0$1.00 / 1K searchesrerank-v3.52025-04-30rerank-multilingual-v2.0$1.00 / 1K searchesrerank-v3.5\nBest Practices:\nRegularly check our documentation for updates on announcements regarding the status of models.Test applications with newer models well before the shutdown date of your current model.Update any production code to use an active model as soon as possible.Contactsupport@cohere.aiif you need any assistance with migration or have any questions.",
-    "url": "https://docs.cohere.com/docs/deprecations#2024-12-02",
-    "content_hash": "8514ec8565d5661f",
-    "scraped_at": "2025-08-26T18:51:55.823511+00:00"
+    "content_hash": "c232893281c96fb5",
+    "scraped_at": "2025-08-26T18:37:53.876712+00:00"
   },
   {
     "provider": "Cohere",
@@ -800,7 +836,19 @@
     "replacement_model": "rerank-v3.5",
     "deprecation_context": "2024-12-02: Rerank v2.0\nOn December 2nd, 2024, we announced the release of Rerank-v3.5 along with the deprecation of the Rerank-v2.0 model family.\nFine-tuned models created from these base models are not affected by this deprecation.\nShutdown DateDeprecated ModelDeprecated Model PriceRecommended Replacement2025-04-30rerank-english-v2.0$1.00 / 1K searchesrerank-v3.52025-04-30rerank-multilingual-v2.0$1.00 / 1K searchesrerank-v3.5\nBest Practices:\nRegularly check our documentation for updates on announcements regarding the status of models.Test applications with newer models well before the shutdown date of your current model.Update any production code to use an active model as soon as possible.Contactsupport@cohere.aiif you need any assistance with migration or have any questions.",
     "url": "https://docs.cohere.com/docs/deprecations#2024-12-02",
-    "content_hash": "d6c535dc8fc536cb",
-    "scraped_at": "2025-08-26T18:51:55.823514+00:00"
+    "content_hash": "97682b53dd3bc820",
+    "scraped_at": "2025-08-26T18:37:53.876744+00:00"
+  },
+  {
+    "provider": "Cohere",
+    "model_id": "rerank-multilingual-v2.0",
+    "model_name": "rerank-multilingual-v2.0",
+    "announcement_date": "2024-12-02",
+    "shutdown_date": "2025-04-30",
+    "replacement_model": "rerank-v3.5",
+    "deprecation_context": "2024-12-02: Rerank v2.0\nOn December 2nd, 2024, we announced the release of Rerank-v3.5 along with the deprecation of the Rerank-v2.0 model family.\nFine-tuned models created from these base models are not affected by this deprecation.\nShutdown DateDeprecated ModelDeprecated Model PriceRecommended Replacement2025-04-30rerank-english-v2.0$1.00 / 1K searchesrerank-v3.52025-04-30rerank-multilingual-v2.0$1.00 / 1K searchesrerank-v3.5\nBest Practices:\nRegularly check our documentation for updates on announcements regarding the status of models.Test applications with newer models well before the shutdown date of your current model.Update any production code to use an active model as soon as possible.Contactsupport@cohere.aiif you need any assistance with migration or have any questions.",
+    "url": "https://docs.cohere.com/docs/deprecations#2024-12-02",
+    "content_hash": "97682b53dd3bc820",
+    "scraped_at": "2025-08-26T18:37:53.876744+00:00"
   }
 ]

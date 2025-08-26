@@ -7,6 +7,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 from providers import SCRAPERS
 from llm_analyzer import LLMAnalyzer
+from models import DeprecationItem
 
 # Load environment variables
 load_dotenv(os.path.expanduser("~/.env"))
@@ -14,11 +15,16 @@ load_dotenv(os.path.expanduser("~/.env"))
 
 def hash_item(item: dict) -> str:
     """Create a stable hash of scraped content to detect changes."""
-    # Hash the key fields that indicate actual content changes
+    # For new model structure, use content_hash if available
+    if "content_hash" in item and item["content_hash"]:
+        return item["content_hash"]
+    
+    # Otherwise hash the key fields that indicate actual content changes
     key_fields = {
         "provider": item.get("provider", ""),
-        "title": item.get("title", ""),
-        "content": item.get("content", ""),
+        "model_id": item.get("model_id", item.get("title", "")),
+        "shutdown_date": item.get("shutdown_date", ""),
+        "deprecation_context": item.get("deprecation_context", item.get("content", "")),
         "url": item.get("url", ""),
     }
     content_str = json.dumps(key_fields, sort_keys=True)
@@ -28,22 +34,28 @@ def hash_item(item: dict) -> str:
 def scrape_all():
     """Scrape all providers and return results."""
     all_deprecations = []
+    previous_data = read_existing_data()
 
     for scraper_class in SCRAPERS:
+        provider_name = scraper_class.provider_name
         try:
             scraper = scraper_class()
             deprecations = scraper.scrape()
-            all_deprecations.extend(deprecations)
+            
+            # Convert DeprecationItem objects to dicts
+            deprecation_dicts = [item.to_dict() for item in deprecations]
+            all_deprecations.extend(deprecation_dicts)
 
-            # Get provider name
-            provider = (
-                deprecations[0]["provider"]
-                if deprecations
-                else scraper_class.__name__.replace("Scraper", "")
-            )
-            print(f"✓ Scraped {provider}: {len(deprecations)} deprecations")
+            print(f"✓ Scraped {provider_name}: {len(deprecations)} deprecations")
         except Exception as e:
-            print(f"✗ Failed to scrape {scraper_class.__name__}: {e}")
+            print(f"✗ Failed to scrape {provider_name}: {e}")
+            # Backfill with previous data for this provider
+            previous_provider_data = [
+                item for item in previous_data 
+                if item.get('provider') == provider_name
+            ]
+            all_deprecations.extend(previous_provider_data)
+            print(f"  → Using {len(previous_provider_data)} cached items")
 
     return all_deprecations
 
@@ -122,18 +134,40 @@ def merge_data(
 def enhance_with_llm(
     changed_items: list[dict], existing_data: list[dict]
 ) -> list[dict]:
-    """Enhance changed items with LLM analysis."""
+    """Enhance changed items with LLM analysis - only for unstructured content."""
     if not changed_items:
         print("✓ No content changes detected")
         return []
 
-    print(f"Analyzing {len(changed_items)} new/changed items with LLM...")
+    # Filter items that need LLM enhancement (those without structured data)
+    items_needing_llm = [
+        item for item in changed_items
+        if not item.get("model_id") or not item.get("shutdown_date")
+    ]
+    
+    if not items_needing_llm:
+        print("✓ All items have structured data, no LLM analysis needed")
+        return changed_items
+
+    print(f"Analyzing {len(items_needing_llm)} items with LLM (out of {len(changed_items)} total)...")
 
     try:
         analyzer = LLMAnalyzer()
-        enhanced = analyzer.analyze_batch(changed_items, existing_data)
-        print(f"✓ Enhanced {len(enhanced)} items with structured data")
-        return enhanced
+        enhanced = analyzer.analyze_batch(items_needing_llm, existing_data)
+        
+        # Merge enhanced items back
+        enhanced_by_hash = {item.get("_hash", hash_item(item)): item for item in enhanced}
+        
+        result = []
+        for item in changed_items:
+            item_hash = item.get("_hash", hash_item(item))
+            if item_hash in enhanced_by_hash:
+                result.append(enhanced_by_hash[item_hash])
+            else:
+                result.append(item)
+        
+        print(f"✓ Enhanced {len(enhanced)} items with LLM")
+        return result
     except Exception as e:
         print(f"✗ LLM analysis failed: {e}")
         return changed_items  # Return original items if LLM fails

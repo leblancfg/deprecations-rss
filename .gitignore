@@ -149,6 +149,7 @@ cython_debug/
 /docs/*.xml
 .ruff_cache/
 /tmp/
+cache/
 
 # uv
 .venv/

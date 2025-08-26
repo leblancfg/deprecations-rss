@@ -39,8 +39,11 @@ def create_rss_feed(data):
         item = ET.SubElement(channel, "item")
 
         # Build title with model name if available
-        if "model_name" in item_data:
-            title = f"{item_data['provider']}: {item_data['model_name']}"
+        model_id = item_data.get('model_id', '')
+        model_name = item_data.get('model_name', model_id)
+        
+        if model_name:
+            title = f"{item_data['provider']}: {model_name}"
         elif "title" in item_data:
             title = item_data.get("title", f"{item_data['provider']} Deprecation")
         else:
@@ -55,9 +58,12 @@ def create_rss_feed(data):
         # Add structured metadata in readable format
         description_parts.append(f"Provider: {item_data.get('provider', 'Unknown')}")
 
-        # Add model name if available, or extract from title
-        model_name = None
-        if "model_name" in item_data:
+        # Add model info if available
+        if "model_id" in item_data:
+            description_parts.append(f"Model ID: {item_data['model_id']}")
+        
+        model_name = item_data.get('model_name', item_data.get('model_id', None))
+        if model_name:
             model_name = item_data["model_name"]
         else:
             # Try to extract model name from title (format: "Provider: model_name")
@@ -104,6 +110,12 @@ def create_rss_feed(data):
         # Add summary or original content
         if "summary" in item_data:
             description_parts.append(item_data["summary"])
+        elif "deprecation_context" in item_data and item_data["deprecation_context"]:
+            # Use first 500 chars of context
+            context = item_data["deprecation_context"][:500]
+            if len(item_data["deprecation_context"]) > 500:
+                context += "..."
+            description_parts.append(context)
         else:
             # Use the original content
             original_content = item_data.get("raw_content") or item_data.get(
@@ -128,7 +140,9 @@ def create_rss_feed(data):
 
         # Create unique GUID
         guid_parts = [item_data["provider"]]
-        if "model_name" in item_data:
+        if "model_id" in item_data:
+            guid_parts.append(item_data["model_id"])
+        elif "model_name" in item_data:
             guid_parts.append(item_data["model_name"])
         elif "title" in item_data:
             guid_parts.append(item_data["title"])
