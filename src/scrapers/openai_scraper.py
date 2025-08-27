@@ -15,6 +15,62 @@ class OpenAIScraper(EnhancedBaseScraper):
     url = "https://platform.openai.com/docs/deprecations"
     requires_playwright = True  # OpenAI uses Cloudflare protection
 
+    def fetch_with_playwright(self, url: str) -> str:
+        """Fetch content using Playwright with proper wait conditions for React SPA."""
+        from playwright.sync_api import sync_playwright
+
+        with sync_playwright() as p:
+            browser = p.chromium.launch(
+                headless=True,
+                args=[
+                    "--disable-blink-features=AutomationControlled",
+                    "--disable-dev-shm-usage",
+                    "--no-sandbox",
+                    "--disable-setuid-sandbox",
+                    "--disable-web-security",
+                ],
+            )
+            context = browser.new_context(
+                viewport={"width": 1920, "height": 1080},
+                user_agent=self.headers["User-Agent"],
+            )
+            page = context.new_page()
+
+            try:
+                # Navigate and wait for network to be idle
+                page.goto(url, wait_until="networkidle", timeout=60000)
+
+                # Wait for the main content to load (React SPA)
+                # Try multiple selectors for the deprecations content
+                content_selectors = [
+                    "main",  # Main content area
+                    "article",
+                    "[class*='deprecation']",
+                    "text=/\\d{4}-\\d{2}-\\d{2}:/",  # Date pattern
+                    "table",  # Deprecation tables
+                    "h2",  # Any h2 heading
+                ]
+
+                for selector in content_selectors:
+                    try:
+                        page.wait_for_selector(selector, timeout=10000)
+                        break
+                    except Exception:
+                        continue
+
+                # Additional wait to ensure dynamic content is loaded
+                page.wait_for_timeout(5000)
+
+                # Try scrolling to trigger lazy loading
+                page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+                page.wait_for_timeout(2000)
+
+                html = page.content()
+            finally:
+                browser.close()
+
+            return html
+
     def extract_structured_deprecations(self, html: str) -> List[DeprecationItem]:
         """Extract deprecations from OpenAI's structured format."""
         items = []
