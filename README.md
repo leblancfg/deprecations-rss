@@ -40,6 +40,7 @@ We check these pages daily:
 - [Google Vertex AI Deprecations](https://cloud.google.com/vertex-ai/generative-ai/docs/deprecations)
 - [AWS Bedrock Model Lifecycle](https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html)
 - [Cohere Deprecations](https://docs.cohere.com/docs/deprecations)
+- [xAI Models](https://docs.x.ai/docs/models)
 
 ## Why This Exists
 AI providers deprecate models regularly, sometimes with just a few months

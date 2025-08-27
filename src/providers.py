@@ -6,6 +6,7 @@ from .scrapers.anthropic_scraper import AnthropicScraper
 from .scrapers.google_vertex_scraper import GoogleVertexScraper
 from .scrapers.aws_bedrock_scraper import AWSBedrockScraper
 from .scrapers.cohere_scraper import CohereScraper
+from .scrapers.xai_scraper import XAIScraper
 
 # List of all scrapers - using the new enhanced versions
 SCRAPERS = [
@@ -14,4 +15,5 @@ SCRAPERS = [
     GoogleVertexScraper,
     AWSBedrockScraper,
     CohereScraper,
+    XAIScraper,
 ]
