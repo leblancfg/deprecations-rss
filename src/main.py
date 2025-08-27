@@ -5,8 +5,8 @@ import json
 import os
 from pathlib import Path
 from dotenv import load_dotenv
-from providers import SCRAPERS
-from llm_analyzer import LLMAnalyzer
+from .providers import SCRAPERS
+from .llm_analyzer import LLMAnalyzer
 
 # Load environment variables
 load_dotenv(os.path.expanduser("~/.env"))
@@ -208,13 +208,13 @@ if __name__ == "__main__":
     print("\nGenerating feeds...")
 
     # Generate RSS feed
-    from rss_gen import create_rss_feed, save_rss_feed
+    from .rss_gen import create_rss_feed, save_rss_feed
 
     feed = create_rss_feed(final_data)
     save_rss_feed(feed)
 
     # Generate JSON feed and API endpoint
-    from json_feed_gen import create_json_feed, save_json_feed, save_raw_api
+    from .json_feed_gen import create_json_feed, save_json_feed, save_raw_api
 
     json_feed = create_json_feed(final_data)
     save_json_feed(json_feed)

@@ -32,7 +32,7 @@ jobs:
           echo "ANTHROPIC_API_KEY=${{ secrets.ANTHROPIC_API_KEY }}" >> $GITHUB_ENV
       
       - name: Scrape and generate all feeds
-        run: uv run python main.py
+        run: uv run python -m src.main
       
       - name: Commit and push changes
         run: |

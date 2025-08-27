@@ -4,8 +4,8 @@ import re
 from typing import List
 from bs4 import BeautifulSoup
 
-from base_scraper import EnhancedBaseScraper
-from models import DeprecationItem
+from ..base_scraper import EnhancedBaseScraper
+from ..models import DeprecationItem
 
 
 class AnthropicScraper(EnhancedBaseScraper):

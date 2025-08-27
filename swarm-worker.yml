@@ -5,6 +5,12 @@ swarm:
     expert_software_engineer:
       description: Is really good
       directory: .
-      prompt: Does the thing. Work stops when the PR merges. Run any local checks first, don't merge until the PR checks pass.
+      prompt: |
+        Does the thing, ultrathink about big picture and creates a well
+        though-out plan before setting to work. Prefers "surgical strike" code
+        edits to massive refactors.
+        Run any local checks and/or tests first, don't merge until the PR
+        checks pass. Work stops when the PR is pushed up and its checks pass --
+        be sure to monitor them. 
       vibe: true
   main: expert_software_engineer

@@ -6,8 +6,8 @@ from typing import List, Any
 from playwright.sync_api import sync_playwright
 from datetime import datetime
 
-from cache_manager import CacheManager
-from models import DeprecationItem
+from .cache_manager import CacheManager
+from .models import DeprecationItem
 
 
 class EnhancedBaseScraper:
