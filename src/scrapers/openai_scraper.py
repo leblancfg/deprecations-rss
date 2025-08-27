@@ -47,7 +47,7 @@ class OpenAIScraper(EnhancedBaseScraper):
                 try:
                     # Wait for any heading with a date pattern
                     page.wait_for_selector("h2:has-text(/\\d{4}-\\d{2}-\\d{2}/)", timeout=5000)
-                except:
+                except Exception:
                     # If no date pattern found, just continue
                     pass
                 
