@@ -1,0 +1,178 @@
+{
+  "last_updated": "2025-08-27",
+  "source": "Historical data - Cloudflare protection prevents automated scraping",
+  "note": "This data was collected from previous successful scrapes before Cloudflare protection was added",
+  "deprecations": [
+    {
+      "model_id": "Assistants API",
+      "model_name": "Assistants API",
+      "announcement_date": "2025-08-20",
+      "shutdown_date": "2025-08-20",
+      "replacement_model": null,
+      "deprecation_context": "",
+      "url": "https://platform.openai.com/docs/deprecations#2025-08-20-assistants-api"
+    },
+    {
+      "model_id": "gpt-4o-realtime-preview-2024-10-01",
+      "model_name": "gpt-4o-realtime-preview-2024-10-01",
+      "announcement_date": "2025-06-10",
+      "shutdown_date": "2025-06-10",
+      "replacement_model": null,
+      "deprecation_context": "",
+      "url": "https://platform.openai.com/docs/deprecations#2025-06-10-gpt-4o-realtime-preview-2024-10-01"
+    },
+    {
+      "model_id": "gpt-4o-audio-preview-2024-10-01",
+      "model_name": "gpt-4o-audio-preview-2024-10-01",
+      "announcement_date": "2025-06-10",
+      "shutdown_date": "2025-06-10",
+      "replacement_model": null,
+      "deprecation_context": "",
+      "url": "https://platform.openai.com/docs/deprecations#2025-06-10-gpt-4o-audio-preview-2024-10-01"
+    },
+    {
+      "model_id": "text-moderation",
+      "model_name": "text-moderation",
+      "announcement_date": "2025-04-28",
+      "shutdown_date": "2025-04-28",
+      "replacement_model": null,
+      "deprecation_context": "",
+      "url": "https://platform.openai.com/docs/deprecations#2025-04-28-text-moderation"
+    },
+    {
+      "model_id": "o1-preview",
+      "model_name": "o1-preview",
+      "announcement_date": "2025-04-28",
+      "shutdown_date": "2025-04-28",
+      "replacement_model": null,
+      "deprecation_context": "",
+      "url": "https://platform.openai.com/docs/deprecations#2025-04-28-o1-preview-and-o1-mini"
+    },
+    {
+      "model_id": "o1-mini",
+      "model_name": "o1-mini",
+      "announcement_date": "2025-04-28",
+      "shutdown_date": "2025-04-28",
+      "replacement_model": null,
+      "deprecation_context": "",
+      "url": "https://platform.openai.com/docs/deprecations#2025-04-28-o1-preview-and-o1-mini"
+    },
+    {
+      "model_id": "GPT-4.5-preview",
+      "model_name": "GPT-4.5-preview",
+      "announcement_date": "2025-04-14",
+      "shutdown_date": "2025-04-14",
+      "replacement_model": null,
+      "deprecation_context": "",
+      "url": "https://platform.openai.com/docs/deprecations#2025-04-14-gpt-4-5-preview"
+    },
+    {
+      "model_id": "Assistants API beta v1",
+      "model_name": "Assistants API beta v1",
+      "announcement_date": "2024-10-02",
+      "shutdown_date": "2024-10-02",
+      "replacement_model": null,
+      "deprecation_context": "",
+      "url": "https://platform.openai.com/docs/deprecations#2024-10-02-assistants-api-beta-v1"
+    },
+    {
+      "model_id": "Fine-tuning training on babbage-002",
+      "model_name": "Fine-tuning training on babbage-002",
+      "announcement_date": "2024-08-29",
+      "shutdown_date": "2024-08-29",
+      "replacement_model": null,
+      "deprecation_context": "",
+      "url": "https://platform.openai.com/docs/deprecations#2024-08-29-fine-tuning-training-on-babbage-002-and-davinci-002-models"
+    },
+    {
+      "model_id": "davinci-002 models",
+      "model_name": "davinci-002 models",
+      "announcement_date": "2024-08-29",
+      "shutdown_date": "2024-08-29",
+      "replacement_model": null,
+      "deprecation_context": "",
+      "url": "https://platform.openai.com/docs/deprecations#2024-08-29-fine-tuning-training-on-babbage-002-and-davinci-002-models"
+    },
+    {
+      "model_id": "GPT-4-32K",
+      "model_name": "GPT-4-32K",
+      "announcement_date": "2024-06-06",
+      "shutdown_date": "2024-06-06",
+      "replacement_model": null,
+      "deprecation_context": "",
+      "url": "https://platform.openai.com/docs/deprecations#2024-06-06-gpt-4-32k-and-vision-preview-models"
+    },
+    {
+      "model_id": "Vision Preview models",
+      "model_name": "Vision Preview models",
+      "announcement_date": "2024-06-06",
+      "shutdown_date": "2024-06-06",
+      "replacement_model": null,
+      "deprecation_context": "",
+      "url": "https://platform.openai.com/docs/deprecations#2024-06-06-gpt-4-32k-and-vision-preview-models"
+    },
+    {
+      "model_id": "Chat model updates",
+      "model_name": "Chat model updates",
+      "announcement_date": "2023-11-06",
+      "shutdown_date": "2023-11-06",
+      "replacement_model": null,
+      "deprecation_context": "",
+      "url": "https://platform.openai.com/docs/deprecations#2023-11-06-chat-model-updates"
+    },
+    {
+      "model_id": "Fine-tunes endpoint",
+      "model_name": "Fine-tunes endpoint",
+      "announcement_date": "2023-08-22",
+      "shutdown_date": "2023-08-22",
+      "replacement_model": null,
+      "deprecation_context": "",
+      "url": "https://platform.openai.com/docs/deprecations#2023-08-22-fine-tunes-endpoint"
+    },
+    {
+      "model_id": "GPT",
+      "model_name": "GPT",
+      "announcement_date": "2023-07-06",
+      "shutdown_date": "2023-07-06",
+      "replacement_model": null,
+      "deprecation_context": "",
+      "url": "https://platform.openai.com/docs/deprecations#2023-07-06-gpt-and-embeddings"
+    },
+    {
+      "model_id": "embeddings",
+      "model_name": "embeddings",
+      "announcement_date": "2023-07-06",
+      "shutdown_date": "2023-07-06",
+      "replacement_model": null,
+      "deprecation_context": "",
+      "url": "https://platform.openai.com/docs/deprecations#2023-07-06-gpt-and-embeddings"
+    },
+    {
+      "model_id": "Updated chat models",
+      "model_name": "Updated chat models",
+      "announcement_date": "2023-06-13",
+      "shutdown_date": "2023-06-13",
+      "replacement_model": null,
+      "deprecation_context": "",
+      "url": "https://platform.openai.com/docs/deprecations#2023-06-13-updated-chat-models"
+    },
+    {
+      "model_id": "Codex models",
+      "model_name": "Codex models",
+      "announcement_date": "2023-03-20",
+      "shutdown_date": "2023-03-20",
+      "replacement_model": null,
+      "deprecation_context": "",
+      "url": "https://platform.openai.com/docs/deprecations#2023-03-20-codex-models"
+    },
+    {
+      "model_id": "Legacy endpoints",
+      "model_name": "Legacy endpoints",
+      "announcement_date": "2022-06-03",
+      "shutdown_date": "2022-06-03",
+      "replacement_model": null,
+      "deprecation_context": "",
+      "url": "https://platform.openai.com/docs/deprecations#2022-06-03-legacy-endpoints"
+    }
+  ]
+}

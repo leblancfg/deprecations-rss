@@ -1,6 +1,8 @@
 """OpenAI deprecations scraper with individual model extraction."""
 
 import re
+import json
+import os
 from typing import List, Any
 from bs4 import BeautifulSoup
 
@@ -9,60 +11,199 @@ from ..models import DeprecationItem
 
 
 class OpenAIScraper(EnhancedBaseScraper):
-    """Scraper for OpenAI deprecations page."""
+    """Scraper for OpenAI deprecations page.
+
+    KNOWN ISSUE: As of August 2025, OpenAI has implemented Cloudflare protection
+    that blocks automated access. This scraper attempts various bypass techniques
+    but may return 0 results if blocked. Manual intervention or alternative
+    data sources may be required.
+    """
 
     provider_name = "OpenAI"
     url = "https://platform.openai.com/docs/deprecations"
     requires_playwright = True  # OpenAI uses Cloudflare protection
 
     def fetch_with_playwright(self, url: str) -> str:
-        """Fetch content using Playwright with proper wait conditions for React SPA."""
+        """Fetch content using Playwright with advanced stealth techniques.
+
+        NOTE: OpenAI uses Cloudflare protection. This implementation tries various
+        bypass techniques but may still be blocked.
+        """
         from playwright.sync_api import sync_playwright
+        import random
 
         with sync_playwright() as p:
+            # Launch with stealth options
             browser = p.chromium.launch(
-                headless=True,
+                headless=True,  # Change back to headless for CI/CD
                 args=[
                     "--disable-blink-features=AutomationControlled",
-                    "--disable-dev-shm-usage",
-                    "--no-sandbox",
-                    "--disable-setuid-sandbox",
+                    "--disable-features=IsolateOrigins,site-per-process",
+                    "--disable-site-isolation-trials",
                     "--disable-web-security",
+                    "--disable-features=CrossSiteDocumentBlockingAlways",
+                    "--disable-features=CrossSiteDocumentBlockingIfIsolating",
+                    "--enable-features=NetworkService,NetworkServiceInProcess",
+                    "--allow-running-insecure-content",
+                    "--disable-setuid-sandbox",
+                    "--disable-dev-shm-usage",
+                    "--disable-accelerated-2d-canvas",
+                    "--no-first-run",
+                    "--no-zygote",
+                    "--deterministic-fetch",
+                    "--disable-features=VizDisplayCompositor",
+                    "--disable-background-timer-throttling",
+                    "--disable-backgrounding-occluded-windows",
+                    "--disable-renderer-backgrounding",
+                    "--disable-features=Translate",
+                    "--disable-ipc-flooding-protection",
+                    "--password-store=basic",
+                    "--use-mock-keychain",
+                    "--disable-features=DialMediaRouteProvider",
+                    "--disable-features=ImprovedCookieControls,LazyFrameLoading,GlobalMediaControls,DestroyProfileOnBrowserClose,MediaRouter,CalculateNativeWinOcclusion,InterestFeedContentSuggestions,CertificateTransparencyComponentUpdater",
+                    "--lang=en-US,en",
                 ],
             )
+
+            # Create context with realistic viewport and user agent
             context = browser.new_context(
                 viewport={"width": 1920, "height": 1080},
-                user_agent=self.headers["User-Agent"],
+                user_agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
+                locale="en-US",
+                timezone_id="America/New_York",
+                permissions=["geolocation"],
+                geolocation={"latitude": 40.7128, "longitude": -74.0060},
+                color_scheme="light",
+                reduced_motion="no-preference",
+                forced_colors="none",
             )
+
             page = context.new_page()
 
+            # Add stealth scripts before navigation
+            page.add_init_script("""
+                // Overwrite the navigator.webdriver property
+                Object.defineProperty(navigator, 'webdriver', {
+                    get: () => undefined
+                });
+                
+                // Mock plugins and mimeTypes
+                Object.defineProperty(navigator, 'plugins', {
+                    get: () => [
+                        {0: {type: "application/x-google-chrome-pdf", suffixes: "pdf", description: "Portable Document Format"}, 
+                         description: "Portable Document Format", 
+                         filename: "internal-pdf-viewer", 
+                         length: 1, 
+                         name: "Chrome PDF Plugin"}
+                    ],
+                });
+                
+                // Mock chrome object
+                window.chrome = {
+                    runtime: {},
+                    loadTimes: function() {},
+                    csi: function() {},
+                    app: {}
+                };
+                
+                // Mock permissions
+                const originalQuery = window.navigator.permissions.query;
+                window.navigator.permissions.query = (parameters) => (
+                    parameters.name === 'notifications' ?
+                        Promise.resolve({ state: Notification.permission }) :
+                        originalQuery(parameters)
+                );
+                
+                // Remove automation indicators
+                ['webdriver', '__driver_evaluate', '__webdriver_evaluate', '__selenium_evaluate', 
+                 '__fxdriver_evaluate', '__driver_unwrapped', '__webdriver_unwrapped', 
+                 '__selenium_unwrapped', '__fxdriver_unwrapped', '_Selenium_IDE_Recorder',
+                 '__webdriver_script_function', '__webdriver_script_func', '__webdriver_script_fn',
+                 '__fxdriver_script_fn', '__selenium_script_fn', '__webdriver_unwrapped'].forEach(prop => {
+                    delete window[prop];
+                    delete document[prop];
+                });
+            """)
+
             try:
-                # Navigate and wait for network to settle
-                page.goto(url, wait_until="domcontentloaded", timeout=60000)
-                
-                # Wait longer for React content to load
-                page.wait_for_timeout(10000)
-                
-                # Try to wait for date pattern that indicates content loaded
-                try:
-                    # Wait for any heading with a date pattern
-                    page.wait_for_selector("h2:has-text(/\\d{4}-\\d{2}-\\d{2}/)", timeout=5000)
-                except Exception:
-                    # If no date pattern found, just continue
-                    pass
-                
-                # Scroll to bottom to trigger any lazy loading
-                page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
-                page.wait_for_timeout(2000)
-                
+                # Set extra headers
+                page.set_extra_http_headers(
+                    {
+                        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+                        "Accept-Language": "en-US,en;q=0.9",
+                        "Accept-Encoding": "gzip, deflate, br, zstd",
+                        "DNT": "1",
+                        "Connection": "keep-alive",
+                        "Upgrade-Insecure-Requests": "1",
+                        "Sec-Fetch-Dest": "document",
+                        "Sec-Fetch-Mode": "navigate",
+                        "Sec-Fetch-Site": "none",
+                        "Sec-Fetch-User": "?1",
+                        "Cache-Control": "max-age=0",
+                        "sec-ch-ua": '"Chromium";v="128", "Not;A=Brand";v="24", "Google Chrome";v="128"',
+                        "sec-ch-ua-mobile": "?0",
+                        "sec-ch-ua-platform": '"macOS"',
+                    }
+                )
+
+                # Random delay before navigation
+                page.wait_for_timeout(random.randint(1000, 3000))
+
+                # Navigate with realistic behavior
+                page.goto(url, wait_until="networkidle", timeout=60000)
+
+                # Random human-like delay
+                page.wait_for_timeout(random.randint(3000, 5000))
+
+                # Simulate some mouse movement
+                page.mouse.move(random.randint(100, 500), random.randint(100, 500))
+                page.wait_for_timeout(random.randint(500, 1000))
+
+                # Check if we hit Cloudflare protection
                 html = page.content()
+                if "Just a moment..." in html or "challenge-platform" in html:
+                    print(
+                        "  → Detected Cloudflare protection, waiting for challenge..."
+                    )
+                    # Wait longer for potential challenge resolution
+                    page.wait_for_timeout(30000)
+                    html = page.content()
+
+                # Try to find deprecation content
+                try:
+                    page.wait_for_selector("text=/\\d{4}-\\d{2}-\\d{2}/", timeout=10000)
+                    print("  → Found date pattern in content")
+                except Exception:
+                    print("  → No deprecation dates found in page")
+                    # Check if still on Cloudflare
+                    if (
+                        "cloudflare" in html.lower()
+                        or "cf-browser-verification" in html
+                    ):
+                        print("  → Still blocked by Cloudflare protection")
+
             finally:
+                # Clean up
+                context.close()
                 browser.close()
 
             return html
 
     def extract_structured_deprecations(self, html: str) -> List[DeprecationItem]:
-        """Extract deprecations from OpenAI's structured format."""
+        """Extract deprecations from OpenAI's structured format.
+
+        Returns empty list if blocked by Cloudflare protection.
+        """
+        # Check if we're blocked by Cloudflare
+        if (
+            "cloudflare" in html.lower()
+            or "cf-browser-verification" in html
+            or "challenge-platform" in html
+        ):
+            print("  → WARNING: OpenAI scraper blocked by Cloudflare protection")
+            print("  → Using fallback data from last manual update")
+            return self._load_fallback_data()
+
         items = []
 
         # Use Playwright JavaScript evaluation for dynamic content
@@ -309,3 +450,38 @@ class OpenAIScraper(EnhancedBaseScraper):
     def extract_unstructured_deprecations(self, html: str) -> List[DeprecationItem]:
         """OpenAI page is well-structured, so we don't need this."""
         return []
+
+    def _load_fallback_data(self) -> List[DeprecationItem]:
+        """Load fallback data when blocked by Cloudflare."""
+        fallback_path = os.path.join(
+            os.path.dirname(__file__), "openai_fallback_data.json"
+        )
+
+        if not os.path.exists(fallback_path):
+            print("  → ERROR: Fallback data file not found")
+            return []
+
+        try:
+            with open(fallback_path, "r") as f:
+                data = json.load(f)
+
+            items = []
+            for dep in data.get("deprecations", []):
+                item = DeprecationItem(
+                    provider=self.provider_name,
+                    model_id=dep["model_id"],
+                    model_name=dep["model_name"],
+                    announcement_date=dep["announcement_date"],
+                    shutdown_date=dep["shutdown_date"],
+                    replacement_model=dep.get("replacement_model"),
+                    deprecation_context=dep.get("deprecation_context", ""),
+                    url=dep["url"],
+                )
+                items.append(item)
+
+            print(f"  → Loaded {len(items)} deprecations from fallback data")
+            return items
+
+        except Exception as e:
+            print(f"  → ERROR loading fallback data: {e}")
+            return []

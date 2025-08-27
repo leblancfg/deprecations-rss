@@ -4,7 +4,216 @@
     <title>AI Model Deprecations</title>
     <link>https://deprecations.info/</link>
     <description>RSS feed tracking deprecations across major AI providers</description>
-    <lastBuildDate>Wed, 27 Aug 2025 02:33:01 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 27 Aug 2025 21:20:00 GMT</lastBuildDate>
+    <item>
+      <title>OpenAI: Assistants API</title>
+      <link>https://platform.openai.com/docs/deprecations#2025-08-20-assistants-api</link>
+      <description>Provider: OpenAI
+Model ID: Assistants API
+Model: Assistants API
+Shutdown Date: 2025-08-20
+</description>
+      <pubDate>Wed, 27 Aug 2025 21:19:37 GMT</pubDate>
+      <guid isPermaLink="false">OpenAI-Assistants_API-2025-08-20-e3b0c442</guid>
+    </item>
+    <item>
+      <title>OpenAI: gpt-4o-realtime-preview-2024-10-01</title>
+      <link>https://platform.openai.com/docs/deprecations#2025-06-10-gpt-4o-realtime-preview-2024-10-01</link>
+      <description>Provider: OpenAI
+Model ID: gpt-4o-realtime-preview-2024-10-01
+Model: gpt-4o-realtime-preview-2024-10-01
+Shutdown Date: 2025-06-10
+</description>
+      <pubDate>Wed, 27 Aug 2025 21:19:37 GMT</pubDate>
+      <guid isPermaLink="false">OpenAI-gpt-4o-realtime-preview-2024-10-01-2025-06-10-e3b0c442</guid>
+    </item>
+    <item>
+      <title>OpenAI: gpt-4o-audio-preview-2024-10-01</title>
+      <link>https://platform.openai.com/docs/deprecations#2025-06-10-gpt-4o-audio-preview-2024-10-01</link>
+      <description>Provider: OpenAI
+Model ID: gpt-4o-audio-preview-2024-10-01
+Model: gpt-4o-audio-preview-2024-10-01
+Shutdown Date: 2025-06-10
+</description>
+      <pubDate>Wed, 27 Aug 2025 21:19:37 GMT</pubDate>
+      <guid isPermaLink="false">OpenAI-gpt-4o-audio-preview-2024-10-01-2025-06-10-e3b0c442</guid>
+    </item>
+    <item>
+      <title>OpenAI: text-moderation</title>
+      <link>https://platform.openai.com/docs/deprecations#2025-04-28-text-moderation</link>
+      <description>Provider: OpenAI
+Model ID: text-moderation
+Model: text-moderation
+Shutdown Date: 2025-04-28
+</description>
+      <pubDate>Wed, 27 Aug 2025 21:19:37 GMT</pubDate>
+      <guid isPermaLink="false">OpenAI-text-moderation-2025-04-28-e3b0c442</guid>
+    </item>
+    <item>
+      <title>OpenAI: o1-preview</title>
+      <link>https://platform.openai.com/docs/deprecations#2025-04-28-o1-preview-and-o1-mini</link>
+      <description>Provider: OpenAI
+Model ID: o1-preview
+Model: o1-preview
+Shutdown Date: 2025-04-28
+</description>
+      <pubDate>Wed, 27 Aug 2025 21:19:37 GMT</pubDate>
+      <guid isPermaLink="false">OpenAI-o1-preview-2025-04-28-e3b0c442</guid>
+    </item>
+    <item>
+      <title>OpenAI: o1-mini</title>
+      <link>https://platform.openai.com/docs/deprecations#2025-04-28-o1-preview-and-o1-mini</link>
+      <description>Provider: OpenAI
+Model ID: o1-mini
+Model: o1-mini
+Shutdown Date: 2025-04-28
+</description>
+      <pubDate>Wed, 27 Aug 2025 21:19:37 GMT</pubDate>
+      <guid isPermaLink="false">OpenAI-o1-mini-2025-04-28-e3b0c442</guid>
+    </item>
+    <item>
+      <title>OpenAI: GPT-4.5-preview</title>
+      <link>https://platform.openai.com/docs/deprecations#2025-04-14-gpt-4-5-preview</link>
+      <description>Provider: OpenAI
+Model ID: GPT-4.5-preview
+Model: GPT-4.5-preview
+Shutdown Date: 2025-04-14
+</description>
+      <pubDate>Wed, 27 Aug 2025 21:19:37 GMT</pubDate>
+      <guid isPermaLink="false">OpenAI-GPT-4.5-preview-2025-04-14-e3b0c442</guid>
+    </item>
+    <item>
+      <title>OpenAI: Assistants API beta v1</title>
+      <link>https://platform.openai.com/docs/deprecations#2024-10-02-assistants-api-beta-v1</link>
+      <description>Provider: OpenAI
+Model ID: Assistants API beta v1
+Model: Assistants API beta v1
+Shutdown Date: 2024-10-02
+</description>
+      <pubDate>Wed, 27 Aug 2025 21:19:37 GMT</pubDate>
+      <guid isPermaLink="false">OpenAI-Assistants_API_beta_v1-2024-10-02-e3b0c442</guid>
+    </item>
+    <item>
+      <title>OpenAI: Fine-tuning training on babbage-002</title>
+      <link>https://platform.openai.com/docs/deprecations#2024-08-29-fine-tuning-training-on-babbage-002-and-davinci-002-models</link>
+      <description>Provider: OpenAI
+Model ID: Fine-tuning training on babbage-002
+Model: Fine-tuning training on babbage-002
+Shutdown Date: 2024-08-29
+</description>
+      <pubDate>Wed, 27 Aug 2025 21:19:37 GMT</pubDate>
+      <guid isPermaLink="false">OpenAI-Fine-tuning_training_on_babbage-002-2024-08-29-e3b0c442</guid>
+    </item>
+    <item>
+      <title>OpenAI: davinci-002 models</title>
+      <link>https://platform.openai.com/docs/deprecations#2024-08-29-fine-tuning-training-on-babbage-002-and-davinci-002-models</link>
+      <description>Provider: OpenAI
+Model ID: davinci-002 models
+Model: davinci-002 models
+Shutdown Date: 2024-08-29
+</description>
+      <pubDate>Wed, 27 Aug 2025 21:19:37 GMT</pubDate>
+      <guid isPermaLink="false">OpenAI-davinci-002_models-2024-08-29-e3b0c442</guid>
+    </item>
+    <item>
+      <title>OpenAI: GPT-4-32K</title>
+      <link>https://platform.openai.com/docs/deprecations#2024-06-06-gpt-4-32k-and-vision-preview-models</link>
+      <description>Provider: OpenAI
+Model ID: GPT-4-32K
+Model: GPT-4-32K
+Shutdown Date: 2024-06-06
+</description>
+      <pubDate>Wed, 27 Aug 2025 21:19:37 GMT</pubDate>
+      <guid isPermaLink="false">OpenAI-GPT-4-32K-2024-06-06-e3b0c442</guid>
+    </item>
+    <item>
+      <title>OpenAI: Vision Preview models</title>
+      <link>https://platform.openai.com/docs/deprecations#2024-06-06-gpt-4-32k-and-vision-preview-models</link>
+      <description>Provider: OpenAI
+Model ID: Vision Preview models
+Model: Vision Preview models
+Shutdown Date: 2024-06-06
+</description>
+      <pubDate>Wed, 27 Aug 2025 21:19:37 GMT</pubDate>
+      <guid isPermaLink="false">OpenAI-Vision_Preview_models-2024-06-06-e3b0c442</guid>
+    </item>
+    <item>
+      <title>OpenAI: Chat model updates</title>
+      <link>https://platform.openai.com/docs/deprecations#2023-11-06-chat-model-updates</link>
+      <description>Provider: OpenAI
+Model ID: Chat model updates
+Model: Chat model updates
+Shutdown Date: 2023-11-06
+</description>
+      <pubDate>Wed, 27 Aug 2025 21:19:37 GMT</pubDate>
+      <guid isPermaLink="false">OpenAI-Chat_model_updates-2023-11-06-e3b0c442</guid>
+    </item>
+    <item>
+      <title>OpenAI: Fine-tunes endpoint</title>
+      <link>https://platform.openai.com/docs/deprecations#2023-08-22-fine-tunes-endpoint</link>
+      <description>Provider: OpenAI
+Model ID: Fine-tunes endpoint
+Model: Fine-tunes endpoint
+Shutdown Date: 2023-08-22
+</description>
+      <pubDate>Wed, 27 Aug 2025 21:19:37 GMT</pubDate>
+      <guid isPermaLink="false">OpenAI-Fine-tunes_endpoint-2023-08-22-e3b0c442</guid>
+    </item>
+    <item>
+      <title>OpenAI: GPT</title>
+      <link>https://platform.openai.com/docs/deprecations#2023-07-06-gpt-and-embeddings</link>
+      <description>Provider: OpenAI
+Model ID: GPT
+Model: GPT
+Shutdown Date: 2023-07-06
+</description>
+      <pubDate>Wed, 27 Aug 2025 21:19:37 GMT</pubDate>
+      <guid isPermaLink="false">OpenAI-GPT-2023-07-06-e3b0c442</guid>
+    </item>
+    <item>
+      <title>OpenAI: embeddings</title>
+      <link>https://platform.openai.com/docs/deprecations#2023-07-06-gpt-and-embeddings</link>
+      <description>Provider: OpenAI
+Model ID: embeddings
+Model: embeddings
+Shutdown Date: 2023-07-06
+</description>
+      <pubDate>Wed, 27 Aug 2025 21:19:37 GMT</pubDate>
+      <guid isPermaLink="false">OpenAI-embeddings-2023-07-06-e3b0c442</guid>
+    </item>
+    <item>
+      <title>OpenAI: Updated chat models</title>
+      <link>https://platform.openai.com/docs/deprecations#2023-06-13-updated-chat-models</link>
+      <description>Provider: OpenAI
+Model ID: Updated chat models
+Model: Updated chat models
+Shutdown Date: 2023-06-13
+</description>
+      <pubDate>Wed, 27 Aug 2025 21:19:37 GMT</pubDate>
+      <guid isPermaLink="false">OpenAI-Updated_chat_models-2023-06-13-e3b0c442</guid>
+    </item>
+    <item>
+      <title>OpenAI: Codex models</title>
+      <link>https://platform.openai.com/docs/deprecations#2023-03-20-codex-models</link>
+      <description>Provider: OpenAI
+Model ID: Codex models
+Model: Codex models
+Shutdown Date: 2023-03-20
+</description>
+      <pubDate>Wed, 27 Aug 2025 21:19:37 GMT</pubDate>
+      <guid isPermaLink="false">OpenAI-Codex_models-2023-03-20-e3b0c442</guid>
+    </item>
+    <item>
+      <title>OpenAI: Legacy endpoints</title>
+      <link>https://platform.openai.com/docs/deprecations#2022-06-03-legacy-endpoints</link>
+      <description>Provider: OpenAI
+Model ID: Legacy endpoints
+Model: Legacy endpoints
+Shutdown Date: 2022-06-03
+</description>
+      <pubDate>Wed, 27 Aug 2025 21:19:37 GMT</pubDate>
+      <guid isPermaLink="false">OpenAI-Legacy_endpoints-2022-06-03-e3b0c442</guid>
+    </item>
     <item>
       <title>Anthropic: claude-1.0</title>
       <link>https://docs.anthropic.com/en/docs/about-claude/model-deprecations#claude-1.0</link>
@@ -336,7 +545,7 @@ Model: Generative AI module in the Vertex AI SDK
 Shutdown Date: 2026-06-24
 
 Deprecation date: June 24, 2025.Shutdown date: June 24, 2026. As of June 24, 2025, the Generative AI module in the Vertex AI SDK is deprecated and will be shut down on June 24, 2026. To prepare for this change, migrate to the Google Gen AI SDK. For more information, see theVertex AI SDK migration guide.</description>
-      <pubDate>Wed, 27 Aug 2025 02:15:14 GMT</pubDate>
+      <pubDate>Wed, 27 Aug 2025 21:19:45 GMT</pubDate>
       <guid isPermaLink="false">Google_Vertex-generative-ai-module-in-the-vertex-ai-sdk-2026-06-24-e3b0c442</guid>
     </item>
     <item>
@@ -348,7 +557,7 @@ Model: Image captioning
 Shutdown Date: 2025-09-24
 
 Deprecation date: June 24, 2025.Shutdown date: September 24, 2025. As of June 24, 2025, the following features and models are deprecated and will be shut down on September 24, 2025 : Image captioningVisual question answering (VQA)Imagen 1 models:imagegeneration@002Imagen 2 models:imagegeneration@005andimagegeneration@006</description>
-      <pubDate>Wed, 27 Aug 2025 02:15:14 GMT</pubDate>
+      <pubDate>Wed, 27 Aug 2025 21:19:45 GMT</pubDate>
       <guid isPermaLink="false">Google_Vertex-image-captioning-2025-09-24-e3b0c442</guid>
     </item>
     <item>
@@ -360,7 +569,7 @@ Model: Visual question answering (VQA)
 Shutdown Date: 2025-09-24
 
 Deprecation date: June 24, 2025.Shutdown date: September 24, 2025. As of June 24, 2025, the following features and models are deprecated and will be shut down on September 24, 2025 : Image captioningVisual question answering (VQA)Imagen 1 models:imagegeneration@002Imagen 2 models:imagegeneration@005andimagegeneration@006</description>
-      <pubDate>Wed, 27 Aug 2025 02:15:14 GMT</pubDate>
+      <pubDate>Wed, 27 Aug 2025 21:19:45 GMT</pubDate>
       <guid isPermaLink="false">Google_Vertex-visual-question-answering-(vqa)-2025-09-24-e3b0c442</guid>
     </item>
     <item>
@@ -396,7 +605,7 @@ Model: Imagen on Vertex AI and multimodal feature s
 Shutdown Date: 2025-09-24
 
 Deprecation date: June 24, 2025.Shutdown date: September 24, 2025. As of June 24, 2025, the following features and models are deprecated and will be shut down on September 24, 2025 : Image captioningVisual question answering (VQA)Imagen 1 models:imagegeneration@002Imagen 2 models:imagegeneration@005andimagegeneration@006 For more information about migrating to Imagen 3, seeMigrate to Imagen 3.</description>
-      <pubDate>Wed, 27 Aug 2025 02:15:14 GMT</pubDate>
+      <pubDate>Wed, 27 Aug 2025 21:19:45 GMT</pubDate>
       <guid isPermaLink="false">Google_Vertex-imagen-on-vertex-ai-and-multimodal-feature-s-2025-09-24-e3b0c442</guid>
     </item>
     <item>

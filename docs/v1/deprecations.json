@@ -1,5 +1,233 @@
 [
   {
+    "provider": "OpenAI",
+    "model_id": "Assistants API",
+    "model_name": "Assistants API",
+    "announcement_date": "2025-08-20",
+    "shutdown_date": "2025-08-20",
+    "replacement_model": null,
+    "deprecation_context": "",
+    "url": "https://platform.openai.com/docs/deprecations#2025-08-20-assistants-api",
+    "content_hash": "14f6a7ddfa7bea0d",
+    "scraped_at": "2025-08-27T21:19:37.938671+00:00"
+  },
+  {
+    "provider": "OpenAI",
+    "model_id": "gpt-4o-realtime-preview-2024-10-01",
+    "model_name": "gpt-4o-realtime-preview-2024-10-01",
+    "announcement_date": "2025-06-10",
+    "shutdown_date": "2025-06-10",
+    "replacement_model": null,
+    "deprecation_context": "",
+    "url": "https://platform.openai.com/docs/deprecations#2025-06-10-gpt-4o-realtime-preview-2024-10-01",
+    "content_hash": "311491367c636bfa",
+    "scraped_at": "2025-08-27T21:19:37.938702+00:00"
+  },
+  {
+    "provider": "OpenAI",
+    "model_id": "gpt-4o-audio-preview-2024-10-01",
+    "model_name": "gpt-4o-audio-preview-2024-10-01",
+    "announcement_date": "2025-06-10",
+    "shutdown_date": "2025-06-10",
+    "replacement_model": null,
+    "deprecation_context": "",
+    "url": "https://platform.openai.com/docs/deprecations#2025-06-10-gpt-4o-audio-preview-2024-10-01",
+    "content_hash": "8bd7268628abfe7b",
+    "scraped_at": "2025-08-27T21:19:37.938708+00:00"
+  },
+  {
+    "provider": "OpenAI",
+    "model_id": "text-moderation",
+    "model_name": "text-moderation",
+    "announcement_date": "2025-04-28",
+    "shutdown_date": "2025-04-28",
+    "replacement_model": null,
+    "deprecation_context": "",
+    "url": "https://platform.openai.com/docs/deprecations#2025-04-28-text-moderation",
+    "content_hash": "978ef701f57e4953",
+    "scraped_at": "2025-08-27T21:19:37.938712+00:00"
+  },
+  {
+    "provider": "OpenAI",
+    "model_id": "o1-preview",
+    "model_name": "o1-preview",
+    "announcement_date": "2025-04-28",
+    "shutdown_date": "2025-04-28",
+    "replacement_model": null,
+    "deprecation_context": "",
+    "url": "https://platform.openai.com/docs/deprecations#2025-04-28-o1-preview-and-o1-mini",
+    "content_hash": "83a8712a656f7b2d",
+    "scraped_at": "2025-08-27T21:19:37.938715+00:00"
+  },
+  {
+    "provider": "OpenAI",
+    "model_id": "o1-mini",
+    "model_name": "o1-mini",
+    "announcement_date": "2025-04-28",
+    "shutdown_date": "2025-04-28",
+    "replacement_model": null,
+    "deprecation_context": "",
+    "url": "https://platform.openai.com/docs/deprecations#2025-04-28-o1-preview-and-o1-mini",
+    "content_hash": "b921a30889b07441",
+    "scraped_at": "2025-08-27T21:19:37.938718+00:00"
+  },
+  {
+    "provider": "OpenAI",
+    "model_id": "GPT-4.5-preview",
+    "model_name": "GPT-4.5-preview",
+    "announcement_date": "2025-04-14",
+    "shutdown_date": "2025-04-14",
+    "replacement_model": null,
+    "deprecation_context": "",
+    "url": "https://platform.openai.com/docs/deprecations#2025-04-14-gpt-4-5-preview",
+    "content_hash": "65721aadc86481d7",
+    "scraped_at": "2025-08-27T21:19:37.938720+00:00"
+  },
+  {
+    "provider": "OpenAI",
+    "model_id": "Assistants API beta v1",
+    "model_name": "Assistants API beta v1",
+    "announcement_date": "2024-10-02",
+    "shutdown_date": "2024-10-02",
+    "replacement_model": null,
+    "deprecation_context": "",
+    "url": "https://platform.openai.com/docs/deprecations#2024-10-02-assistants-api-beta-v1",
+    "content_hash": "2c2a8d60d3be5a67",
+    "scraped_at": "2025-08-27T21:19:37.938723+00:00"
+  },
+  {
+    "provider": "OpenAI",
+    "model_id": "Fine-tuning training on babbage-002",
+    "model_name": "Fine-tuning training on babbage-002",
+    "announcement_date": "2024-08-29",
+    "shutdown_date": "2024-08-29",
+    "replacement_model": null,
+    "deprecation_context": "",
+    "url": "https://platform.openai.com/docs/deprecations#2024-08-29-fine-tuning-training-on-babbage-002-and-davinci-002-models",
+    "content_hash": "8795b3dd31712016",
+    "scraped_at": "2025-08-27T21:19:37.938726+00:00"
+  },
+  {
+    "provider": "OpenAI",
+    "model_id": "davinci-002 models",
+    "model_name": "davinci-002 models",
+    "announcement_date": "2024-08-29",
+    "shutdown_date": "2024-08-29",
+    "replacement_model": null,
+    "deprecation_context": "",
+    "url": "https://platform.openai.com/docs/deprecations#2024-08-29-fine-tuning-training-on-babbage-002-and-davinci-002-models",
+    "content_hash": "5a39892de0d0d1a8",
+    "scraped_at": "2025-08-27T21:19:37.938728+00:00"
+  },
+  {
+    "provider": "OpenAI",
+    "model_id": "GPT-4-32K",
+    "model_name": "GPT-4-32K",
+    "announcement_date": "2024-06-06",
+    "shutdown_date": "2024-06-06",
+    "replacement_model": null,
+    "deprecation_context": "",
+    "url": "https://platform.openai.com/docs/deprecations#2024-06-06-gpt-4-32k-and-vision-preview-models",
+    "content_hash": "027345505d456906",
+    "scraped_at": "2025-08-27T21:19:37.938731+00:00"
+  },
+  {
+    "provider": "OpenAI",
+    "model_id": "Vision Preview models",
+    "model_name": "Vision Preview models",
+    "announcement_date": "2024-06-06",
+    "shutdown_date": "2024-06-06",
+    "replacement_model": null,
+    "deprecation_context": "",
+    "url": "https://platform.openai.com/docs/deprecations#2024-06-06-gpt-4-32k-and-vision-preview-models",
+    "content_hash": "eace4868d5fe873c",
+    "scraped_at": "2025-08-27T21:19:37.938734+00:00"
+  },
+  {
+    "provider": "OpenAI",
+    "model_id": "Chat model updates",
+    "model_name": "Chat model updates",
+    "announcement_date": "2023-11-06",
+    "shutdown_date": "2023-11-06",
+    "replacement_model": null,
+    "deprecation_context": "",
+    "url": "https://platform.openai.com/docs/deprecations#2023-11-06-chat-model-updates",
+    "content_hash": "bb0c72e5b8bfa274",
+    "scraped_at": "2025-08-27T21:19:37.938737+00:00"
+  },
+  {
+    "provider": "OpenAI",
+    "model_id": "Fine-tunes endpoint",
+    "model_name": "Fine-tunes endpoint",
+    "announcement_date": "2023-08-22",
+    "shutdown_date": "2023-08-22",
+    "replacement_model": null,
+    "deprecation_context": "",
+    "url": "https://platform.openai.com/docs/deprecations#2023-08-22-fine-tunes-endpoint",
+    "content_hash": "19c0acfa0b0bb8de",
+    "scraped_at": "2025-08-27T21:19:37.938739+00:00"
+  },
+  {
+    "provider": "OpenAI",
+    "model_id": "GPT",
+    "model_name": "GPT",
+    "announcement_date": "2023-07-06",
+    "shutdown_date": "2023-07-06",
+    "replacement_model": null,
+    "deprecation_context": "",
+    "url": "https://platform.openai.com/docs/deprecations#2023-07-06-gpt-and-embeddings",
+    "content_hash": "2ae202ff9e3ce6b1",
+    "scraped_at": "2025-08-27T21:19:37.938742+00:00"
+  },
+  {
+    "provider": "OpenAI",
+    "model_id": "embeddings",
+    "model_name": "embeddings",
+    "announcement_date": "2023-07-06",
+    "shutdown_date": "2023-07-06",
+    "replacement_model": null,
+    "deprecation_context": "",
+    "url": "https://platform.openai.com/docs/deprecations#2023-07-06-gpt-and-embeddings",
+    "content_hash": "ba1bb16c82f4aac9",
+    "scraped_at": "2025-08-27T21:19:37.938744+00:00"
+  },
+  {
+    "provider": "OpenAI",
+    "model_id": "Updated chat models",
+    "model_name": "Updated chat models",
+    "announcement_date": "2023-06-13",
+    "shutdown_date": "2023-06-13",
+    "replacement_model": null,
+    "deprecation_context": "",
+    "url": "https://platform.openai.com/docs/deprecations#2023-06-13-updated-chat-models",
+    "content_hash": "1033fbf923b2d9c0",
+    "scraped_at": "2025-08-27T21:19:37.938750+00:00"
+  },
+  {
+    "provider": "OpenAI",
+    "model_id": "Codex models",
+    "model_name": "Codex models",
+    "announcement_date": "2023-03-20",
+    "shutdown_date": "2023-03-20",
+    "replacement_model": null,
+    "deprecation_context": "",
+    "url": "https://platform.openai.com/docs/deprecations#2023-03-20-codex-models",
+    "content_hash": "52cc1899027233cd",
+    "scraped_at": "2025-08-27T21:19:37.938753+00:00"
+  },
+  {
+    "provider": "OpenAI",
+    "model_id": "Legacy endpoints",
+    "model_name": "Legacy endpoints",
+    "announcement_date": "2022-06-03",
+    "shutdown_date": "2022-06-03",
+    "replacement_model": null,
+    "deprecation_context": "",
+    "url": "https://platform.openai.com/docs/deprecations#2022-06-03-legacy-endpoints",
+    "content_hash": "88646db41ba07365",
+    "scraped_at": "2025-08-27T21:19:37.938756+00:00"
+  },
+  {
     "provider": "Anthropic",
     "model_id": "claude-1.0",
     "model_name": "claude-1.0",
@@ -309,7 +537,7 @@
     "deprecation_context": "Deprecation date: June 24, 2025.Shutdown date: June 24, 2026. As of June 24, 2025, the Generative AI module in the Vertex AI SDK is deprecated and will be shut down on June 24, 2026. To prepare for this change, migrate to the Google Gen AI SDK. For more information, see theVertex AI SDK migration guide.",
     "url": "https://cloud.google.com/vertex-ai/generative-ai/docs/deprecations#generative-ai-module-deprecation",
     "content_hash": "3adf69443e17da5e",
-    "scraped_at": "2025-08-27T02:15:14.157863+00:00"
+    "scraped_at": "2025-08-27T21:19:45.383783+00:00"
   },
   {
     "provider": "Google Vertex",
@@ -321,7 +549,7 @@
     "deprecation_context": "Deprecation date: June 24, 2025.Shutdown date: September 24, 2025. As of June 24, 2025, the following features and models are deprecated and will be shut down on September 24, 2025 : Image captioningVisual question answering (VQA)Imagen 1 models:imagegeneration@002Imagen 2 models:imagegeneration@005andimagegeneration@006",
     "url": "https://cloud.google.com/vertex-ai/generative-ai/docs/deprecations#imagen-and-multimodal-deprecation",
     "content_hash": "a8e5cbb3a801d4bb",
-    "scraped_at": "2025-08-27T02:15:14.158027+00:00"
+    "scraped_at": "2025-08-27T21:19:45.383924+00:00"
   },
   {
     "provider": "Google Vertex",
@@ -333,7 +561,7 @@
     "deprecation_context": "Deprecation date: June 24, 2025.Shutdown date: September 24, 2025. As of June 24, 2025, the following features and models are deprecated and will be shut down on September 24, 2025 : Image captioningVisual question answering (VQA)Imagen 1 models:imagegeneration@002Imagen 2 models:imagegeneration@005andimagegeneration@006",
     "url": "https://cloud.google.com/vertex-ai/generative-ai/docs/deprecations#imagen-and-multimodal-deprecation",
     "content_hash": "dd597f5be95ac95e",
-    "scraped_at": "2025-08-27T02:15:14.158042+00:00"
+    "scraped_at": "2025-08-27T21:19:45.383938+00:00"
   },
   {
     "provider": "Google Vertex",
@@ -369,7 +597,7 @@
     "deprecation_context": "Deprecation date: June 24, 2025.Shutdown date: September 24, 2025. As of June 24, 2025, the following features and models are deprecated and will be shut down on September 24, 2025 : Image captioningVisual question answering (VQA)Imagen 1 models:imagegeneration@002Imagen 2 models:imagegeneration@005andimagegeneration@006 For more information about migrating to Imagen 3, seeMigrate to Imagen 3.",
     "url": "https://cloud.google.com/vertex-ai/generative-ai/docs/deprecations#imagen-and-multimodal-deprecation",
     "content_hash": "c679efb135e5d53d",
-    "scraped_at": "2025-08-27T02:15:14.158078+00:00"
+    "scraped_at": "2025-08-27T21:19:45.383972+00:00"
   },
   {
     "provider": "AWS Bedrock",
