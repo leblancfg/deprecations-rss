@@ -63,7 +63,7 @@ class AzureFoundryScraper(EnhancedBaseScraper):
 
             # Extract rows
             rows = table.find_all("tr")[1:]  # Skip header row
-            
+
             for row in rows:
                 cells = row.find_all("td")
                 if len(cells) <= max(model_idx, retirement_idx):
@@ -121,11 +121,11 @@ class AzureFoundryScraper(EnhancedBaseScraper):
     def _build_context(self, table: Any, model_name: str) -> str:
         """Build context information for the deprecation."""
         context_parts = []
-        
+
         # Look for preceding headings or paragraphs that provide context
         current = table.find_previous_sibling()
         while current and len(context_parts) < 3:
-            if hasattr(current, 'get_text'):
+            if hasattr(current, "get_text"):
                 text = current.get_text(strip=True)
                 if text and len(text) < 200:  # Avoid very long text blocks
                     context_parts.insert(0, text)
