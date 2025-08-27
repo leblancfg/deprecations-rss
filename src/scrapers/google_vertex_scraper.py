@@ -11,7 +11,7 @@ from ..models import DeprecationItem
 class GoogleVertexScraper(EnhancedBaseScraper):
     """Scraper for Google Vertex AI deprecations page."""
 
-    provider_name = "Google Vertex AI"
+    provider_name = "Google Vertex"
     url = "https://cloud.google.com/vertex-ai/generative-ai/docs/deprecations"
     requires_playwright = False  # Static content, httpx is fine
 

@@ -37,6 +37,7 @@ https://deprecations.info/api/v1/deprecations.json
 We check these pages daily:
 - [OpenAI Deprecations](https://platform.openai.com/docs/deprecations)
 - [Anthropic Model Deprecations](https://docs.anthropic.com/en/docs/about-claude/model-deprecations)
+- [Google AI/Gemini Deprecations](https://ai.google.dev/gemini-api/docs/changelog)
 - [Google Vertex AI Deprecations](https://cloud.google.com/vertex-ai/generative-ai/docs/deprecations)
 - [AWS Bedrock Model Lifecycle](https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html)
 - [Cohere Deprecations](https://docs.cohere.com/docs/deprecations)
