@@ -1,0 +1,1 @@
+"""Deprecations RSS source package."""

@@ -1,4 +1,4 @@
-"""Cache manager for HTML responses to speed up development."""
+"""Cache manager for HTML responses, to speed up local development."""
 
 import json
 import hashlib

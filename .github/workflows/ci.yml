@@ -33,3 +33,8 @@ jobs:
 
       - name: Lint with ruff
         run: uv run ruff check .
+
+      - name: Run tests
+        run: |
+          export PYTHONPATH="${PYTHONPATH}:${PWD}"
+          uv run pytest tests/ -v
