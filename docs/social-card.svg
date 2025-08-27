@@ -1,0 +1,87 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Gradient definitions -->
+    <radialGradient id="bg1" cx="50%" cy="0%" r="60%">
+      <stop offset="0%" stop-color="rgba(249, 115, 22, 0.12)" />
+      <stop offset="100%" stop-color="transparent" />
+    </radialGradient>
+    <radialGradient id="bg2" cx="0%" cy="100%" r="50%">
+      <stop offset="0%" stop-color="rgba(234, 88, 12, 0.08)" />
+      <stop offset="100%" stop-color="transparent" />
+    </radialGradient>
+    <linearGradient id="titleGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#a0a0a0" />
+    </linearGradient>
+    
+    <!-- Dotted pattern -->
+    <pattern id="dots1" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="12" cy="12" r="1" fill="rgba(249, 115, 22, 0.1)" />
+    </pattern>
+    <pattern id="dots2" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
+      <circle cx="16" cy="16" r="1" fill="rgba(234, 88, 12, 0.08)" />
+    </pattern>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#1a1a1a" />
+  <rect width="1200" height="630" fill="url(#bg1)" />
+  <rect width="1200" height="630" fill="url(#bg2)" />
+  
+  <!-- Decorative patterns -->
+  <g transform="translate(900, -100) rotate(12)">
+    <rect width="400" height="400" fill="url(#dots1)" opacity="0.3" />
+  </g>
+  <g transform="translate(-150, 280) rotate(-15)">
+    <rect width="500" height="500" fill="url(#dots2)" opacity="0.4" />
+  </g>
+  
+  <!-- Main content -->
+  <g text-anchor="middle" dominant-baseline="middle">
+    
+    <!-- Bell icon -->
+    <text x="600" y="160" font-size="48" opacity="0.9">🔔</text>
+    
+    <!-- Title -->
+    <text x="600" y="230" font-family="JetBrains Mono, monospace" font-size="64" font-weight="800" fill="url(#titleGradient)">
+      AI Deprecations Feeds
+    </text>
+    
+    <!-- Tagline -->
+    <text x="600" y="280" font-family="JetBrains Mono, monospace" font-size="24" font-weight="400" fill="#b0b0b0">
+      Never miss an AI model shutdown again
+    </text>
+    
+    <!-- Provider badges -->
+    <g transform="translate(600, 350)">
+      <!-- OpenAI -->
+      <rect x="-300" y="-15" width="80" height="30" rx="6" fill="#412991" />
+      <text x="-260" y="2" font-family="JetBrains Mono, monospace" font-size="14" font-weight="600" fill="white">OpenAI</text>
+      
+      <!-- Anthropic -->
+      <rect x="-200" y="-15" width="90" height="30" rx="6" fill="#d4a373" />
+      <text x="-155" y="2" font-family="JetBrains Mono, monospace" font-size="14" font-weight="600" fill="black">Anthropic</text>
+      
+      <!-- Cohere -->
+      <rect x="-90" y="-15" width="70" height="30" rx="6" fill="#39594d" />
+      <text x="-55" y="2" font-family="JetBrains Mono, monospace" font-size="14" font-weight="600" fill="white">Cohere</text>
+      
+      <!-- Google -->
+      <rect x="0" y="-15" width="70" height="30" rx="6" fill="#4285F4" />
+      <text x="35" y="2" font-family="JetBrains Mono, monospace" font-size="14" font-weight="600" fill="white">Google</text>
+      
+      <!-- AWS -->
+      <rect x="90" y="-15" width="60" height="30" rx="6" fill="#FF9900" />
+      <text x="120" y="2" font-family="JetBrains Mono, monospace" font-size="14" font-weight="600" fill="black">AWS</text>
+      
+      <!-- Azure -->
+      <rect x="170" y="-15" width="60" height="30" rx="6" fill="#0078D4" />
+      <text x="200" y="2" font-family="JetBrains Mono, monospace" font-size="14" font-weight="600" fill="white">Azure</text>
+    </g>
+    
+    <!-- URL -->
+    <text x="600" y="450" font-family="JetBrains Mono, monospace" font-size="20" font-weight="500" fill="#f97316">
+      deprecations.info
+    </text>
+  </g>
+</svg>
