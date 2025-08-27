@@ -1,6 +1,5 @@
 """Azure AI Foundry model deprecations scraper."""
 
-import re
 from typing import List, Any
 from bs4 import BeautifulSoup
 
