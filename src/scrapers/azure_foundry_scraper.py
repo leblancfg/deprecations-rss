@@ -34,8 +34,9 @@ class AzureFoundryScraper(EnhancedBaseScraper):
                 headers.append(th.get_text(strip=True).upper())
 
             # Check if this looks like a model deprecation table
-            if not any(keyword in " ".join(headers).upper() 
-                      for keyword in ["MODEL", "RETIREMENT", "DEPRECATION", "LEGACY"]):
+            header_text = " ".join(headers).upper()
+            keywords = ["MODEL", "RETIREMENT", "DEPRECATION", "LEGACY"]
+            if not any(keyword in header_text for keyword in keywords):
                 continue
 
             # Find column indices
@@ -90,7 +91,9 @@ class AzureFoundryScraper(EnhancedBaseScraper):
                 if legacy_idx is not None and legacy_idx < len(cells):
                     legacy_text = cells[legacy_idx].get_text(strip=True)
                     parsed_legacy = self.parse_date(legacy_text)
-                    if parsed_legacy and (not announcement_date or parsed_legacy < announcement_date):
+                    if parsed_legacy and (
+                        not announcement_date or parsed_legacy < announcement_date
+                    ):
                         announcement_date = parsed_legacy
 
                 # Extract replacement if available
@@ -126,12 +129,14 @@ class AzureFoundryScraper(EnhancedBaseScraper):
                 text = current.get_text(strip=True)
                 if text and len(text) < 200:  # Avoid very long text blocks
                     context_parts.insert(0, text)
-                    if current.name in ['h1', 'h2', 'h3', 'h4']:
+                    if current.name in ["h1", "h2", "h3", "h4"]:
                         break  # Stop at heading
             current = current.find_previous_sibling()
-        
+
         context = " ".join(context_parts)
-        return context if context else f"Model lifecycle retirement information for {model_name}"
+        if context:
+            return context
+        return f"Model lifecycle retirement information for {model_name}"
 
     def extract_unstructured_deprecations(self, html: str) -> List[DeprecationItem]:
         """Azure AI Foundry page has structured tables, so this is not needed."""
