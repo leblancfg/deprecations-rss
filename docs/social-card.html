@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Deprecations Feed - Social Card</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'JetBrains Mono', 'Consolas', 'Monaco', 'Courier New', monospace;
+            background: #1a1a1a;
+            background-image: 
+                radial-gradient(ellipse at top center, rgba(249, 115, 22, 0.12) 0%, transparent 60%),
+                radial-gradient(ellipse at bottom left, rgba(234, 88, 12, 0.08) 0%, transparent 50%);
+            color: #e5e5e5;
+            width: 1200px;
+            height: 630px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-card {
+            max-width: 900px;
+            padding: 60px;
+            z-index: 2;
+        }
+
+        .title {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            background: linear-gradient(to right, #fff, #a0a0a0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            color: #b0b0b0;
+            font-weight: 400;
+            margin-bottom: 40px;
+            line-height: 1.4;
+        }
+
+        .provider-badges {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .provider-badge {
+            font-size: 14px;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 6px;
+            color: #fff;
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 0.5px;
+        }
+
+        .provider-badge.openai { background: #412991; }
+        .provider-badge.anthropic { background: #d4a373; color: #000; }
+        .provider-badge.google { background: #4285F4; }
+        .provider-badge.aws { background: #FF9900; color: #000; }
+        .provider-badge.cohere { background: #39594d; }
+        .provider-badge.azure { background: #0078D4; }
+
+        .url {
+            font-size: 1.2rem;
+            color: #f97316;
+            font-weight: 500;
+            margin-top: 20px;
+        }
+
+        /* Decorative elements */
+        .bg-pattern {
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 400px;
+            height: 400px;
+            background-image: radial-gradient(circle, rgba(249, 115, 22, 0.1) 1px, transparent 1px);
+            background-size: 24px 24px;
+            opacity: 0.3;
+            transform: rotate(12deg);
+            z-index: 1;
+        }
+
+        .bg-pattern-2 {
+            position: absolute;
+            bottom: -150px;
+            left: -150px;
+            width: 500px;
+            height: 500px;
+            background-image: radial-gradient(circle, rgba(234, 88, 12, 0.08) 1px, transparent 1px);
+            background-size: 32px 32px;
+            opacity: 0.4;
+            transform: rotate(-15deg);
+            z-index: 1;
+        }
+
+        .bell-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-pattern"></div>
+    <div class="bg-pattern-2"></div>
+    
+    <div class="social-card">
+        <div class="bell-icon">🔔</div>
+        <h1 class="title">AI Deprecations Feeds</h1>
+        <p class="tagline">Never miss an AI model shutdown again</p>
+        
+        <div class="provider-badges">
+            <span class="provider-badge openai">OpenAI</span>
+            <span class="provider-badge anthropic">Anthropic</span>
+            <span class="provider-badge cohere">Cohere</span>
+            <span class="provider-badge google">Google</span>
+            <span class="provider-badge aws">AWS</span>
+            <span class="provider-badge azure">Azure</span>
+        </div>
+        
+        <div class="url">deprecations.info</div>
+    </div>
+</body>
+</html>
