@@ -24,6 +24,7 @@ def test_scraper_imports():
         from src.scrapers.openai_scraper import OpenAIScraper  # noqa: F401
         from src.scrapers.anthropic_scraper import AnthropicScraper  # noqa: F401
         from src.scrapers.google_vertex_scraper import GoogleVertexScraper  # noqa: F401
+        from src.scrapers.google_vertex_models_scraper import GoogleVertexModelsScraper  # noqa: F401
         from src.scrapers.aws_bedrock_scraper import AWSBedrockScraper  # noqa: F401
         from src.scrapers.cohere_scraper import CohereScraper  # noqa: F401
 
