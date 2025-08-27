@@ -37,34 +37,24 @@ class OpenAIScraper(EnhancedBaseScraper):
             page = context.new_page()
 
             try:
-                # Navigate and wait for network to be idle
-                page.goto(url, wait_until="networkidle", timeout=60000)
-
-                # Wait for the main content to load (React SPA)
-                # Try multiple selectors for the deprecations content
-                content_selectors = [
-                    "main",  # Main content area
-                    "article",
-                    "[class*='deprecation']",
-                    "text=/\\d{4}-\\d{2}-\\d{2}:/",  # Date pattern
-                    "table",  # Deprecation tables
-                    "h2",  # Any h2 heading
-                ]
-
-                for selector in content_selectors:
-                    try:
-                        page.wait_for_selector(selector, timeout=10000)
-                        break
-                    except Exception:
-                        continue
-
-                # Additional wait to ensure dynamic content is loaded
-                page.wait_for_timeout(5000)
-
-                # Try scrolling to trigger lazy loading
+                # Navigate and wait for network to settle
+                page.goto(url, wait_until="domcontentloaded", timeout=60000)
+                
+                # Wait longer for React content to load
+                page.wait_for_timeout(10000)
+                
+                # Try to wait for date pattern that indicates content loaded
+                try:
+                    # Wait for any heading with a date pattern
+                    page.wait_for_selector("h2:has-text(/\\d{4}-\\d{2}-\\d{2}/)", timeout=5000)
+                except:
+                    # If no date pattern found, just continue
+                    pass
+                
+                # Scroll to bottom to trigger any lazy loading
                 page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
                 page.wait_for_timeout(2000)
-
+                
                 html = page.content()
             finally:
                 browser.close()
