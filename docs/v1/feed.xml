@@ -4,50 +4,127 @@
     <title>AI Model Deprecations</title>
     <link>https://deprecations.info/</link>
     <description>RSS feed tracking deprecations across major AI providers</description>
-    <lastBuildDate>Wed, 27 Aug 2025 21:20:00 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 28 Aug 2025 18:16:28 GMT</lastBuildDate>
     <item>
-      <title>OpenAI: Assistants API</title>
-      <link>https://platform.openai.com/docs/deprecations#2025-08-20-assistants-api</link>
+      <title>OpenAI: text-davinci-003</title>
+      <link>https://platform.openai.com/docs/deprecations</link>
       <description>Provider: OpenAI
-Model ID: Assistants API
-Model: Assistants API
-Shutdown Date: 2025-08-20
+Model ID: text-davinci-003
+Model: text-davinci-003
+Shutdown Date: 2024-01-04
 </description>
-      <pubDate>Wed, 27 Aug 2025 21:19:37 GMT</pubDate>
-      <guid isPermaLink="false">OpenAI-Assistants_API-2025-08-20-e3b0c442</guid>
+      <pubDate>Thu, 28 Aug 2025 18:16:06 GMT</pubDate>
+      <guid isPermaLink="false">OpenAI-text-davinci-003-2024-01-04-e3b0c442</guid>
     </item>
     <item>
-      <title>OpenAI: gpt-4o-realtime-preview-2024-10-01</title>
-      <link>https://platform.openai.com/docs/deprecations#2025-06-10-gpt-4o-realtime-preview-2024-10-01</link>
+      <title>OpenAI: ada</title>
+      <link>https://platform.openai.com/docs/deprecations</link>
       <description>Provider: OpenAI
-Model ID: gpt-4o-realtime-preview-2024-10-01
-Model: gpt-4o-realtime-preview-2024-10-01
-Shutdown Date: 2025-06-10
+Model ID: ada
+Model: ada
+Shutdown Date: 2024-01-04
 </description>
-      <pubDate>Wed, 27 Aug 2025 21:19:37 GMT</pubDate>
-      <guid isPermaLink="false">OpenAI-gpt-4o-realtime-preview-2024-10-01-2025-06-10-e3b0c442</guid>
+      <pubDate>Thu, 28 Aug 2025 18:16:06 GMT</pubDate>
+      <guid isPermaLink="false">OpenAI-ada-2024-01-04-e3b0c442</guid>
     </item>
     <item>
-      <title>OpenAI: gpt-4o-audio-preview-2024-10-01</title>
-      <link>https://platform.openai.com/docs/deprecations#2025-06-10-gpt-4o-audio-preview-2024-10-01</link>
+      <title>OpenAI: babbage</title>
+      <link>https://platform.openai.com/docs/deprecations</link>
       <description>Provider: OpenAI
-Model ID: gpt-4o-audio-preview-2024-10-01
-Model: gpt-4o-audio-preview-2024-10-01
-Shutdown Date: 2025-06-10
+Model ID: babbage
+Model: babbage
+Shutdown Date: 2024-01-04
 </description>
-      <pubDate>Wed, 27 Aug 2025 21:19:37 GMT</pubDate>
-      <guid isPermaLink="false">OpenAI-gpt-4o-audio-preview-2024-10-01-2025-06-10-e3b0c442</guid>
+      <pubDate>Thu, 28 Aug 2025 18:16:06 GMT</pubDate>
+      <guid isPermaLink="false">OpenAI-babbage-2024-01-04-e3b0c442</guid>
     </item>
     <item>
-      <title>OpenAI: text-moderation</title>
-      <link>https://platform.openai.com/docs/deprecations#2025-04-28-text-moderation</link>
+      <title>OpenAI: curie</title>
+      <link>https://platform.openai.com/docs/deprecations</link>
       <description>Provider: OpenAI
-Model ID: text-moderation
-Model: text-moderation
-Shutdown Date: 2025-04-28
+Model ID: curie
+Model: curie
+Shutdown Date: 2024-01-04
+</description>
+      <pubDate>Thu, 28 Aug 2025 18:16:06 GMT</pubDate>
+      <guid isPermaLink="false">OpenAI-curie-2024-01-04-e3b0c442</guid>
+    </item>
+    <item>
+      <title>OpenAI: davinci</title>
+      <link>https://platform.openai.com/docs/deprecations</link>
+      <description>Provider: OpenAI
+Model ID: davinci
+Model: davinci
+Shutdown Date: 2024-01-04
+</description>
+      <pubDate>Thu, 28 Aug 2025 18:16:06 GMT</pubDate>
+      <guid isPermaLink="false">OpenAI-davinci-2024-01-04-e3b0c442</guid>
+    </item>
+    <item>
+      <title>OpenAI: gpt-4-0314</title>
+      <link>https://platform.openai.com/docs/deprecations</link>
+      <description>Provider: OpenAI
+Model ID: gpt-4-0314
+Model: gpt-4-0314
+Shutdown Date: 2024-06-13
+</description>
+      <pubDate>Thu, 28 Aug 2025 18:16:06 GMT</pubDate>
+      <guid isPermaLink="false">OpenAI-gpt-4-0314-2024-06-13-e3b0c442</guid>
+    </item>
+    <item>
+      <title>OpenAI: gpt-4-0613</title>
+      <link>https://platform.openai.com/docs/deprecations</link>
+      <description>Provider: OpenAI
+Model ID: gpt-4-0613
+Model: gpt-4-0613
+Shutdown Date: 2024-06-13
+</description>
+      <pubDate>Thu, 28 Aug 2025 18:16:06 GMT</pubDate>
+      <guid isPermaLink="false">OpenAI-gpt-4-0613-2024-06-13-e3b0c442</guid>
+    </item>
+    <item>
+      <title>OpenAI: gpt-3.5-turbo-0613</title>
+      <link>https://platform.openai.com/docs/deprecations</link>
+      <description>Provider: OpenAI
+Model ID: gpt-3.5-turbo-0613
+Model: gpt-3.5-turbo-0613
+Shutdown Date: 2024-06-13
+</description>
+      <pubDate>Thu, 28 Aug 2025 18:16:06 GMT</pubDate>
+      <guid isPermaLink="false">OpenAI-gpt-3.5-turbo-0613-2024-06-13-e3b0c442</guid>
+    </item>
+    <item>
+      <title>OpenAI: gpt-3.5-turbo-0301</title>
+      <link>https://platform.openai.com/docs/deprecations</link>
+      <description>Provider: OpenAI
+Model ID: gpt-3.5-turbo-0301
+Model: gpt-3.5-turbo-0301
+Shutdown Date: 2024-06-13
+</description>
+      <pubDate>Thu, 28 Aug 2025 18:16:06 GMT</pubDate>
+      <guid isPermaLink="false">OpenAI-gpt-3.5-turbo-0301-2024-06-13-e3b0c442</guid>
+    </item>
+    <item>
+      <title>OpenAI: Assistants API beta v1</title>
+      <link>https://platform.openai.com/docs/deprecations</link>
+      <description>Provider: OpenAI
+Model ID: Assistants API beta v1
+Model: Assistants API beta v1
+Shutdown Date: 2024-12-18
+</description>
+      <pubDate>Thu, 28 Aug 2025 18:16:06 GMT</pubDate>
+      <guid isPermaLink="false">OpenAI-Assistants_API_beta_v1-2024-12-18-e3b0c442</guid>
+    </item>
+    <item>
+      <title>OpenAI: GPT-4.5-preview</title>
+      <link>https://platform.openai.com/docs/deprecations#2025-04-14-gpt-4-5-preview</link>
+      <description>Provider: OpenAI
+Model ID: GPT-4.5-preview
+Model: GPT-4.5-preview
+Shutdown Date: 2025-04-14
 </description>
       <pubDate>Wed, 27 Aug 2025 21:19:37 GMT</pubDate>
-      <guid isPermaLink="false">OpenAI-text-moderation-2025-04-28-e3b0c442</guid>
+      <guid isPermaLink="false">OpenAI-GPT-4.5-preview-2025-04-14-e3b0c442</guid>
     </item>
     <item>
       <title>OpenAI: o1-preview</title>
@@ -72,92 +149,48 @@ Shutdown Date: 2025-04-28
       <guid isPermaLink="false">OpenAI-o1-mini-2025-04-28-e3b0c442</guid>
     </item>
     <item>
-      <title>OpenAI: GPT-4.5-preview</title>
-      <link>https://platform.openai.com/docs/deprecations#2025-04-14-gpt-4-5-preview</link>
+      <title>OpenAI: text-moderation</title>
+      <link>https://platform.openai.com/docs/deprecations#2025-04-28-text-moderation</link>
       <description>Provider: OpenAI
-Model ID: GPT-4.5-preview
-Model: GPT-4.5-preview
-Shutdown Date: 2025-04-14
+Model ID: text-moderation
+Model: text-moderation
+Shutdown Date: 2025-04-28
 </description>
       <pubDate>Wed, 27 Aug 2025 21:19:37 GMT</pubDate>
-      <guid isPermaLink="false">OpenAI-GPT-4.5-preview-2025-04-14-e3b0c442</guid>
+      <guid isPermaLink="false">OpenAI-text-moderation-2025-04-28-e3b0c442</guid>
     </item>
     <item>
-      <title>OpenAI: Assistants API beta v1</title>
-      <link>https://platform.openai.com/docs/deprecations#2024-10-02-assistants-api-beta-v1</link>
+      <title>OpenAI: gpt-4o-audio-preview-2024-10-01</title>
+      <link>https://platform.openai.com/docs/deprecations#2025-06-10-gpt-4o-audio-preview-2024-10-01</link>
       <description>Provider: OpenAI
-Model ID: Assistants API beta v1
-Model: Assistants API beta v1
-Shutdown Date: 2024-10-02
+Model ID: gpt-4o-audio-preview-2024-10-01
+Model: gpt-4o-audio-preview-2024-10-01
+Shutdown Date: 2025-06-10
 </description>
       <pubDate>Wed, 27 Aug 2025 21:19:37 GMT</pubDate>
-      <guid isPermaLink="false">OpenAI-Assistants_API_beta_v1-2024-10-02-e3b0c442</guid>
+      <guid isPermaLink="false">OpenAI-gpt-4o-audio-preview-2024-10-01-2025-06-10-e3b0c442</guid>
     </item>
     <item>
-      <title>OpenAI: Fine-tuning training on babbage-002</title>
-      <link>https://platform.openai.com/docs/deprecations#2024-08-29-fine-tuning-training-on-babbage-002-and-davinci-002-models</link>
+      <title>OpenAI: gpt-4o-realtime-preview-2024-10-01</title>
+      <link>https://platform.openai.com/docs/deprecations#2025-06-10-gpt-4o-realtime-preview-2024-10-01</link>
       <description>Provider: OpenAI
-Model ID: Fine-tuning training on babbage-002
-Model: Fine-tuning training on babbage-002
-Shutdown Date: 2024-08-29
+Model ID: gpt-4o-realtime-preview-2024-10-01
+Model: gpt-4o-realtime-preview-2024-10-01
+Shutdown Date: 2025-06-10
 </description>
       <pubDate>Wed, 27 Aug 2025 21:19:37 GMT</pubDate>
-      <guid isPermaLink="false">OpenAI-Fine-tuning_training_on_babbage-002-2024-08-29-e3b0c442</guid>
+      <guid isPermaLink="false">OpenAI-gpt-4o-realtime-preview-2024-10-01-2025-06-10-e3b0c442</guid>
     </item>
     <item>
-      <title>OpenAI: davinci-002 models</title>
-      <link>https://platform.openai.com/docs/deprecations#2024-08-29-fine-tuning-training-on-babbage-002-and-davinci-002-models</link>
+      <title>OpenAI: Assistants API</title>
+      <link>https://platform.openai.com/docs/deprecations#2025-08-20-assistants-api</link>
       <description>Provider: OpenAI
-Model ID: davinci-002 models
-Model: davinci-002 models
-Shutdown Date: 2024-08-29
+Model ID: Assistants API
+Model: Assistants API
+Shutdown Date: 2025-08-20
 </description>
       <pubDate>Wed, 27 Aug 2025 21:19:37 GMT</pubDate>
-      <guid isPermaLink="false">OpenAI-davinci-002_models-2024-08-29-e3b0c442</guid>
-    </item>
-    <item>
-      <title>OpenAI: GPT-4-32K</title>
-      <link>https://platform.openai.com/docs/deprecations#2024-06-06-gpt-4-32k-and-vision-preview-models</link>
-      <description>Provider: OpenAI
-Model ID: GPT-4-32K
-Model: GPT-4-32K
-Shutdown Date: 2024-06-06
-</description>
-      <pubDate>Wed, 27 Aug 2025 21:19:37 GMT</pubDate>
-      <guid isPermaLink="false">OpenAI-GPT-4-32K-2024-06-06-e3b0c442</guid>
-    </item>
-    <item>
-      <title>OpenAI: Vision Preview models</title>
-      <link>https://platform.openai.com/docs/deprecations#2024-06-06-gpt-4-32k-and-vision-preview-models</link>
-      <description>Provider: OpenAI
-Model ID: Vision Preview models
-Model: Vision Preview models
-Shutdown Date: 2024-06-06
-</description>
-      <pubDate>Wed, 27 Aug 2025 21:19:37 GMT</pubDate>
-      <guid isPermaLink="false">OpenAI-Vision_Preview_models-2024-06-06-e3b0c442</guid>
-    </item>
-    <item>
-      <title>OpenAI: Chat model updates</title>
-      <link>https://platform.openai.com/docs/deprecations#2023-11-06-chat-model-updates</link>
-      <description>Provider: OpenAI
-Model ID: Chat model updates
-Model: Chat model updates
-Shutdown Date: 2023-11-06
-</description>
-      <pubDate>Wed, 27 Aug 2025 21:19:37 GMT</pubDate>
-      <guid isPermaLink="false">OpenAI-Chat_model_updates-2023-11-06-e3b0c442</guid>
-    </item>
-    <item>
-      <title>OpenAI: Fine-tunes endpoint</title>
-      <link>https://platform.openai.com/docs/deprecations#2023-08-22-fine-tunes-endpoint</link>
-      <description>Provider: OpenAI
-Model ID: Fine-tunes endpoint
-Model: Fine-tunes endpoint
-Shutdown Date: 2023-08-22
-</description>
-      <pubDate>Wed, 27 Aug 2025 21:19:37 GMT</pubDate>
-      <guid isPermaLink="false">OpenAI-Fine-tunes_endpoint-2023-08-22-e3b0c442</guid>
+      <guid isPermaLink="false">OpenAI-Assistants_API-2025-08-20-e3b0c442</guid>
     </item>
     <item>
       <title>OpenAI: GPT</title>

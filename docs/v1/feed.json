@@ -13,74 +13,207 @@
   "language": "en-US",
   "items": [
     {
-      "id": "openai-assistants-api",
-      "url": "https://platform.openai.com/docs/deprecations#2025-08-20-assistants-api",
+      "id": "openai-text-davinci-003",
+      "url": "https://platform.openai.com/docs/deprecations",
       "title": "OpenAI Deprecation",
       "content_text": "",
-      "date_published": "2025-08-27T21:19:37.938671+00:00",
+      "date_published": "2025-08-28T18:16:06.180459+00:00",
       "_deprecation": {
         "provider": "OpenAI",
-        "model_id": "Assistants API",
-        "model_name": "Assistants API",
-        "shutdown_date": "2025-08-20",
-        "announcement_date": "2025-08-20",
+        "model_id": "text-davinci-003",
+        "model_name": "text-davinci-003",
+        "shutdown_date": "2024-01-04",
+        "announcement_date": "2024-01-04",
+        "replacement_model": "gpt-3.5-turbo-instruct"
+      },
+      "tags": [
+        "OpenAI",
+        "shutdown-2024"
+      ]
+    },
+    {
+      "id": "openai-ada",
+      "url": "https://platform.openai.com/docs/deprecations",
+      "title": "OpenAI Deprecation",
+      "content_text": "",
+      "date_published": "2025-08-28T18:16:06.180498+00:00",
+      "_deprecation": {
+        "provider": "OpenAI",
+        "model_id": "ada",
+        "model_name": "ada",
+        "shutdown_date": "2024-01-04",
+        "announcement_date": "2024-01-04",
+        "replacement_model": "New /fine-tuning endpoint"
+      },
+      "tags": [
+        "OpenAI",
+        "shutdown-2024"
+      ]
+    },
+    {
+      "id": "openai-babbage",
+      "url": "https://platform.openai.com/docs/deprecations",
+      "title": "OpenAI Deprecation",
+      "content_text": "",
+      "date_published": "2025-08-28T18:16:06.180510+00:00",
+      "_deprecation": {
+        "provider": "OpenAI",
+        "model_id": "babbage",
+        "model_name": "babbage",
+        "shutdown_date": "2024-01-04",
+        "announcement_date": "2024-01-04",
+        "replacement_model": "New /fine-tuning endpoint"
+      },
+      "tags": [
+        "OpenAI",
+        "shutdown-2024"
+      ]
+    },
+    {
+      "id": "openai-curie",
+      "url": "https://platform.openai.com/docs/deprecations",
+      "title": "OpenAI Deprecation",
+      "content_text": "",
+      "date_published": "2025-08-28T18:16:06.180515+00:00",
+      "_deprecation": {
+        "provider": "OpenAI",
+        "model_id": "curie",
+        "model_name": "curie",
+        "shutdown_date": "2024-01-04",
+        "announcement_date": "2024-01-04",
+        "replacement_model": "New /fine-tuning endpoint"
+      },
+      "tags": [
+        "OpenAI",
+        "shutdown-2024"
+      ]
+    },
+    {
+      "id": "openai-davinci",
+      "url": "https://platform.openai.com/docs/deprecations",
+      "title": "OpenAI Deprecation",
+      "content_text": "",
+      "date_published": "2025-08-28T18:16:06.180520+00:00",
+      "_deprecation": {
+        "provider": "OpenAI",
+        "model_id": "davinci",
+        "model_name": "davinci",
+        "shutdown_date": "2024-01-04",
+        "announcement_date": "2024-01-04",
+        "replacement_model": "New /fine-tuning endpoint"
+      },
+      "tags": [
+        "OpenAI",
+        "shutdown-2024"
+      ]
+    },
+    {
+      "id": "openai-gpt-4-0314",
+      "url": "https://platform.openai.com/docs/deprecations",
+      "title": "OpenAI Deprecation",
+      "content_text": "",
+      "date_published": "2025-08-28T18:16:06.180526+00:00",
+      "_deprecation": {
+        "provider": "OpenAI",
+        "model_id": "gpt-4-0314",
+        "model_name": "gpt-4-0314",
+        "shutdown_date": "2024-06-13",
+        "announcement_date": "2024-06-13",
         "replacement_model": null
       },
       "tags": [
         "OpenAI",
-        "shutdown-2025"
+        "shutdown-2024"
       ]
     },
     {
-      "id": "openai-gpt-4o-realtime-preview-2024-10-01",
-      "url": "https://platform.openai.com/docs/deprecations#2025-06-10-gpt-4o-realtime-preview-2024-10-01",
+      "id": "openai-gpt-4-0613",
+      "url": "https://platform.openai.com/docs/deprecations",
       "title": "OpenAI Deprecation",
       "content_text": "",
-      "date_published": "2025-08-27T21:19:37.938702+00:00",
+      "date_published": "2025-08-28T18:16:06.180531+00:00",
       "_deprecation": {
         "provider": "OpenAI",
-        "model_id": "gpt-4o-realtime-preview-2024-10-01",
-        "model_name": "gpt-4o-realtime-preview-2024-10-01",
-        "shutdown_date": "2025-06-10",
-        "announcement_date": "2025-06-10",
+        "model_id": "gpt-4-0613",
+        "model_name": "gpt-4-0613",
+        "shutdown_date": "2024-06-13",
+        "announcement_date": "2024-06-13",
         "replacement_model": null
       },
       "tags": [
         "OpenAI",
-        "shutdown-2025"
+        "shutdown-2024"
       ]
     },
     {
-      "id": "openai-gpt-4o-audio-preview-2024-10-01",
-      "url": "https://platform.openai.com/docs/deprecations#2025-06-10-gpt-4o-audio-preview-2024-10-01",
+      "id": "openai-gpt-3.5-turbo-0613",
+      "url": "https://platform.openai.com/docs/deprecations",
       "title": "OpenAI Deprecation",
       "content_text": "",
-      "date_published": "2025-08-27T21:19:37.938708+00:00",
+      "date_published": "2025-08-28T18:16:06.180536+00:00",
       "_deprecation": {
         "provider": "OpenAI",
-        "model_id": "gpt-4o-audio-preview-2024-10-01",
-        "model_name": "gpt-4o-audio-preview-2024-10-01",
-        "shutdown_date": "2025-06-10",
-        "announcement_date": "2025-06-10",
+        "model_id": "gpt-3.5-turbo-0613",
+        "model_name": "gpt-3.5-turbo-0613",
+        "shutdown_date": "2024-06-13",
+        "announcement_date": "2024-06-13",
         "replacement_model": null
       },
       "tags": [
         "OpenAI",
-        "shutdown-2025"
+        "shutdown-2024"
       ]
     },
     {
-      "id": "openai-text-moderation",
-      "url": "https://platform.openai.com/docs/deprecations#2025-04-28-text-moderation",
+      "id": "openai-gpt-3.5-turbo-0301",
+      "url": "https://platform.openai.com/docs/deprecations",
       "title": "OpenAI Deprecation",
       "content_text": "",
-      "date_published": "2025-08-27T21:19:37.938712+00:00",
+      "date_published": "2025-08-28T18:16:06.180540+00:00",
       "_deprecation": {
         "provider": "OpenAI",
-        "model_id": "text-moderation",
-        "model_name": "text-moderation",
-        "shutdown_date": "2025-04-28",
-        "announcement_date": "2025-04-28",
+        "model_id": "gpt-3.5-turbo-0301",
+        "model_name": "gpt-3.5-turbo-0301",
+        "shutdown_date": "2024-06-13",
+        "announcement_date": "2024-06-13",
+        "replacement_model": null
+      },
+      "tags": [
+        "OpenAI",
+        "shutdown-2024"
+      ]
+    },
+    {
+      "id": "openai-assistants-api-beta-v1",
+      "url": "https://platform.openai.com/docs/deprecations",
+      "title": "OpenAI Deprecation",
+      "content_text": "",
+      "date_published": "2025-08-28T18:16:06.180545+00:00",
+      "_deprecation": {
+        "provider": "OpenAI",
+        "model_id": "Assistants API beta v1",
+        "model_name": "Assistants API beta v1",
+        "shutdown_date": "2024-12-18",
+        "announcement_date": "2024-12-18",
+        "replacement_model": "Assistants API v2"
+      },
+      "tags": [
+        "OpenAI",
+        "shutdown-2024"
+      ]
+    },
+    {
+      "id": "openai-gpt-4.5-preview",
+      "url": "https://platform.openai.com/docs/deprecations#2025-04-14-gpt-4-5-preview",
+      "title": "OpenAI Deprecation",
+      "content_text": "",
+      "date_published": "2025-08-27T21:19:37.938720+00:00",
+      "_deprecation": {
+        "provider": "OpenAI",
+        "model_id": "GPT-4.5-preview",
+        "model_name": "GPT-4.5-preview",
+        "shutdown_date": "2025-04-14",
+        "announcement_date": "2025-04-14",
         "replacement_model": null
       },
       "tags": [
@@ -127,17 +260,17 @@
       ]
     },
     {
-      "id": "openai-gpt-4.5-preview",
-      "url": "https://platform.openai.com/docs/deprecations#2025-04-14-gpt-4-5-preview",
+      "id": "openai-text-moderation",
+      "url": "https://platform.openai.com/docs/deprecations#2025-04-28-text-moderation",
       "title": "OpenAI Deprecation",
       "content_text": "",
-      "date_published": "2025-08-27T21:19:37.938720+00:00",
+      "date_published": "2025-08-27T21:19:37.938712+00:00",
       "_deprecation": {
         "provider": "OpenAI",
-        "model_id": "GPT-4.5-preview",
-        "model_name": "GPT-4.5-preview",
-        "shutdown_date": "2025-04-14",
-        "announcement_date": "2025-04-14",
+        "model_id": "text-moderation",
+        "model_name": "text-moderation",
+        "shutdown_date": "2025-04-28",
+        "announcement_date": "2025-04-28",
         "replacement_model": null
       },
       "tags": [
@@ -146,136 +279,60 @@
       ]
     },
     {
-      "id": "openai-assistants-api-beta-v1",
-      "url": "https://platform.openai.com/docs/deprecations#2024-10-02-assistants-api-beta-v1",
+      "id": "openai-gpt-4o-audio-preview-2024-10-01",
+      "url": "https://platform.openai.com/docs/deprecations#2025-06-10-gpt-4o-audio-preview-2024-10-01",
       "title": "OpenAI Deprecation",
       "content_text": "",
-      "date_published": "2025-08-27T21:19:37.938723+00:00",
+      "date_published": "2025-08-27T21:19:37.938708+00:00",
       "_deprecation": {
         "provider": "OpenAI",
-        "model_id": "Assistants API beta v1",
-        "model_name": "Assistants API beta v1",
-        "shutdown_date": "2024-10-02",
-        "announcement_date": "2024-10-02",
+        "model_id": "gpt-4o-audio-preview-2024-10-01",
+        "model_name": "gpt-4o-audio-preview-2024-10-01",
+        "shutdown_date": "2025-06-10",
+        "announcement_date": "2025-06-10",
         "replacement_model": null
       },
       "tags": [
         "OpenAI",
-        "shutdown-2024"
+        "shutdown-2025"
       ]
     },
     {
-      "id": "openai-fine-tuning-training-on-babbage-002",
-      "url": "https://platform.openai.com/docs/deprecations#2024-08-29-fine-tuning-training-on-babbage-002-and-davinci-002-models",
+      "id": "openai-gpt-4o-realtime-preview-2024-10-01",
+      "url": "https://platform.openai.com/docs/deprecations#2025-06-10-gpt-4o-realtime-preview-2024-10-01",
       "title": "OpenAI Deprecation",
       "content_text": "",
-      "date_published": "2025-08-27T21:19:37.938726+00:00",
+      "date_published": "2025-08-27T21:19:37.938702+00:00",
       "_deprecation": {
         "provider": "OpenAI",
-        "model_id": "Fine-tuning training on babbage-002",
-        "model_name": "Fine-tuning training on babbage-002",
-        "shutdown_date": "2024-08-29",
-        "announcement_date": "2024-08-29",
+        "model_id": "gpt-4o-realtime-preview-2024-10-01",
+        "model_name": "gpt-4o-realtime-preview-2024-10-01",
+        "shutdown_date": "2025-06-10",
+        "announcement_date": "2025-06-10",
         "replacement_model": null
       },
       "tags": [
         "OpenAI",
-        "shutdown-2024"
+        "shutdown-2025"
       ]
     },
     {
-      "id": "openai-davinci-002-models",
-      "url": "https://platform.openai.com/docs/deprecations#2024-08-29-fine-tuning-training-on-babbage-002-and-davinci-002-models",
+      "id": "openai-assistants-api",
+      "url": "https://platform.openai.com/docs/deprecations#2025-08-20-assistants-api",
       "title": "OpenAI Deprecation",
       "content_text": "",
-      "date_published": "2025-08-27T21:19:37.938728+00:00",
+      "date_published": "2025-08-27T21:19:37.938671+00:00",
       "_deprecation": {
         "provider": "OpenAI",
-        "model_id": "davinci-002 models",
-        "model_name": "davinci-002 models",
-        "shutdown_date": "2024-08-29",
-        "announcement_date": "2024-08-29",
+        "model_id": "Assistants API",
+        "model_name": "Assistants API",
+        "shutdown_date": "2025-08-20",
+        "announcement_date": "2025-08-20",
         "replacement_model": null
       },
       "tags": [
         "OpenAI",
-        "shutdown-2024"
-      ]
-    },
-    {
-      "id": "openai-gpt-4-32k",
-      "url": "https://platform.openai.com/docs/deprecations#2024-06-06-gpt-4-32k-and-vision-preview-models",
-      "title": "OpenAI Deprecation",
-      "content_text": "",
-      "date_published": "2025-08-27T21:19:37.938731+00:00",
-      "_deprecation": {
-        "provider": "OpenAI",
-        "model_id": "GPT-4-32K",
-        "model_name": "GPT-4-32K",
-        "shutdown_date": "2024-06-06",
-        "announcement_date": "2024-06-06",
-        "replacement_model": null
-      },
-      "tags": [
-        "OpenAI",
-        "shutdown-2024"
-      ]
-    },
-    {
-      "id": "openai-vision-preview-models",
-      "url": "https://platform.openai.com/docs/deprecations#2024-06-06-gpt-4-32k-and-vision-preview-models",
-      "title": "OpenAI Deprecation",
-      "content_text": "",
-      "date_published": "2025-08-27T21:19:37.938734+00:00",
-      "_deprecation": {
-        "provider": "OpenAI",
-        "model_id": "Vision Preview models",
-        "model_name": "Vision Preview models",
-        "shutdown_date": "2024-06-06",
-        "announcement_date": "2024-06-06",
-        "replacement_model": null
-      },
-      "tags": [
-        "OpenAI",
-        "shutdown-2024"
-      ]
-    },
-    {
-      "id": "openai-chat-model-updates",
-      "url": "https://platform.openai.com/docs/deprecations#2023-11-06-chat-model-updates",
-      "title": "OpenAI Deprecation",
-      "content_text": "",
-      "date_published": "2025-08-27T21:19:37.938737+00:00",
-      "_deprecation": {
-        "provider": "OpenAI",
-        "model_id": "Chat model updates",
-        "model_name": "Chat model updates",
-        "shutdown_date": "2023-11-06",
-        "announcement_date": "2023-11-06",
-        "replacement_model": null
-      },
-      "tags": [
-        "OpenAI",
-        "shutdown-2023"
-      ]
-    },
-    {
-      "id": "openai-fine-tunes-endpoint",
-      "url": "https://platform.openai.com/docs/deprecations#2023-08-22-fine-tunes-endpoint",
-      "title": "OpenAI Deprecation",
-      "content_text": "",
-      "date_published": "2025-08-27T21:19:37.938739+00:00",
-      "_deprecation": {
-        "provider": "OpenAI",
-        "model_id": "Fine-tunes endpoint",
-        "model_name": "Fine-tunes endpoint",
-        "shutdown_date": "2023-08-22",
-        "announcement_date": "2023-08-22",
-        "replacement_model": null
-      },
-      "tags": [
-        "OpenAI",
-        "shutdown-2023"
+        "shutdown-2025"
       ]
     },
     {
