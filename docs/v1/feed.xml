@@ -4,7 +4,7 @@
     <title>AI Model Deprecations</title>
     <link>https://deprecations.info/</link>
     <description>RSS feed tracking deprecations across major AI providers</description>
-    <lastBuildDate>Thu, 28 Aug 2025 18:16:28 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 28 Aug 2025 22:48:06 GMT</lastBuildDate>
     <item>
       <title>OpenAI: text-davinci-003</title>
       <link>https://platform.openai.com/docs/deprecations</link>
@@ -955,6 +955,97 @@ Best Practices:
 Regularly check our documentation for updates on ann...</description>
       <pubDate>Tue, 26 Aug 2025 18:51:55 GMT</pubDate>
       <guid isPermaLink="false">Cohere-rerank-multilingual-v2.0-2025-04-30-e3b0c442</guid>
+    </item>
+    <item>
+      <title>xAI: grok-3-fastus-east-1</title>
+      <link>https://docs.x.ai/docs/models</link>
+      <description>Provider: xAI
+Model ID: grok-3-fastus-east-1
+Model: grok-3-fastus-east-1
+First Observed: 2025-08-28
+Last Observed: 2025-08-28
+
+Model grok-3-fastus-east-1 is deprecated</description>
+      <pubDate>Thu, 28 Aug 2025 22:48:04 GMT</pubDate>
+      <guid isPermaLink="false">xAI-grok-3-fastus-east-1-e3b0c442</guid>
+    </item>
+    <item>
+      <title>xAI: grok-3-fasteu-west-1</title>
+      <link>https://docs.x.ai/docs/models</link>
+      <description>Provider: xAI
+Model ID: grok-3-fasteu-west-1
+Model: grok-3-fasteu-west-1
+First Observed: 2025-08-28
+Last Observed: 2025-08-28
+
+Model grok-3-fasteu-west-1 is deprecated</description>
+      <pubDate>Thu, 28 Aug 2025 22:48:04 GMT</pubDate>
+      <guid isPermaLink="false">xAI-grok-3-fasteu-west-1-e3b0c442</guid>
+    </item>
+    <item>
+      <title>xAI: grok-3-mini-fast</title>
+      <link>https://docs.x.ai/docs/models</link>
+      <description>Provider: xAI
+Model ID: grok-3-mini-fast
+Model: grok-3-mini-fast
+First Observed: 2025-08-28
+Last Observed: 2025-08-28
+
+Model grok-3-mini-fast is deprecated</description>
+      <pubDate>Thu, 28 Aug 2025 22:48:04 GMT</pubDate>
+      <guid isPermaLink="false">xAI-grok-3-mini-fast-e3b0c442</guid>
+    </item>
+    <item>
+      <title>xAI: grok-2-1212us-east-1</title>
+      <link>https://docs.x.ai/docs/models</link>
+      <description>Provider: xAI
+Model ID: grok-2-1212us-east-1
+Model: grok-2-1212us-east-1
+First Observed: 2025-08-28
+Last Observed: 2025-08-28
+
+Model grok-2-1212us-east-1 is deprecated</description>
+      <pubDate>Thu, 28 Aug 2025 22:48:04 GMT</pubDate>
+      <guid isPermaLink="false">xAI-grok-2-1212us-east-1-e3b0c442</guid>
+    </item>
+    <item>
+      <title>xAI: grok-2-vision-1212us-east-1</title>
+      <link>https://docs.x.ai/docs/models</link>
+      <description>Provider: xAI
+Model ID: grok-2-vision-1212us-east-1
+Model: grok-2-vision-1212us-east-1
+First Observed: 2025-08-28
+Last Observed: 2025-08-28
+
+Model grok-2-vision-1212us-east-1 is deprecated</description>
+      <pubDate>Thu, 28 Aug 2025 22:48:04 GMT</pubDate>
+      <guid isPermaLink="false">xAI-grok-2-vision-1212us-east-1-e3b0c442</guid>
+    </item>
+    <item>
+      <title>xAI: grok-2-vision-1212eu-west-1</title>
+      <link>https://docs.x.ai/docs/models</link>
+      <description>Provider: xAI
+Model ID: grok-2-vision-1212eu-west-1
+Model: grok-2-vision-1212eu-west-1
+First Observed: 2025-08-28
+Last Observed: 2025-08-28
+
+Model grok-2-vision-1212eu-west-1 is deprecated</description>
+      <pubDate>Thu, 28 Aug 2025 22:48:04 GMT</pubDate>
+      <guid isPermaLink="false">xAI-grok-2-vision-1212eu-west-1-e3b0c442</guid>
+    </item>
+    <item>
+      <title>xAI: grok-2-1212eu-west-1</title>
+      <link>https://docs.x.ai/docs/models</link>
+      <description>Provider: xAI
+Model ID: grok-2-1212eu-west-1
+Model: grok-2-1212eu-west-1
+First Observed: 2025-08-28
+Last Observed: 2025-08-28
+
+Model grok-2-1212eu-west-1 is deprecated</description>
+      <pubDate>Thu, 28 Aug 2025 22:48:04 GMT</pubDate>
+      <guid isPermaLink="false">xAI-grok-2-1212eu-west-1-e3b0c442</guid>
     </item>
     <item>
       <title>Azure: N/A</title>

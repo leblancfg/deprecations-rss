@@ -1,7 +1,6 @@
 """Anthropic deprecations scraper with individual model extraction."""
 
 import re
-from typing import List
 from bs4 import BeautifulSoup
 
 from ..base_scraper import EnhancedBaseScraper
@@ -15,7 +14,7 @@ class AnthropicScraper(EnhancedBaseScraper):
     url = "https://docs.anthropic.com/en/docs/about-claude/model-deprecations"
     requires_playwright = True  # Client-side rendering
 
-    def extract_structured_deprecations(self, html: str) -> List[DeprecationItem]:
+    def extract_structured_deprecations(self, html: str) -> list[DeprecationItem]:
         """Extract deprecations from Anthropic's table format."""
         items = []
         soup = BeautifulSoup(html, "html.parser")
@@ -167,6 +166,6 @@ class AnthropicScraper(EnhancedBaseScraper):
 
         return items
 
-    def extract_unstructured_deprecations(self, html: str) -> List[DeprecationItem]:
+    def extract_unstructured_deprecations(self, html: str) -> list[DeprecationItem]:
         """Anthropic uses tables, so no unstructured extraction needed."""
         return []

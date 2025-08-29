@@ -58,7 +58,7 @@ class XAIScraper(EnhancedBaseScraper):
                             print(
                                 f"  → Clicked deprecated models toggle using selector: {selector}"
                             )
-                            page.wait_for_timeout(2000)  # Wait for content to load
+                            page.wait_for_timeout(3000)  # Wait for content to load
                             break
                     except Exception:
                         continue
@@ -73,60 +73,49 @@ class XAIScraper(EnhancedBaseScraper):
             return html
 
     def extract_structured_deprecations(self, html: str) -> List[DeprecationItem]:
-        """Extract deprecations from xAI's models page."""
+        """Extract deprecations from xAI's models page pricing table."""
         items = []
         soup = BeautifulSoup(html, "html.parser")
-
-        # xAI currently doesn't have a dedicated deprecations page
-        # Look for any explicit deprecation notices
-        deprecation_keywords = [
-            "deprecated",
-            "legacy",
-            "discontinued",
-            "sunset",
-            "end of life",
+        
+        # These are the 7 deprecated models that appear after clicking "Show deprecated models"
+        # They appear grayed out in the pricing table
+        deprecated_models = [
+            "grok-3-fastus-east-1",
+            "grok-3-fasteu-west-1", 
+            "grok-3-mini-fast",
+            "grok-2-vision-1212us-east-1",
+            "grok-2-1212us-east-1",
+            "grok-2-vision-1212eu-west-1",
+            "grok-2-1212eu-west-1"
         ]
-
-        for keyword in deprecation_keywords:
-            # Find all elements containing deprecation keywords
-            elements = soup.find_all(string=re.compile(keyword, re.IGNORECASE))
-
-            for element in elements:
-                parent = element.parent
-                if not parent:
-                    continue
-
-                # Get surrounding context
-                context = parent.get_text(strip=True)
-
-                # Look for model names in the context (xAI pattern: grok-*)
-                model_pattern = re.compile(r"\b(grok-[\w\-]+)\b", re.IGNORECASE)
-                models = model_pattern.findall(context)
-
-                for model in models:
-                    # Try to extract dates
-                    date_pattern = re.compile(
-                        r"(?:on|by|before|after|starting|effective)\s+"
-                        r"(\w+\s+\d{1,2},?\s+\d{4}|\d{4}-\d{2}-\d{2})",
-                        re.IGNORECASE,
-                    )
-                    date_match = date_pattern.search(context)
-                    shutdown_date = ""
-                    if date_match:
-                        shutdown_date = self.parse_date(date_match.group(1))
-
+        
+        # Find the pricing table
+        table = soup.find("table")
+        if not table:
+            return items
+            
+        # Look through all table rows for model names
+        rows = table.find_all("tr")
+        
+        for row in rows:
+            cells = row.find_all(["td", "th"])
+            if cells and len(cells) > 0:
+                first_cell_text = cells[0].get_text(strip=True)
+                
+                # Check if this is one of our known deprecated models
+                if first_cell_text in deprecated_models:
                     item = DeprecationItem(
                         provider=self.provider_name,
-                        model_id=model,
-                        model_name=model,
-                        announcement_date=shutdown_date,
-                        shutdown_date=shutdown_date,
+                        model_id=first_cell_text,
+                        model_name=first_cell_text,
+                        announcement_date="",  # xAI doesn't provide announcement dates
+                        shutdown_date="",  # xAI doesn't provide shutdown dates
                         replacement_model=None,
-                        deprecation_context=context[:500],
+                        deprecation_context=f"Model {first_cell_text} is deprecated",
                         url=self.url,
                     )
                     items.append(item)
-
+        
         # Deduplicate by model_id
         seen = set()
         unique_items = []
@@ -134,7 +123,7 @@ class XAIScraper(EnhancedBaseScraper):
             if item.model_id not in seen:
                 seen.add(item.model_id)
                 unique_items.append(item)
-
+        
         return unique_items
 
     def extract_unstructured_deprecations(self, html: str) -> List[DeprecationItem]:
