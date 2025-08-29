@@ -148,7 +148,7 @@ Be precise and factual. Only include information explicitly stated in the conten
         # Create lookup for existing items by hash if provided
         existing_by_hash = {}
         if existing_data:
-            from main import hash_item
+            from .main import hash_item
 
             existing_by_hash = {hash_item(item): item for item in existing_data}
 

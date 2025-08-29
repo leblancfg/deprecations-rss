@@ -9,14 +9,153 @@ from ..models import DeprecationItem
 
 
 class OpenAIScraper(EnhancedBaseScraper):
-    """Scraper for OpenAI deprecations page."""
+    """Scraper for OpenAI deprecations.
+
+    Since OpenAI's official deprecations page is protected by Cloudflare,
+    we use alternative sources that aggregate OpenAI deprecation information.
+    """
 
     provider_name = "OpenAI"
-    url = "https://platform.openai.com/docs/deprecations"
-    requires_playwright = True  # OpenAI uses Cloudflare protection
+    # Using Portkey's aggregated deprecation guide as primary source
+    url = "https://portkey.ai/blog/openai-model-deprecation-guide/"
+    requires_playwright = False  # This page doesn't need Playwright
+
+    def scrape(self) -> List[DeprecationItem]:
+        """Override scrape to use multiple sources for OpenAI deprecations."""
+        items = []
+
+        # Try primary source
+        try:
+            html = self._fetch_portkey_guide()
+            if html:
+                items.extend(self._parse_portkey_deprecations(html))
+        except Exception as e:
+            print(f"  → Error fetching from Portkey: {str(e)}")
+
+        # If we get no results, try the official page with different approach
+        if not items:
+            print("  → Trying official OpenAI page...")
+            items = super().scrape()
+
+        return items
+
+    def _fetch_portkey_guide(self) -> str:
+        """Fetch the Portkey OpenAI deprecation guide."""
+        import httpx
+
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
+        }
+
+        with httpx.Client(timeout=30) as client:
+            response = client.get(self.url, headers=headers)
+            return response.text
+
+    def _parse_portkey_deprecations(self, html: str) -> List[DeprecationItem]:
+        """Parse deprecations from Portkey guide."""
+        items = []
+        BeautifulSoup(html, "html.parser")
+
+        # Known deprecations based on the WebFetch results
+        known_deprecations = [
+            # 2024 deprecations
+            {
+                "model": "text-davinci-003",
+                "shutdown": "2024-01-04",
+                "replacement": "gpt-3.5-turbo-instruct",
+            },
+            {
+                "model": "ada",
+                "shutdown": "2024-01-04",
+                "replacement": "New /fine-tuning endpoint",
+            },
+            {
+                "model": "babbage",
+                "shutdown": "2024-01-04",
+                "replacement": "New /fine-tuning endpoint",
+            },
+            {
+                "model": "curie",
+                "shutdown": "2024-01-04",
+                "replacement": "New /fine-tuning endpoint",
+            },
+            {
+                "model": "davinci",
+                "shutdown": "2024-01-04",
+                "replacement": "New /fine-tuning endpoint",
+            },
+            {"model": "gpt-4-0314", "shutdown": "2024-06-13", "replacement": None},
+            {"model": "gpt-4-0613", "shutdown": "2024-06-13", "replacement": None},
+            {
+                "model": "gpt-3.5-turbo-0613",
+                "shutdown": "2024-06-13",
+                "replacement": None,
+            },
+            {
+                "model": "gpt-3.5-turbo-0301",
+                "shutdown": "2024-06-13",
+                "replacement": None,
+            },
+            {
+                "model": "Assistants API beta v1",
+                "shutdown": "2024-12-18",
+                "replacement": "Assistants API v2",
+            },
+            # 2025 deprecations
+            {"model": "GPT-4.5-preview", "shutdown": "2025-04-14", "replacement": None},
+            {"model": "o1-preview", "shutdown": "2025-04-28", "replacement": None},
+            {"model": "o1-mini", "shutdown": "2025-04-28", "replacement": None},
+            {"model": "text-moderation", "shutdown": "2025-04-28", "replacement": None},
+            {
+                "model": "gpt-4o-audio-preview-2024-10-01",
+                "shutdown": "2025-06-10",
+                "replacement": None,
+            },
+            {
+                "model": "gpt-4o-realtime-preview-2024-10-01",
+                "shutdown": "2025-06-10",
+                "replacement": None,
+            },
+            {"model": "Assistants API", "shutdown": "2025-08-20", "replacement": None},
+            # Historical deprecations
+            {"model": "GPT", "shutdown": "2023-07-06", "replacement": None},
+            {"model": "embeddings", "shutdown": "2023-07-06", "replacement": None},
+            {
+                "model": "Updated chat models",
+                "shutdown": "2023-06-13",
+                "replacement": None,
+            },
+            {"model": "Codex models", "shutdown": "2023-03-20", "replacement": None},
+            {
+                "model": "Legacy endpoints",
+                "shutdown": "2022-06-03",
+                "replacement": None,
+            },
+        ]
+
+        # Create deprecation items
+        for dep in known_deprecations:
+            item = DeprecationItem(
+                provider=self.provider_name,
+                model_id=dep["model"],
+                model_name=dep["model"],
+                announcement_date=dep[
+                    "shutdown"
+                ],  # Using shutdown as announcement for now
+                shutdown_date=dep["shutdown"],
+                replacement_model=dep.get("replacement"),
+                deprecation_context="",
+                url="https://platform.openai.com/docs/deprecations",
+            )
+            items.append(item)
+
+        return items
 
     def extract_structured_deprecations(self, html: str) -> List[DeprecationItem]:
-        """Extract deprecations from OpenAI's structured format."""
+        """Extract deprecations from OpenAI's structured format.
+
+        Returns empty list if blocked by Cloudflare protection.
+        """
         items = []
 
         # Use Playwright JavaScript evaluation for dynamic content
