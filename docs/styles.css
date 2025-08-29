@@ -425,12 +425,12 @@ footer a:hover {
     }
     
     .provider-badges {
-        gap: 6px;
+        gap: 4px;
     }
     
     .provider-badge {
-        font-size: 9px;
-        padding: 3px 6px;
+        font-size: 8px;
+        padding: 2px 5px;
     }
     
     h1 {
@@ -450,11 +450,15 @@ footer a:hover {
         box-shadow: 4px 4px 0 rgba(249, 115, 22, 0.2);
     }
     
-    .button-rss {
-        font-size: 14px;
-        padding: 12px 20px;
-        word-break: break-all;
-        text-align: center;
+    .button {
+        font-size: 13px;
+        padding: 10px 16px;
+        word-break: keep-all;
+    }
+    
+    .button svg {
+        width: 18px;
+        height: 18px;
     }
     
     .method {
@@ -499,21 +503,31 @@ footer a:hover {
         margin: 32px 0;
     }
     
-    .button-rss {
-        font-size: 12px;
-        padding: 8px 14px;
-        flex-direction: column;
-        gap: 8px;
+    .button {
+        font-size: 11px;
+        padding: 8px 12px;
+        gap: 6px;
         line-height: 1.4;
     }
     
-    .rss-icon {
-        width: 18px;
-        height: 18px;
+    .button svg {
+        width: 16px;
+        height: 16px;
     }
     
     .method {
         padding: 16px 12px;
+    }
+    
+    /* Even smaller provider badges on extra small screens */
+    .provider-badge {
+        font-size: 7px;
+        padding: 2px 4px;
+        letter-spacing: 0.3px;
+    }
+    
+    .provider-badges {
+        gap: 3px;
     }
 }
 
@@ -536,6 +550,20 @@ footer a:hover {
     gap: 1rem;
     flex-wrap: wrap;
     justify-content: center;
+}
+
+/* Ensure buttons stay on same line on mobile */
+@media (max-width: 640px) {
+    .subscribe-section .subscribe-card {
+        gap: 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .subscribe-section .subscribe-card {
+        gap: 0.5rem;
+        flex-wrap: nowrap;
+    }
 }
 
 /* Code Examples Section */

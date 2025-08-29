@@ -128,7 +128,9 @@ class GoogleScraper(EnhancedBaseScraper):
 
                                 for pattern in general_model_patterns:
                                     if re.search(pattern, text.lower()):
-                                        model_name = re.search(pattern, text.lower()).group(0)
+                                        model_name = re.search(
+                                            pattern, text.lower()
+                                        ).group(0)
                                         model_id = model_name.lower().replace(" ", "-")
 
                                         item = DeprecationItem(
