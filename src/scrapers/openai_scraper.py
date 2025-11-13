@@ -205,9 +205,13 @@ class OpenAIScraper(EnhancedBaseScraper):
             if (
                 model_cell_text.startswith("/")  # Endpoints like /v1/answers
                 or " API" in model_cell_text  # Systems like "Assistants API"
-                or " endpoint" in model_cell_text.lower()  # Systems like "Fine-tunes endpoint"
-                or model_cell_text.startswith("OpenAI-Beta:")  # Headers like OpenAI-Beta: assistants=v1
-                or "fine-tuning training" in model_cell_text.lower()  # Features like "New fine-tuning training on..."
+                or " endpoint"
+                in model_cell_text.lower()  # Systems like "Fine-tunes endpoint"
+                or model_cell_text.startswith(
+                    "OpenAI-Beta:"
+                )  # Headers like OpenAI-Beta: assistants=v1
+                or "fine-tuning training"
+                in model_cell_text.lower()  # Features like "New fine-tuning training on..."
             ):
                 continue
 

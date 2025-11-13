@@ -27,7 +27,9 @@ def test_extracts_deprecation_items(scraper, fixture_html):
 
     assert len(items) > 0, "Should extract at least one deprecation item"
     assert len(items) >= 25, f"Expected at least 25 items, got {len(items)}"
-    assert len(items) <= 35, f"Expected at most 35 items, got {len(items)} (may include non-models)"
+    assert len(items) <= 35, (
+        f"Expected at most 35 items, got {len(items)} (may include non-models)"
+    )
 
 
 def test_extracts_deprecation_context_for_all_items(scraper, fixture_html):
@@ -182,24 +184,24 @@ def test_skips_endpoints_and_systems(scraper, fixture_html):
     model_ids = [item.model_id for item in items]
 
     # Should not contain endpoints
-    assert not any(
-        mid.startswith("/v1/") for mid in model_ids
-    ), "Should not extract endpoints like /v1/answers"
+    assert not any(mid.startswith("/v1/") for mid in model_ids), (
+        "Should not extract endpoints like /v1/answers"
+    )
 
     # Should not contain systems
-    assert not any(
-        " API" in mid for mid in model_ids
-    ), "Should not extract systems like 'Assistants API'"
+    assert not any(" API" in mid for mid in model_ids), (
+        "Should not extract systems like 'Assistants API'"
+    )
 
     # Should not contain endpoint names
-    assert not any(
-        "endpoint" in mid.lower() for mid in model_ids
-    ), "Should not extract 'Fine-tunes endpoint'"
+    assert not any("endpoint" in mid.lower() for mid in model_ids), (
+        "Should not extract 'Fine-tunes endpoint'"
+    )
 
     # Should not contain headers
-    assert not any(
-        mid.startswith("OpenAI-Beta:") for mid in model_ids
-    ), "Should not extract OpenAI-Beta headers"
+    assert not any(mid.startswith("OpenAI-Beta:") for mid in model_ids), (
+        "Should not extract OpenAI-Beta headers"
+    )
 
     # Should not contain generic names
     assert "GPT" not in model_ids, "Should not extract generic 'GPT'"
