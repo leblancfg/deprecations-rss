@@ -113,7 +113,18 @@ class OpenAIScraper(EnhancedBaseScraper):
                     )
                     items.extend(text_items)
 
-        return items
+        # Deduplicate by model_id, keeping the most recent announcement
+        seen = {}
+        for item in items:
+            if item.model_id not in seen:
+                seen[item.model_id] = item
+            else:
+                # Keep the item with the most recent announcement date
+                existing = seen[item.model_id]
+                if item.announcement_date > existing.announcement_date:
+                    seen[item.model_id] = item
+
+        return list(seen.values())
 
     def _extract_from_table(
         self, table: Any, context: str, announcement_date: str, url: str
@@ -129,6 +140,12 @@ class OpenAIScraper(EnhancedBaseScraper):
         headers = []
         for th in rows[0].find_all(["th", "td"]):
             headers.append(th.get_text(strip=True).upper())
+
+        # Only process tables that have "MODEL" in at least one header
+        # Skip tables that only have "SYSTEM" (these contain endpoints, not models)
+        has_model_header = any("MODEL" in header for header in headers)
+        if not has_model_header:
+            return items
 
         # Find column indices
         shutdown_idx = None
@@ -165,7 +182,16 @@ class OpenAIScraper(EnhancedBaseScraper):
             if len(cells) <= model_idx:
                 continue
 
-            model_cell_text = cells[model_idx].get_text(strip=True)
+            # Try to extract just the first code block if present
+            code_tag = cells[model_idx].find("code")
+            if code_tag:
+                model_cell_text = code_tag.get_text(strip=True)
+            else:
+                model_cell_text = cells[model_idx].get_text(strip=True)
+
+            # Clean up text - remove parenthetical notes
+            if "(" in model_cell_text:
+                model_cell_text = model_cell_text.split("(")[0].strip()
 
             # Skip empty or header-like rows
             if not model_cell_text or model_cell_text.upper() in [
@@ -173,6 +199,16 @@ class OpenAIScraper(EnhancedBaseScraper):
                 "SYSTEM",
                 "NAME",
             ]:
+                continue
+
+            # Skip endpoints and systems (not actual models)
+            if (
+                model_cell_text.startswith("/")  # Endpoints like /v1/answers
+                or " API" in model_cell_text  # Systems like "Assistants API"
+                or " endpoint" in model_cell_text.lower()  # Systems like "Fine-tunes endpoint"
+                or model_cell_text.startswith("OpenAI-Beta:")  # Headers like OpenAI-Beta: assistants=v1
+                or "fine-tuning training" in model_cell_text.lower()  # Features like "New fine-tuning training on..."
+            ):
                 continue
 
             # Split if multiple models in one cell (e.g., "o1-preview and o1-mini")
@@ -259,10 +295,23 @@ class OpenAIScraper(EnhancedBaseScraper):
 
         # If no models found but we have a title, check if title contains multiple models
         if not items and title:
+            # Skip non-model titles (endpoints, systems, features)
+            if (
+                title.startswith("/")  # Endpoints like /v1/answers
+                or " API" in title  # Systems like "Assistants API"
+                or " endpoint" in title.lower()  # Systems like "Fine-tunes endpoint"
+                or title.startswith("OpenAI-Beta:")  # Headers
+                or "fine-tuning training" in title.lower()  # Features
+            ):
+                return items
+
             # Split title if it contains "and" to handle cases like "o1-preview and o1-mini"
             if " and " in title:
                 models = [m.strip() for m in title.split(" and ")]
                 for model in models:
+                    # Skip generic/ambiguous model names
+                    if model.upper() in ["GPT", "EMBEDDINGS", "MODELS"]:
+                        continue
                     item = DeprecationItem(
                         provider=self.provider_name,
                         model_id=model,
@@ -275,6 +324,10 @@ class OpenAIScraper(EnhancedBaseScraper):
                     )
                     items.append(item)
             else:
+                # Skip generic/ambiguous single model names
+                if title.upper() in ["GPT", "EMBEDDINGS", "MODELS"]:
+                    return items
+
                 # Single model in title
                 item = DeprecationItem(
                     provider=self.provider_name,

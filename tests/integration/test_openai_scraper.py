@@ -26,7 +26,8 @@ def test_extracts_deprecation_items(scraper, fixture_html):
     items = scraper.extract_structured_deprecations(fixture_html)
 
     assert len(items) > 0, "Should extract at least one deprecation item"
-    assert len(items) >= 30, f"Expected at least 30 items, got {len(items)}"
+    assert len(items) >= 25, f"Expected at least 25 items, got {len(items)}"
+    assert len(items) <= 35, f"Expected at most 35 items, got {len(items)} (may include non-models)"
 
 
 def test_extracts_deprecation_context_for_all_items(scraper, fixture_html):
@@ -174,19 +175,48 @@ def test_extracts_gpt4_32k_with_context(scraper, fixture_html):
         )
 
 
-def test_extracts_assistants_api_deprecation(scraper, fixture_html):
-    """Should extract Assistants API system deprecation."""
+def test_skips_endpoints_and_systems(scraper, fixture_html):
+    """Should skip endpoints and systems, only extract models."""
     items = scraper.extract_structured_deprecations(fixture_html)
 
-    assistants_items = [item for item in items if "Assistants API" in item.model_name]
+    model_ids = [item.model_id for item in items]
 
-    if len(assistants_items) > 0:
-        assistants_item = assistants_items[0]
-        assert assistants_item.deprecation_context, "Assistants API should have context"
-        assert (
-            "Responses API" in assistants_item.deprecation_context
-            or "Conversations API" in assistants_item.deprecation_context
-        ), "Context should mention replacement APIs"
+    # Should not contain endpoints
+    assert not any(
+        mid.startswith("/v1/") for mid in model_ids
+    ), "Should not extract endpoints like /v1/answers"
+
+    # Should not contain systems
+    assert not any(
+        " API" in mid for mid in model_ids
+    ), "Should not extract systems like 'Assistants API'"
+
+    # Should not contain endpoint names
+    assert not any(
+        "endpoint" in mid.lower() for mid in model_ids
+    ), "Should not extract 'Fine-tunes endpoint'"
+
+    # Should not contain headers
+    assert not any(
+        mid.startswith("OpenAI-Beta:") for mid in model_ids
+    ), "Should not extract OpenAI-Beta headers"
+
+    # Should not contain generic names
+    assert "GPT" not in model_ids, "Should not extract generic 'GPT'"
+    assert "embeddings" not in model_ids, "Should not extract generic 'embeddings'"
+
+
+def test_no_duplicate_models(scraper, fixture_html):
+    """Should not extract duplicate models."""
+    items = scraper.extract_structured_deprecations(fixture_html)
+
+    model_ids = [item.model_id for item in items]
+
+    # Check for duplicates
+    unique_ids = set(model_ids)
+    assert len(model_ids) == len(unique_ids), (
+        f"Found duplicate models. Total: {len(model_ids)}, Unique: {len(unique_ids)}"
+    )
 
 
 def test_handles_multiple_models_in_one_table_row(scraper, fixture_html):
