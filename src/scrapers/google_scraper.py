@@ -71,32 +71,48 @@ class GoogleScraper(EnhancedBaseScraper):
                                 model_id = code_tag.get_text(strip=True).lower()
 
                                 # Verify it's a valid model ID pattern
-                                if not re.match(r"^gemini-[a-zA-Z0-9\-\.]+$", model_id) and \
-                                   not re.match(r"^(veo|imagen)-[a-zA-Z0-9\-\.]+$", model_id):
+                                if not re.match(
+                                    r"^gemini-[a-zA-Z0-9\-\.]+$", model_id
+                                ) and not re.match(
+                                    r"^(veo|imagen)-[a-zA-Z0-9\-\.]+$", model_id
+                                ):
                                     continue
 
                                 # Get context from the parent list item or paragraph
                                 context_elem = code_tag.find_parent(["li", "p"])
                                 if context_elem:
                                     # Use the immediate parent's text as primary context
-                                    deprecation_context = context_elem.get_text(" ", strip=True)
+                                    deprecation_context = context_elem.get_text(
+                                        " ", strip=True
+                                    )
 
                                     # If context is too short, try grandparent
                                     if len(deprecation_context) < 30:
-                                        grandparent = context_elem.find_parent(["li", "p"])
+                                        grandparent = context_elem.find_parent(
+                                            ["li", "p"]
+                                        )
                                         if grandparent:
-                                            deprecation_context = grandparent.get_text(" ", strip=True)
+                                            deprecation_context = grandparent.get_text(
+                                                " ", strip=True
+                                            )
                                 else:
                                     deprecation_context = text
 
                                 # Look for shutdown date in context
-                                future_date_match = re.search(r"(\w+ \d+(?:st|nd|rd|th)?)[:\s]", deprecation_context)
+                                future_date_match = re.search(
+                                    r"(\w+ \d+(?:st|nd|rd|th)?)[:\s]",
+                                    deprecation_context,
+                                )
                                 deprecation_date = ""
                                 if future_date_match:
-                                    date_str = future_date_match.group(1).rstrip("stndrdth")
+                                    date_str = future_date_match.group(1).rstrip(
+                                        "stndrdth"
+                                    )
                                     # Try to parse with current year
                                     try:
-                                        parsed_date = self.parse_date(f"{date_str}, {section_date[:4]}")
+                                        parsed_date = self.parse_date(
+                                            f"{date_str}, {section_date[:4]}"
+                                        )
                                         if parsed_date and parsed_date >= section_date:
                                             deprecation_date = parsed_date
                                     except:
@@ -117,7 +133,9 @@ class GoogleScraper(EnhancedBaseScraper):
                                     r"replaced\s+(?:by|with)\s+(gemini-[a-zA-Z0-9\-\.]+)",
                                 ]
                                 for pattern in repl_patterns:
-                                    repl_match = re.search(pattern, deprecation_context.lower())
+                                    repl_match = re.search(
+                                        pattern, deprecation_context.lower()
+                                    )
                                     if repl_match:
                                         replacement = repl_match.group(1)
                                         break
@@ -151,11 +169,18 @@ class GoogleScraper(EnhancedBaseScraper):
                                         ).group(0)
                                         model_id = model_name.lower().replace(" ", "-")
 
-                                        future_date_match = re.search(r"(\w+ \d+, \d{4})", text)
+                                        future_date_match = re.search(
+                                            r"(\w+ \d+, \d{4})", text
+                                        )
                                         deprecation_date = ""
                                         if future_date_match:
-                                            parsed_date = self.parse_date(future_date_match.group(1))
-                                            if parsed_date and parsed_date > section_date:
+                                            parsed_date = self.parse_date(
+                                                future_date_match.group(1)
+                                            )
+                                            if (
+                                                parsed_date
+                                                and parsed_date > section_date
+                                            ):
                                                 deprecation_date = parsed_date
 
                                         if not deprecation_date:
