@@ -34,12 +34,27 @@ class OpenAIScraper(EnhancedBaseScraper):
             return items
 
         # OpenAI uses date headers like "2025-04-28: o1-preview and o1-mini"
-        # followed by description and then a table
+        # wrapped in div.anchor-heading-wrapper, followed by description and table
 
-        # Find all heading elements that might contain dates
+        # Find all heading wrapper divs
         date_pattern = re.compile(r"^(\d{4}-\d{2}-\d{2}):\s*(.+)$")
 
-        for element in main_content.find_all(["h2", "h3", "h4"]):
+        # Look for both wrapped and unwrapped headings for backward compatibility
+        heading_containers = []
+
+        # First, collect wrapped headings
+        for wrapper in main_content.find_all("div", class_="anchor-heading-wrapper"):
+            heading = wrapper.find(["h2", "h3", "h4"])
+            if heading:
+                heading_containers.append((wrapper, heading))
+
+        # Then, collect unwrapped headings (that aren't already in wrappers)
+        for heading in main_content.find_all(["h2", "h3", "h4"]):
+            parent = heading.parent
+            if not (parent.name == "div" and "anchor-heading-wrapper" in parent.get("class", [])):
+                heading_containers.append((heading, heading))
+
+        for container, element in heading_containers:
             heading_text = element.get_text(strip=True)
             date_match = date_pattern.match(heading_text)
 
@@ -52,8 +67,9 @@ class OpenAIScraper(EnhancedBaseScraper):
                 section_url = f"{self.url}#{anchor_id}"
 
                 # Collect the context (text between heading and table)
+                # Look for siblings of the container (wrapper or heading)
                 context_parts = []
-                sibling = element.next_sibling
+                sibling = container.next_sibling
                 table = None
 
                 while sibling:
@@ -63,6 +79,9 @@ class OpenAIScraper(EnhancedBaseScraper):
                             break
                         elif sibling.name in ["h2", "h3", "h4"]:
                             # Next section, stop
+                            break
+                        elif sibling.name == "div" and "anchor-heading-wrapper" in sibling.get("class", []):
+                            # Next wrapped section, stop
                             break
                         else:
                             text = sibling.get_text(strip=True)
@@ -113,8 +132,13 @@ class OpenAIScraper(EnhancedBaseScraper):
         for i, header in enumerate(headers):
             if "SHUTDOWN" in header or "EOL" in header:
                 shutdown_idx = i
-            elif "MODEL" in header or "SYSTEM" in header:
+            elif "DEPRECATED MODEL" in header and "PRICE" not in header:
+                # Prioritize "DEPRECATED MODEL" over "DEPRECATED MODEL PRICE"
                 model_idx = i
+            elif ("MODEL" in header or "SYSTEM" in header) and "PRICE" not in header:
+                # Only match MODEL if it's not a price column
+                if model_idx is None:
+                    model_idx = i
             elif "REPLACEMENT" in header or "RECOMMENDED" in header:
                 replacement_idx = i
 
