@@ -53,7 +53,9 @@ def test_has_deprecation_indicator_with_active_models(scraper, fixture_html):
         if scraper._has_deprecation_indicator(row):
             deprecated_count += 1
 
-    assert deprecated_count == 0, f"Expected 0 rows with deprecation indicators, got {deprecated_count}"
+    assert deprecated_count == 0, (
+        f"Expected 0 rows with deprecation indicators, got {deprecated_count}"
+    )
 
 
 def test_extract_from_models_table_no_false_positives(scraper, fixture_html):
@@ -130,7 +132,9 @@ def test_does_not_extract_apis_as_models(scraper, fixture_html):
     items = scraper.extract_unstructured_deprecations(fixture_html)
 
     for item in items:
-        assert "API" not in item.model_name, f"Extracted API '{item.model_name}' as a model"
+        assert "API" not in item.model_name, (
+            f"Extracted API '{item.model_name}' as a model"
+        )
 
 
 def test_extract_with_multiple_deprecated_models():
