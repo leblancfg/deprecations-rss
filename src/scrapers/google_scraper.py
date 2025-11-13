@@ -115,7 +115,7 @@ class GoogleScraper(EnhancedBaseScraper):
                                         )
                                         if parsed_date and parsed_date >= section_date:
                                             deprecation_date = parsed_date
-                                    except:
+                                    except (ValueError, AttributeError):
                                         pass
 
                                 if not deprecation_date:
