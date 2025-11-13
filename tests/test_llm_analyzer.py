@@ -1,6 +1,5 @@
 """Tests for LLM analyzer module."""
 
-import pytest
 from src.llm_analyzer import LLMAnalyzer
 
 
