@@ -34,12 +34,30 @@ class OpenAIScraper(EnhancedBaseScraper):
             return items
 
         # OpenAI uses date headers like "2025-04-28: o1-preview and o1-mini"
-        # followed by description and then a table
+        # wrapped in div.anchor-heading-wrapper, followed by description and table
 
-        # Find all heading elements that might contain dates
+        # Find all heading wrapper divs
         date_pattern = re.compile(r"^(\d{4}-\d{2}-\d{2}):\s*(.+)$")
 
-        for element in main_content.find_all(["h2", "h3", "h4"]):
+        # Look for both wrapped and unwrapped headings for backward compatibility
+        heading_containers = []
+
+        # First, collect wrapped headings
+        for wrapper in main_content.find_all("div", class_="anchor-heading-wrapper"):
+            heading = wrapper.find(["h2", "h3", "h4"])
+            if heading:
+                heading_containers.append((wrapper, heading))
+
+        # Then, collect unwrapped headings (that aren't already in wrappers)
+        for heading in main_content.find_all(["h2", "h3", "h4"]):
+            parent = heading.parent
+            if not (
+                parent.name == "div"
+                and "anchor-heading-wrapper" in parent.get("class", [])
+            ):
+                heading_containers.append((heading, heading))
+
+        for container, element in heading_containers:
             heading_text = element.get_text(strip=True)
             date_match = date_pattern.match(heading_text)
 
@@ -52,8 +70,9 @@ class OpenAIScraper(EnhancedBaseScraper):
                 section_url = f"{self.url}#{anchor_id}"
 
                 # Collect the context (text between heading and table)
+                # Look for siblings of the container (wrapper or heading)
                 context_parts = []
-                sibling = element.next_sibling
+                sibling = container.next_sibling
                 table = None
 
                 while sibling:
@@ -63,6 +82,12 @@ class OpenAIScraper(EnhancedBaseScraper):
                             break
                         elif sibling.name in ["h2", "h3", "h4"]:
                             # Next section, stop
+                            break
+                        elif (
+                            sibling.name == "div"
+                            and "anchor-heading-wrapper" in sibling.get("class", [])
+                        ):
+                            # Next wrapped section, stop
                             break
                         else:
                             text = sibling.get_text(strip=True)
@@ -88,7 +113,18 @@ class OpenAIScraper(EnhancedBaseScraper):
                     )
                     items.extend(text_items)
 
-        return items
+        # Deduplicate by model_id, keeping the most recent announcement
+        seen = {}
+        for item in items:
+            if item.model_id not in seen:
+                seen[item.model_id] = item
+            else:
+                # Keep the item with the most recent announcement date
+                existing = seen[item.model_id]
+                if item.announcement_date > existing.announcement_date:
+                    seen[item.model_id] = item
+
+        return list(seen.values())
 
     def _extract_from_table(
         self, table: Any, context: str, announcement_date: str, url: str
@@ -105,6 +141,12 @@ class OpenAIScraper(EnhancedBaseScraper):
         for th in rows[0].find_all(["th", "td"]):
             headers.append(th.get_text(strip=True).upper())
 
+        # Only process tables that have "MODEL" in at least one header
+        # Skip tables that only have "SYSTEM" (these contain endpoints, not models)
+        has_model_header = any("MODEL" in header for header in headers)
+        if not has_model_header:
+            return items
+
         # Find column indices
         shutdown_idx = None
         model_idx = None
@@ -113,8 +155,13 @@ class OpenAIScraper(EnhancedBaseScraper):
         for i, header in enumerate(headers):
             if "SHUTDOWN" in header or "EOL" in header:
                 shutdown_idx = i
-            elif "MODEL" in header or "SYSTEM" in header:
+            elif "DEPRECATED MODEL" in header and "PRICE" not in header:
+                # Prioritize "DEPRECATED MODEL" over "DEPRECATED MODEL PRICE"
                 model_idx = i
+            elif ("MODEL" in header or "SYSTEM" in header) and "PRICE" not in header:
+                # Only match MODEL if it's not a price column
+                if model_idx is None:
+                    model_idx = i
             elif "REPLACEMENT" in header or "RECOMMENDED" in header:
                 replacement_idx = i
 
@@ -135,7 +182,16 @@ class OpenAIScraper(EnhancedBaseScraper):
             if len(cells) <= model_idx:
                 continue
 
-            model_cell_text = cells[model_idx].get_text(strip=True)
+            # Try to extract just the first code block if present
+            code_tag = cells[model_idx].find("code")
+            if code_tag:
+                model_cell_text = code_tag.get_text(strip=True)
+            else:
+                model_cell_text = cells[model_idx].get_text(strip=True)
+
+            # Clean up text - remove parenthetical notes
+            if "(" in model_cell_text:
+                model_cell_text = model_cell_text.split("(")[0].strip()
 
             # Skip empty or header-like rows
             if not model_cell_text or model_cell_text.upper() in [
@@ -143,6 +199,20 @@ class OpenAIScraper(EnhancedBaseScraper):
                 "SYSTEM",
                 "NAME",
             ]:
+                continue
+
+            # Skip endpoints and systems (not actual models)
+            if (
+                model_cell_text.startswith("/")  # Endpoints like /v1/answers
+                or " API" in model_cell_text  # Systems like "Assistants API"
+                or " endpoint"
+                in model_cell_text.lower()  # Systems like "Fine-tunes endpoint"
+                or model_cell_text.startswith(
+                    "OpenAI-Beta:"
+                )  # Headers like OpenAI-Beta: assistants=v1
+                or "fine-tuning training"
+                in model_cell_text.lower()  # Features like "New fine-tuning training on..."
+            ):
                 continue
 
             # Split if multiple models in one cell (e.g., "o1-preview and o1-mini")
@@ -229,10 +299,23 @@ class OpenAIScraper(EnhancedBaseScraper):
 
         # If no models found but we have a title, check if title contains multiple models
         if not items and title:
+            # Skip non-model titles (endpoints, systems, features)
+            if (
+                title.startswith("/")  # Endpoints like /v1/answers
+                or " API" in title  # Systems like "Assistants API"
+                or " endpoint" in title.lower()  # Systems like "Fine-tunes endpoint"
+                or title.startswith("OpenAI-Beta:")  # Headers
+                or "fine-tuning training" in title.lower()  # Features
+            ):
+                return items
+
             # Split title if it contains "and" to handle cases like "o1-preview and o1-mini"
             if " and " in title:
                 models = [m.strip() for m in title.split(" and ")]
                 for model in models:
+                    # Skip generic/ambiguous model names
+                    if model.upper() in ["GPT", "EMBEDDINGS", "MODELS"]:
+                        continue
                     item = DeprecationItem(
                         provider=self.provider_name,
                         model_id=model,
@@ -245,6 +328,10 @@ class OpenAIScraper(EnhancedBaseScraper):
                     )
                     items.append(item)
             else:
+                # Skip generic/ambiguous single model names
+                if title.upper() in ["GPT", "EMBEDDINGS", "MODELS"]:
+                    return items
+
                 # Single model in title
                 item = DeprecationItem(
                     provider=self.provider_name,
