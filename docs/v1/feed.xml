@@ -4,7 +4,7 @@
     <title>AI Model Deprecations</title>
     <link>https://deprecations.info/</link>
     <description>RSS feed tracking deprecations across major AI providers</description>
-    <lastBuildDate>Tue, 11 Nov 2025 16:17:02 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 13 Nov 2025 16:23:33 GMT</lastBuildDate>
     <item>
       <title>OpenAI: Legacy GPT model snapshots</title>
       <link>https://platform.openai.com/docs/deprecations#2025-09-26-legacy-gpt-model-snapshots</link>
@@ -246,6 +246,18 @@ Shutdown Date: 2022-06-03
 </description>
       <pubDate>Tue, 26 Aug 2025 18:51:55 GMT</pubDate>
       <guid isPermaLink="false">OpenAI-Legacy_endpoints-2022-06-03-e3b0c442</guid>
+    </item>
+    <item>
+      <title>Google: Gemini 2.0 Flash Exp Image Generationgemini 2.0 Flash Preview Image Generation</title>
+      <link>https://ai.google.dev/gemini-api/docs/changelog#20251111</link>
+      <description>Provider: Google
+Model ID: gemini-2.0-flash-exp-image-generationgemini-2.0-flash-preview-image-generation
+Model: Gemini 2.0 Flash Exp Image Generationgemini 2.0 Flash Preview Image Generation
+Announcement Date: 2025-11-11
+
+The following models will be deprecated:November 12:veo-3.0-fast-generate-previewveo-3.0-generate-previewNovember 14:gemini-2.0-flash-exp-image-generationgemini-2.0-flash-preview-image-generation</description>
+      <pubDate>Thu, 13 Nov 2025 16:23:17 GMT</pubDate>
+      <guid isPermaLink="false">Google-gemini-2.0-flash-exp-image-generationgemini-2.0-flash-preview-image-generation-e3b0c442</guid>
     </item>
     <item>
       <title>Google: Gemini 2.5 Flash Lite Preview 06 17Gemini 2.5 Flash Preview 05 20December</title>
@@ -498,6 +510,20 @@ more, seeGemini 2.5 Flash.gemini-2.5-flash-preview-04-17will be deprecated on Ju
 Gemini 2.5 model. To learn more, seeGemini...</description>
       <pubDate>Tue, 11 Nov 2025 16:16:45 GMT</pubDate>
       <guid isPermaLink="false">Google-gemini-2.5-flash-lite-preview-06-17-2025-06-26-e3b0c442</guid>
+    </item>
+    <item>
+      <title>Google: Gemini 1.5 Flash</title>
+      <link>https://ai.google.dev/gemini-api/docs/changelog#20250527</link>
+      <description>Provider: Google
+Model ID: gemini-1.5-flash
+Model: Gemini 1.5 Flash
+Announcement Date: 2025-05-27
+
+The last available tuning model, Gemini 1.5 Flash 001, has been shutdown.
+Tuning is no longer supported on any models.
+SeeFine tuning with the Gemini API.</description>
+      <pubDate>Thu, 13 Nov 2025 16:23:17 GMT</pubDate>
+      <guid isPermaLink="false">Google-gemini-1.5-flash-e3b0c442</guid>
     </item>
     <item>
       <title>Google: Gemini 1.0 Pro</title>

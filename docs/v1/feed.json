@@ -431,6 +431,25 @@
       ]
     },
     {
+      "id": "google-gemini-2.0-flash-exp-image-generationgemini-2.0-flash-preview-image-generation",
+      "url": "https://ai.google.dev/gemini-api/docs/changelog#20251111",
+      "title": "Google Deprecation",
+      "content_text": "",
+      "date_published": "2025-11-13T16:23:17.893217+00:00",
+      "_deprecation": {
+        "provider": "Google",
+        "model_id": "gemini-2.0-flash-exp-image-generationgemini-2.0-flash-preview-image-generation",
+        "model_name": "Gemini 2.0 Flash Exp Image Generationgemini 2.0 Flash Preview Image Generation",
+        "shutdown_date": "",
+        "announcement_date": "2025-11-11",
+        "replacement_model": null
+      },
+      "tags": [
+        "Google",
+        "shutdown-"
+      ]
+    },
+    {
       "id": "google-gemini-2.5-flash-lite-preview-06-17gemini-2.5-flash-preview-05-20december",
       "url": "https://ai.google.dev/gemini-api/docs/changelog#20251104",
       "title": "Google Deprecation",
@@ -789,6 +808,25 @@
       "tags": [
         "Google",
         "shutdown-2025"
+      ]
+    },
+    {
+      "id": "google-gemini-1.5-flash",
+      "url": "https://ai.google.dev/gemini-api/docs/changelog#20250527",
+      "title": "Google Deprecation",
+      "content_text": "",
+      "date_published": "2025-11-13T16:23:17.894558+00:00",
+      "_deprecation": {
+        "provider": "Google",
+        "model_id": "gemini-1.5-flash",
+        "model_name": "Gemini 1.5 Flash",
+        "shutdown_date": "",
+        "announcement_date": "2025-05-27",
+        "replacement_model": null
+      },
+      "tags": [
+        "Google",
+        "shutdown-"
       ]
     },
     {

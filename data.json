@@ -265,6 +265,18 @@
   },
   {
     "provider": "Google",
+    "model_id": "gemini-2.0-flash-exp-image-generationgemini-2.0-flash-preview-image-generation",
+    "model_name": "Gemini 2.0 Flash Exp Image Generationgemini 2.0 Flash Preview Image Generation",
+    "announcement_date": "2025-11-11",
+    "shutdown_date": "",
+    "replacement_model": null,
+    "deprecation_context": "The following models will be deprecated:November 12:veo-3.0-fast-generate-previewveo-3.0-generate-previewNovember 14:gemini-2.0-flash-exp-image-generationgemini-2.0-flash-preview-image-generation",
+    "url": "https://ai.google.dev/gemini-api/docs/changelog#20251111",
+    "content_hash": "42f775d49ea22acd",
+    "scraped_at": "2025-11-13T16:23:17.893217+00:00"
+  },
+  {
+    "provider": "Google",
     "model_id": "gemini-2.5-flash-lite-preview-06-17gemini-2.5-flash-preview-05-20december",
     "model_name": "Gemini 2.5 Flash Lite Preview 06 17Gemini 2.5 Flash Preview 05 20December",
     "announcement_date": "2025-11-04",
@@ -490,6 +502,18 @@
     "url": "https://ai.google.dev/gemini-api/docs/changelog#20250617",
     "content_hash": "0b4441fd67d4016c",
     "scraped_at": "2025-11-11T16:16:45.366795+00:00"
+  },
+  {
+    "provider": "Google",
+    "model_id": "gemini-1.5-flash",
+    "model_name": "Gemini 1.5 Flash",
+    "announcement_date": "2025-05-27",
+    "shutdown_date": "",
+    "replacement_model": null,
+    "deprecation_context": "The last available tuning model, Gemini 1.5 Flash 001, has been shutdown.\nTuning is no longer supported on any models.\nSeeFine tuning with the Gemini API.",
+    "url": "https://ai.google.dev/gemini-api/docs/changelog#20250527",
+    "content_hash": "8f9dc738c3dfd3cc",
+    "scraped_at": "2025-11-13T16:23:17.894558+00:00"
   },
   {
     "provider": "Google",
