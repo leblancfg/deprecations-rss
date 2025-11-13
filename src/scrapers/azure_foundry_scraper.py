@@ -69,7 +69,13 @@ class AzureFoundryScraper(EnhancedBaseScraper):
                     continue
 
                 model_name = cells[model_idx].get_text(strip=True)
-                if not model_name or model_name.upper() in ["N/A", "TBD", "NONE", "—", "-"]:
+                if not model_name or model_name.upper() in [
+                    "N/A",
+                    "TBD",
+                    "NONE",
+                    "—",
+                    "-",
+                ]:
                     continue
 
                 # Extract retirement date

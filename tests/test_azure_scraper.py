@@ -91,7 +91,9 @@ def test_handles_replacement_models():
 
     # We expect some items to have replacements and some not to
     assert len(with_replacement) > 0, "Should have some items with replacement models"
-    assert len(without_replacement) > 0, "Should have some items without replacement models"
+    assert len(without_replacement) > 0, (
+        "Should have some items without replacement models"
+    )
 
     # Replacement models should not be placeholders
     invalid_placeholders = ["N/A", "TBD", "NONE", "—", "-"]
@@ -113,9 +115,7 @@ def test_includes_url_for_each_item():
 
     for item in items:
         assert item.url, f"Item {item.model_id} should have a URL"
-        assert item.url.startswith("http"), (
-            f"URL should be absolute: {item.url}"
-        )
+        assert item.url.startswith("http"), f"URL should be absolute: {item.url}"
 
 
 def test_does_not_duplicate_models():
