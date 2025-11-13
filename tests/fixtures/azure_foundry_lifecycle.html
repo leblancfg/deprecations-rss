@@ -1,0 +1,1837 @@
+ <!DOCTYPE html>
+		<html
+			class="layout layout-holy-grail   show-table-of-contents conceptual show-breadcrumb default-focus"
+			lang="en-us"
+			dir="ltr"
+			data-authenticated="false"
+			data-auth-status-determined="false"
+			data-target="docs"
+			x-ms-format-detection="none"
+		>
+			
+		<head>
+			<title>Deprecation for Foundry Models - Azure AI Foundry | Microsoft Learn</title>
+			<meta charset="utf-8" />
+			<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+			<meta name="color-scheme" content="light dark" />
+
+			<meta name="description" content="Learn about the lifecycle stages, deprecation, and retirement for Azure AI Foundry Models." />
+			<link rel="canonical" href="https://learn.microsoft.com/en-us/azure/ai-foundry/concepts/model-lifecycle-retirement" /> 
+
+			<!-- Non-customizable open graph and sharing-related metadata -->
+			<meta name="twitter:card" content="summary_large_image" />
+			<meta name="twitter:site" content="@MicrosoftLearn" />
+			<meta property="og:type" content="website" />
+			<meta property="og:image:alt" content="Microsoft Learn" />
+			<meta property="og:image" content="https://learn.microsoft.com/en-us/media/open-graph-image.png" />
+			<!-- Page specific open graph and sharing-related metadata -->
+			<meta property="og:title" content="Deprecation for Foundry Models - Azure AI Foundry" />
+			<meta property="og:url" content="https://learn.microsoft.com/en-us/azure/ai-foundry/concepts/model-lifecycle-retirement" />
+			<meta property="og:description" content="Learn about the lifecycle stages, deprecation, and retirement for Azure AI Foundry Models." />
+			<meta name="platform_id" content="0457d2be-d9b5-62df-b537-6f84c6e602c6" /> <meta name="scope" content="Azure" />
+			<meta name="locale" content="en-us" />
+			 <meta name="adobe-target" content="true" /> 
+			<meta name="uhfHeaderId" content="azure-ai-foundry" />
+
+			<meta name="page_type" content="conceptual" />
+
+			<!--page specific meta tags-->
+			
+
+			<!-- custom meta tags -->
+			
+		<meta name="breadcrumb_path" content="../../breadcrumb/azure-ai/toc.json" />
+	
+		<meta name="feedback_help_link_url" content="https://learn.microsoft.com/answers/tags/133/azure" />
+	
+		<meta name="feedback_help_link_type" content="get-help-at-qna" />
+	
+		<meta name="feedback_product_url" content="https://feedback.azure.com/d365community/forum/79b1327d-d925-ec11-b6e6-000d3a4f06a4" />
+	
+		<meta name="feedback_system" content="Standard" />
+	
+		<meta name="permissioned-type" content="public" />
+	
+		<meta name="recommendations" content="true" />
+	
+		<meta name="recommendation_types" content="Training" />
+	
+		<meta name="recommendation_types" content="Certification" />
+	
+		<meta name="ms.suite" content="office" />
+	
+		<meta name="learn_banner_products" content="azure" />
+	
+		<meta name="manager" content="nitinme" />
+	
+		<meta name="ms.collection" content="ce-skilling-ai-copilot, ce-skilling-fresh-tier0" />
+	
+		<meta name="ms.update-cycle" content="90-days" />
+	
+		<meta name="ms.service" content="azure-ai-foundry" />
+	
+		<meta name="ms.topic" content="concept-article" />
+	
+		<meta name="ms.date" content="2025-09-17T00:00:00Z" />
+	
+		<meta name="ms.author" content="mopeakande" />
+	
+		<meta name="author" content="msakande" />
+	
+		<meta name="ms.reviewer" content="kritifaujdar" />
+	
+		<meta name="reviewer" content="fkriti" />
+	
+		<meta name="document_id" content="41325d95-8738-51e4-5dc5-23cbdcbe75f4" />
+	
+		<meta name="document_version_independent_id" content="96cfdbcf-0222-6d4b-d27f-090abd96db41" />
+	
+		<meta name="updated_at" content="2025-11-08T11:04:00Z" />
+	
+		<meta name="original_content_git_url" content="https://github.com/MicrosoftDocs/azure-ai-docs-pr/blob/live/articles/ai-foundry/concepts/model-lifecycle-retirement.md" />
+	
+		<meta name="gitcommit" content="https://github.com/MicrosoftDocs/azure-ai-docs-pr/blob/6a2908e1d7cf032d2779a038217bc0697e5d924a/articles/ai-foundry/concepts/model-lifecycle-retirement.md" />
+	
+		<meta name="git_commit_id" content="6a2908e1d7cf032d2779a038217bc0697e5d924a" />
+	
+		<meta name="site_name" content="Docs" />
+	
+		<meta name="depot_name" content="Learn.azure-ai" />
+	
+		<meta name="schema" content="Conceptual" />
+	
+		<meta name="toc_rel" content="../toc.json" />
+	
+		<meta name="word_count" content="1213" />
+	
+		<meta name="asset_id" content="ai-foundry/concepts/model-lifecycle-retirement" />
+	
+		<meta name="moniker_range_name" content="" />
+	
+		<meta name="item_type" content="Content" />
+	
+		<meta name="source_path" content="articles/ai-foundry/concepts/model-lifecycle-retirement.md" />
+	
+		<meta name="previous_tlsh_hash" content="565F7B02439CC208EFE0956A1D52EB666DFDA8C6DCB0288C34343512F32DDD8253E809FE672F74E46E911FFE51DEBEC75883EEBA849917091400F47D829C25E4966D3DB508" />
+	
+		<meta name="github_feedback_content_git_url" content="https://github.com/MicrosoftDocs/azure-ai-docs/blob/main/articles/ai-foundry/concepts/model-lifecycle-retirement.md" />
+	 
+		<meta name="cmProducts" content="https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/4068364a-4467-4da8-9afb-a1f7187827fd" data-source="generated" />
+	
+		<meta name="cmProducts" content="https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/8a6e4dad-7050-4ce7-83f9-eb4123577a54" data-source="generated" />
+	
+		<meta name="cmProducts" content="https://authoring-docs-microsoft.poolparty.biz/devrel/07bb3e10-d135-43ff-bc8b-360497cb39fa" data-source="generated" />
+	
+		<meta name="spProducts" content="https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/275ee921-eb79-47b7-891b-8d6470905e38" data-source="generated" />
+	
+		<meta name="spProducts" content="https://microsoft-devrel.poolparty.biz/DevRelOfferingOntology/0a5fc323-00ce-4c20-9095-41948f54c83f" data-source="generated" />
+	
+		<meta name="spProducts" content="https://authoring-docs-microsoft.poolparty.biz/devrel/12e559b9-eaf6-4aee-9af7-62334e15f863" data-source="generated" />
+	
+
+			<!-- assets and js globals -->
+			
+			<link rel="stylesheet" href="/static/assets/0.4.03236.7296-2306109b/styles/site-ltr.css" />
+			<link rel="preconnect" href="//mscom.demdex.net" crossorigin />
+						<link rel="dns-prefetch" href="//target.microsoft.com" />
+						<link rel="dns-prefetch" href="//microsoftmscompoc.tt.omtrdc.net" />
+						<link
+							rel="preload"
+							as="script"
+							href="/static/third-party/adobe-target/at-js/2.9.0/at.js"
+							integrity="sha384-1/viVM50hgc33O2gOgkWz3EjiD/Fy/ld1dKYXJRUyjNYVEjSUGcSN+iPiQF7e4cu"
+							crossorigin="anonymous"
+							id="adobe-target-script"
+							type="application/javascript"
+						/>
+			<script src="https://wcpstatic.microsoft.com/mscc/lib/v2/wcp-consent.js"></script>
+			<script src="https://js.monitor.azure.com/scripts/c/ms.jsll-4.min.js"></script>
+			<script src="/_themes/docs.theme/master/en-us/_themes/global/deprecation.js"></script>
+
+			<!-- msdocs global object -->
+			<script id="msdocs-script">
+		var msDocs = {
+  "environment": {
+    "accessLevel": "online",
+    "azurePortalHostname": "portal.azure.com",
+    "reviewFeatures": false,
+    "supportLevel": "production",
+    "systemContent": true,
+    "siteName": "learn",
+    "legacyHosting": false
+  },
+  "data": {
+    "contentLocale": "en-us",
+    "contentDir": "ltr",
+    "userLocale": "en-us",
+    "userDir": "ltr",
+    "pageTemplate": "Conceptual",
+    "brand": "azure",
+    "context": {},
+    "standardFeedback": true,
+    "showFeedbackReport": false,
+    "feedbackHelpLinkType": "get-help-at-qna",
+    "feedbackHelpLinkUrl": "https://learn.microsoft.com/answers/tags/133/azure",
+    "feedbackSystem": "Standard",
+    "feedbackGitHubRepo": "MicrosoftDocs/azure-docs",
+    "feedbackProductUrl": "https://feedback.azure.com/d365community/forum/79b1327d-d925-ec11-b6e6-000d3a4f06a4",
+    "extendBreadcrumb": false,
+    "isEditDisplayable": true,
+    "isPrivateUnauthorized": false,
+    "hideViewSource": false,
+    "isPermissioned": false,
+    "hasRecommendations": true,
+    "contributors": [
+      {
+        "name": "msakande",
+        "url": "https://github.com/msakande"
+      },
+      {
+        "name": "s-polly",
+        "url": "https://github.com/s-polly"
+      },
+      {
+        "name": "sdgilley",
+        "url": "https://github.com/sdgilley"
+      },
+      {
+        "name": "aahill",
+        "url": "https://github.com/aahill"
+      },
+      {
+        "name": "ssalgadodev",
+        "url": "https://github.com/ssalgadodev"
+      },
+      {
+        "name": "jesscioffi",
+        "url": "https://github.com/jesscioffi"
+      },
+      {
+        "name": "santiagxf",
+        "url": "https://github.com/santiagxf"
+      },
+      {
+        "name": "Blackmist",
+        "url": "https://github.com/Blackmist"
+      }
+    ]
+  },
+  "functions": {}
+};;
+	</script>
+
+			<!-- base scripts, msdocs global should be before this -->
+			<script src="/static/assets/0.4.03236.7296-2306109b/scripts/en-us/index-docs.js"></script>
+			
+
+			<!-- json-ld -->
+			
+		</head>
+	
+			<body
+				id="body"
+				data-bi-name="body"
+				class="layout-body "
+				lang="en-us"
+				dir="ltr"
+			>
+				<header class="layout-body-header">
+		<div class="header-holder has-default-focus">
+			
+		<a
+			href="#main"
+			
+			style="z-index: 1070"
+			class="outline-color-text visually-hidden-until-focused position-fixed inner-focus focus-visible top-0 left-0 right-0 padding-xs text-align-center background-color-body"
+			
+		>
+			Skip to main content
+		</a>
+	
+		<a
+			href="#"
+			data-skip-to-ask-learn
+			style="z-index: 1070"
+			class="outline-color-text visually-hidden-until-focused position-fixed inner-focus focus-visible top-0 left-0 right-0 padding-xs text-align-center background-color-body"
+			hidden
+		>
+			Skip to Ask Learn chat experience
+		</a>
+	
+
+			<div hidden id="cookie-consent-holder" data-test-id="cookie-consent-container"></div>
+			<!-- Unsupported browser warning -->
+			<div
+				id="unsupported-browser"
+				style="background-color: white; color: black; padding: 16px; border-bottom: 1px solid grey;"
+				hidden
+			>
+				<div style="max-width: 800px; margin: 0 auto;">
+					<p style="font-size: 24px">This browser is no longer supported.</p>
+					<p style="font-size: 16px; margin-top: 16px;">
+						Upgrade to Microsoft Edge to take advantage of the latest features, security updates, and technical support.
+					</p>
+					<div style="margin-top: 12px;">
+						<a
+							href="https://go.microsoft.com/fwlink/p/?LinkID=2092881 "
+							style="background-color: #0078d4; border: 1px solid #0078d4; color: white; padding: 6px 12px; border-radius: 2px; display: inline-block;"
+						>
+							Download Microsoft Edge
+						</a>
+						<a
+							href="https://learn.microsoft.com/en-us/lifecycle/faq/internet-explorer-microsoft-edge"
+							style="background-color: white; padding: 6px 12px; border: 1px solid #505050; color: #171717; border-radius: 2px; display: inline-block;"
+						>
+							More info about Internet Explorer and Microsoft Edge
+						</a>
+					</div>
+				</div>
+			</div>
+			<!-- site header -->
+			<header
+				id="ms--site-header"
+				data-test-id="site-header-wrapper"
+				role="banner"
+				itemscope="itemscope"
+				itemtype="http://schema.org/Organization"
+			>
+				<div
+					id="ms--mobile-nav"
+					class="site-header display-none-tablet padding-inline-none gap-none"
+					data-bi-name="mobile-header"
+					data-test-id="mobile-header"
+				></div>
+				<div
+					id="ms--primary-nav"
+					class="site-header display-none display-flex-tablet"
+					data-bi-name="L1-header"
+					data-test-id="primary-header"
+				></div>
+				<div
+					id="ms--secondary-nav"
+					class="site-header display-none display-flex-tablet"
+					data-bi-name="L2-header"
+					data-test-id="secondary-header"
+				></div>
+			</header>
+			
+		<!-- banner -->
+		<div data-banner>
+			<div id="disclaimer-holder"></div>
+			
+		</div>
+		<!-- banner end -->
+	
+		</div>
+	</header>
+				 <section
+					id="layout-body-menu"
+					class="layout-body-menu display-flex"
+					data-bi-name="menu"
+			  >
+					<div
+		id="left-container"
+		class="left-container display-none display-block-tablet padding-inline-sm padding-bottom-sm width-full"
+	>
+		<nav
+			id="affixed-left-container"
+			class="margin-top-sm-tablet position-sticky display-flex flex-direction-column"
+			aria-label="Primary"
+		></nav>
+	</div>
+			  </section>
+
+				<main
+					id="main"
+					role="main"
+					class="layout-body-main "
+					data-bi-name="content"
+					lang="en-us"
+					dir="ltr"
+				>
+					
+			<div
+		id="ms--content-header"
+		class="content-header default-focus border-bottom-none"
+		data-bi-name="content-header"
+	>
+		<div class="content-header-controls margin-xxs margin-inline-sm-tablet">
+			<button
+				type="button"
+				class="contents-button button button-sm margin-right-xxs"
+				data-bi-name="contents-expand"
+				aria-haspopup="true"
+				data-contents-button
+			>
+				<span class="icon" aria-hidden="true"><span class="docon docon-menu"></span></span>
+				<span class="contents-expand-title"> Table of contents </span>
+			</button>
+			<button
+				type="button"
+				class="ap-collapse-behavior ap-expanded button button-sm"
+				data-bi-name="ap-collapse"
+				aria-controls="action-panel"
+			>
+				<span class="icon" aria-hidden="true"><span class="docon docon-exit-mode"></span></span>
+				<span>Exit editor mode</span>
+			</button>
+		</div>
+	</div>
+			<div data-main-column class="padding-sm padding-top-none padding-top-sm-tablet">
+				<div>
+					
+		<div id="article-header" class="background-color-body margin-bottom-xs display-none-print">
+			<div class="display-flex align-items-center justify-content-space-between">
+				
+		<details
+			id="article-header-breadcrumbs-overflow-popover"
+			class="popover"
+			data-for="article-header-breadcrumbs"
+		>
+			<summary
+				class="button button-clear button-primary button-sm inner-focus"
+				aria-label="All breadcrumbs"
+			>
+				<span class="icon">
+					<span class="docon docon-more"></span>
+				</span>
+			</summary>
+			<div id="article-header-breadcrumbs-overflow" class="popover-content padding-none"></div>
+		</details>
+
+		<bread-crumbs
+			id="article-header-breadcrumbs"
+			role="group"
+			aria-label="Breadcrumbs"
+			data-test-id="article-header-breadcrumbs"
+			class="overflow-hidden flex-grow-1 margin-right-sm margin-right-md-tablet margin-right-lg-desktop margin-left-negative-xxs padding-left-xxs"
+		></bread-crumbs>
+	 
+		<div
+			id="article-header-page-actions"
+			class="opacity-none margin-left-auto display-flex flex-wrap-no-wrap align-items-stretch"
+		>
+			
+		<button
+			class="button button-sm border-none inner-focus display-none-tablet flex-shrink-0 "
+			data-bi-name="ask-learn-assistant-entry"
+			data-test-id="ask-learn-assistant-modal-entry-mobile"
+			data-ask-learn-modal-entry
+			
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			aria-label="Ask Learn"
+			hidden
+		>
+			<span class="icon font-size-lg" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+		</button>
+		<button
+			class="button button-sm display-none display-inline-flex-tablet display-none-desktop flex-shrink-0 margin-right-xxs border-color-ask-learn "
+			data-bi-name="ask-learn-assistant-entry"
+			
+			data-test-id="ask-learn-assistant-modal-entry-tablet"
+			data-ask-learn-modal-entry
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			hidden
+		>
+			<span class="icon font-size-lg" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+			<span>Ask Learn</span>
+		</button>
+		<button
+			class="button button-sm display-none flex-shrink-0 display-inline-flex-desktop margin-right-xxs border-color-ask-learn "
+			data-bi-name="ask-learn-assistant-entry"
+			
+			data-test-id="ask-learn-assistant-flyout-entry"
+			data-ask-learn-flyout-entry
+			data-flyout-button="toggle"
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			aria-controls="ask-learn-flyout"
+			hidden
+		>
+			<span class="icon font-size-lg" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+			<span>Ask Learn</span>
+		</button>
+	 
+		<button
+			type="button"
+			id="ms--focus-mode-button"
+			data-focus-mode
+			data-bi-name="focus-mode-entry"
+			class="button button-sm flex-shrink-0 margin-right-xxs display-none display-inline-flex-desktop"
+		>
+			<span class="icon font-size-lg" aria-hidden="true">
+				<span class="docon docon-glasses"></span>
+			</span>
+			<span>Focus mode</span>
+		</button>
+	 
+
+			<details class="popover popover-right" id="article-header-page-actions-overflow">
+				<summary
+					class="justify-content-flex-start button button-clear button-sm button-primary inner-focus"
+					aria-label="More actions"
+					title="More actions"
+				>
+					<span class="icon" aria-hidden="true">
+						<span class="docon docon-more-vertical"></span>
+					</span>
+				</summary>
+				<div class="popover-content">
+					
+		<button
+			data-page-action-item="overflow-mobile"
+			type="button"
+			class="button-block button-sm inner-focus button button-clear display-none-tablet justify-content-flex-start text-align-left"
+			data-bi-name="contents-expand"
+			data-contents-button
+			data-popover-close
+		>
+			<span class="icon">
+				<span class="docon docon-editor-list-bullet" aria-hidden="true"></span>
+			</span>
+			<span class="contents-expand-title">Table of contents</span>
+		</button>
+	 
+		<a
+			id="lang-link-overflow"
+			class="button-sm inner-focus button button-clear button-block justify-content-flex-start text-align-left"
+			data-bi-name="language-toggle"
+			data-page-action-item="overflow-all"
+			data-check-hidden="true"
+			data-read-in-link
+			href="#"
+			hidden
+		>
+			<span class="icon" aria-hidden="true" data-read-in-link-icon>
+				<span class="docon docon-locale-globe"></span>
+			</span>
+			<span data-read-in-link-text>Read in English</span>
+		</a>
+	 
+		<button
+			type="button"
+			class="collection button button-clear button-sm button-block justify-content-flex-start text-align-left inner-focus"
+			data-list-type="collection"
+			data-bi-name="collection"
+			data-page-action-item="overflow-all"
+			data-check-hidden="true"
+			data-popover-close
+		>
+			<span class="icon" aria-hidden="true">
+				<span class="docon docon-circle-addition"></span>
+			</span>
+			<span class="collection-status">Add</span>
+		</button>
+	
+					
+		<button
+			type="button"
+			class="collection button button-block button-clear button-sm justify-content-flex-start text-align-left inner-focus"
+			data-list-type="plan"
+			data-bi-name="plan"
+			data-page-action-item="overflow-all"
+			data-check-hidden="true"
+			data-popover-close
+			hidden
+		>
+			<span class="icon" aria-hidden="true">
+				<span class="docon docon-circle-addition"></span>
+			</span>
+			<span class="plan-status">Add to plan</span>
+		</button>
+	  
+		<a
+			data-contenteditbtn
+			class="button button-clear button-block button-sm inner-focus justify-content-flex-start text-align-left text-decoration-none"
+			data-bi-name="edit"
+			
+			href="https://github.com/MicrosoftDocs/azure-ai-docs/blob/main/articles/ai-foundry/concepts/model-lifecycle-retirement.md"
+			data-original_content_git_url="https://github.com/MicrosoftDocs/azure-ai-docs-pr/blob/live/articles/ai-foundry/concepts/model-lifecycle-retirement.md"
+			data-original_content_git_url_template="{repo}/blob/{branch}/articles/ai-foundry/concepts/model-lifecycle-retirement.md"
+			data-pr_repo=""
+			data-pr_branch=""
+		>
+			<span class="icon" aria-hidden="true">
+				<span class="docon docon-edit-outline"></span>
+			</span>
+			<span>Edit</span>
+		</a>
+	
+					
+		<hr class="margin-block-xxs" />
+		<h4 class="font-size-sm padding-left-xxs">Share via</h4>
+		
+					<a
+						class="button button-clear button-sm inner-focus button-block justify-content-flex-start text-align-left text-decoration-none share-facebook"
+						data-bi-name="facebook"
+						data-page-action-item="overflow-all"
+						href="#"
+					>
+						<span class="icon color-primary" aria-hidden="true">
+							<span class="docon docon-facebook-share"></span>
+						</span>
+						<span>Facebook</span>
+					</a>
+
+					<a
+						href="#"
+						class="button button-clear button-sm inner-focus button-block justify-content-flex-start text-align-left text-decoration-none share-twitter"
+						data-bi-name="twitter"
+						data-page-action-item="overflow-all"
+					>
+						<span class="icon color-text" aria-hidden="true">
+							<span class="docon docon-xlogo-share"></span>
+						</span>
+						<span>x.com</span>
+					</a>
+
+					<a
+						href="#"
+						class="button button-clear button-sm inner-focus button-block justify-content-flex-start text-align-left text-decoration-none share-linkedin"
+						data-bi-name="linkedin"
+						data-page-action-item="overflow-all"
+					>
+						<span class="icon color-primary" aria-hidden="true">
+							<span class="docon docon-linked-in-logo"></span>
+						</span>
+						<span>LinkedIn</span>
+					</a>
+					<a
+						href="#"
+						class="button button-clear button-sm inner-focus button-block justify-content-flex-start text-align-left text-decoration-none share-email"
+						data-bi-name="email"
+						data-page-action-item="overflow-all"
+					>
+						<span class="icon color-primary" aria-hidden="true">
+							<span class="docon docon-mail-message"></span>
+						</span>
+						<span>Email</span>
+					</a>
+			  
+	 
+		<hr class="margin-block-xxs" />
+		<button
+			class="button button-block button-clear button-sm justify-content-flex-start text-align-left inner-focus"
+			type="button"
+			data-bi-name="print"
+			data-page-action-item="overflow-all"
+			data-popover-close
+			data-print-page
+			data-check-hidden="true"
+		>
+			<span class="icon color-primary" aria-hidden="true">
+				<span class="docon docon-print"></span>
+			</span>
+			<span>Print</span>
+		</button>
+	
+				</div>
+			</details>
+		</div>
+	
+			</div>
+		</div>
+	  
+		<!-- privateUnauthorizedTemplate is hidden by default -->
+		<div unauthorized-private-section data-bi-name="permission-content-unauthorized-private" hidden>
+			<hr class="hr margin-top-xs margin-bottom-sm" />
+			<div class="notification notification-info">
+				<div class="notification-content">
+					<p class="margin-top-none notification-title">
+						<span class="icon">
+							<span class="docon docon-exclamation-circle-solid" aria-hidden="true"></span>
+						</span>
+						<span>Note</span>
+					</p>
+					<p class="margin-top-none authentication-determined not-authenticated">
+						Access to this page requires authorization. You can try <a class="docs-sign-in" href="#" data-bi-name="permission-content-sign-in">signing in</a> or <a  class="docs-change-directory" data-bi-name="permisson-content-change-directory">changing directories</a>.
+					</p>
+					<p class="margin-top-none authentication-determined authenticated">
+						Access to this page requires authorization. You can try <a class="docs-change-directory" data-bi-name="permisson-content-change-directory">changing directories</a>.
+					</p>
+				</div>
+			</div>
+		</div>
+	
+					<div class="content"><h1 id="model-deprecation-and-retirement-for-azure-ai-foundry-models">Model deprecation and retirement for Azure AI Foundry Models</h1></div>
+					
+		<div
+			id="article-metadata"
+			data-bi-name="article-metadata"
+			data-test-id="article-metadata"
+			class="page-metadata-container display-flex gap-xxs justify-content-space-between align-items-center flex-wrap-wrap"
+		>
+			 
+				<div
+					id="user-feedback"
+					class="margin-block-xxs display-none display-none-print"
+					hidden
+					data-hide-on-archived
+				>
+					
+		<button
+			id="user-feedback-button"
+			data-test-id="conceptual-feedback-button"
+			class="button button-sm button-clear button-primary display-none"
+			type="button"
+			data-bi-name="user-feedback-button"
+			data-user-feedback-button
+			hidden
+		>
+			<span class="icon" aria-hidden="true">
+				<span class="docon docon-like"></span>
+			</span>
+			<span>Feedback</span>
+		</button>
+	
+				</div>
+		  
+		</div>
+	 
+		<div data-id="ai-summary-on-docs" hidden>
+			<div id="ms--ai-summary">
+				<span class="icon" aria-hidden="true">
+					<span class="docon docon-sparkle-fill gradient-text-vivid"></span>
+				</span>
+				<button
+					type="button"
+					class="tag tag-sm tag-suggestion"
+					data-test-id="ai-summary-cta"
+					data-bi-name="ai-summary-cta"
+					data-an="ai-summary"
+				>
+					<span class="ai-summary-cta-text">
+						Summarize this article for me
+					</span>
+				</button>
+			</div>
+			<!-- Slot where the client will render the summary card after the user clicks the CTA -->
+			<div id="ms--ai-summary-header"></div>
+		</div>
+	 
+		<nav
+			id="center-doc-outline"
+			class="doc-outline is-hidden-desktop display-none-print margin-bottom-sm"
+			data-bi-name="intopic toc"
+			aria-label="In this article"
+		>
+			<h2 id="ms--in-this-article" class="title is-6 margin-block-xs">
+				In this article
+			</h2>
+		</nav>
+	
+					<div class="content"><p>Azure AI Foundry Models are continually refreshed with newer and more capable models. As part of this process, model providers might deprecate and retire their older models, and you might need to update your applications to use a newer model. This document communicates information about the model lifecycle and deprecation timelines and explains how you're informed of model lifecycle stages.</p>
+<p>This article covers general deprecation and retirement information for Foundry Models. For details specific to Azure OpenAI in Foundry Models, see <a href="../openai/concepts/model-retirements" data-linktype="relative-path">Azure OpenAI in Azure AI Foundry Models model deprecations and retirements</a>.</p>
+<h2 id="model-lifecycle-stages">Model lifecycle stages</h2>
+<p>Models in the model catalog belong to one of these stages:</p>
+<ul>
+<li>Preview</li>
+<li>Generally available</li>
+<li>Legacy</li>
+<li>Deprecated</li>
+<li>Retired</li>
+</ul>
+<h3 id="preview">Preview</h3>
+<p>Models labeled <em>Preview</em> are experimental in nature. A model's weights, runtime, and API schema can change while the model is in preview. Models in preview aren't guaranteed to become generally available. Models in preview have a <em>Preview</em> label next to their name in the model catalog.</p>
+<h3 id="generally-available">Generally available</h3>
+<p>This stage is the default model stage. Models that don't include a lifecycle label next to their name are generally available and suitable for use in production environments. In this stage, model weights and APIs are fixed. However, model containers or runtimes with vulnerabilities might get patched, but patches don't affect model outputs.</p>
+<h3 id="legacy">Legacy</h3>
+<p>Models labeled <em>Legacy</em> are intended for deprecation. You should plan to move to a different model, such as a new, improved model that might be available in the same model family. While a model is in the legacy stage, existing deployments of the model continue to work, and you can create new deployments of the model until the deprecation date.</p>
+<h3 id="deprecated">Deprecated</h3>
+<p>Models labeled <em>Deprecated</em> are no longer available for new deployments. You can't create any new deployments for the model; however, existing deployments continue to work until the retirement date.</p>
+<h3 id="retired">Retired</h3>
+<p>Models labeled <em>Retired</em> are no longer available for use. You can't create new deployments, and attempts to use existing deployments return <code>&lt;return code&gt;</code> errors.</p>
+<h2 id="notifications-for-foundry-models">Notifications for Foundry Models</h2>
+<p>Customers that have Foundry Model deployments receive notifications for upcoming model retirements according to the following schedule:</p>
+<ul>
+<li><p>Models are labeled as <em>Legacy</em> and remain in the legacy state for at least 30 days before being moved to the deprecated state. During this notification period, you can create new deployments as you prepare for deprecation and retirement.</p>
+</li>
+<li><p>Models are labeled <em>Deprecated</em> and remain in the deprecated state for at least 90 days before being moved to the retired state. During this notification period, you can migrate any existing deployments to newer or replacement models.</p>
+</li>
+</ul>
+<p>For each subscription that has a model deployed as a serverless API deployment or deployed to an Azure AI Foundry resource, members of the <em>owner</em>, <em>contributor</em>, <em>reader</em>, <em>monitoring contributor</em>, and <em>monitoring reader</em> roles receive a notification when a model deprecation is announced. The notification contains the dates when the model enters legacy, deprecated, and retired states. The notification might provide information about possible replacement model options, if applicable.</p>
+<h2 id="notifications-for-azure-openai-in-foundry-models">Notifications for Azure OpenAI in Foundry Models</h2>
+<p>For Azure OpenAI models, customers with active Azure OpenAI deployments receive notice for models with upcoming retirement as follows:</p>
+<ul>
+<li>At model launch, we programmatically designate a "not sooner than" retirement date (typically one year out).</li>
+<li>At least 60 days notice before model retirement for Generally Available (GA) models.</li>
+<li>At least 30 days notice before preview model version upgrades.</li>
+</ul>
+<p>Members of the <em>owner</em>, <em>contributor</em>, <em>reader</em>, <em>monitoring contributor</em>, and <em>monitoring reader</em> roles receive notification for each subscription with a deployment of a model that has an upcoming retirement.</p>
+<p>Retirements are done on a rolling basis, region by region. Notifications are sent from an unmonitored mailbox, <code>azure-noreply@microsoft.com</code>.</p>
+<p>To learn more about the Azure OpenAI models lifecycle, including information for current, deprecated, and retired models, see <a href="../openai/concepts/model-retirements" data-linktype="relative-path">Azure OpenAI in Azure AI Foundry Models model deprecations and retirements</a>.</p>
+<h2 id="timelines-for-foundry-models">Timelines for Foundry Models</h2>
+<p>The following tables list the timelines for models that are on track for retirement. The specified dates are in UTC time.</p>
+<h4 id="ai21-labs">AI21 Labs</h4>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Legacy date (UTC)</th>
+<th>Deprecation date (UTC)</th>
+<th>Retirement date (UTC)</th>
+<th>Suggested replacement model</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Jamba Instruct</td>
+<td>February 1, 2025</td>
+<td>February 1, 2025</td>
+<td>March 1, 2025</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td><a href="https://ai.azure.com/explore/models/AI21-Jamba-1.5-Large/version/1/registry/azureml-ai21/?cid=learnDocs" data-linktype="external">AI21-Jamba-1.5-Large</a></td>
+<td>May 1, 2025</td>
+<td>July 1, 2025</td>
+<td>August 1, 2025</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td><a href="https://ai.azure.com/explore/models/AI21-Jamba-1.5-Mini/version/1/registry/azureml-ai21/?cid=learnDocs" data-linktype="external">AI21-Jamba-1.5-Mini</a></td>
+<td>May 1, 2025</td>
+<td>July 1, 2025</td>
+<td>August 1, 2025</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<h4 id="bria">Bria</h4>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Legacy date (UTC)</th>
+<th>Deprecation date (UTC)</th>
+<th>Retirement date (UTC)</th>
+<th>Suggested replacement model</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://ai.azure.com/explore/models/Bria-2.3-Fast/version/1/registry/azureml-bria/?cid=learnDocs" data-linktype="external">Bria-2.3-Fast</a></td>
+<td>N/A</td>
+<td>August 31, 2025</td>
+<td>October 31, 2025</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<h4 id="cohere">Cohere</h4>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Legacy date (UTC)</th>
+<th>Deprecation date (UTC)</th>
+<th>Retirement date (UTC)</th>
+<th>Suggested replacement model</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://ai.azure.com/explore/models/Cohere-command-r/version/1/registry/azureml-cohere?cid=learnDocs" data-linktype="external">Command R</a></td>
+<td>February 24, 2025</td>
+<td>March 25, 2025</td>
+<td>June 30, 2025</td>
+<td><a href="https://aka.ms/azureai/landing/Cohere-command-r-08-2024?cid=learnDocs" data-linktype="external">Cohere Command R 08-2024</a></td>
+</tr>
+<tr>
+<td><a href="https://ai.azure.com/explore/models/Cohere-command-r-plus/version/1/registry/azureml-cohere?cid=learnDocs" data-linktype="external">Command R+</a></td>
+<td>February 24, 2025</td>
+<td>March 25, 2025</td>
+<td>June 30, 2025</td>
+<td><a href="https://aka.ms/azureai/landing/Cohere-command-r-plus-08-2024?cid=learnDocs" data-linktype="external">Cohere Command R+ 08-2024</a></td>
+</tr>
+<tr>
+<td><a href="https://ai.azure.com/explore/models/Cohere-rerank-v3-english/version/1/registry/azureml-cohere/?cid=learnDocs" data-linktype="external">Cohere-rerank-v3-english</a></td>
+<td>February 28, 2025</td>
+<td>March 31, 2025</td>
+<td>June 30, 2025</td>
+<td><a href="https://ai.azure.com/explore/models/Cohere-rerank-v3.5/version/1/registry/azureml-cohere/?cid=learnDocs" data-linktype="external">Cohere-rerank-v3.5</a></td>
+</tr>
+<tr>
+<td><a href="https://ai.azure.com/explore/models/Cohere-rerank-v3-multilingual/version/1/registry/azureml-cohere/?cid=learnDocs" data-linktype="external">Cohere-rerank-v3-multilingual</a></td>
+<td>February 28, 2025</td>
+<td>March 31, 2025</td>
+<td>June 30, 2025</td>
+<td><a href="https://ai.azure.com/explore/models/Cohere-rerank-v3.5/version/1/registry/azureml-cohere/?cid=learnDocs" data-linktype="external">Cohere-rerank-v3.5</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="core42">Core42</h4>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Legacy date (UTC)</th>
+<th>Deprecation date (UTC)</th>
+<th>Retirement date (UTC)</th>
+<th>Suggested replacement model</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://ai.azure.com/explore/models/jais-30b-chat/version/3/registry/azureml-core42/?cid=learnDocs" data-linktype="external">jais-30b-chat</a></td>
+<td>September 30, 2025</td>
+<td>October 31, 2025</td>
+<td>January 30, 2026</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<h4 id="deepseek">DeepSeek</h4>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Legacy date (UTC)</th>
+<th>Deprecation date (UTC)</th>
+<th>Retirement date (UTC)</th>
+<th>Suggested replacement model</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://aka.ms/azureai/landing/DeepSeek-V3?cid=learnDocs" data-linktype="external">DeepSeek-V3</a></td>
+<td>April 10, 2025</td>
+<td>May 31, 2025</td>
+<td>August 31, 2025</td>
+<td><a href="https://aka.ms/azureai/landing/DeepSeek-V3-0324?cid=learnDocs" data-linktype="external">DeepSeek-V3-0324</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="gretel">Gretel</h4>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Legacy date (UTC)</th>
+<th>Deprecation date (UTC)</th>
+<th>Retirement date (UTC)</th>
+<th>Suggested replacement model</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://ai.azure.com/explore/models/Gretel-Navigator-Tabular/version/1/registry/azureml-gretel/?cid=learnDocs" data-linktype="external">Gretel-Navigator-Tabular</a></td>
+<td>N/A</td>
+<td>June 16, 2025</td>
+<td>September 16, 2025</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<h4 id="meta">Meta</h4>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Legacy date (UTC)</th>
+<th>Deprecation date (UTC)</th>
+<th>Retirement date (UTC)</th>
+<th>Suggested replacement model</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://ai.azure.com/explore/models/Llama-2-13b/version/24/registry/azureml-meta/?cid=learnDocs" data-linktype="external">Llama-2-13b</a></td>
+<td>February 28, 2025</td>
+<td>March 31, 2025</td>
+<td>June 30, 2025</td>
+<td><a href="https://ai.azure.com/explore/models/Meta-Llama-3.1-8B-Instruct/version/4/registry/azureml-meta/?cid=learnDocs" data-linktype="external">Meta-Llama-3.1-8B-Instruct</a></td>
+</tr>
+<tr>
+<td><a href="https://ai.azure.com/explore/models/Llama-2-13b-chat/version/22/registry/azureml-meta/?cid=learnDocs" data-linktype="external">Llama-2-13b-chat</a></td>
+<td>February 28, 2025</td>
+<td>March 31, 2025</td>
+<td>June 30, 2025</td>
+<td><a href="https://ai.azure.com/explore/models/Meta-Llama-3.1-8B-Instruct/version/4/registry/azureml-meta/?cid=learnDocs" data-linktype="external">Meta-Llama-3.1-8B-Instruct</a></td>
+</tr>
+<tr>
+<td><a href="https://ai.azure.com/explore/models/Llama-2-70b/version/25/registry/azureml-meta/?cid=learnDocs" data-linktype="external">Llama-2-70b</a></td>
+<td>February 28, 2025</td>
+<td>March 31, 2025</td>
+<td>June 30, 2025</td>
+<td><a href="https://ai.azure.com/explore/models/Llama-3.3-70B-Instruct/version/4/registry/azureml-meta/?cid=learnDocs" data-linktype="external">Llama-3.3-70B-Instruct</a></td>
+</tr>
+<tr>
+<td><a href="https://ai.azure.com/explore/models/Llama-2-70b-chat/version/22/registry/azureml-meta/?cid=learnDocs" data-linktype="external">Llama-2-70b-chat</a></td>
+<td>February 28, 2025</td>
+<td>March 31, 2025</td>
+<td>June 30, 2025</td>
+<td><a href="https://ai.azure.com/explore/models/Llama-3.3-70B-Instruct/version/4/registry/azureml-meta/?cid=learnDocs" data-linktype="external">Llama-3.3-70B-Instruct</a></td>
+</tr>
+<tr>
+<td><a href="https://ai.azure.com/explore/models/Llama-2-7b/version/23/registry/azureml-meta/?cid=learnDocs" data-linktype="external">Llama-2-7b</a></td>
+<td>February 28, 2025</td>
+<td>March 31, 2025</td>
+<td>June 30, 2025</td>
+<td><a href="https://ai.azure.com/explore/models/Meta-Llama-3.1-8B-Instruct/version/4/registry/azureml-meta/?cid=learnDocs" data-linktype="external">Meta-Llama-3.1-8B-Instruct</a></td>
+</tr>
+<tr>
+<td><a href="https://ai.azure.com/explore/models/Llama-2-7b-chat/version/27/registry/azureml-meta/?cid=learnDocs" data-linktype="external">Llama-2-7b-chat</a></td>
+<td>February 28, 2025</td>
+<td>March 31, 2025</td>
+<td>June 30, 2025</td>
+<td><a href="https://ai.azure.com/explore/models/Meta-Llama-3.1-8B-Instruct/version/4/registry/azureml-meta/?cid=learnDocs" data-linktype="external">Meta-Llama-3.1-8B-Instruct</a></td>
+</tr>
+<tr>
+<td><a href="https://ai.azure.com/explore/models/Meta-Llama-3-70B-Instruct/version/9/registry/azureml-meta/?cid=learnDocs" data-linktype="external">Meta-Llama-3-70B-Instruct</a></td>
+<td>February 28, 2025</td>
+<td>March 31, 2025</td>
+<td>June 30, 2025</td>
+<td><a href="https://ai.azure.com/explore/models/Llama-3.3-70B-Instruct/version/4/registry/azureml-meta/?cid=learnDocs" data-linktype="external">Llama-3.3-70B-Instruct</a></td>
+</tr>
+<tr>
+<td><a href="https://ai.azure.com/explore/models/Meta-Llama-3-8B-Instruct/version/9/registry/azureml-meta/?cid=learnDocs" data-linktype="external">Meta-Llama-3-8B-Instruct</a></td>
+<td>February 28, 2025</td>
+<td>March 31, 2025</td>
+<td>June 30, 2025</td>
+<td><a href="https://ai.azure.com/explore/models/Meta-Llama-3.1-8B-Instruct/version/4/registry/azureml-meta/?cid=learnDocs" data-linktype="external">Meta-Llama-3.1-8B-Instruct</a></td>
+</tr>
+<tr>
+<td><a href="https://ai.azure.com/explore/models/Meta-Llama-3.1-70B-Instruct/version/4/registry/azureml-meta/?cid=learnDocs" data-linktype="external">Meta-Llama-3.1-70B-Instruct</a></td>
+<td>February 28, 2025</td>
+<td>March 31, 2025</td>
+<td>June 30, 2025</td>
+<td><a href="https://ai.azure.com/explore/models/Llama-3.3-70B-Instruct/version/4/registry/azureml-meta/?cid=learnDocs" data-linktype="external">Llama-3.3-70B-Instruct</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="microsoft">Microsoft</h4>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Legacy date (UTC)</th>
+<th>Deprecation date (UTC)</th>
+<th>Retirement date (UTC)</th>
+<th>Suggested replacement model</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://ai.azure.com/explore/models/Phi-3-medium-4k-instruct/version/6/registry/azureml/?cid=learnDocs" data-linktype="external">Phi-3-medium-4k-instruct</a></td>
+<td>June 9, 2025</td>
+<td>June 30, 2025</td>
+<td>August 30, 2025</td>
+<td><a href="https://ai.azure.com/explore/models/Phi-4/version/8/registry/azureml/?cid=learnDocs" data-linktype="external">Phi-4</a></td>
+</tr>
+<tr>
+<td><a href="https://ai.azure.com/explore/models/Phi-3-medium-128k-instruct/version/7/registry/azureml/?cid=learnDocs" data-linktype="external">Phi-3-medium-128k-instruct</a></td>
+<td>June 9, 2025</td>
+<td>June 30, 2025</td>
+<td>August 30, 2025</td>
+<td><a href="https://ai.azure.com/explore/models/Phi-4/version/8/registry/azureml/?cid=learnDocs" data-linktype="external">Phi-4</a></td>
+</tr>
+<tr>
+<td><a href="https://ai.azure.com/explore/models/Phi-3-mini-4k-instruct/version/15/registry/azureml/?cid=learnDocs" data-linktype="external">Phi-3-mini-4k-instruct</a></td>
+<td>June 9, 2025</td>
+<td>June 30, 2025</td>
+<td>August 30, 2025</td>
+<td><a href="https://ai.azure.com/explore/models/Phi-4-mini-instruct/version/1/registry/azureml/?cid=learnDocs" data-linktype="external">Phi-4-mini-instruct</a></td>
+</tr>
+<tr>
+<td><a href="https://ai.azure.com/explore/models/Phi-3-mini-128k-instruct/version/13/registry/azureml/?cid=learnDocs" data-linktype="external">Phi-3-mini-128k-instruct</a></td>
+<td>June 9, 2025</td>
+<td>June 30, 2025</td>
+<td>August 30, 2025</td>
+<td><a href="https://ai.azure.com/explore/models/Phi-4-mini-instruct/version/1/registry/azureml/?cid=learnDocs" data-linktype="external">Phi-4-mini-instruct</a></td>
+</tr>
+<tr>
+<td><a href="https://ai.azure.com/explore/models/Phi-3-small-8k-instruct/version/6/registry/azureml/?cid=learnDocs" data-linktype="external">Phi-3-small-8k-instruct</a></td>
+<td>June 9, 2025</td>
+<td>June 30, 2025</td>
+<td>August 30, 2025</td>
+<td><a href="https://ai.azure.com/explore/models/Phi-4-mini-instruct/version/1/registry/azureml/?cid=learnDocs" data-linktype="external">Phi-4-mini-instruct</a></td>
+</tr>
+<tr>
+<td><a href="https://ai.azure.com/explore/models/Phi-3-small-128k-instruct/version/5/registry/azureml/?cid=learnDocs" data-linktype="external">Phi-3-small-128k-instruct</a></td>
+<td>June 9, 2025</td>
+<td>June 30, 2025</td>
+<td>August 30, 2025</td>
+<td><a href="https://ai.azure.com/explore/models/Phi-4-mini-instruct/version/1/registry/azureml/?cid=learnDocs" data-linktype="external">Phi-4-mini-instruct</a></td>
+</tr>
+<tr>
+<td><a href="https://ai.azure.com/explore/models/Phi-3.5-mini-instruct/version/6/registry/azureml/?cid=learnDocs" data-linktype="external">Phi-3.5-mini-instruct</a></td>
+<td>June 9, 2025</td>
+<td>June 30, 2025</td>
+<td>August 30, 2025</td>
+<td><a href="https://ai.azure.com/explore/models/Phi-4-mini-instruct/version/1/registry/azureml/?cid=learnDocs" data-linktype="external">Phi-4-mini-instruct</a></td>
+</tr>
+<tr>
+<td><a href="https://ai.azure.com/explore/models/Phi-3.5-MoE-instruct/version/5/registry/azureml/?cid=learnDocs" data-linktype="external">Phi-3.5-MoE-instruct</a></td>
+<td>June 9, 2025</td>
+<td>June 30, 2025</td>
+<td>August 30, 2025</td>
+<td><a href="https://ai.azure.com/explore/models/Phi-4-mini-instruct/version/1/registry/azureml/?cid=learnDocs" data-linktype="external">Phi-4-mini-instruct</a></td>
+</tr>
+<tr>
+<td><a href="https://ai.azure.com/explore/models/Phi-3.5-vision-instruct/version/2/registry/azureml/?cid=learnDocs" data-linktype="external">Phi-3.5-vision-instruct</a></td>
+<td>June 9, 2025</td>
+<td>June 30, 2025</td>
+<td>August 30, 2025</td>
+<td><a href="https://ai.azure.com/explore/models/Phi-4-mini-instruct/version/1/registry/azureml/?cid=learnDocs" data-linktype="external">Phi-4-mini-instruct</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="mistral-ai">Mistral AI</h4>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Legacy date (UTC)</th>
+<th>Deprecation date (UTC)</th>
+<th>Retirement date (UTC)</th>
+<th>Suggested replacement model</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://ai.azure.com/explore/models/Mistral-Nemo/version/1/registry/azureml-mistral/?cid=learnDocs" data-linktype="external">Mistral-Nemo</a></td>
+<td>September 30, 2025</td>
+<td>October 31, 2025</td>
+<td>January 30, 2026</td>
+<td><a href="https://aka.ms/aistudio/landing/mistral-small-2503" data-linktype="external">Mistral-small-2503</a></td>
+</tr>
+<tr>
+<td><a href="https://aka.ms/aistudio/landing/Mistral-Large-2411" data-linktype="external">Mistral-large-2411</a></td>
+<td>September 30, 2025</td>
+<td>October 31, 2025</td>
+<td>January 30, 2026</td>
+<td><a href="https://ai.azure.com/explore/models/mistral-medium-2505/version/1/registry/azureml-mistral/?cid=learnDocs" data-linktype="external">Mistral-medium-2505</a></td>
+</tr>
+<tr>
+<td><a href="https://ai.azure.com/explore/models/mistral-ocr-2503/version/1/registry/azureml-mistral/?cid=learnDocs" data-linktype="external">Mistral-ocr-2503</a></td>
+<td>September 30, 2025</td>
+<td>October 31, 2025</td>
+<td>January 30, 2026</td>
+<td><a href="https://ai.azure.com/explore/models/mistral-document-ai-2505/version/1/registry/azureml-mistral/?cid=learnDocs" data-linktype="external">Mistral-document-ai-2505</a></td>
+</tr>
+<tr>
+<td><a href="https://ai.azure.com/explore/models/Mistral-small/version/1/registry/azureml-mistral/?cid=learnDocs" data-linktype="external">Mistral-small</a></td>
+<td>March 31, 2025</td>
+<td>April 30, 2025</td>
+<td>July 31, 2025</td>
+<td><a href="https://aka.ms/aistudio/landing/mistral-small-2503" data-linktype="external">Mistral-small-2503</a></td>
+</tr>
+<tr>
+<td><a href="https://aka.ms/azureai/landing/Mistral-Large-2407?cid=learnDocs" data-linktype="external">Mistral-large-2407</a></td>
+<td>January 13, 2025</td>
+<td>February 13, 2025</td>
+<td>May 13, 2025</td>
+<td><a href="https://ai.azure.com/explore/models/mistral-medium-2505/version/1/registry/azureml-mistral/?cid=learnDocs" data-linktype="external">Mistral-medium-2505</a></td>
+</tr>
+<tr>
+<td><a href="https://aka.ms/azureai/landing/Mistral-Large?cid=learnDocs" data-linktype="external">Mistral-large</a></td>
+<td>December 15, 2024</td>
+<td>January 15, 2025</td>
+<td>April 15, 2025</td>
+<td><a href="https://ai.azure.com/explore/models/mistral-medium-2505/version/1/registry/azureml-mistral/?cid=learnDocs" data-linktype="external">Mistral-medium-2505</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="related-content">Related content</h2>
+<ul>
+<li><a href="../openai/concepts/model-retirements" data-linktype="relative-path">Azure OpenAI in Azure AI Foundry Models model deprecations and retirements</a></li>
+<li><a href="foundry-models-overview" data-linktype="relative-path">Explore Azure AI Foundry Models</a></li>
+<li><a href="../how-to/concept-data-privacy" data-linktype="relative-path">Data, privacy, and security for use of models through the model catalog in Azure AI Foundry portal</a></li>
+</ul>
+</div>
+					
+		<div
+			id="ms--inline-notifications"
+			class="margin-block-xs"
+			data-bi-name="inline-notification"
+		></div>
+	 
+		<div
+			id="assertive-live-region"
+			role="alert"
+			aria-live="assertive"
+			class="visually-hidden"
+			aria-relevant="additions"
+			aria-atomic="true"
+		></div>
+		<div
+			id="polite-live-region"
+			role="status"
+			aria-live="polite"
+			class="visually-hidden"
+			aria-relevant="additions"
+			aria-atomic="true"
+		></div>
+	
+					
+		<!-- feedback section -->
+		<section
+			id="site-user-feedback-footer"
+			class="font-size-sm margin-top-md display-none-print display-none-desktop"
+			data-test-id="site-user-feedback-footer"
+			data-bi-name="site-feedback-section"
+		>
+			<hr class="hr" />
+			<h2 id="ms--feedback" class="title is-3">Feedback</h2>
+			<div class="display-flex flex-wrap-wrap align-items-center">
+				<p class="font-weight-semibold margin-xxs margin-left-none">
+					Was this page helpful?
+				</p>
+				<div class="buttons">
+					<button
+						class="thumb-rating-button like button button-primary button-sm"
+						data-test-id="footer-rating-yes"
+						data-binary-rating-response="rating-yes"
+						type="button"
+						title="This article is helpful"
+						data-bi-name="button-rating-yes"
+						aria-pressed="false"
+					>
+						<span class="icon" aria-hidden="true">
+							<span class="docon docon-like"></span>
+						</span>
+						<span>Yes</span>
+					</button>
+					<button
+						class="thumb-rating-button dislike button button-primary button-sm"
+						id="standard-rating-no-button"
+						hidden
+						data-test-id="footer-rating-no"
+						data-binary-rating-response="rating-no"
+						type="button"
+						title="This article is not helpful"
+						data-bi-name="button-rating-no"
+						aria-pressed="false"
+					>
+						<span class="icon" aria-hidden="true">
+							<span class="docon docon-dislike"></span>
+						</span>
+						<span>No</span>
+					</button>
+					<details
+						class="popover popover-top"
+						id="mobile-help-popover"
+						data-test-id="footer-feedback-popover"
+					>
+						<summary
+							class="thumb-rating-button dislike button button-primary button-sm"
+							data-test-id="details-footer-rating-no"
+							data-binary-rating-response="rating-no"
+							title="This article is not helpful"
+							data-bi-name="button-rating-no"
+							aria-pressed="false"
+							data-bi-an="feedback-unhelpful-popover"
+						>
+							<span class="icon" aria-hidden="true">
+								<span class="docon docon-dislike"></span>
+							</span>
+							<span>No</span>
+						</summary>
+						<div
+							class="popover-content width-200 width-300-tablet"
+							role="dialog"
+							aria-labelledby="popover-heading"
+							aria-describedby="popover-description"
+						>
+							<p id="popover-heading" class="font-size-lg margin-bottom-xxs font-weight-semibold">
+								Need help with this topic?
+							</p>
+							<p id="popover-description" class="font-size-sm margin-bottom-xs">
+								Want to try using Ask Learn to clarify or guide you through this topic?
+							</p>
+							
+		<div class="buttons flex-direction-row flex-wrap justify-content-center gap-xxs">
+			<div>
+		<button
+			class="button button-sm border inner-focus display-none margin-right-xxs"
+			data-bi-name="ask-learn-assistant-entry-troubleshoot"
+			data-test-id="ask-learn-assistant-modal-entry-mobile-feedback"
+			data-ask-learn-modal-entry-feedback
+			data-bi-an=feedback-unhelpful-popover
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			aria-label="Ask Learn"
+			hidden
+		>
+			<span class="icon font-size-lg" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+		</button>
+		<button
+			class="button button-sm display-inline-flex display-none-desktop flex-shrink-0 margin-right-xxs border-color-ask-learn margin-right-xxs"
+			data-bi-name="ask-learn-assistant-entry-troubleshoot"
+			data-bi-an=feedback-unhelpful-popover
+			data-test-id="ask-learn-assistant-modal-entry-tablet-feedback"
+			data-ask-learn-modal-entry-feedback
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			hidden
+		>
+			<span class="icon font-size-lg" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+			<span>Ask Learn</span>
+		</button>
+		<button
+			class="button button-sm display-none flex-shrink-0 display-inline-flex-desktop margin-right-xxs border-color-ask-learn margin-right-xxs"
+			data-bi-name="ask-learn-assistant-entry-troubleshoot"
+			data-bi-an=feedback-unhelpful-popover
+			data-test-id="ask-learn-assistant-flyout-entry-feedback"
+			data-ask-learn-flyout-entry-show-only
+			data-flyout-button="toggle"
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			aria-controls="ask-learn-flyout"
+			hidden
+		>
+			<span class="icon font-size-lg" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+			<span>Ask Learn</span>
+		</button>
+	</div>
+			<button
+				type="button"
+				class="button button-sm margin-right-xxs"
+				data-help-option="suggest-fix"
+				data-bi-name="feedback-suggest"
+				data-bi-an="feedback-unhelpful-popover"
+				data-test-id="suggest-fix"
+			>
+				<span class="icon" aria-hidden="true">
+					<span class="docon docon-feedback"></span>
+				</span>
+				<span> Suggest a fix? </span>
+			</button>
+		</div>
+	
+						</div>
+					</details>
+				</div>
+			</div>
+		</section>
+		<!-- end feedback section -->
+	
+				</div>
+				
+		<div id="ms--additional-resources-mobile" class="display-none-print">
+			<hr class="hr" hidden />
+			<h2 id="ms--additional-resources-mobile-heading" class="title is-3" hidden>
+				Additional resources
+			</h2>
+			
+		<section
+			id="right-rail-recommendations-mobile"
+			class=""
+			data-bi-name="recommendations"
+			hidden
+		></section>
+	 
+		<section
+			id="right-rail-training-mobile"
+			class=""
+			data-bi-name="learning-resource-card"
+			hidden
+		></section>
+	 
+		<section
+			id="right-rail-events-mobile"
+			class=""
+			data-bi-name="events-card"
+			hidden
+		></section>
+	 
+		<section
+			id="right-rail-qna-mobile"
+			class="margin-top-xxs"
+			data-bi-name="qna-link-card"
+			hidden
+		></section>
+	
+		</div>
+	 
+		<div
+			id="article-metadata-footer"
+			data-bi-name="article-metadata-footer"
+			data-test-id="article-metadata-footer"
+			class="page-metadata-container"
+		>
+			<hr class="hr" />
+			<ul class="metadata page-metadata" data-bi-name="page info" lang="en-us" dir="ltr">
+				<li class="visibility-hidden-visual-diff">
+			<span class="badge badge-sm text-wrap-pretty">
+				<span>Last updated on <local-time format="twoDigitNumeric"
+		datetime="2025-10-31T05:09:00.000Z"
+		data-article-date-source="calculated"
+		class="is-invisible"
+	>
+		2025-10-31
+	</local-time></span>
+			</span>
+		</li>
+			</ul>
+		</div>
+	
+			</div>
+			
+		<div
+			id="action-panel"
+			role="region"
+			aria-label="Action Panel"
+			class="action-panel"
+			tabindex="-1"
+		></div>
+	
+		
+				</main>
+				<aside
+					id="layout-body-aside"
+					class="layout-body-aside "
+					data-bi-name="aside"
+			  >
+					
+		<div
+			id="ms--additional-resources"
+			class="right-container padding-sm display-none display-block-desktop height-full"
+			data-bi-name="pageactions"
+			role="complementary"
+			aria-label="Additional resources"
+		>
+			<div id="affixed-right-container" data-bi-name="right-column">
+				
+		<nav
+			id="side-doc-outline"
+			class="doc-outline border-bottom padding-bottom-xs margin-bottom-xs"
+			data-bi-name="intopic toc"
+			aria-label="In this article"
+		>
+			<h3>In this article</h3>
+		</nav>
+	
+				<!-- Feedback -->
+				
+		<section
+			id="ms--site-user-feedback-right-rail"
+			class="font-size-sm display-none-print"
+			data-test-id="site-user-feedback-right-rail"
+			data-bi-name="site-feedback-right-rail"
+		>
+			<p class="font-weight-semibold margin-bottom-xs">Was this page helpful?</p>
+			<div class="buttons">
+				<button
+					class="thumb-rating-button like button button-primary button-sm"
+					data-test-id="right-rail-rating-yes"
+					data-binary-rating-response="rating-yes"
+					type="button"
+					title="This article is helpful"
+					data-bi-name="button-rating-yes"
+					aria-pressed="false"
+				>
+					<span class="icon" aria-hidden="true">
+						<span class="docon docon-like"></span>
+					</span>
+					<span>Yes</span>
+				</button>
+				<button
+					class="thumb-rating-button dislike button button-primary button-sm"
+					id="right-rail-no-button"
+					hidden
+					data-test-id="right-rail-rating-no"
+					data-binary-rating-response="rating-no"
+					type="button"
+					title="This article is not helpful"
+					data-bi-name="button-rating-no"
+					aria-pressed="false"
+				>
+					<span class="icon" aria-hidden="true">
+						<span class="docon docon-dislike"></span>
+					</span>
+					<span>No</span>
+				</button>
+				<details class="popover popover-right" id="help-popover" data-test-id="feedback-popover">
+					<summary
+						tabindex="0"
+						class="thumb-rating-button dislike button button-primary button-sm"
+						data-test-id="details-right-rail-rating-no"
+						data-binary-rating-response="rating-no"
+						title="This article is not helpful"
+						data-bi-name="button-rating-no"
+						aria-pressed="false"
+						data-bi-an="feedback-unhelpful-popover"
+					>
+						<span class="icon" aria-hidden="true">
+							<span class="docon docon-dislike"></span>
+						</span>
+						<span>No</span>
+					</summary>
+					<div
+						class="popover-content width-200 width-300-tablet"
+						role="dialog"
+						aria-labelledby="popover-heading"
+						aria-describedby="popover-description"
+					>
+						<p
+							id="popover-heading-right-rail"
+							class="font-size-lg margin-bottom-xxs font-weight-semibold"
+						>
+							Need help with this topic?
+						</p>
+						<p id="popover-description-right-rail" class="font-size-sm margin-bottom-xs">
+							Want to try using Ask Learn to clarify or guide you through this topic?
+						</p>
+						
+		<div class="buttons flex-direction-row flex-wrap justify-content-center gap-xxs">
+			<div>
+		<button
+			class="button button-sm border inner-focus display-none margin-right-xxs"
+			data-bi-name="ask-learn-assistant-entry-troubleshoot"
+			data-test-id="ask-learn-assistant-modal-entry-mobile-feedback"
+			data-ask-learn-modal-entry-feedback
+			data-bi-an=feedback-unhelpful-popover
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			aria-label="Ask Learn"
+			hidden
+		>
+			<span class="icon font-size-lg" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+		</button>
+		<button
+			class="button button-sm display-inline-flex display-none-desktop flex-shrink-0 margin-right-xxs border-color-ask-learn margin-right-xxs"
+			data-bi-name="ask-learn-assistant-entry-troubleshoot"
+			data-bi-an=feedback-unhelpful-popover
+			data-test-id="ask-learn-assistant-modal-entry-tablet-feedback"
+			data-ask-learn-modal-entry-feedback
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			hidden
+		>
+			<span class="icon font-size-lg" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+			<span>Ask Learn</span>
+		</button>
+		<button
+			class="button button-sm display-none flex-shrink-0 display-inline-flex-desktop margin-right-xxs border-color-ask-learn margin-right-xxs"
+			data-bi-name="ask-learn-assistant-entry-troubleshoot"
+			data-bi-an=feedback-unhelpful-popover
+			data-test-id="ask-learn-assistant-flyout-entry-feedback"
+			data-ask-learn-flyout-entry-show-only
+			data-flyout-button="toggle"
+			type="button"
+			style="min-width: max-content;"
+			aria-expanded="false"
+			aria-controls="ask-learn-flyout"
+			hidden
+		>
+			<span class="icon font-size-lg" aria-hidden="true">
+				<span class="docon docon-chat-sparkle-fill gradient-ask-learn-logo"></span>
+			</span>
+			<span>Ask Learn</span>
+		</button>
+	</div>
+			<button
+				type="button"
+				class="button button-sm margin-right-xxs"
+				data-help-option="suggest-fix"
+				data-bi-name="feedback-suggest"
+				data-bi-an="feedback-unhelpful-popover"
+				data-test-id="suggest-fix"
+			>
+				<span class="icon" aria-hidden="true">
+					<span class="docon docon-feedback"></span>
+				</span>
+				<span> Suggest a fix? </span>
+			</button>
+		</div>
+	
+					</div>
+				</details>
+			</div>
+		</section>
+	
+			</div>
+		</div>
+	
+			  </aside> <section
+					id="layout-body-flyout"
+					class="layout-body-flyout "
+					data-bi-name="flyout"
+			  >
+					 <div
+	class="height-full border-left background-color-body-medium"
+	id="ask-learn-flyout"
+></div>
+			  </section> <div class="layout-body-footer " data-bi-name="layout-footer">
+		<footer
+			id="footer"
+			data-test-id="footer"
+			data-bi-name="footer"
+			class="footer-layout has-padding has-default-focus border-top  uhf-container"
+			role="contentinfo"
+		>
+			<div class="display-flex gap-xs flex-wrap-wrap is-full-height padding-right-lg-desktop">
+				
+		<a
+			data-mscc-ic="false"
+			href="#"
+			data-bi-name="select-locale"
+			class="locale-selector-link flex-shrink-0 button button-sm button-clear external-link-indicator"
+			id=""
+			title=""
+			><span class="icon" aria-hidden="true"
+				><span class="docon docon-world"></span></span
+			><span class="local-selector-link-text">en-us</span></a
+		>
+	 <div class="ccpa-privacy-link" data-ccpa-privacy-link hidden>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://aka.ms/yourcaliforniaprivacychoices"
+			data-bi-name="your-privacy-choices"
+			class="button button-sm button-clear flex-shrink-0 external-link-indicator"
+			id=""
+			title=""
+			>
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			viewBox="0 0 30 14"
+			xml:space="preserve"
+			height="16"
+			width="43"
+			aria-hidden="true"
+			focusable="false"
+		>
+			<path
+				d="M7.4 12.8h6.8l3.1-11.6H7.4C4.2 1.2 1.6 3.8 1.6 7s2.6 5.8 5.8 5.8z"
+				style="fill-rule:evenodd;clip-rule:evenodd;fill:#fff"
+			></path>
+			<path
+				d="M22.6 0H7.4c-3.9 0-7 3.1-7 7s3.1 7 7 7h15.2c3.9 0 7-3.1 7-7s-3.2-7-7-7zm-21 7c0-3.2 2.6-5.8 5.8-5.8h9.9l-3.1 11.6H7.4c-3.2 0-5.8-2.6-5.8-5.8z"
+				style="fill-rule:evenodd;clip-rule:evenodd;fill:#06f"
+			></path>
+			<path
+				d="M24.6 4c.2.2.2.6 0 .8L22.5 7l2.2 2.2c.2.2.2.6 0 .8-.2.2-.6.2-.8 0l-2.2-2.2-2.2 2.2c-.2.2-.6.2-.8 0-.2-.2-.2-.6 0-.8L20.8 7l-2.2-2.2c-.2-.2-.2-.6 0-.8.2-.2.6-.2.8 0l2.2 2.2L23.8 4c.2-.2.6-.2.8 0z"
+				style="fill:#fff"
+			></path>
+			<path
+				d="M12.7 4.1c.2.2.3.6.1.8L8.6 9.8c-.1.1-.2.2-.3.2-.2.1-.5.1-.7-.1L5.4 7.7c-.2-.2-.2-.6 0-.8.2-.2.6-.2.8 0L8 8.6l3.8-4.5c.2-.2.6-.2.9 0z"
+				style="fill:#06f"
+			></path>
+		</svg>
+	
+			<span>Your Privacy Choices</span></a
+		>
+	
+	</div>
+				<div class="flex-shrink-0">
+		<div class="dropdown has-caret-up">
+			<button
+				data-test-id="theme-selector-button"
+				class="dropdown-trigger button button-clear button-sm inner-focus theme-dropdown-trigger"
+				aria-controls="{{ themeMenuId }}"
+				aria-expanded="false"
+				title="Theme"
+				data-bi-name="theme"
+			>
+				<span class="icon">
+					<span class="docon docon-sun" aria-hidden="true"></span>
+				</span>
+				<span>Theme</span>
+				<span class="icon expanded-indicator" aria-hidden="true">
+					<span class="docon docon-chevron-down-light"></span>
+				</span>
+			</button>
+			<div class="dropdown-menu" id="{{ themeMenuId }}" role="menu">
+				<ul class="theme-selector padding-xxs" data-test-id="theme-dropdown-menu">
+					<li class="theme display-block">
+						<button
+							class="button button-clear button-sm theme-control button-block justify-content-flex-start text-align-left"
+							data-theme-to="light"
+						>
+							<span class="theme-light margin-right-xxs">
+								<span
+									class="theme-selector-icon border display-inline-block has-body-background"
+									aria-hidden="true"
+								>
+									<svg class="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 14">
+										<rect width="22" height="14" class="has-fill-body-background" />
+										<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+										<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+										<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+										<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+										<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+										<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+										<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+									</svg>
+								</span>
+							</span>
+							<span role="menuitem"> Light </span>
+						</button>
+					</li>
+					<li class="theme display-block">
+						<button
+							class="button button-clear button-sm theme-control button-block justify-content-flex-start text-align-left"
+							data-theme-to="dark"
+						>
+							<span class="theme-dark margin-right-xxs">
+								<span
+									class="border theme-selector-icon display-inline-block has-body-background"
+									aria-hidden="true"
+								>
+									<svg class="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 14">
+										<rect width="22" height="14" class="has-fill-body-background" />
+										<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+										<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+										<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+										<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+										<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+										<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+										<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+									</svg>
+								</span>
+							</span>
+							<span role="menuitem"> Dark </span>
+						</button>
+					</li>
+					<li class="theme display-block">
+						<button
+							class="button button-clear button-sm theme-control button-block justify-content-flex-start text-align-left"
+							data-theme-to="high-contrast"
+						>
+							<span class="theme-high-contrast margin-right-xxs">
+								<span
+									class="border theme-selector-icon display-inline-block has-body-background"
+									aria-hidden="true"
+								>
+									<svg class="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 14">
+										<rect width="22" height="14" class="has-fill-body-background" />
+										<rect x="5" y="5" width="12" height="4" class="has-fill-secondary" />
+										<rect x="5" y="2" width="2" height="1" class="has-fill-secondary" />
+										<rect x="8" y="2" width="2" height="1" class="has-fill-secondary" />
+										<rect x="11" y="2" width="3" height="1" class="has-fill-secondary" />
+										<rect x="1" y="1" width="2" height="2" class="has-fill-secondary" />
+										<rect x="5" y="10" width="7" height="2" rx="0.3" class="has-fill-primary" />
+										<rect x="19" y="1" width="2" height="2" rx="1" class="has-fill-secondary" />
+									</svg>
+								</span>
+							</span>
+							<span role="menuitem"> High contrast </span>
+						</button>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+			</div>
+			<ul class="links" data-bi-name="footerlinks">
+				<li class="manage-cookies-holder" hidden=""></li>
+				<li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://learn.microsoft.com/en-us/principles-for-ai-generated-content"
+			data-bi-name="aiDisclaimer"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>AI Disclaimer</a
+		>
+	
+	</li><li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://learn.microsoft.com/en-us/previous-versions/"
+			data-bi-name="archivelink"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Previous Versions</a
+		>
+	
+	</li> <li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://techcommunity.microsoft.com/t5/microsoft-learn-blog/bg-p/MicrosoftLearnBlog"
+			data-bi-name="bloglink"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Blog</a
+		>
+	
+	</li> <li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://learn.microsoft.com/en-us/contribute"
+			data-bi-name="contributorGuide"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Contribute</a
+		>
+	
+	</li><li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://go.microsoft.com/fwlink/?LinkId=521839"
+			data-bi-name="privacy"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Privacy</a
+		>
+	
+	</li><li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://learn.microsoft.com/en-us/legal/termsofuse"
+			data-bi-name="termsofuse"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Terms of Use</a
+		>
+	
+	</li><li>
+		
+		<a
+			data-mscc-ic="false"
+			href="https://www.microsoft.com/legal/intellectualproperty/Trademarks/"
+			data-bi-name="trademarks"
+			class=" external-link-indicator"
+			id=""
+			title=""
+			>Trademarks</a
+		>
+	
+	</li>
+				<li>&copy; Microsoft 2025</li>
+			</ul>
+		</footer>
+	</footer>
+			</body>
+		</html>
