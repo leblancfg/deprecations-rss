@@ -17,7 +17,10 @@ def test_scraper_initialization():
     """Should initialize with correct configuration."""
     scraper = AWSBedrockScraper()
     assert scraper.provider_name == "AWS Bedrock"
-    assert scraper.url == "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html"
+    assert (
+        scraper.url
+        == "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html"
+    )
     assert scraper.requires_playwright is False
 
 
@@ -29,12 +32,18 @@ def test_extracts_legacy_models_with_dates(fixture_html):
     assert len(items) > 0, "Should find at least one deprecated model"
 
     # Find Stable Diffusion XL 1.0 model
-    sd_xl_item = next((item for item in items if "Stable Diffusion XL 1.0" in item.model_name), None)
+    sd_xl_item = next(
+        (item for item in items if "Stable Diffusion XL 1.0" in item.model_name), None
+    )
     assert sd_xl_item is not None, "Should find Stable Diffusion XL 1.0"
 
     # Verify dates are in ISO format (not with region info)
-    assert sd_xl_item.announcement_date == "2024-10-16", f"Expected '2024-10-16', got '{sd_xl_item.announcement_date}'"
-    assert sd_xl_item.shutdown_date == "2025-05-20", f"Expected '2025-05-20', got '{sd_xl_item.shutdown_date}'"
+    assert sd_xl_item.announcement_date == "2024-10-16", (
+        f"Expected '2024-10-16', got '{sd_xl_item.announcement_date}'"
+    )
+    assert sd_xl_item.shutdown_date == "2025-05-20", (
+        f"Expected '2025-05-20', got '{sd_xl_item.shutdown_date}'"
+    )
 
     # Verify replacement model
     assert "Stable Image Core" in sd_xl_item.replacement_model
@@ -64,12 +73,14 @@ def test_all_dates_are_iso_format(fixture_html):
 
     for item in items:
         if item.announcement_date:
-            assert re.match(iso_date_pattern, item.announcement_date), \
+            assert re.match(iso_date_pattern, item.announcement_date), (
                 f"announcement_date '{item.announcement_date}' for {item.model_name} is not in ISO format"
+            )
 
         if item.shutdown_date:
-            assert re.match(iso_date_pattern, item.shutdown_date), \
+            assert re.match(iso_date_pattern, item.shutdown_date), (
                 f"shutdown_date '{item.shutdown_date}' for {item.model_name} is not in ISO format"
+            )
 
 
 def test_no_region_info_in_dates(fixture_html):
@@ -80,16 +91,20 @@ def test_no_region_info_in_dates(fixture_html):
     for item in items:
         # Dates should not contain parentheses or region names
         if item.announcement_date:
-            assert "(" not in item.announcement_date, \
+            assert "(" not in item.announcement_date, (
                 f"announcement_date contains region info: {item.announcement_date}"
-            assert "us-east" not in item.announcement_date, \
+            )
+            assert "us-east" not in item.announcement_date, (
                 f"announcement_date contains region: {item.announcement_date}"
+            )
 
         if item.shutdown_date:
-            assert "(" not in item.shutdown_date, \
+            assert "(" not in item.shutdown_date, (
                 f"shutdown_date contains region info: {item.shutdown_date}"
-            assert "us-east" not in item.shutdown_date, \
+            )
+            assert "us-east" not in item.shutdown_date, (
                 f"shutdown_date contains region: {item.shutdown_date}"
+            )
 
 
 def test_parse_date_handles_ordinal_dates():
@@ -107,7 +122,9 @@ def test_parse_date_strips_region_info():
 
     # Test with region info
     assert scraper.parse_date("May 20, 2025 (us-east-1 and us-west-2)") == "2025-05-20"
-    assert scraper.parse_date("October 16, 2024 (us-east-1 and us-west-2)") == "2024-10-16"
+    assert (
+        scraper.parse_date("October 16, 2024 (us-east-1 and us-west-2)") == "2024-10-16"
+    )
     assert scraper.parse_date("July 15th, 2025 (all Regions)") == "2025-07-15"
 
 
@@ -142,8 +159,13 @@ def test_deprecation_context_is_meaningful(fixture_html):
 
     for item in items:
         assert item.deprecation_context, "Should have deprecation context"
-        assert item.model_name in item.deprecation_context, "Context should mention model name"
+        assert item.model_name in item.deprecation_context, (
+            "Context should mention model name"
+        )
 
         # Should mention dates if present
         if item.announcement_date:
-            assert "legacy" in item.deprecation_context.lower() or "end-of-life" in item.deprecation_context.lower()
+            assert (
+                "legacy" in item.deprecation_context.lower()
+                or "end-of-life" in item.deprecation_context.lower()
+            )
