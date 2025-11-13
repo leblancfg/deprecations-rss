@@ -1,0 +1,1632 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Model lifecycle - Amazon Bedrock</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="model-lifecycle" /><meta name="default_state" content="model-lifecycle" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html" /><meta name="description" content="Learn how the model lifecycle works with Amazon Bedrock." /><meta name="deployment_region" content="IAD" /><meta name="product" content="Amazon Bedrock" /><meta name="guide" content="User Guide" /><meta name="abstract" content="User Guide for the Amazon Bedrock service." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/bedrock/latest/userguide/model-lifecycle.html" hreflang="id-id" /><link rel="alternative" href="https://docs.aws.amazon.com/id_id/bedrock/latest/userguide/model-lifecycle.html" hreflang="id" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/bedrock/latest/userguide/model-lifecycle.html" hreflang="de-de" /><link rel="alternative" href="https://docs.aws.amazon.com/de_de/bedrock/latest/userguide/model-lifecycle.html" hreflang="de" /><link rel="alternative" href="https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html" hreflang="en-us" /><link rel="alternative" href="https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html" hreflang="en" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/bedrock/latest/userguide/model-lifecycle.html" hreflang="es-es" /><link rel="alternative" href="https://docs.aws.amazon.com/es_es/bedrock/latest/userguide/model-lifecycle.html" hreflang="es" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/bedrock/latest/userguide/model-lifecycle.html" hreflang="fr-fr" /><link rel="alternative" href="https://docs.aws.amazon.com/fr_fr/bedrock/latest/userguide/model-lifecycle.html" hreflang="fr" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/bedrock/latest/userguide/model-lifecycle.html" hreflang="it-it" /><link rel="alternative" href="https://docs.aws.amazon.com/it_it/bedrock/latest/userguide/model-lifecycle.html" hreflang="it" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/bedrock/latest/userguide/model-lifecycle.html" hreflang="ja-jp" /><link rel="alternative" href="https://docs.aws.amazon.com/ja_jp/bedrock/latest/userguide/model-lifecycle.html" hreflang="ja" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/bedrock/latest/userguide/model-lifecycle.html" hreflang="ko-kr" /><link rel="alternative" href="https://docs.aws.amazon.com/ko_kr/bedrock/latest/userguide/model-lifecycle.html" hreflang="ko" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/bedrock/latest/userguide/model-lifecycle.html" hreflang="pt-br" /><link rel="alternative" href="https://docs.aws.amazon.com/pt_br/bedrock/latest/userguide/model-lifecycle.html" hreflang="pt" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_cn/bedrock/latest/userguide/model-lifecycle.html" hreflang="zh-cn" /><link rel="alternative" href="https://docs.aws.amazon.com/zh_tw/bedrock/latest/userguide/model-lifecycle.html" hreflang="zh-tw" /><link rel="alternative" href="https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html" hreflang="x-default" /><meta name="feedback-folder" content="2d8c2a09-1dac-41bf-9893-c0333d272b2c" /><meta name="feedback-item" content="Bedrock" /><meta name="this_doc_product" content="Amazon Bedrock" /><meta name="this_doc_guide" content="User Guide" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+<script defer="" id="awsc-panorama-bundle" type="text/javascript" src="https://prod.pa.cdn.uis.awsstatic.com/panorama-nav-init.js" data-config="{'appEntity':'aws-documentation','region':'us-east-1','service':'bedrock'}"></script><meta id="panorama-serviceSubSection" value="User Guide" /><meta id="panorama-serviceConsolePage" value="Model lifecycle" /></head><body class="awsdocs awsui"><div class="awsdocs-container"><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Model lifecycle - Amazon Bedrock</title><meta name="pdf" content="/pdfs/bedrock/latest/userguide/bedrock-ug.pdf#model-lifecycle" /><meta name="rss" content="bedrock-ug.rss" /><meta name="forums" content="https://repost.aws/tags/TAQeKlaPaNRQ2tWB6P7KrMag" /><meta name="feedback" content="https://docs.aws.amazon.com/forms/aws-doc-feedback?feedback_destination_id=2d8c2a09-1dac-41bf-9893-c0333d272b2c&amp;topic_url=https://docs.aws.amazon.com/en_us/bedrock/latest/userguide/model-lifecycle.html" /><meta name="feedback-yes" content="feedbackyes.html?topic_url=https://docs.aws.amazon.com/en_us/bedrock/latest/userguide/model-lifecycle.html" /><meta name="feedback-no" content="feedbackno.html?topic_url=https://docs.aws.amazon.com/en_us/bedrock/latest/userguide/model-lifecycle.html" /><meta name="keywords" content="Amazon Bedrock,bedrock" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "AWS",
+        "item" : "https://aws.amazon.com"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon Bedrock",
+        "item" : "https://docs.aws.amazon.com/bedrock/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "User Guide",
+        "item" : "https://docs.aws.amazon.com/bedrock/latest/userguide"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Amazon Bedrock foundation model information",
+        "item" : "https://docs.aws.amazon.com/bedrock/latest/userguide/foundation-models-reference.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Model lifecycle",
+        "item" : "https://docs.aws.amazon.com/bedrock/latest/userguide/foundation-models-reference.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/bedrock/latest/userguide/bedrock-ug.pdf#model-lifecycle" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/bedrock/index.html">Amazon Bedrock</a><a href="what-is-bedrock.html">User Guide</a></div><div id="page-toc-src"><a href="#active-versions">Active versions</a><a href="#versions-for-legacy">Legacy versions</a><a href="#versions-for-eol">End-of-Life (EOL) versions</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><h1 class="topictitle" id="model-lifecycle">Model lifecycle</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Amazon Bedrock is continuously working to bring the latest versions of foundation
+        models that have better capabilities, accuracy, and safety. As we launch new 
+        model versions, you can test them with the Amazon Bedrock console or API, and 
+        migrate your applications to benefit from the latest model versions. 
+    </p><p>A model offered on Amazon Bedrock can be in one of these states: <b>Active</b>, <b>Legacy</b>, or <b>
+            End-of-Life (EOL)</b>. You can see the status of offered models in the console
+        and in the tables below. Additionally, when you make a <a href="https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_GetFoundationModel.html">GetFoundationModel</a> or <a href="https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_ListFoundationModels.html">ListFoundationModels</a> call, the state of the model will be shown in the
+            <code class="code">modelLifecycle</code> field in the response. Once a model launches on Amazon Bedrock, it
+        will remain on Amazon Bedrock for at least 12 months before the EOL date. </p>
+        <h2 id="active-versions">Active versions</h2>
+        
+
+        <p><b>Active</b> — The model provider is actively working
+            on this version. In most cases, model providers sunset a model after newer versions
+            become available. </p>
+        
+        <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>Some models are accessible in some AWS Regions only through cross-Region
+                inference (CRIS). To learn more about cross-Region inference, see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/cross-region-inference.html">Cross-Region Inference</a>.</p></div></div>
+        
+        <p>Active Models and their launch dates are listed in the table below:</p>
+        
+        <div class="table-container"><div class="table-contents"><table id="w492aac15c34b7b9"><thead>
+                    <tr>
+                        <th>Provider</th>
+                        <th>Model name</th>
+                        <th>Model ID</th>
+                        <th>Regions supported</th>
+                        <th>Launch date</th>
+                        <th>Input modalities</th>
+                        <th>Output modalities</th>
+                    </tr>
+                </thead>
+                    <tr>
+                        <td tabindex="-1">AI21 Labs</td>
+                        <td tabindex="-1">Jamba 1.5 Large</td>
+                        <td tabindex="-1">ai21.jamba-1-5-large-v1:0</td>
+                        <td tabindex="-1">us-east-1</td>
+                        <td tabindex="-1">9/23/2024</td>
+                        <td tabindex="-1">No sooner than 9/23/2025</td>
+                        <td tabindex="-1">Text</td>
+                        <td tabindex="-1">Text, Chat</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">AI21 Labs</td>
+                        <td tabindex="-1">Jamba 1.5 Mini</td>
+                        <td tabindex="-1">ai21.jamba-1-5-mini-v1:0</td>
+                        <td tabindex="-1">us-east-1</td>
+                        <td tabindex="-1">9/23/2024</td>
+                        <td tabindex="-1">No sooner than 9/23/2025</td>
+                        <td tabindex="-1">Text</td>
+                        <td tabindex="-1">Text, Chat</td>
+                    </tr>
+                    
+                    <tr>
+                        <td tabindex="-1">Amazon</td>
+                        <td tabindex="-1">Nova Canvas</td>
+                        <td tabindex="-1">amazon.nova-canvas-v1:0</td>
+                        <td tabindex="-1">us-east-1</td>
+                        <td tabindex="-1">12/4/2024</td>
+                        <td tabindex="-1">No sooner than 12/4/2025</td>
+                        <td tabindex="-1">Text, Image
+                        </td>
+                        <td tabindex="-1">Image</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Amazon</td>
+                        <td tabindex="-1">Nova Lite</td>
+                        <td tabindex="-1">amazon.nova-lite-v1:0</td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>us-east-1</p></li><li class="listitem"><p>us-east-2*</p></li><li class="listitem"><p>us-west-2*</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>12/4/2024</p></li><li class="listitem"><p>12/4/2024</p></li><li class="listitem"><p>12/4/2024</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">No sooner than 12/4/2025</td>
+                        <td tabindex="-1">Text, Image, Video
+                        </td>
+                        <td tabindex="-1">Text</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Amazon</td>
+                        <td tabindex="-1">Nova Micro</td>
+                        <td tabindex="-1">amazon.nova-micro-v1:0</td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>us-east-1</p></li><li class="listitem"><p>us-east-2*</p></li><li class="listitem"><p>us-west-2*</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>12/4/2024</p></li><li class="listitem"><p>12/4/2024</p></li><li class="listitem"><p>12/4/2024</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">No sooner than 12/4/2025</td>
+                        <td tabindex="-1">Text</td>
+                        <td tabindex="-1">Text</td>
+                    </tr>
+                    
+                    <tr>
+                        <td tabindex="-1">Amazon</td>
+                        <td tabindex="-1">Nova Pro</td>
+                        <td tabindex="-1">amazon.nova-pro-v1:0</td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>us-east-1</p></li><li class="listitem"><p>us-east-2*</p></li><li class="listitem"><p>us-west-2*</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>12/4/2024</p></li><li class="listitem"><p>12/4/2024</p></li><li class="listitem"><p>12/4/2024</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">No sooner than 12/4/2025</td>
+                        <td tabindex="-1">Text, Image, Video
+                        </td>
+                        <td tabindex="-1">Text</td>
+                    </tr>
+                    
+                    <tr>
+                        <td tabindex="-1">Amazon</td>
+                        <td tabindex="-1">Nova Reel</td>
+                        <td tabindex="-1">amazon.nova-reel-v1:0</td>
+                        <td tabindex="-1">us-east-1</td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>12/4/2024</p></li><li class="listitem"><p>12/4/2024</p></li><li class="listitem"><p>12/4/2024</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">No sooner than 12/4/2025</td>
+                        <td tabindex="-1">Text, Image</td>
+                        <td tabindex="-1">Video</td>
+                    </tr>
+                    
+                    <tr>
+                        <td tabindex="-1">Amazon</td>
+                        <td tabindex="-1">Rerank 1.0</td>
+                        <td tabindex="-1">amazon.rerank-v1:0</td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>us-west-2</p></li><li class="listitem"><p>ap-northeast-1</p></li><li class="listitem"><p>ca-central-1</p></li><li class="listitem"><p>eu-central-1</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1"></td>
+                        <td tabindex="-1"></td>
+                        <td tabindex="-1">Text</td>
+                        <td tabindex="-1">Text</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Amazon</td>
+                        <td tabindex="-1">Titan Embeddings G1 - Text</td>
+                        <td tabindex="-1">amazon.titan-embed-text-v1</td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>us-east-1</p></li><li class="listitem"><p>us-west-2</p></li><li class="listitem"><p>ap-northeast-1</p></li><li class="listitem"><p>eu-central-1</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>11/29/2023</p></li><li class="listitem"><p>11/29/2023</p></li><li class="listitem"><p>11/29/2023</p></li><li class="listitem"><p>11/29/2023</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">No sooner than 11/29/2024</td>
+                        <td tabindex="-1">Text</td>
+                        <td tabindex="-1">Embedding</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Amazon</td>
+                        <td tabindex="-1">Titan Image Generator G1 v2</td>
+                        <td tabindex="-1">amazon.titan-image-generator-v2:0</td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>us-east-1</p></li><li class="listitem"><p>us-west-2</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>8/6/2024</p></li><li class="listitem"><p>8/6/2024</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">No sooner than 8/6/2025</td>
+                        <td tabindex="-1">Text, Image
+                        </td>
+                        <td tabindex="-1">Image</td>
+                    </tr>
+                    
+                    <tr>
+                        <td tabindex="-1">Amazon</td>
+                        <td tabindex="-1">Titan Multimodal Embeddings G1</td>
+                        <td tabindex="-1">amazon.titan-embed-image-v1</td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>us-east-1</p></li><li class="listitem"><p>us-west-2</p></li><li class="listitem"><p>ap-south-1</p></li><li class="listitem"><p>ap-southeast-2</p></li><li class="listitem"><p>ca-central-1</p></li><li class="listitem"><p>eu-central-1</p></li><li class="listitem"><p>eu-west-1 (Gated)</p></li><li class="listitem"><p>eu-west-2</p></li><li class="listitem"><p>eu-west-3</p></li><li class="listitem"><p>sa-east-1</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>11/29/2023</p></li><li class="listitem"><p>11/29/2023</p></li><li class="listitem"><p>4/30/2024</p></li><li class="listitem"><p>3/27/2024</p></li><li class="listitem"><p>6/13/2024</p></li><li class="listitem"><p>6/27/2024</p></li><li class="listitem"><p>4/30/2024</p></li><li class="listitem"><p>6/13/2024</p></li><li class="listitem"><p>3/27/2024</p></li><li class="listitem"><p>6/13/2024</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">No sooner than 11/29/2024</td>
+                        <td tabindex="-1">Text, Image
+                        </td>
+                        <td tabindex="-1">Embedding</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Amazon</td>
+                        <td tabindex="-1">Titan Text Embeddings V2</td>
+                        <td tabindex="-1">amazon.titan-embed-text-v2:0</td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>us-east-1</p></li><li class="listitem"><p>us-east-2</p></li><li class="listitem"><p>us-west-2</p></li><li class="listitem"><p>us-gov-east-1</p></li><li class="listitem"><p>us-gov-west-1</p></li><li class="listitem"><p>ap-northeast-1</p></li><li class="listitem"><p>ap-northeast-2</p></li><li class="listitem"><p>ap-south-1</p></li><li class="listitem"><p>ap-southeast-1</p></li><li class="listitem"><p>ap-southeast-2</p></li><li class="listitem"><p>ca-central-1</p></li><li class="listitem"><p>eu-central-1</p></li><li class="listitem"><p>eu-central-2</p></li><li class="listitem"><p>eu-west-2</p></li><li class="listitem"><p>eu-west-3</p></li><li class="listitem"><p>sa-east-1</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>4/30/2024</p></li><li class="listitem"><p></p></li><li class="listitem"><p>4/30/2024</p></li><li class="listitem"><p>11/8/2024</p></li><li class="listitem"><p>8/13/2024</p></li><li class="listitem"><p>12/13/2024</p></li><li class="listitem"><p>9/30/2024</p></li><li class="listitem"><p>12/13/2024</p></li><li class="listitem"><p></p></li><li class="listitem"><p>10/10/2024</p></li><li class="listitem"><p>6/13/2024</p></li><li class="listitem"><p>6/27/2024</p></li><li class="listitem"><p>10/31/2024</p></li><li class="listitem"><p>6/13/2024</p></li><li class="listitem"><p>12/13/2024</p></li><li class="listitem"><p>6/13/2024</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">No sooner than 4/30/2024</td>
+                        <td tabindex="-1">Text</td>
+                        <td tabindex="-1">Embedding</td>
+                    </tr>
+                    
+                    
+                    
+                   
+                    
+                    
+                    
+                    
+                   
+                    
+                    <tr>
+                        <td tabindex="-1">Anthropic</td>
+                        <td tabindex="-1">Claude 3 Haiku</td>
+                        <td tabindex="-1">anthropic.claude-3-haiku-20240307-v1:0</td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>us-east-1</p></li><li class="listitem"><p>us-east-2*</p></li><li class="listitem"><p>us-west-2</p></li><li class="listitem"><p>us-gov-east-1*</p></li><li class="listitem"><p>us-gov-west-1</p></li><li class="listitem"><p>ap-northeast-1</p></li><li class="listitem"><p>ap-northeast-2</p></li><li class="listitem"><p>ap-south-1</p></li><li class="listitem"><p>ap-southeast-1 (Gated)</p></li><li class="listitem"><p>ap-southeast-2</p></li><li class="listitem"><p>ca-central-1</p></li><li class="listitem"><p>eu-central-1</p></li><li class="listitem"><p>eu-central-2</p></li><li class="listitem"><p>eu-west-1 (Gated)</p></li><li class="listitem"><p>eu-west-2</p></li><li class="listitem"><p>eu-west-3</p></li><li class="listitem"><p>sa-east-1</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>3/14/2024</p></li><li class="listitem"><p></p></li><li class="listitem"><p>3/14/2024</p></li><li class="listitem"><p></p></li><li class="listitem"><p>8/30/2024</p></li><li class="listitem"><p>7/30/2024</p></li><li class="listitem"><p></p></li><li class="listitem"><p>4/30/2024</p></li><li class="listitem"><p>8/7/2024</p></li><li class="listitem"><p>4/6/2024</p></li><li class="listitem"><p>6/13/2024</p></li><li class="listitem"><p></p></li><li class="listitem"><p></p></li><li class="listitem"><p>4/30/2024</p></li><li class="listitem"><p>5/9/2024</p></li><li class="listitem"><p>4/4/2024</p></li><li class="listitem"><p>6/13/2024</p></li></ul></div>
+                            
+                        </td>
+                        <td tabindex="-1">No sooner than 3/14/2025</td>
+                        <td tabindex="-1">Text, Image
+                        </td>
+                        <td tabindex="-1">Text, Chat
+                        </td>
+                    </tr>
+                    
+
+                    
+                    <tr>
+                        <td tabindex="-1">Anthropic</td>
+                        <td tabindex="-1">Claude 3.5 Haiku</td>
+                        <td tabindex="-1">anthropic.claude-3-5-haiku-20241022-v1:0</td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>us-east-1*</p></li><li class="listitem"><p>us-east-2*</p></li><li class="listitem"><p>us-west-2</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>11/4/2024</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">No sooner than 11/4/2025</td>
+                        <td tabindex="-1">Text, Image
+                        </td>
+                        <td tabindex="-1">Text, Chat
+                        </td>
+                    </tr>
+                    
+             
+                    
+                    <tr>
+                        <td tabindex="-1">Anthropic</td>
+                        <td tabindex="-1">Claude 3.5 Sonnet v1</td>
+                        <td tabindex="-1">anthropic.claude-3-5-sonnet-20240620-v1:0</td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>us-gov-east-1*</p></li><li class="listitem"><p>us-gov-west-1</p></li><li class="listitem"><p>ap-northeast-1</p></li><li class="listitem"><p>ap-northeast-2</p></li><li class="listitem"><p>ap-south-1*</p></li><li class="listitem"><p>ap-southeast-1 (Gated)</p></li><li class="listitem"><p>ap-southeast-2*</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>6/20/2024</p></li><li class="listitem"><p></p></li><li class="listitem"><p></p></li><li class="listitem"><p></p></li><li class="listitem"><p></p></li><li class="listitem"><p>7/30/2024</p></li><li class="listitem"><p></p></li><li class="listitem"><p></p></li><li class="listitem"><p></p></li><li class="listitem"><p>8/7/2024</p></li><li class="listitem"><p></p></li><li class="listitem"><p></p></li><li class="listitem"><p>8/5/2024</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">No sooner than 7/30/2025</td>
+                        <td tabindex="-1">Text, Image
+                        </td>
+                        <td tabindex="-1">Text, Chat
+                        </td>
+                    </tr>
+                    <tr>
+                       <td tabindex="-1">Anthropic</td>
+                       <td tabindex="-1">Claude 3.5 Sonnet v2</td>
+                       <td tabindex="-1">anthropic.claude-3-5-sonnet-20241022-v2:0</td>
+                       <td tabindex="-1">
+                        <div class="itemizedlist">
+                             
+                             
+                             
+                             
+                             
+                             
+                             
+                         <ul class="itemizedlist"><li class="listitem"><p>ap-northeast-1</p></li><li class="listitem"><p>ap-northeast-2</p></li><li class="listitem"><p>ap-northeast-3</p></li><li class="listitem"><p>ap-south-1</p></li><li class="listitem"><p>ap-south-2</p></li><li class="listitem"><p>ap-southeast-1 </p></li><li class="listitem"><p>ap-southeast-2</p></li></ul></div>
+                       </td>
+                       <td tabindex="-1">
+                        <div class="itemizedlist">
+                             
+                        <ul class="itemizedlist"><li class="listitem"><p>10/22/2024</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">No sooner than 10/22/2025</td>
+                        <td tabindex="-1">Text, Image
+                        </td>
+                        <td tabindex="-1">Text, Chat
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td tabindex="-1">Anthropic</td>
+                        <td tabindex="-1">Claude Sonnet 4.5</td>
+                        <td tabindex="-1">anthropic.claude-sonnet-4-5-20250929-v1:0</td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>us-east-1*</p></li><li class="listitem"><p>us-east-2*</p></li><li class="listitem"><p>us-west-2*</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>9/29/2025</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">No sooner than 9/29/2026</td>
+                        <td tabindex="-1">Text, Image
+                        </td>
+                        <td tabindex="-1">Text, Chat
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td tabindex="-1">Anthropic</td>
+                        <td tabindex="-1">Claude Sonnet 4.0</td>
+                        <td tabindex="-1">anthropic.claude-sonnet-4-20250514-v1:0</td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>us-east-1*</p></li><li class="listitem"><p>us-east-2*</p></li><li class="listitem"><p>us-west-2*</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>5/22/2025</p></li><li class="listitem"><p>5/22/2025</p></li><li class="listitem"><p>5/22/2025</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">No sooner than 5/22/2026</td>
+                        <td tabindex="-1">Text, Image
+                        </td>
+                        <td tabindex="-1">Text, Chat
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td tabindex="-1">Anthropic</td>
+                        <td tabindex="-1">Claude Opus 4.0</td>
+                        <td tabindex="-1">anthropic.claude-opus-4-20250514-v1:0</td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>us-east-1*</p></li><li class="listitem"><p>us-east-2*</p></li><li class="listitem"><p>us-west-2*</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>5/22/2025</p></li><li class="listitem"><p>5/22/2025</p></li><li class="listitem"><p>5/22/2025</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">No sooner than 5/22/2026</td>
+                        <td tabindex="-1">Text, Image
+                        </td>
+                        <td tabindex="-1">Text, Chat
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td tabindex="-1">Anthropic</td>
+                        <td tabindex="-1">Claude Opus 4.1</td>
+                        <td tabindex="-1">anthropic.claude-opus-4-1-20250805-v1:0</td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>us-east-1*</p></li><li class="listitem"><p>us-east-2*</p></li><li class="listitem"><p>us-west-2*</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>7/31/2025</p></li><li class="listitem"><p>7/31/2025</p></li><li class="listitem"><p>7/31/2025</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">No sooner than 7/31/2026</td>
+                        <td tabindex="-1">Text, Image
+                        </td>
+                        <td tabindex="-1">Text, Chat
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td tabindex="-1">Anthropic</td>
+                        <td tabindex="-1">Claude Haiku 4.5</td>
+                        <td tabindex="-1">anthropic.claude-haiku-4-5-20251001-v1:0</td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>us-east-1*</p></li><li class="listitem"><p>us-east-2*</p></li><li class="listitem"><p>us-west-2*</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>10/1/2025</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">No sooner than 10/1/2026</td>
+                        <td tabindex="-1">Text, Image
+                        </td>
+                        <td tabindex="-1">Text, Chat
+                        </td>
+                    </tr>
+                 
+
+                    
+                    
+                 
+                    
+                    
+                    <tr>
+                        <td tabindex="-1">Cohere</td>
+                        <td tabindex="-1">Embed English</td>
+                        <td tabindex="-1">cohere.embed-english-v3</td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>us-east-1</p></li><li class="listitem"><p>us-west-2</p></li><li class="listitem"><p>ap-northeast-1</p></li><li class="listitem"><p>ap-south-1</p></li><li class="listitem"><p>ap-southeast-1 (Gated)</p></li><li class="listitem"><p>ap-southeast-2</p></li><li class="listitem"><p>ca-central-1</p></li><li class="listitem"><p>eu-central-1</p></li><li class="listitem"><p>eu-west-1 (Gated)</p></li><li class="listitem"><p>eu-west-2</p></li><li class="listitem"><p>eu-west-3</p></li><li class="listitem"><p>sa-east-1</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>11/13/2023</p></li><li class="listitem"><p>11/13/2023</p></li><li class="listitem"><p>3/14/2024</p></li><li class="listitem"><p>4/30/2024</p></li><li class="listitem"><p>3/13/2024</p></li><li class="listitem"><p>3/27/2024</p></li><li class="listitem"><p>6/13/2024</p></li><li class="listitem"><p>3/19/2024</p></li><li class="listitem"><p></p></li><li class="listitem"><p></p></li><li class="listitem"><p>3/27/2024</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">No sooner than 11/30/2024</td>
+                        <td tabindex="-1">Text</td>
+                        <td tabindex="-1">Embedding</td>
+                    </tr>
+                    
+                    <tr>
+                        <td tabindex="-1">Cohere</td>
+                        <td tabindex="-1">Embed Multilingual</td>
+                        <td tabindex="-1">cohere.embed-multilingual-v3</td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>us-east-1</p></li><li class="listitem"><p>us-west-2</p></li><li class="listitem"><p>ap-northeast-1</p></li><li class="listitem"><p>ap-south-1</p></li><li class="listitem"><p>ap-southeast-1 (Gated)</p></li><li class="listitem"><p>ap-southeast-2</p></li><li class="listitem"><p>ca-central-1</p></li><li class="listitem"><p>eu-central-1</p></li><li class="listitem"><p>eu-west-1 (Gated)</p></li><li class="listitem"><p>eu-west-2</p></li><li class="listitem"><p>eu-west-3</p></li><li class="listitem"><p>sa-east-1</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>11/13/2023</p></li><li class="listitem"><p>11/13/2023</p></li><li class="listitem"><p>4/1/2024</p></li><li class="listitem"><p>4/30/2024</p></li><li class="listitem"><p>3/13/2024</p></li><li class="listitem"><p>3/27/2024</p></li><li class="listitem"><p>6/13/2024</p></li><li class="listitem"><p>3/19/2024</p></li><li class="listitem"><p>4/30/2024</p></li><li class="listitem"><p>5/22/2024</p></li><li class="listitem"><p>3/27/2024</p></li><li class="listitem"><p>7/8/2024</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">No sooner than 11/13/2024</td>
+                        <td tabindex="-1">Text</td>
+                        <td tabindex="-1">Embedding</td>
+                    </tr>
+                    
+                    <tr>
+                        <td tabindex="-1">Cohere</td>
+                        <td tabindex="-1">Rerank 3.5</td>
+                        <td tabindex="-1">cohere.rerank-v3-5:0</td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>us-west-2</p></li><li class="listitem"><p>ap-northeast-1</p></li><li class="listitem"><p>ca-central-1</p></li><li class="listitem"><p>eu-central-1</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1"></td>
+                        <td tabindex="-1"></td>
+                        <td tabindex="-1">Text</td>
+                        <td tabindex="-1">Text</td>
+                    </tr>
+                    
+                    <tr>
+                        <td tabindex="-1">Meta</td>
+                        <td tabindex="-1">Llama 3 8B Instruct</td>
+                        <td tabindex="-1">meta.llama3-8b-instruct-v1:0</td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>us-east-1</p></li><li class="listitem"><p>us-west-2</p></li><li class="listitem"><p>us-gov-west-1</p></li><li class="listitem"><p>ap-south-1</p></li><li class="listitem"><p>ca-central-1</p></li><li class="listitem"><p>eu-west-2</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>4/23/2024</p></li><li class="listitem"><p>4/23/2024</p></li><li class="listitem"><p>8/1/2024</p></li><li class="listitem"><p>4/30/2024</p></li><li class="listitem"><p>6/13/2024</p></li><li class="listitem"><p>6/13/2024</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">No sooner than 4/23/2025</td>
+                        <td tabindex="-1">Text</td>
+                        <td tabindex="-1">Text, Chat
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td tabindex="-1">Meta</td>
+                        <td tabindex="-1">Llama 3 70B Instruct</td>
+                        <td tabindex="-1">meta.llama3-70b-instruct-v1:0</td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>us-east-1</p></li><li class="listitem"><p>us-west-2</p></li><li class="listitem"><p>us-gov-west-1</p></li><li class="listitem"><p>ap-south-1</p></li><li class="listitem"><p>ca-central-1</p></li><li class="listitem"><p>eu-west-2</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>4/23/2024</p></li><li class="listitem"><p>4/23/2024</p></li><li class="listitem"><p>8/1/2024</p></li><li class="listitem"><p>4/30/2024</p></li><li class="listitem"><p>6/13/2024</p></li><li class="listitem"><p>6/13/2024</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">No sooner than 4/23/2025</td>
+                        <td tabindex="-1">Text</td>
+                        <td tabindex="-1">Text, Chat
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td tabindex="-1">Meta</td>
+                        <td tabindex="-1">Llama 3.1 8B Instruct</td>
+                        <td tabindex="-1">meta.llama3-1-8b-instruct-v1:0</td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>us-east-1*</p></li><li class="listitem"><p>us-east-2*</p></li><li class="listitem"><p>us-west-2</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>10/26/2024</p></li><li class="listitem"><p>10/26/2024</p></li><li class="listitem"><p>7/23/2024</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">No sooner than 7/23/2025</td>
+                        <td tabindex="-1">Text</td>
+                        <td tabindex="-1">Text, Chat
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td tabindex="-1">Meta</td>
+                        <td tabindex="-1">Llama 3.1 70B Instruct</td>
+                        <td tabindex="-1">meta.llama3-1-70b-instruct-v1:0</td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>us-east-1*</p></li><li class="listitem"><p>us-east-2*</p></li><li class="listitem"><p>us-west-2</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>10/26/2024</p></li><li class="listitem"><p>10/26/2024</p></li><li class="listitem"><p>7/23/2024</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">No sooner than 7/23/2025</td>
+                        <td tabindex="-1">Text</td>
+                        <td tabindex="-1">Text, Chat
+                        </td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Meta</td>
+                        <td tabindex="-1">Llama 3.1 405B Instruct</td>
+                        <td tabindex="-1">meta.llama3-1-405b-instruct-v1:0</td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>us-east-2*</p></li><li class="listitem"><p>us-west-2</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>12/3/2024</p></li><li class="listitem"><p>7/23/2024</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">No sooner than 7/23/2025</td>
+                        <td tabindex="-1">Text</td>
+                        <td tabindex="-1">Text, Chat
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td tabindex="-1">Meta</td>
+                        <td tabindex="-1">Llama 3.2 1B Instruct</td>
+                        <td tabindex="-1">meta.llama3-2-1b-instruct-v1:0</td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>us-east-1*</p></li><li class="listitem"><p>us-east-2*</p></li><li class="listitem"><p>us-west-2*</p></li><li class="listitem"><p>eu-central-1*</p></li><li class="listitem"><p>eu-west-1 (Gated)*</p></li><li class="listitem"><p>eu-west-3*</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>9/25/2024</p></li><li class="listitem"><p>10/26/2024</p></li><li class="listitem"><p>9/25/2024</p></li><li class="listitem"><p>9/25/2024</p></li><li class="listitem"><p>9/25/2024</p></li><li class="listitem"><p>9/25/2024</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">No sooner than 9/25/2025</td>
+                        <td tabindex="-1">Text</td>
+                        <td tabindex="-1">Text, Chat
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td tabindex="-1">Meta</td>
+                        <td tabindex="-1">Llama 3.2 3B Instruct</td>
+                        <td tabindex="-1">meta.llama3-2-3b-instruct-v1:0</td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>us-east-1*</p></li><li class="listitem"><p>us-east-2*</p></li><li class="listitem"><p>us-west-2*</p></li><li class="listitem"><p>eu-central-1*</p></li><li class="listitem"><p>eu-west-1 (Gated)*</p></li><li class="listitem"><p>eu-west-3*</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>9/25/2024</p></li><li class="listitem"><p>10/26/2024</p></li><li class="listitem"><p>9/25/2024</p></li><li class="listitem"><p>9/25/2024</p></li><li class="listitem"><p>9/25/2024</p></li><li class="listitem"><p>9/25/2024</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">No sooner than 9/25/2025</td>
+                        <td tabindex="-1">Text</td>
+                        <td tabindex="-1">Text, Chat
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td tabindex="-1">Meta</td>
+                        <td tabindex="-1">Llama 3.2 11B Instruct</td>
+                        <td tabindex="-1">meta.llama3-2-11b-instruct-v1:0</td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>us-east-1*</p></li><li class="listitem"><p>us-east-2*</p></li><li class="listitem"><p>us-west-2*</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>9/25/2024</p></li><li class="listitem"><p>10/26/2024</p></li><li class="listitem"><p>9/25/2024</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">No sooner than 9/25/2025</td>
+                        <td tabindex="-1">Text, Image
+                        </td>
+                        <td tabindex="-1">Text, Chat
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td tabindex="-1">Meta</td>
+                        <td tabindex="-1">Llama 3.2 90B Instruct</td>
+                        <td tabindex="-1">meta.llama3-2-90b-instruct-v1:0</td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>us-east-1*</p></li><li class="listitem"><p>us-east-2*</p></li><li class="listitem"><p>us-west-2*</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>9/25/2024</p></li><li class="listitem"><p>10/26/2024</p></li><li class="listitem"><p>9/25/2024</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">No sooner than 9/25/2025</td>
+                        <td tabindex="-1">Text, Image
+                        </td>
+                        <td tabindex="-1">Text, Chat
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td tabindex="-1">Meta</td>
+                        <td tabindex="-1">Llama 3.3 70B Instruct</td>
+                        <td tabindex="-1">meta.llama3-3-70b-instruct-v1:0</td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>us-east-1*</p></li><li class="listitem"><p>us-east-2</p></li><li class="listitem"><p>us-west-2*</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>12/19/2024</p></li><li class="listitem"><p>12/19/2024</p></li><li class="listitem"><p>12/19/2024</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">No sooner than 12/19/2025</td>
+                        <td tabindex="-1">Text</td>
+                        <td tabindex="-1">Text, Chat
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td tabindex="-1">Mistral AI</td>
+                        <td tabindex="-1">Mistral 7B Instruct</td>
+                        <td tabindex="-1">mistral.mistral-7b-instruct-v0:2</td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>us-east-1</p></li><li class="listitem"><p>us-west-2</p></li><li class="listitem"><p>ap-south-1</p></li><li class="listitem"><p>ap-southeast-2</p></li><li class="listitem"><p>ca-central-1</p></li><li class="listitem"><p>eu-west-1 (Gated)</p></li><li class="listitem"><p>eu-west-2</p></li><li class="listitem"><p>eu-west-3</p></li><li class="listitem"><p>sa-east-1</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>3/9/2024</p></li><li class="listitem"><p>3/1/2024</p></li><li class="listitem"><p>4/30/2024</p></li><li class="listitem"><p>3/29/2024</p></li><li class="listitem"><p>6/13/2024</p></li><li class="listitem"><p>4/30/2024</p></li><li class="listitem"><p>6/13/2024</p></li><li class="listitem"><p>3/29/2024</p></li><li class="listitem"><p>6/13/2024</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">No sooner than 3/1/2025</td>
+                        <td tabindex="-1">Text</td>
+                        <td tabindex="-1">Text</td>
+                    </tr>
+                    
+                    <tr>
+                        <td tabindex="-1">Mistral AI</td>
+                        <td tabindex="-1">Mistral Large (24.02)</td>
+                        <td tabindex="-1">mistral.mistral-large-2402-v1:0</td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>us-east-1</p></li><li class="listitem"><p>us-west-2</p></li><li class="listitem"><p>ap-south-1</p></li><li class="listitem"><p>ap-southeast-2</p></li><li class="listitem"><p>ca-central-1</p></li><li class="listitem"><p>eu-west-1 (Gated)</p></li><li class="listitem"><p>eu-west-2</p></li><li class="listitem"><p>eu-west-3</p></li><li class="listitem"><p>sa-east-1</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>4/3/2024</p></li><li class="listitem"><p>4/3/2024</p></li><li class="listitem"><p>4/30/2024</p></li><li class="listitem"><p>4/4/2024</p></li><li class="listitem"><p>6/13/2024</p></li><li class="listitem"><p>4/30/2024</p></li><li class="listitem"><p>6/13/2024</p></li><li class="listitem"><p>4/3/2024</p></li><li class="listitem"><p>6/13/2024</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">No sooner than 4/3/2025</td>
+                        <td tabindex="-1">Text</td>
+                        <td tabindex="-1">Text</td>
+                    </tr>
+                    
+                    <tr>
+                        <td tabindex="-1">Mistral AI</td>
+                        <td tabindex="-1">Mistral Large (24.07)</td>
+                        <td tabindex="-1">mistral.mistral-large-2407-v1:0</td>
+                        <td tabindex="-1">us-west-2</td>
+                        <td tabindex="-1">7/24/2024</td>
+                        <td tabindex="-1">No sooner than 7/24/2025</td>
+                        <td tabindex="-1">Text</td>
+                        <td tabindex="-1">Text</td>
+                    </tr>
+                    
+                    <tr>
+                        <td tabindex="-1">Mistral AI</td>
+                        <td tabindex="-1">Mistral Small (24.02)</td>
+                        <td tabindex="-1">mistral.mistral-small-2402-v1:0</td>
+                        <td tabindex="-1">us-east-1</td>
+                        <td tabindex="-1">5/24/2024</td>
+                        <td tabindex="-1">No sooner than 5/24/2025</td>
+                        <td tabindex="-1">Text</td>
+                        <td tabindex="-1">Text</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Mistral AI</td>
+                        <td tabindex="-1">Mixtral 8x7B Instruct</td>
+                        <td tabindex="-1">mistral.mixtral-8x7b-instruct-v0:1</td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>us-east-1</p></li><li class="listitem"><p>us-west-2</p></li><li class="listitem"><p>ap-south-1</p></li><li class="listitem"><p>ap-southeast-2</p></li><li class="listitem"><p>ca-central-1</p></li><li class="listitem"><p>eu-west-1 (Gated)</p></li><li class="listitem"><p>eu-west-2</p></li><li class="listitem"><p>eu-west-3</p></li><li class="listitem"><p>sa-east-1</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">
+                            <div class="itemizedlist">
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+                            <ul class="itemizedlist"><li class="listitem"><p>3/9/2024</p></li><li class="listitem"><p>3/1/2024</p></li><li class="listitem"><p>4/30/2024</p></li><li class="listitem"><p>3/29/2024</p></li><li class="listitem"><p>6/13/2024</p></li><li class="listitem"><p>4/30/2024</p></li><li class="listitem"><p>6/13/2024</p></li><li class="listitem"><p>3/29/2024</p></li><li class="listitem"><p>6/13/2024</p></li></ul></div>
+                        </td>
+                        <td tabindex="-1">No sooner than 3/1/2025</td>
+                        <td tabindex="-1">Text</td>
+                        <td tabindex="-1">Text</td>
+                    </tr>
+                    
+                    <tr>
+                        <td tabindex="-1">Stability AI</td>
+                        <td tabindex="-1">SD3 Large 1.0</td>
+                        <td tabindex="-1">stability.sd3-large-v1:0</td>
+                        <td tabindex="-1">us-west-2</td>
+                        <td tabindex="-1">9/4/2024</td>
+                        <td tabindex="-1">No sooner than 9/4/2025</td>
+                        <td tabindex="-1">Text, Image
+                        </td>
+                        <td tabindex="-1">Image</td>
+                    </tr>
+                    
+                    <tr>
+                        <td tabindex="-1">Stability AI</td>
+                        <td tabindex="-1">Stable Diffusion 3.5 Large</td>
+                        <td tabindex="-1">stability.sd3-5-large-v1:0</td>
+                        <td tabindex="-1">us-west-2</td>
+                        <td tabindex="-1">12/19/2024</td>
+                        <td tabindex="-1">No sooner than 12/19/2025</td>
+                        <td tabindex="-1">Text, Image
+                        </td>
+                        <td tabindex="-1">Image</td>
+                    </tr>
+                    
+                    <tr>
+                        <td tabindex="-1">Stability AI</td>
+                        <td tabindex="-1">Stable Image Core 1.0</td>
+                        <td tabindex="-1">stability.stable-image-core-v1:0</td>
+                        <td tabindex="-1">us-west-2</td>
+                        <td tabindex="-1">9/4/2024</td>
+                        <td tabindex="-1">No sooner than 9/4/2025</td>
+                        <td tabindex="-1">Text</td>
+                        <td tabindex="-1">Image</td>
+                    </tr>
+                    
+                    <tr>
+                        <td tabindex="-1">Stability AI</td>
+                        <td tabindex="-1">Stable Image Core 1.1</td>
+                        <td tabindex="-1">stability.stable-image-core-v1:1</td>
+                        <td tabindex="-1">us-west-2</td>
+                        <td tabindex="-1">12/19/2024</td>
+                        <td tabindex="-1">No sooner than 12/19/2025</td>
+                        <td tabindex="-1">Text</td>
+                        <td tabindex="-1">Image</td>
+                    </tr>
+                    
+                    <tr>
+                        <td tabindex="-1">Stability AI</td>
+                        <td tabindex="-1">Stable Image Ultra 1.0</td>
+                        <td tabindex="-1">stability.stable-image-ultra-v1:0</td>
+                        <td tabindex="-1">us-west-2</td>
+                        <td tabindex="-1">9/4/2024</td>
+                        <td tabindex="-1">No sooner than 9/4/2025</td>
+                        <td tabindex="-1">Text</td>
+                        <td tabindex="-1">Image</td>
+                    </tr>
+                    
+                    <tr>
+                        <td tabindex="-1">Stability AI</td>
+                        <td tabindex="-1">Stable Image Ultra 1.1</td>
+                        <td tabindex="-1">stability.stable-image-ultra-v1:1</td>
+                        <td tabindex="-1">us-west-2</td>
+                        <td tabindex="-1">12/19/2024</td>
+                        <td tabindex="-1">No sooner than 12/19/2025</td>
+                        <td tabindex="-1">Text</td>
+                        <td tabindex="-1">Image</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Luma</td>
+                        <td tabindex="-1">Luma Ray v2</td>
+                        <td tabindex="-1">luma.ray-v2:0</td>
+                        <td tabindex="-1">us-west-2</td>
+                        <td tabindex="-1">1/23/2025</td>
+                        <td tabindex="-1">No sooner than 1/23/2026</td>
+                        <td tabindex="-1">Text</td>
+                        <td tabindex="-1">Video</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Cohere</td>
+                        <td tabindex="-1">Cohere Embed English</td>
+                        <td tabindex="-1">cohere.embed-english-v3</td>
+                        <td tabindex="-1"></td>
+                        <td tabindex="-1">1/24/2025</td>
+                        <td tabindex="-1">No sooner than 1/24/2026</td>
+                        <td tabindex="-1">Text</td>
+                        <td tabindex="-1">Embedding</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Cohere</td>
+                        <td tabindex="-1">Cohere Embed Multilingual</td>
+                        <td tabindex="-1">cohere.embed-multilingual-v3</td>
+                        <td tabindex="-1"></td>
+                        <td tabindex="-1">1/24/2025</td>
+                        <td tabindex="-1">No sooner than 1/24/2026</td>
+                        <td tabindex="-1">Text</td>
+                        <td tabindex="-1">Embedding</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Anthropic</td>
+                        <td tabindex="-1">Claude 3.7 Sonnet</td>
+                        <td tabindex="-1">anthropic.claude-3-7-sonnet-20250219-v1:0</td>
+                        <td tabindex="-1"></td>
+                        <td tabindex="-1">2/24/2025</td>
+                        <td tabindex="-1">No sooner than 2/24/2026</td>
+                        <td tabindex="-1">Text, Image</td>
+                        <td tabindex="-1">Text, Chat</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">DeepSeek</td>
+                        <td tabindex="-1">DeepSeek-R1</td>
+                        <td tabindex="-1">deepseek.r1-v1:0</td>
+                        <td tabindex="-1">us-east-1, us-east-2, us-west-2</td>
+                        <td tabindex="-1">3/10/2025</td>
+                        <td tabindex="-1">No sooner than 3/10/2026</td>
+                        <td tabindex="-1">Text</td>
+                        <td tabindex="-1">Text</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Mistral AI</td>
+                        <td tabindex="-1">Pixtral Large (25.02)</td>
+                        <td tabindex="-1">mistral.pixtral-large-2502-v1:0</td>
+                        <td tabindex="-1"></td>
+                        <td tabindex="-1">4/8/2025</td>
+                        <td tabindex="-1">No sooner than 4/8/2026</td>
+                        <td tabindex="-1">Text, Image</td>
+                        <td tabindex="-1">Text</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Writer</td>
+                        <td tabindex="-1">Palmyra X4</td>
+                        <td tabindex="-1">writer.palmyra-x4-v1:0</td>
+                        <td tabindex="-1">us-west-2</td>
+                        <td tabindex="-1">4/28/2025</td>
+                        <td tabindex="-1">No sooner than 4/28/2026</td>
+                        <td tabindex="-1">Text</td>
+                        <td tabindex="-1">Text</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Writer</td>
+                        <td tabindex="-1">Palmyra X5</td>
+                        <td tabindex="-1">writer.palmyra-x5-v1:0</td>
+                        <td tabindex="-1">us-west-2</td>
+                        <td tabindex="-1">4/28/2025</td>
+                        <td tabindex="-1">No sooner than 4/28/2026</td>
+                        <td tabindex="-1">Text</td>
+                        <td tabindex="-1">Text</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Meta</td>
+                        <td tabindex="-1">Llama 4 Scout 17B Instruct</td>
+                        <td tabindex="-1">meta.llama4-scout-17b-instruct-v1:0</td>
+                        <td tabindex="-1">us-east-1, us-east-2, us-west-2</td>
+                        <td tabindex="-1">4/28/2025</td>
+                        <td tabindex="-1">No sooner than 4/28/2026</td>
+                        <td tabindex="-1">Text, Image</td>
+                        <td tabindex="-1">Text, Chat</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Meta</td>
+                        <td tabindex="-1">Llama 4 Maverick 17B Instruct</td>
+                        <td tabindex="-1">meta.llama4-maverick-17b-instruct-v1:0</td>
+                        <td tabindex="-1">us-east-1, us-east-2, us-west-2</td>
+                        <td tabindex="-1">4/28/2025</td>
+                        <td tabindex="-1">No sooner than 4/28/2026</td>
+                        <td tabindex="-1">Text, Image</td>
+                        <td tabindex="-1">Text, Chat</td>
+                    </tr>
+                </table></div></div>
+     
+        <h2 id="versions-for-legacy">Legacy versions</h2>
+
+        <p>We will notify you when a model provider moves a model to the Legacy state. <b>A model will be in the Legacy state for at least 6 months before the EOL
+                date</b>. While you can continue to use a Legacy model during this period,
+            you should plan to transition to an Active model before the EOL date. New customers
+            can't use Legacy models and existing customers may lose access to Legacy models due to
+            inactivity. </p>
+        
+        <p><b>For models with EOL dates after February 1, 2026: </b>
+            After a minimum of 3 months in the Legacy state, a model will enter the public extended
+            access portion of the Legacy period. During this public extended access period, active
+            users of a Legacy model can continue to use it until the EOL date (for a minimum of 3
+            months), but you should expect higher pricing, which will be set by the model
+            provider. When the model first enters the Legacy state, we will notify you of the
+            provider’s chosen date to transition a model to public extended access (which will be at
+            least 3 months from notification) and pricing changes (if any). We will also notify you
+            before any further pricing changes during the public extended access period. </p>
+        
+        <p>You can't create a new <a href="./prov-throughput.html">Provisioned Throughput</a> for models in the Legacy state.</p>
+
+        <p>The following table shows the legacy versions of models available on Amazon Bedrock. The
+                <em>Public extended access date</em>
+            column only applies to models with EOL dates later than February 1, 2026.</p>
+
+        <div class="table-container"><div class="table-contents"><table id="w492aac15c34b9c11"><thead>
+                    <tr>
+                        <th>Model version</th>
+                        <th>Legacy date</th>
+                        <th>Public extended access date</th>
+                        <th>EOL date</th>
+                        <th>Recommended model version replacement</th>
+                        <th>Recommended model ID</th>
+                    </tr>
+                </thead>
+                    <tr>
+                        <td tabindex="-1">Stable Diffusion XL 1.0</td>
+                        <td tabindex="-1">October 16, 2024 (us-east-1 and us-west-2)</td>
+                        <td tabindex="-1">NA</td>
+                        <td tabindex="-1">May 20, 2025 (us-east-1 and us-west-2)</td>
+                        <td tabindex="-1">Stable Image Core</td>
+                        <td tabindex="-1">stability.stable-image-core-v1:0, stability.stable-image-ultra-v1:0,
+                            and stability.sd3-large-v1:0</td>
+                    </tr>
+
+
+
+                    <tr>
+                        <td tabindex="-1">Claude 3 Opus</td>
+                        <td tabindex="-1">July 15th, 2025 (all Regions)</td>
+                        <td tabindex="-1">NA</td>
+                        <td tabindex="-1">January 15th, 2026 (all Regions)</td>
+                        <td tabindex="-1">Claude Opus 4.1, Claude Sonnet 4.5</td>
+                        <td tabindex="-1">anthropic.claude-opus-4-1-20250805-v1:0,
+                            anthropic.claude-sonnet-4-5-20250929-v1:0</td>
+                    </tr>
+
+                    <tr>
+                        <td tabindex="-1">Claude Opus 4</td>
+                        <td tabindex="-1">October 1, 2025 (all regions)</td>
+                        <td tabindex="-1">March 1, 2026 (all regions)</td>
+                        <td tabindex="-1">May 31, 2026</td>
+                        <td tabindex="-1">Claude Opus 4.1</td>
+                        <td tabindex="-1">anthropic.claude-opus-4-1-20250805-v1:0</td>
+                    </tr>
+
+
+
+                    
+                    
+                    
+                    <tr>
+                        <td tabindex="-1">Claude 3.5 Sonnet v1</td>
+                        <td tabindex="-1">August 25, 2025  (us-east-1, us-east-2, us-west-2, eu-central-1, eu-central-2, eu-west-1, and eu-west-3
+                            Regions)</td>
+                        <td tabindex="-1">December 1, 2025</td>
+                        <td tabindex="-1">Mar 1, 2026 (us-east-1, us-east-2, us-west-2, eu-central-1, eu-central-2, eu-west-1, and eu-west-3
+                            Regions)</td>
+                        <td tabindex="-1">Claude Sonnet 4.5</td>
+                        <td tabindex="-1">anthropic.claude-sonnet-4-5-20250929-v1:0</td>
+                    </tr>
+                    
+                    <tr>
+                        <td tabindex="-1">Claude 3.5 Sonnet v2</td>
+                        <td tabindex="-1">August 25, 2025  (us-east-1, us-east-2, and us-west-2 Regions)</td>
+                        <td tabindex="-1">December 1, 2025</td>
+                        <td tabindex="-1">Mar 1, 2026 (us-east-1, us-east-2, and us-west-2 Regions)</td>
+                        <td tabindex="-1">Claude Sonnet 4.5</td>
+                        <td tabindex="-1">anthropic.claude-sonnet-4-5-20250929-v1:0</td>
+                    </tr>
+                    
+                    <tr>
+                        <td tabindex="-1">Claude 3.7 Sonnet</td>
+                        <td tabindex="-1">October 28, 2025 (us-east-1, us-east-2, us-west-2, ap-northeast-1, ap-northeast-2, ap-northeast-3, ap-south-1, ap-south-2, ap-southeast-1, ap-southeast-2, eu-central-1, eu-north-1, eu-west-1, eu-west-3)</td>
+                        <td tabindex="-1">January 27, 2026 (all regions)</td>
+                        <td tabindex="-1">April 28, 2026</td>
+                        <td tabindex="-1">Claude Sonnet 4.5</td>
+                        <td tabindex="-1">anthropic.claude-sonnet-4-5-20250929-v1:0</td>
+                    </tr>
+                </table></div></div>
+
+     
+        <h2 id="versions-for-eol">End-of-Life (EOL) versions</h2>
+        
+        <p><b>EOL</b> — After the EOL date, a model will be
+            marked EOL in the console and in the following table. On, or soon after the EOL date,
+            the model is no longer available for use in all AWS Regions and requests made to this
+            version will fail, unless there is a private arrangement between you and the provider
+            for continued access. You will need to migrate to the latest model by updating your
+            application code before the EOL date. Migration will not happen automatically.</p>
+        
+        <p>The following table shows the versions of models that have passed the EOL date on Amazon Bedrock.</p>
+        
+        
+        
+        
+        <div class="table-container"><div class="table-contents"><table id="w492aac15c34c11b7"><thead>
+                    <tr>
+                        <th>Model version</th>
+                        <th>Legacy date</th>
+                        <th>EOL date</th>
+                        <th>Recommended model version replacement</th>
+                        <th>Recommended model ID</th>
+                    </tr>
+                </thead>
+                    <tr>
+                        <td tabindex="-1">Stable Diffusion XL 0.8</td>
+                        <td tabindex="-1">February 2, 2024</td>
+                        <td tabindex="-1">April 30, 2024</td>
+                        <td tabindex="-1">Stable Diffusion XL 1.x</td>
+                        <td tabindex="-1">stability.stable-diffusion-xl-v1</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Cohere Command</td>
+                        <td tabindex="-1">October 4, 2024</td>
+                        <td tabindex="-1">August 12, 2025</td>
+                        <td tabindex="-1">Cohere Command R, Cohere Command R+</td>
+                        <td tabindex="-1">cohere.command-r-v1:0 and cohere.command-r-plus-v1:0</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Cohere Command Light</td>
+                        <td tabindex="-1">October 4, 2024</td>
+                        <td tabindex="-1">August 12, 2025</td>
+                        <td tabindex="-1">Cohere Command R, Cohere Command R+</td>
+                        <td tabindex="-1">cohere.command-r-v1:0 and cohere.command-r-plus-v1:0</td>
+                    </tr>
+                    
+                    <tr>
+                        <td tabindex="-1">Claude v1.3</td>
+                        <td tabindex="-1">November 28, 2023</td>
+                        <td tabindex="-1">February 28, 2024</td>
+                        <td tabindex="-1">Claude Sonnet 4.5</td>
+                        <td tabindex="-1">anthropic.claude-sonnet-4-5-20250929-v1:0</td>
+                    </tr>
+                    
+                    
+                    <tr>
+                        <td tabindex="-1">Claude v2</td>
+                        <td tabindex="-1">January 21, 2025 (all Regions)</td>
+                        <td tabindex="-1">July 21, 2025 (all Regions)</td>
+                        <td tabindex="-1">Claude Sonnet 4.5</td>
+                        <td tabindex="-1">anthropic.claude-sonnet-4-5-20250929-v1:0</td>
+                    </tr>
+                    
+                    <tr>
+                        <td tabindex="-1">Claude v2.1</td>
+                        <td tabindex="-1">January 21, 2025 (all Regions)</td>
+                        <td tabindex="-1">July 21, 2025 (all Regions)</td>
+                        <td tabindex="-1">Claude Sonnet 4.5</td>
+                        <td tabindex="-1">anthropic.claude-sonnet-4-5-20250929-v1:0</td>
+                    </tr>
+                    
+                    <tr>
+                        <td tabindex="-1">Claude Instant</td>
+                        <td tabindex="-1">January 21, 2025 (all Regions)</td>
+                        <td tabindex="-1">July 21, 2025 (all Regions)</td>
+                        <td tabindex="-1">Claude Sonnet 4.5</td>
+                        <td tabindex="-1">anthropic.claude-sonnet-4-5-20250929-v1:0</td>
+                    </tr>
+                    
+                    
+                    
+                    
+                    <tr>
+                        <td tabindex="-1">Claude 3 Sonnet</td>
+                        <td tabindex="-1">January 21, 2025 (us-east-1, us-west-2, eu-central-1, eu-west-3,
+                            eu-west-1 Regions) </td>
+                        <td tabindex="-1">July 21, 2025 (us-east-1, us-west-2, eu-central-1, eu-west-3,
+                            eu-west-1 Regions)</td>
+                        <td tabindex="-1">Claude Sonnet 4.5</td>
+                        <td tabindex="-1">anthropic.claude-sonnet-4-5-20250929-v1:0</td>
+                    </tr>
+                    
+                    
+                    <tr>
+                        <td tabindex="-1">Titan Embeddings - Text v1.1</td>
+                        <td tabindex="-1">November 7, 2023</td>
+                        <td tabindex="-1">February 15, 2024</td>
+                        <td tabindex="-1">Titan Embeddings - Text v1.2</td>
+                        <td tabindex="-1">amazon.titan-embed-text-v1</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Meta Llama 2 13b-chat-v1</td>
+                        <td tabindex="-1">May 12, 2024</td>
+                        <td tabindex="-1">October 30, 2024</td>
+                        <td tabindex="-1">Meta Llama3 and Meta Llama3.1</td>
+                        <td tabindex="-1">meta.llama3-1-8b-instruct-v1</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Meta Llama 2 70b-chat-v1</td>
+                        <td tabindex="-1">May 12, 2024</td>
+                        <td tabindex="-1">October 30, 2024</td>
+                        <td tabindex="-1">Meta Llama3 and Meta Llama3.1</td>
+                        <td tabindex="-1">meta.llama3-1-70b-instruct-v1</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Meta Llama 2-13b</td>
+                        <td tabindex="-1">May 12, 2024</td>
+                        <td tabindex="-1">October 30, 2024</td>
+                        <td tabindex="-1">Meta Llama3 and Meta Llama3.1</td>
+                        <td tabindex="-1">meta.llama3-8b-instruct-v1</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Meta Llama 2-70b</td>
+                        <td tabindex="-1">May 12, 2024</td>
+                        <td tabindex="-1">October 30, 2024</td>
+                        <td tabindex="-1">Meta Llama3 and Meta Llama3.1</td>
+                        <td tabindex="-1">meta.llama3-70b-instruct-v1</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Ai21 J2 Mid-v1</td>
+                        <td tabindex="-1">April 30, 2024 (only in us-west-2)</td>
+                        <td tabindex="-1">October 4, 2024 (only in us-west-2)</td>
+                        <td tabindex="-1">Jamba-Instruct v1</td>
+                        <td tabindex="-1">ai21.jamba-instruct-v1:0 in US East (N. Virginia)</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Ai21 J2 Ultra-v1</td>
+                        <td tabindex="-1">April 30, 2024 (only in us-west-2)</td>
+                        <td tabindex="-1">October 4, 2024 (only in us-west-2)</td>
+                        <td tabindex="-1">Jamba-Instruct v1</td>
+                        <td tabindex="-1">ai21.jamba-instruct-v1:0 in US East (N. Virginia)</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Ai21 J2-Grande-Instruct</td>
+                        <td tabindex="-1">April 30, 2024 (only in us-west-2)</td>
+                        <td tabindex="-1">October 4, 2024 (only in us-west-2)</td>
+                        <td tabindex="-1">Jamba-Instruct v1</td>
+                        <td tabindex="-1">ai21.jamba-instruct-v1:0 in US East (N. Virginia)</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Ai21 J2 Jumbo-Instruct</td>
+                        <td tabindex="-1">April 30, 2024 (only in us-west-2)</td>
+                        <td tabindex="-1">October 4, 2024 (only in us-west-2)</td>
+                        <td tabindex="-1">Jamba-Instruct v1</td>
+                        <td tabindex="-1">ai21.jamba-instruct-v1:0 in US East (N. Virginia)</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">AI21 Jamba-Instruct</td>
+                        <td tabindex="-1">January 31, 2025 (all Regions)</td>
+                        <td tabindex="-1">August 1, 2025 (all Regions)</td>
+                        <td tabindex="-1">AI21 Jamba 1.5 Mini or AI21 Jamba 1.5 Large</td>
+                        <td tabindex="-1">ai21.jamba-1-5-mini-v1:0 or ai21.jamba-1-5-large-v1:0</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Ai21 J2 Mid-v1</td>
+                        <td tabindex="-1">October 4, 2024 (only in us-east-1)</td>
+                        <td tabindex="-1">March 12, 2025 (only in us-east-1)</td>
+                        <td tabindex="-1">Jamba-Instruct v1</td>
+                        <td tabindex="-1">ai21.jamba-instruct-v1:0</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Ai21 J2 Ultra-v1</td>
+                        <td tabindex="-1">October 4, 2024 (only in us-east-1)</td>
+                        <td tabindex="-1">March 12, 2025 (only in us-east-1)</td>
+                        <td tabindex="-1">Jamba-Instruct v1</td>
+                        <td tabindex="-1">ai21.jamba-instruct-v1:0</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Ai21 J2-Grande-Instruct</td>
+                        <td tabindex="-1">October 4, 2024 (only in us-east-1)</td>
+                        <td tabindex="-1">March 12, 2025 (only in us-east-1)</td>
+                        <td tabindex="-1">Jamba-Instruct v1</td>
+                        <td tabindex="-1">ai21.jamba-instruct-v1:0</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Ai21 J2 Jumbo-Instruct</td>
+                        <td tabindex="-1">October 4, 2024 (only in us-east-1)</td>
+                        <td tabindex="-1">March 12, 2025 (only in us-east-1)</td>
+                        <td tabindex="-1">Jamba-Instruct v1</td>
+                        <td tabindex="-1">ai21.jamba-instruct-v1:0</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Stability Image Core v1</td>
+                        <td tabindex="-1">January 31, 2025</td>
+                        <td tabindex="-1">September 4, 2025</td>
+                        <td tabindex="-1">Stability Image Core v1.1</td>
+                        <td tabindex="-1">stability.stable-image-core-v1:1</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Stability 3 Large</td>
+                        <td tabindex="-1">January 31, 2025</td>
+                        <td tabindex="-1">September 4, 2025</td>
+                        <td tabindex="-1">Stability 3.5 Large</td>
+                        <td tabindex="-1">stability.sd3-5-large-v1:0</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Stability Image Ultra v1</td>
+                        <td tabindex="-1">January 31, 2025</td>
+                        <td tabindex="-1">September 4, 2025</td>
+                        <td tabindex="-1">Stable Image Ultra v1.1</td>
+                        <td tabindex="-1">stability.stable-image-ultra-v1:1</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Amazon Titan Text G1 - Premier</td>
+                        <td tabindex="-1">January 31, 2025</td>
+                        <td tabindex="-1">August 15, 2025</td>
+                        <td tabindex="-1">Amazon Nova Pro</td>
+                        <td tabindex="-1">amazon.nova-pro-v1:0</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Amazon Titan Text G1 - Express</td>
+                        <td tabindex="-1">January 31, 2025</td>
+                        <td tabindex="-1">August 15, 2025</td>
+                        <td tabindex="-1">Amazon Nova Micro</td>
+                        <td tabindex="-1">amazon.nova-micro-v1:0</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Amazon Titan Text G1 - Lite</td>
+                        <td tabindex="-1">January 31, 2025</td>
+                        <td tabindex="-1">August 15, 2025</td>
+                        <td tabindex="-1">Amazon Nova Lite</td>
+                        <td tabindex="-1">amazon.nova-lite-v1:0</td>
+                    </tr>
+                    <tr>
+                        <td tabindex="-1">Amazon Titan Image Generator G1 V1</td>
+                        <td tabindex="-1">January 31, 2025</td>
+                        <td tabindex="-1">August 15, 2025</td>
+                        <td tabindex="-1">Amazon Nova Canvas</td>
+                        <td tabindex="-1">amazon.nova-canvas-v1:0</td>
+                    </tr>
+                    
+                </table></div></div>
+        
+        <p><b>Customized models</b></p>
+
+        
+        <p>If you have customized a model on Amazon Bedrock and use Provisioned Throughput by Model
+            Units, we will support this Provisioned Throughput by Model Units for 12 months after
+            the EOL date of the base model, provided the Model Units were provisioned prior to the
+            legacy date. Once the model transitions to legacy state, you will not be able to create
+            a new Provisioned Throughput by Model Units.</p>
+        
+        
+    <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><img src="https://d1ge0kk1l5kms0.cloudfront.net/images/G/01/webservices/console/warning.png" alt="Warning" /> <strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions"><a target="_top" href="/general/latest/gr/docconventions.html">Document Conventions</a></div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./cm-hp-meta-llama32.html">Meta  Llama 3.2 models</div><div id="next" class="next-link" accesskey="n" href="./amazon-bedrock-marketplace.html">Amazon Bedrock Marketplace</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div><div id="quick-feedback-yes" style="display: none;"><div class="title">Did this page help you? - Yes</div><div class="content"><p>Thanks for letting us know we're doing a good job!</p><p>If you've got a moment, please tell us what we did right so we can do more of it.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?feedback_destination_id=2d8c2a09-1dac-41bf-9893-c0333d272b2c&amp;topic_url=https://docs.aws.amazon.com/en_us/bedrock/latest/userguide/model-lifecycle.html"></awsui-button></p></div></div><div id="quick-feedback-no" style="display: none;"><div class="title">Did this page help you? - No</div><div class="content"><p>Thanks for letting us know this page needs work. We're sorry we let you down.</p><p>If you've got a moment, please tell us how we can make the documentation better.</p><p><awsui-button id="fblink" rel="noopener noreferrer" target="_blank" text="Feedback" click="linkClick($event)" href="https://docs.aws.amazon.com/forms/aws-doc-feedback?feedback_destination_id=2d8c2a09-1dac-41bf-9893-c0333d272b2c&amp;topic_url=https://docs.aws.amazon.com/en_us/bedrock/latest/userguide/model-lifecycle.html"></awsui-button></p></div></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

@@ -51,13 +51,13 @@ class AWSBedrockScraper(EnhancedBaseScraper):
             replacement_idx = None
 
             for i, header in enumerate(headers):
-                if "model" in header or "name" in header:
+                if ("model version" in header or "model name" in header) and model_idx is None:
                     model_idx = i
-                elif "legacy" in header:
+                elif "legacy" in header and "date" in header:
                     legacy_idx = i
-                elif "eol" in header or "end" in header:
+                elif ("eol" in header or "end of life" in header) and "date" in header:
                     eol_idx = i
-                elif "replac" in header or "migration" in header:
+                elif ("replac" in header or "migration" in header) and "id" not in header:
                     replacement_idx = i
 
             # Default to positional

@@ -101,6 +101,10 @@ class EnhancedBaseScraper:
         if not date_str:
             return ""
 
+        # Strip region/context information in parentheses
+        # e.g., "May 20, 2025 (us-east-1 and us-west-2)" -> "May 20, 2025"
+        date_str = re.sub(r"\s*\([^)]*\)\s*", "", date_str).strip()
+
         # Already in ISO format
         if re.match(r"^\d{4}-\d{2}-\d{2}$", date_str):
             return date_str
@@ -109,6 +113,8 @@ class EnhancedBaseScraper:
         formats = [
             "%B %d, %Y",  # January 31, 2025
             "%b %d, %Y",  # Jan 31, 2025
+            "%B %dth, %Y",  # July 15th, 2025
+            "%b %dth, %Y",  # Jul 15th, 2025
             "%Y-%m-%d",  # 2025-01-31
             "%m/%d/%Y",  # 01/31/2025
             "%d/%m/%Y",  # 31/01/2025
@@ -121,8 +127,7 @@ class EnhancedBaseScraper:
             except ValueError:
                 continue
 
-        # If no format matches, return original
-        return date_str
+        return ""
 
     def scrape(self) -> List[DeprecationItem]:
         """Main scraping method."""
