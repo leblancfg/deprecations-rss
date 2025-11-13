@@ -63,42 +63,79 @@ class GoogleScraper(EnhancedBaseScraper):
                             "retirement",
                         ]
                     ):
-                        # Extract model names and dates
-                        model_matches = re.findall(
-                            r"(gemini-[a-zA-Z0-9\-\.]+)", text.lower()
-                        )
+                        # Find all <code> tags that contain model IDs
+                        code_tags = next_elem.find_all("code")
 
-                        # Look for specific deprecation dates in text
-                        future_date_match = re.search(r"(\w+ \d+, \d{4})", text)
-                        deprecation_date = ""
-                        if future_date_match:
-                            parsed_date = self.parse_date(future_date_match.group(1))
-                            # Only use if it's a future date (likely shutdown date)
-                            if parsed_date and parsed_date > section_date:
-                                deprecation_date = parsed_date
+                        if code_tags:
+                            for code_tag in code_tags:
+                                model_id = code_tag.get_text(strip=True).lower()
 
-                        if not deprecation_date:
-                            deprecation_date = section_date
+                                # Verify it's a valid model ID pattern
+                                if not re.match(
+                                    r"^gemini-[a-zA-Z0-9\-\.]+$", model_id
+                                ) and not re.match(
+                                    r"^(veo|imagen)-[a-zA-Z0-9\-\.]+$", model_id
+                                ):
+                                    continue
 
-                        # Create items for each model found
-                        if model_matches:
-                            for model_id in model_matches:
+                                # Get context from the parent list item or paragraph
+                                context_elem = code_tag.find_parent(["li", "p"])
+                                if context_elem:
+                                    # Use the immediate parent's text as primary context
+                                    deprecation_context = context_elem.get_text(
+                                        " ", strip=True
+                                    )
+
+                                    # If context is too short, try grandparent
+                                    if len(deprecation_context) < 30:
+                                        grandparent = context_elem.find_parent(
+                                            ["li", "p"]
+                                        )
+                                        if grandparent:
+                                            deprecation_context = grandparent.get_text(
+                                                " ", strip=True
+                                            )
+                                else:
+                                    deprecation_context = text
+
+                                # Look for shutdown date in context
+                                future_date_match = re.search(
+                                    r"(\w+ \d+(?:st|nd|rd|th)?)[:\s]",
+                                    deprecation_context,
+                                )
+                                deprecation_date = ""
+                                if future_date_match:
+                                    date_str = future_date_match.group(1).rstrip(
+                                        "stndrdth"
+                                    )
+                                    # Try to parse with current year
+                                    try:
+                                        parsed_date = self.parse_date(
+                                            f"{date_str}, {section_date[:4]}"
+                                        )
+                                        if parsed_date and parsed_date >= section_date:
+                                            deprecation_date = parsed_date
+                                    except (ValueError, AttributeError):
+                                        pass
+
+                                if not deprecation_date:
+                                    deprecation_date = section_date
+
                                 # Clean up model name
                                 model_name = model_id.replace("-", " ").title()
-                                if "Pro" in model_name:
-                                    model_name = model_name.replace("Pro", "Pro")
-                                if "Flash" in model_name:
-                                    model_name = model_name.replace("Flash", "Flash")
 
-                                # Look for replacement models
+                                # Look for replacement models in context
                                 replacement = None
                                 repl_patterns = [
                                     r"redirect(?:ing)?\s+to\s+(gemini-[a-zA-Z0-9\-\.]+)",
+                                    r"use\s+([a-z]+\s+\d+)",
                                     r"use\s+(gemini-[a-zA-Z0-9\-\.]+)",
                                     r"replaced\s+(?:by|with)\s+(gemini-[a-zA-Z0-9\-\.]+)",
                                 ]
                                 for pattern in repl_patterns:
-                                    repl_match = re.search(pattern, text.lower())
+                                    repl_match = re.search(
+                                        pattern, deprecation_context.lower()
+                                    )
                                     if repl_match:
                                         replacement = repl_match.group(1)
                                         break
@@ -112,14 +149,13 @@ class GoogleScraper(EnhancedBaseScraper):
                                     if deprecation_date != section_date
                                     else "",
                                     replacement_model=replacement,
-                                    deprecation_context=text,
+                                    deprecation_context=deprecation_context,
                                     url=f"{self.url}#{section_date.replace('-', '')}",
                                 )
                                 items.append(item)
                         else:
-                            # Handle general deprecation entries
+                            # Fallback: extract from text if no code tags
                             if "gemini" in text.lower():
-                                # Try to extract model from context
                                 general_model_patterns = [
                                     r"gemini\s+1\.0\s+pro\s+vision",
                                     r"gemini\s+1\.0\s+pro",
@@ -132,6 +168,23 @@ class GoogleScraper(EnhancedBaseScraper):
                                             pattern, text.lower()
                                         ).group(0)
                                         model_id = model_name.lower().replace(" ", "-")
+
+                                        future_date_match = re.search(
+                                            r"(\w+ \d+, \d{4})", text
+                                        )
+                                        deprecation_date = ""
+                                        if future_date_match:
+                                            parsed_date = self.parse_date(
+                                                future_date_match.group(1)
+                                            )
+                                            if (
+                                                parsed_date
+                                                and parsed_date > section_date
+                                            ):
+                                                deprecation_date = parsed_date
+
+                                        if not deprecation_date:
+                                            deprecation_date = section_date
 
                                         item = DeprecationItem(
                                             provider=self.provider_name,
