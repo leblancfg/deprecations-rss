@@ -8,7 +8,9 @@ from src.scrapers.openai_scraper import OpenAIScraper
 @pytest.fixture
 def fixture_html():
     """Load the OpenAI deprecations fixture HTML."""
-    fixture_path = Path(__file__).parent.parent / "fixtures" / "openai_deprecations.html"
+    fixture_path = (
+        Path(__file__).parent.parent / "fixtures" / "openai_deprecations.html"
+    )
     with open(fixture_path, "r", encoding="utf-8") as f:
         return f.read()
 
@@ -32,7 +34,8 @@ def test_extracts_deprecation_context_for_all_items(scraper, fixture_html):
     items = scraper.extract_structured_deprecations(fixture_html)
 
     items_without_context = [
-        item for item in items
+        item
+        for item in items
         if not item.deprecation_context or not item.deprecation_context.strip()
     ]
 
@@ -44,7 +47,11 @@ def test_extracts_deprecation_context_for_all_items(scraper, fixture_html):
     )
 
     # Most items should have context
-    items_with_context = [item for item in items if item.deprecation_context and item.deprecation_context.strip()]
+    items_with_context = [
+        item
+        for item in items
+        if item.deprecation_context and item.deprecation_context.strip()
+    ]
     assert len(items_with_context) > len(items) * 0.75, (
         f"Expected at least 75% of items to have context, got {len(items_with_context)}/{len(items)}"
     )
@@ -55,16 +62,29 @@ def test_extracts_meaningful_context_text(scraper, fixture_html):
     items = scraper.extract_structured_deprecations(fixture_html)
 
     # Only check items that have context (some old ones don't)
-    items_with_context = [item for item in items if item.deprecation_context and item.deprecation_context.strip()]
+    items_with_context = [
+        item
+        for item in items
+        if item.deprecation_context and item.deprecation_context.strip()
+    ]
 
     for item in items_with_context:
         assert len(item.deprecation_context) > 50, (
             f"Context too short for {item.model_name}: '{item.deprecation_context[:100]}'"
         )
         # Check that context contains actual words
-        assert any(word in item.deprecation_context.lower() for word in [
-            "deprecat", "shut", "remov", "replac", "migrat", "notified", "announced"
-        ]), f"Context doesn't contain deprecation-related words for {item.model_name}"
+        assert any(
+            word in item.deprecation_context.lower()
+            for word in [
+                "deprecat",
+                "shut",
+                "remov",
+                "replac",
+                "migrat",
+                "notified",
+                "announced",
+            ]
+        ), f"Context doesn't contain deprecation-related words for {item.model_name}"
 
 
 def test_extracts_model_names(scraper, fixture_html):
@@ -82,7 +102,9 @@ def test_extracts_dates(scraper, fixture_html):
     items = scraper.extract_structured_deprecations(fixture_html)
 
     for item in items:
-        assert item.announcement_date, f"Missing announcement date for {item.model_name}"
+        assert item.announcement_date, (
+            f"Missing announcement date for {item.model_name}"
+        )
         assert item.shutdown_date, f"Missing shutdown date for {item.model_name}"
         # Dates should be in YYYY-MM-DD format
         assert len(item.announcement_date) == 10, (
@@ -132,9 +154,10 @@ def test_extracts_o1_preview_with_context(scraper, fixture_html):
 
     o1_item = o1_items[0]
     assert o1_item.deprecation_context, "o1-preview should have context"
-    assert "o1-preview" in o1_item.deprecation_context or "o1-mini" in o1_item.deprecation_context, (
-        "Context should mention the deprecated models"
-    )
+    assert (
+        "o1-preview" in o1_item.deprecation_context
+        or "o1-mini" in o1_item.deprecation_context
+    ), "Context should mention the deprecated models"
 
 
 def test_extracts_gpt4_32k_with_context(scraper, fixture_html):
@@ -160,9 +183,10 @@ def test_extracts_assistants_api_deprecation(scraper, fixture_html):
     if len(assistants_items) > 0:
         assistants_item = assistants_items[0]
         assert assistants_item.deprecation_context, "Assistants API should have context"
-        assert "Responses API" in assistants_item.deprecation_context or "Conversations API" in assistants_item.deprecation_context, (
-            "Context should mention replacement APIs"
-        )
+        assert (
+            "Responses API" in assistants_item.deprecation_context
+            or "Conversations API" in assistants_item.deprecation_context
+        ), "Context should mention replacement APIs"
 
 
 def test_handles_multiple_models_in_one_table_row(scraper, fixture_html):
@@ -186,15 +210,15 @@ def test_handles_models_with_special_characters(scraper, fixture_html):
 
     # Look for models with special characters
     special_char_models = [
-        item for item in items
-        if "-" in item.model_name or "_" in item.model_name
+        item for item in items if "-" in item.model_name or "_" in item.model_name
     ]
 
     assert len(special_char_models) > 0, "Should find models with special characters"
 
     # Check that most have context (some old ones may not)
     models_with_context = [
-        item for item in special_char_models
+        item
+        for item in special_char_models
         if item.deprecation_context and item.deprecation_context.strip()
     ]
 

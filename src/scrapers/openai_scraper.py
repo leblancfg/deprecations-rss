@@ -51,7 +51,10 @@ class OpenAIScraper(EnhancedBaseScraper):
         # Then, collect unwrapped headings (that aren't already in wrappers)
         for heading in main_content.find_all(["h2", "h3", "h4"]):
             parent = heading.parent
-            if not (parent.name == "div" and "anchor-heading-wrapper" in parent.get("class", [])):
+            if not (
+                parent.name == "div"
+                and "anchor-heading-wrapper" in parent.get("class", [])
+            ):
                 heading_containers.append((heading, heading))
 
         for container, element in heading_containers:
@@ -80,7 +83,10 @@ class OpenAIScraper(EnhancedBaseScraper):
                         elif sibling.name in ["h2", "h3", "h4"]:
                             # Next section, stop
                             break
-                        elif sibling.name == "div" and "anchor-heading-wrapper" in sibling.get("class", []):
+                        elif (
+                            sibling.name == "div"
+                            and "anchor-heading-wrapper" in sibling.get("class", [])
+                        ):
                             # Next wrapped section, stop
                             break
                         else:
