@@ -24,9 +24,7 @@ def test_analyze_batch_with_existing_data():
 
     # Create mock items and existing data
     items = []
-    existing_data = [
-        {"provider": "Test", "model_id": "test-1", "content": "test"}
-    ]
+    existing_data = [{"provider": "Test", "model_id": "test-1", "content": "test"}]
 
     # This will test the import path without making API calls
     result = analyzer.analyze_batch(items, existing_data)
