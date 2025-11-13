@@ -84,11 +84,9 @@ class XAIScraper(EnhancedBaseScraper):
         items = []
         soup = BeautifulSoup(html, "html.parser")
 
-        # Look for tables containing model information
         tables = soup.find_all("table")
 
         for table in tables:
-            # Check if this table contains model information
             headers = table.find("thead") or table.find("tr")
             if not headers:
                 continue
@@ -97,20 +95,9 @@ class XAIScraper(EnhancedBaseScraper):
             if "model" not in header_text:
                 continue
 
-            # Extract from this table
             table_items = self._extract_from_models_table(table)
             items.extend(table_items)
 
-        # Also look for rows with deprecation indicators (circle with bar in left gutter)
-        deprecated_rows = soup.find_all(
-            lambda tag: tag.name == "tr" and self._has_deprecation_indicator(tag)
-        )
-
-        for row in deprecated_rows:
-            row_items = self._extract_from_deprecated_row(row)
-            items.extend(row_items)
-
-        # Look for any text mentioning deprecated models
         deprecated_sections = soup.find_all(
             lambda tag: tag.name in ["div", "section", "p"]
             and "deprecat" in tag.get_text().lower()
@@ -124,47 +111,26 @@ class XAIScraper(EnhancedBaseScraper):
 
     def _has_deprecation_indicator(self, row_element) -> bool:
         """Check if a table row has a deprecation indicator."""
-        # Look for visual indicators that might suggest deprecation
         row_classes = " ".join(row_element.get("class", []))
+        row_text = row_element.get_text().lower()
 
-        # Check for deprecation-related classes
         deprecation_indicators = [
             "deprecated",
             "legacy",
             "discontinued",
             "sunset",
-            "warning",
-            "alert",
-            "strikethrough",
         ]
 
         for indicator in deprecation_indicators:
-            if indicator in row_classes.lower():
+            if indicator in row_classes.lower() or indicator in row_text:
                 return True
 
-        # Look for styling that might indicate deprecation
         style = row_element.get("style", "")
-        if any(
-            style_hint in style.lower()
-            for style_hint in ["line-through", "opacity", "disabled"]
-        ):
+        if "line-through" in style.lower():
             return True
 
-        # Check for icons or symbols in the first cell (left gutter)
-        first_cell = row_element.find("td")
-        if first_cell:
-            # Look for SVG icons, Unicode symbols, or specific classes
-            if (
-                first_cell.find("svg")
-                or "⊖" in first_cell.get_text()
-                or "⊝" in first_cell.get_text()
-                or "🚫" in first_cell.get_text()
-                or any(
-                    cls in " ".join(first_cell.get("class", [])).lower()
-                    for cls in ["icon", "deprecated", "warning"]
-                )
-            ):
-                return True
+        if "⊖" in row_text or "⊝" in row_text or "🚫" in row_text:
+            return True
 
         return False
 
@@ -291,81 +257,37 @@ class XAIScraper(EnhancedBaseScraper):
         return items
 
     def _extract_from_deprecated_section(self, section: Any) -> List[DeprecationItem]:
-        """Extract model names from text sections mentioning deprecated models."""
+        """Extract model names from text sections mentioning deprecated models.
+
+        Only extracts models that match xAI's naming conventions (grok-*) and are explicitly
+        stated as deprecated in the immediate context.
+        """
         items = []
         text = section.get_text()
 
-        # Look for model names in deprecation-related text
-        model_pattern = re.compile(
-            r"\b([a-z][a-z0-9\-_]*(?:-\d+)?(?:-preview|turbo|mini|large)?)\b"
-        )
+        deprecation_patterns = [
+            r"(grok-[a-z0-9\-]+)(?:\s+model)?\s+(?:is|has\s+been|will\s+be|is\s+being)\s+deprecat",
+            r"deprecat(?:ed|ing)\s+(?:model[s]?)?\s*:?\s*['\"]?(grok-[a-z0-9\-]+)['\"]?",
+            r"legacy\s+(?:model[s]?)?\s*:?\s*['\"]?(grok-[a-z0-9\-]+)['\"]?",
+            r"discontinued\s+(?:model[s]?)?\s*:?\s*['\"]?(grok-[a-z0-9\-]+)['\"]?",
+        ]
 
-        # Only process if the text clearly mentions deprecation
-        if not any(
-            word in text.lower()
-            for word in ["deprecat", "legacy", "discontinued", "sunset"]
-        ):
-            return items
+        for pattern in deprecation_patterns:
+            matches = re.finditer(pattern, text, re.IGNORECASE)
+            for match in matches:
+                model_name = match.group(1)
+                context_start = max(0, match.start() - 100)
+                context_end = min(len(text), match.end() + 100)
+                context = text[context_start:context_end].strip()
 
-        potential_models = model_pattern.findall(text.lower())
-
-        # Filter out common words that aren't model names
-        common_words = {
-            "the",
-            "and",
-            "or",
-            "but",
-            "in",
-            "on",
-            "at",
-            "to",
-            "for",
-            "of",
-            "with",
-            "by",
-            "from",
-            "as",
-            "is",
-            "are",
-            "was",
-            "were",
-            "been",
-            "have",
-            "has",
-            "will",
-            "would",
-            "could",
-            "should",
-            "may",
-            "might",
-            "can",
-            "must",
-            "models",
-            "model",
-            "api",
-            "docs",
-            "documentation",
-            "see",
-            "more",
-            "info",
-            "information",
-            "details",
-            "page",
-            "section",
-            "text",
-            "deprecated",
-        }
-
-        for model in potential_models:
-            if model not in common_words and len(model) > 2:
                 item = DeprecationItem(
                     provider=self.provider_name,
-                    model_id=model,
-                    model_name=model,
+                    model_id=model_name,
+                    model_name=model_name,
                     announcement_date="",
                     shutdown_date="",
                     replacement_model=None,
-                    deprecation_context=text[:200] + "..." if len(text) > 200 else text,
+                    deprecation_context=context,
                     url=self.url,
                 )
                 items.append(item)
@@ -373,40 +295,40 @@ class XAIScraper(EnhancedBaseScraper):
         return items
 
     def extract_unstructured_deprecations(self, html: str) -> List[DeprecationItem]:
-        """Extract deprecated models from unstructured content."""
+        """Extract deprecated models from unstructured content.
+
+        Only extracts models that match xAI's naming conventions (grok-*).
+        """
         items = []
         soup = BeautifulSoup(html, "html.parser")
 
-        # Look for any text mentioning specific deprecated models
         text_content = soup.get_text()
 
-        # Common patterns for mentioning deprecated models
         deprecation_patterns = [
-            r"(\w+(?:-\w+)*)\s+(?:is|has been|will be)\s+deprecat",
-            r"deprecat(?:ed|ing)\s+(?:model[s]?)?\s*:?\s*(\w+(?:-\w+)*)",
-            r"legacy\s+(?:model[s]?)?\s*:?\s*(\w+(?:-\w+)*)",
-            r"discontinued\s+(?:model[s]?)?\s*:?\s*(\w+(?:-\w+)*)",
+            r"(grok-[a-z0-9\-]+)(?:\s+model)?\s+(?:is|has\s+been|will\s+be|is\s+being)\s+deprecat",
+            r"deprecat(?:ed|ing)\s+(?:model[s]?)?\s*:?\s*['\"]?(grok-[a-z0-9\-]+)['\"]?",
+            r"legacy\s+(?:model[s]?)?\s*:?\s*['\"]?(grok-[a-z0-9\-]+)['\"]?",
+            r"discontinued\s+(?:model[s]?)?\s*:?\s*['\"]?(grok-[a-z0-9\-]+)['\"]?",
         ]
 
         for pattern in deprecation_patterns:
             matches = re.finditer(pattern, text_content, re.IGNORECASE)
             for match in matches:
                 model_name = match.group(1)
-                if len(model_name) > 2:  # Filter out very short matches
-                    context_start = max(0, match.start() - 100)
-                    context_end = min(len(text_content), match.end() + 100)
-                    context = text_content[context_start:context_end].strip()
+                context_start = max(0, match.start() - 100)
+                context_end = min(len(text_content), match.end() + 100)
+                context = text_content[context_start:context_end].strip()
 
-                    item = DeprecationItem(
-                        provider=self.provider_name,
-                        model_id=model_name,
-                        model_name=model_name,
-                        announcement_date="",
-                        shutdown_date="",
-                        replacement_model=None,
-                        deprecation_context=context,
-                        url=self.url,
-                    )
-                    items.append(item)
+                item = DeprecationItem(
+                    provider=self.provider_name,
+                    model_id=model_name,
+                    model_name=model_name,
+                    announcement_date="",
+                    shutdown_date="",
+                    replacement_model=None,
+                    deprecation_context=context,
+                    url=self.url,
+                )
+                items.append(item)
 
         return items
