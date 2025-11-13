@@ -46,7 +46,9 @@ class AzureFoundryScraper(EnhancedBaseScraper):
             replacement_idx = None
 
             for i, header in enumerate(headers):
-                if "MODEL" in header:
+                if "REPLACEMENT" in header or "SUGGESTED" in header:
+                    replacement_idx = i
+                elif "MODEL" in header and model_idx is None:
                     model_idx = i
                 elif "LEGACY" in header:
                     legacy_idx = i
@@ -54,8 +56,6 @@ class AzureFoundryScraper(EnhancedBaseScraper):
                     deprecation_idx = i
                 elif "RETIREMENT" in header or "RETIRE" in header:
                     retirement_idx = i
-                elif "REPLACEMENT" in header or "SUGGESTED" in header:
-                    replacement_idx = i
 
             if model_idx is None or retirement_idx is None:
                 continue
@@ -69,7 +69,7 @@ class AzureFoundryScraper(EnhancedBaseScraper):
                     continue
 
                 model_name = cells[model_idx].get_text(strip=True)
-                if not model_name:
+                if not model_name or model_name.upper() in ["N/A", "TBD", "NONE", "—", "-"]:
                     continue
 
                 # Extract retirement date
