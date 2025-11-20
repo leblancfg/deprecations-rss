@@ -1,6 +1,18 @@
 [
   {
     "provider": "OpenAI",
+    "model_id": "codex-mini-latest",
+    "model_name": "codex-mini-latest",
+    "announcement_date": "2025-11-17",
+    "shutdown_date": "2026-01-16",
+    "replacement_model": "gpt-5-codex-mini",
+    "deprecation_context": "On November 17th, 2025, we notified developers usingcodex-mini-latestmodel of its deprecation and removal from the API on January 16, 2026.",
+    "url": "https://platform.openai.com/docs/deprecations#2025-11-17-codex-mini-latest-model-snapshot",
+    "content_hash": "265018250c58c4d5",
+    "scraped_at": "2025-11-20T03:04:49.517145+00:00"
+  },
+  {
+    "provider": "OpenAI",
     "model_id": "dall-e-2",
     "model_name": "dall-e-2",
     "announcement_date": "2025-11-14",

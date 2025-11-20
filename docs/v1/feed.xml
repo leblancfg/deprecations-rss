@@ -4,7 +4,19 @@
     <title>AI Model Deprecations</title>
     <link>https://deprecations.info/</link>
     <description>RSS feed tracking deprecations across major AI providers</description>
-    <lastBuildDate>Wed, 19 Nov 2025 03:07:20 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 20 Nov 2025 03:05:09 GMT</lastBuildDate>
+    <item>
+      <title>OpenAI: codex-mini-latest</title>
+      <link>https://platform.openai.com/docs/deprecations#2025-11-17-codex-mini-latest-model-snapshot</link>
+      <description>Provider: OpenAI
+Model ID: codex-mini-latest
+Model: codex-mini-latest
+Shutdown Date: 2026-01-16
+
+On November 17th, 2025, we notified developers usingcodex-mini-latestmodel of its deprecation and removal from the API on January 16, 2026.</description>
+      <pubDate>Thu, 20 Nov 2025 03:04:49 GMT</pubDate>
+      <guid isPermaLink="false">OpenAI-codex-mini-latest-2026-01-16-e3b0c442</guid>
+    </item>
     <item>
       <title>OpenAI: dall-e-2</title>
       <link>https://platform.openai.com/docs/deprecations#2025-11-14-dall-e-model-snapshots</link>
