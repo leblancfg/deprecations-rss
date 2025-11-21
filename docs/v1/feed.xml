@@ -4,7 +4,19 @@
     <title>AI Model Deprecations</title>
     <link>https://deprecations.info/</link>
     <description>RSS feed tracking deprecations across major AI providers</description>
-    <lastBuildDate>Thu, 20 Nov 2025 03:05:09 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 21 Nov 2025 03:06:01 GMT</lastBuildDate>
+    <item>
+      <title>OpenAI: chatgpt-4o-latest</title>
+      <link>https://platform.openai.com/docs/deprecations#2025-11-18-chatgpt-4o-latest-snapshot</link>
+      <description>Provider: OpenAI
+Model ID: chatgpt-4o-latest
+Model: chatgpt-4o-latest
+Shutdown Date: 2026-02-17
+
+On November 18th, 2025, we notified developers usingchatgpt-4o-latestmodel snapshot of its deprecation and removal from the API on February 17, 2026.</description>
+      <pubDate>Fri, 21 Nov 2025 03:05:41 GMT</pubDate>
+      <guid isPermaLink="false">OpenAI-chatgpt-4o-latest-2026-02-17-e3b0c442</guid>
+    </item>
     <item>
       <title>OpenAI: codex-mini-latest</title>
       <link>https://platform.openai.com/docs/deprecations#2025-11-17-codex-mini-latest-model-snapshot</link>

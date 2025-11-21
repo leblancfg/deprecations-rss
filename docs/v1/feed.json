@@ -13,6 +13,25 @@
   "language": "en-US",
   "items": [
     {
+      "id": "openai-chatgpt-4o-latest",
+      "url": "https://platform.openai.com/docs/deprecations#2025-11-18-chatgpt-4o-latest-snapshot",
+      "title": "OpenAI Deprecation",
+      "content_text": "",
+      "date_published": "2025-11-21T03:05:41.565854+00:00",
+      "_deprecation": {
+        "provider": "OpenAI",
+        "model_id": "chatgpt-4o-latest",
+        "model_name": "chatgpt-4o-latest",
+        "shutdown_date": "2026-02-17",
+        "announcement_date": "2025-11-18",
+        "replacement_model": "gpt-5.1-chat-latest"
+      },
+      "tags": [
+        "OpenAI",
+        "shutdown-2026"
+      ]
+    },
+    {
       "id": "openai-codex-mini-latest",
       "url": "https://platform.openai.com/docs/deprecations#2025-11-17-codex-mini-latest-model-snapshot",
       "title": "OpenAI Deprecation",

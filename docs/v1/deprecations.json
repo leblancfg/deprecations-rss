@@ -1,6 +1,18 @@
 [
   {
     "provider": "OpenAI",
+    "model_id": "chatgpt-4o-latest",
+    "model_name": "chatgpt-4o-latest",
+    "announcement_date": "2025-11-18",
+    "shutdown_date": "2026-02-17",
+    "replacement_model": "gpt-5.1-chat-latest",
+    "deprecation_context": "On November 18th, 2025, we notified developers usingchatgpt-4o-latestmodel snapshot of its deprecation and removal from the API on February 17, 2026.",
+    "url": "https://platform.openai.com/docs/deprecations#2025-11-18-chatgpt-4o-latest-snapshot",
+    "content_hash": "4400cb6b775e6c7d",
+    "scraped_at": "2025-11-21T03:05:41.565854+00:00"
+  },
+  {
+    "provider": "OpenAI",
     "model_id": "codex-mini-latest",
     "model_name": "codex-mini-latest",
     "announcement_date": "2025-11-17",
