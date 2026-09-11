@@ -7434,6 +7434,48 @@
       ]
     },
     {
+      "id": "azure-gpt-image-2.5-flare",
+      "url": "https://learn.microsoft.com/en-us/azure/ai-foundry/concepts/model-lifecycle-retirement#timelines-for-foundry-models",
+      "title": "Azure: gpt-image-2.5-flare",
+      "content_text": "",
+      "date_published": "2026-09-11T07:04:55.621702+00:00",
+      "_deprecation": {
+        "provider": "Azure",
+        "model_id": "gpt-image-2.5-flare",
+        "shutdown_date": "2027-09-09",
+        "deprecation_date": "2027-09-09",
+        "announcement_date": "2026-09-11",
+        "replacement_models": null,
+        "first_observed": "2026-09-11",
+        "last_observed": "2026-09-11"
+      },
+      "tags": [
+        "Azure",
+        "shutdown-2027"
+      ]
+    },
+    {
+      "id": "azure-gpt-image-2.5-sunburst",
+      "url": "https://learn.microsoft.com/en-us/azure/ai-foundry/concepts/model-lifecycle-retirement#timelines-for-foundry-models",
+      "title": "Azure: gpt-image-2.5-sunburst",
+      "content_text": "",
+      "date_published": "2026-09-11T07:04:55.621741+00:00",
+      "_deprecation": {
+        "provider": "Azure",
+        "model_id": "gpt-image-2.5-sunburst",
+        "shutdown_date": "2027-09-09",
+        "deprecation_date": "2027-09-09",
+        "announcement_date": "2026-09-11",
+        "replacement_models": null,
+        "first_observed": "2026-09-11",
+        "last_observed": "2026-09-11"
+      },
+      "tags": [
+        "Azure",
+        "shutdown-2027"
+      ]
+    },
+    {
       "id": "azure-gpt-realtime",
       "url": "https://learn.microsoft.com/en-us/azure/ai-foundry/concepts/model-lifecycle-retirement#timelines-for-foundry-models",
       "title": "Azure: gpt-realtime",
